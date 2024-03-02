@@ -1,12 +1,12 @@
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
 
-from PyQtUIkit._properties import IntProperty
+from PyQtUIkit.core.properties import IntProperty
 from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
 
 
 class KitVBoxLayout(QWidget, _KitWidget):
-    border = IntProperty(0)
-    radius = IntProperty(4)
+    border = IntProperty('border', 0)
+    radius = IntProperty('radius', 4)
 
     def __init__(self):
         super().__init__()

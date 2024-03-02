@@ -18,7 +18,8 @@ class Theme:
 
 
 class Palette:
-    def __init__(self, main, hover=None, selected=None):
+    def __init__(self, main, hover=None, selected=None, text=None):
         self.main = main
         self.hover = hover or main
         self.selected = selected or hover or main
+        self.text = text or selected or hover or main

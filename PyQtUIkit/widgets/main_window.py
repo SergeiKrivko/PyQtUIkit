@@ -23,6 +23,8 @@ class KitMainWindow(QMainWindow):
         super().setCentralWidget(widget)
         if hasattr(widget, '_set_tm'):
             widget._set_tm(self.__tm)
+            widget.main_palette = 'Bg'
+            widget.radius = 0
 
     def show(self) -> None:
         super().show()

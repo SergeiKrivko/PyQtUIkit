@@ -1,13 +1,12 @@
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QListWidget
 
-from PyQtUIkit._properties import IntProperty, StringProperty, ColorProperty
+from PyQtUIkit.core.properties import IntProperty, StringProperty, ColorProperty
 from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
 
 
 class KitListWidget(QListWidget, _KitWidget):
-    border = IntProperty()
-    radius = IntProperty()
-    text_color = ColorProperty('TextColor')
+    border = IntProperty('border', )
+    radius = IntProperty('radius', )
 
     def __init__(self):
         super().__init__()
@@ -18,7 +17,7 @@ class KitListWidget(QListWidget, _KitWidget):
     def _apply_theme(self):
         self.setStyleSheet(f"""
 QListWidget {{
-    color: {self._tm.get('TextColor')};
+    color: {self.main_palette.text};
     background-color: {self.main_palette.main};
     border: {self.border}px solid {self._tm.get('Border').main};
     border-radius: {self.radius}px;
@@ -30,7 +29,7 @@ QListWidget::item:hover {{
     background-color: {self.main_palette.hover};
 }}
 QListWidget::item:selected {{
-    color: {self.text_color};
+    color: {self.main_palette.text};
     background-color: {self.main_palette.selected};
     border-radius: 6px;
 }}

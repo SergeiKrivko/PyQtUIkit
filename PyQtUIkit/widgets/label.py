@@ -1,13 +1,12 @@
 from PyQt6.QtWidgets import QLabel
 
-from PyQtUIkit._properties import IntProperty, ColorProperty
+from PyQtUIkit.core.properties import IntProperty, ColorProperty
 from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
 
 
 class KitLabel(QLabel, _KitWidget):
-    border = IntProperty()
-    radius = IntProperty()
-    text_color = ColorProperty('TextColor')
+    border = IntProperty('border', )
+    radius = IntProperty('radius', )
 
     def __init__(self, text=''):
         super().__init__(text)
@@ -19,7 +18,7 @@ class KitLabel(QLabel, _KitWidget):
     def _apply_theme(self):
         self.setStyleSheet(f"""
         QWidget {{
-            color: {self._tm.get('TextColor')};
+            color: {self.main_palette.text};
             background-color: {self.main_palette.main};
             border: {self.border}px solid {self._tm.get('Border').main};
             border-radius: {self.radius}px;

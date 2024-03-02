@@ -1,9 +1,9 @@
-from PyQtUIkit._properties import PaletteProperty
+from PyQtUIkit.core.properties import PaletteProperty
 from PyQtUIkit.themes import ThemeManager
 
 
 class KitWidget:
-    main_palette = PaletteProperty()
+    main_palette = PaletteProperty('main_palette')
 
     def __init__(self):
         self._tm: ThemeManager = None

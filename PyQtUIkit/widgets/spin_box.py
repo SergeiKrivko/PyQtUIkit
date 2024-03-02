@@ -1,13 +1,12 @@
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLineEdit, QVBoxLayout, QPushButton
 
-from PyQtUIkit._properties import IntProperty, ColorProperty
+from PyQtUIkit.core.properties import IntProperty, ColorProperty
 from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
 
 
 class KitSpinBox(QWidget, _KitWidget):
-    border = IntProperty(1)
-    radius = IntProperty(4)
-    text_color = ColorProperty('TextColor')
+    border = IntProperty('border', 1)
+    radius = IntProperty('radius', 4)
 
     def __init__(self, func=int):
         super().__init__()
@@ -102,7 +101,7 @@ class KitSpinBox(QWidget, _KitWidget):
     def _apply_theme(self):
         self._line_edit.setStyleSheet(f"""
         QLineEdit {{
-            color: {self._tm.get('TextColor')};
+            color: {self.main_palette.text};
             background-color: {self.main_palette.main};
             border: {self.border}px solid {self._tm.get('Border').main};
             border-top-left-radius: {self.radius}px;
@@ -122,7 +121,7 @@ class KitSpinBox(QWidget, _KitWidget):
         self._button_down.setIcon(self._tm.icon('chevron-down'))
         css = f"""
 QPushButton {{
-    color: {self.text_color};
+    color: {self.main_palette.text};
     background-color: {self.main_palette.main};
     border: {self.border}px solid {self._tm['Border'].main};
     border-top-left-radius: 0px;
