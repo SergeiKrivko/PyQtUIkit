@@ -9,14 +9,14 @@ from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
 class KitIconWidget(QWidget, _KitWidget):
     border = IntProperty('border', 0)
     radius = IntProperty('radius', 4)
-    icon = IconProperty()
+    icon = IconProperty('icon')
 
     def __init__(self, icon=''):
         super().__init__()
         self.__widgets = []
         self.main_palette = 'Transparent'
         self.__painter = QPainter()
-        # self.setContentsMargins(100, 100, 100, 100)
+        self._icon = icon
 
     def paintEvent(self, a0) -> None:
         if self.icon:

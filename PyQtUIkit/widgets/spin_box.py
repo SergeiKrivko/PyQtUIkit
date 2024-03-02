@@ -117,8 +117,8 @@ class KitSpinBox(QWidget, _KitWidget):
             border: {self.border}px solid {self._tm.get('Border').selected};
             background-color: {self.main_palette.hover};
         }}""")
-        self._button_up.setIcon(self._tm.icon('chevron-up'))
-        self._button_down.setIcon(self._tm.icon('chevron-down'))
+        self._button_up.setIcon(self._tm.icon('chevron-up', self.main_palette.text))
+        self._button_down.setIcon(self._tm.icon('chevron-down', self.main_palette.text))
         css = f"""
 QPushButton {{
     color: {self.main_palette.text};

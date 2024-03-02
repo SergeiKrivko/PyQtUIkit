@@ -45,7 +45,13 @@ class KitHBoxLayout(QWidget, _KitWidget):
         if hasattr(widget, '_set_tm'):
             widget._set_tm(self._tm)
 
-    def clearWidgets(self):
+    def deleteWidget(self, w: int | QWidget):
+        if isinstance(w, int):
+            self.__layout.takeAt(w).widget().setParent(None)
+        else:
+            w.setParent(None)
+
+    def clear(self):
         for _ in range(self.__layout.count()):
             self.__layout.takeAt(0).widget().setParent(None)
         self.__widgets.clear()
@@ -58,6 +64,9 @@ class KitHBoxLayout(QWidget, _KitWidget):
 
     def setContentsMargins(self, left: int, top: int, right: int, bottom: int) -> None:
         self.__layout.setContentsMargins(left, top, right, bottom)
+
+    def count(self):
+        return self.__layout.count()
 
     def _set_tm(self, tm):
         super()._set_tm(tm)

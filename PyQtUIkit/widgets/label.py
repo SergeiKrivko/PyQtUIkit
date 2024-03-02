@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QLabel
 
-from PyQtUIkit.core.properties import IntProperty, ColorProperty
+from PyQtUIkit.core.properties import IntProperty
 from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
 
 
@@ -10,7 +10,6 @@ class KitLabel(QLabel, _KitWidget):
 
     def __init__(self, text=''):
         super().__init__(text)
-        self.__widgets = []
         self.main_palette = 'Transparent'
         self.border = 0
         self.radius = 4

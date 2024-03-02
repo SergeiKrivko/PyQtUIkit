@@ -1,10 +1,11 @@
 from PyQt6.QtWidgets import QLineEdit
 
-from PyQtUIkit.core.properties import IntProperty, StringProperty
+from PyQtUIkit.core.properties import IntProperty, StringProperty, PaletteProperty
 from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
 
 
 class KitLineEdit(QLineEdit, _KitWidget):
+    main_palette = PaletteProperty('main_palette', 'Main')
     border = IntProperty('border', )
     radius = IntProperty('radius', )
 
