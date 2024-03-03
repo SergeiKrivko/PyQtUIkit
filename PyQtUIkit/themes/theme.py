@@ -1,5 +1,9 @@
-class Theme:
-    def __init__(self, theme_data: dict, inherit: 'Theme' = None):
+class KitTheme:
+    def __init__(self,
+                 theme_data: dict,
+                 inherit: 'KitTheme' = None,
+                 is_dark=False):
+        self.is_dark = is_dark
         self._data = theme_data
         self._inherit = inherit
 
@@ -17,7 +21,7 @@ class Theme:
         return self.get(item)
 
 
-class Palette:
+class KitPalette:
     def __init__(self, main, hover=None, selected=None, text=None):
         self.main = main
         self.hover = hover or main

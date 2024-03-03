@@ -1,4 +1,5 @@
-from PyQt6.QtCore import pyqtSignal, Qt, QPoint
+from PyQt6.QtCore import pyqtSignal, Qt, QPoint, QPropertyAnimation, QEasingCurve, QSequentialAnimationGroup, QSize, \
+    QParallelAnimationGroup
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout, QMenu, QHBoxLayout, QApplication
 
@@ -58,6 +59,7 @@ class KitComboBox(QPushButton, _KitWidget):
     main_palette = PaletteProperty('Main')
     border = IntProperty('border', 1)
     radius = IntProperty('radius', 4)
+    type = IntProperty('type', 1)
     icon = IconProperty('icon')
 
     def __init__(self, *values: str | tuple | KitComboBoxItem):
@@ -127,14 +129,8 @@ class KitComboBox(QPushButton, _KitWidget):
                 self.setIcon(self.__widgets[self.__current].icon.icon(self.main_palette.text))
 
     def _show_menu(self):
-        screen_size = QApplication.primaryScreen().size()
-        pos = self.mapToGlobal(QPoint(0, self.height() // 2 - self.__menu.height() // 2))
-        if pos.y() < 20:
-            pos.setY(20)
-        elif pos.y() + self.__menu.height() > screen_size.height() - 20:
-            pos.setY(screen_size.height() - self.__menu.height() - 20)
-        self.__menu.move(pos)
-        self.__menu.exec()
+        pos = QPoint(0, self.height() if self.type == 1 else self.height() // 2)
+        self.__menu.open(self.mapToGlobal(pos), self.type)
 
     def _on_item_selected(self, item: KitComboBoxItem):
         self._select_item(self.__widgets.index(item))
@@ -192,8 +188,13 @@ class _ComboBoxMenu(QMenu, _KitWidget):
         self._scroll_layout.setSpacing(2)
         self._scroll_area.setWidget(self._scroll_layout)
 
+        self._height = 10
+        self.__anim = None
+        self.__pos = QPoint(0, 0)
+
     def _resize(self):
-        self.setFixedHeight(26 * min(12, self._scroll_layout.count()) + 8)
+        self._height = 26 * min(12, self._scroll_layout.count()) + 8
+        self.resize(self.width(), self._height)
 
     def _set_tm(self, tm):
         super()._set_tm(tm)
@@ -215,8 +216,36 @@ QMenu {{
     color: {self.main_palette.text};
     background-color: {self.main_palette.main};
     border: 1px solid {self._tm['Border'].main};
-    border-radius: 6px;
+    border-radius: 5px;
     spacing: 4px;
     padding: 3px;
 }}""")
         self._scroll_area._apply_theme()
+
+    def open(self, pos: QPoint, type=1):
+        self.__pos = pos
+        screen_size = QApplication.primaryScreen().size()
+        target_pos = pos - QPoint(0, 0 if type == 1 else self._height // 2)
+        if target_pos.y() < 20:
+            target_pos.setY(20)
+        elif target_pos.y() + self._height > screen_size.height() - 20:
+            target_pos.setY(screen_size.height() - self._height - 20)
+        self.move(pos)
+        self.resize(self.width(), 0)
+
+        pos_anim = QPropertyAnimation(self, b"pos")
+        pos_anim.setEndValue(target_pos)
+        pos_anim.setDuration(200)
+        pos_anim.setEasingCurve(QEasingCurve.Type.OutCubic)
+
+        height_anim = QPropertyAnimation(self, b"size")
+        height_anim.setEndValue(QSize(self.width(), self._height))
+        height_anim.setDuration(200)
+        height_anim.setEasingCurve(QEasingCurve.Type.OutCubic)
+
+        self.__anim = QParallelAnimationGroup()
+        self.__anim.addAnimation(pos_anim)
+        self.__anim.addAnimation(height_anim)
+        self.__anim.start()
+
+        self.exec()

@@ -1,36 +1,20 @@
 from PyQt6.QtGui import QPixmap, QImage, QIcon
 
+from PyQtUIkit.themes.builtin_themes import basic_theme, builtin_themes
 from PyQtUIkit.themes.icons import icons
 from PyQtUIkit.themes.svg import SVG
-from PyQtUIkit.themes.theme import Theme, Palette
-
-basic_theme = Theme({
-    'Transparent': Palette('#00000000', '#00000030', '#00000060', '#222222'),
-
-    'Main': Palette('#FFFFFF', '#DFE1E5', '#CFDEFC', '#222222'),
-    'Bg': Palette('#ECF5F9', '#CBCDCF', '#5283C9', '#222222'),
-    'Menu': Palette('#F7F8FA', '#DFE1E5', '#3573F0', '#222222'),
-    'Border': Palette('#BFC0C2', '#A6A7A8', '#52AFDE', '#222222'),
-})
+from PyQtUIkit.themes.theme import KitTheme, KitPalette
 
 
 class ThemeManager:
     def __init__(self, on_theme_changed):
-        self.__current_theme_name = 'Basic'
+        self.__current_theme_name = 'Light'
         self.__current_theme = basic_theme
-        self.__themes = {'Basic': basic_theme}
+        self.__themes = builtin_themes
         self.__on_theme_changed = on_theme_changed
         self.__active = False
 
-        self.add_theme('Dark', Theme({
-            'Transparent': Palette('#00000000', '#00000030', '#00000060', '#F0F0F0'),
-            'Main': Palette('#2B2D30', '#3E4145', '#2E436E', '#F0F0F0'),
-            'Bg': Palette('#141517', '#222345', '#323466', '#F0F0F0'),
-            'Menu': Palette('#1F2024', '#4E5157', '#3573F0', '#F0F0F0'),
-            'Border': Palette('#474747', '#595959', '#2D63CC', '#F0F0F0'),
-        }, basic_theme))
-
-    def add_theme(self, name: str, th: Theme):
+    def add_theme(self, name: str, th: KitTheme):
         self.__themes[name] = th
 
     def set_theme(self, new_theme):
@@ -47,7 +31,7 @@ class ThemeManager:
         return self.__active
 
     def _set_active(self):
-        self.__active = Theme
+        self.__active = KitTheme
 
     def get(self, key: str | tuple):
         return self.__current_theme.get(key)

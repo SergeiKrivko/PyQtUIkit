@@ -3,7 +3,7 @@ from uuid import uuid4
 from PyQt6.QtGui import QColor
 
 from PyQtUIkit.core.icon import KitIcon
-from PyQtUIkit.themes import Palette, icons
+from PyQtUIkit.themes import KitPalette, icons
 
 
 class IntProperty(property):
@@ -93,7 +93,7 @@ class PaletteProperty(property):
     def __init__(self, name='', default='Main'):
         self._id = '_' + (str(name) or str(uuid4()).replace('-', '_'))
 
-        def getter(obj) -> Palette:
+        def getter(obj) -> KitPalette:
             try:
                 res = getattr(obj, self._id)
             except AttributeError:
@@ -102,7 +102,7 @@ class PaletteProperty(property):
                 res = obj.theme_manager.get(res)
             return res
 
-        def setter(obj, value: str | Palette):
+        def setter(obj, value: str | KitPalette):
             setattr(obj, self._id, value)
 
         super().__init__(getter, setter)
