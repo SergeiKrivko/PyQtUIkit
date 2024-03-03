@@ -65,7 +65,7 @@ class KitIconButton(QPushButton, _KitWidget):
         self._icon = icon
 
         layout = QVBoxLayout()
-        layout.setContentsMargins(5, 5, 5, 5)
+        layout.setContentsMargins(self.size // 10, self.size // 10, self.size // 10, self.size // 10)
         self.setLayout(layout)
 
         self._icon_label = KitIconWidget()
