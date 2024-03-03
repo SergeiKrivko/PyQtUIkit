@@ -12,5 +12,5 @@ if __name__ == '__main__':
         package_dir={'PyQtUIkit': 'PyQtUIkit'},
         packages=find_packages(include=['PyQtUIkit*']),
         description='A PyQtUIkit package.',
-        install_requires=['PyQt6']
+        install_requires=['PyQt6', 'beautifulsoup4']
     )

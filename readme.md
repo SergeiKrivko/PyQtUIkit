@@ -14,7 +14,7 @@ pip install https://github.com/SergeiKrivko/PyQtUIkit/archive/master.zip
 - [Label](doc%2Flabel.md)
 - [IconWidget](doc%2Ficon_widget.md)
 - [Button](doc%2Fbutton.md)
-- IconButton
+- [IconButton](doc%2Ficon_button.md)
 - LineEdit
 - ComboBox
 - CheckBox

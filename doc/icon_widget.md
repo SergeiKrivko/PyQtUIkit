@@ -17,3 +17,5 @@ icon_widget = KitIconWidget('python')
 - `icon` (`str` (из встроенной коллекции иконок) или `KitIcon` (из файла))
 - `border` (`int`, по умолчанию 0)
 - `radius` (`int`, по умолчанию 4)
+
+[◀ На главную страницу](..%2Freadme.md)
