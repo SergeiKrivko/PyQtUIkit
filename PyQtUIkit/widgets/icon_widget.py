@@ -1,12 +1,13 @@
 from PyQt6.QtGui import QPainter
 from PyQt6.QtGui import QPainter
-from PyQt6.QtWidgets import QWidget
+from PyQt6.QtWidgets import QWidget, QSizePolicy
 
-from PyQtUIkit.core.properties import IconProperty, IntProperty
+from PyQtUIkit.core.properties import IconProperty, IntProperty, PaletteProperty
 from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
 
 
 class KitIconWidget(QWidget, _KitWidget):
+    main_palette = PaletteProperty('main_palette', 'Transparent')
     border = IntProperty('border', 0)
     radius = IntProperty('radius', 4)
     icon = IconProperty('icon')
@@ -14,9 +15,9 @@ class KitIconWidget(QWidget, _KitWidget):
     def __init__(self, icon=''):
         super().__init__()
         self.__widgets = []
-        self.main_palette = 'Transparent'
         self.__painter = QPainter()
         self._icon = icon
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
     def paintEvent(self, a0) -> None:
         if self.icon:
@@ -27,6 +28,8 @@ class KitIconWidget(QWidget, _KitWidget):
         super().paintEvent(a0)
 
     def _apply_theme(self):
+        if not self._tm or not self._tm.active:
+            return
         self.setStyleSheet(f"""
         QWidget {{
             background-color: {self.main_palette.main};

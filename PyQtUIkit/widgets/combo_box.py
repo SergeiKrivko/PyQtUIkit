@@ -26,10 +26,9 @@ class KitComboBoxItem(QPushButton, _KitWidget):
         self.setFixedHeight(24)
 
     def _on_clicked(self, flag):
-        if flag:
-            self.selected.emit(self)
-        else:
+        if not flag:
             self.setChecked(True)
+        self.selected.emit(self)
 
     @property
     def value(self):
@@ -134,7 +133,7 @@ class KitComboBox(QPushButton, _KitWidget):
 
     def _on_item_selected(self, item: KitComboBoxItem):
         self._select_item(self.__widgets.index(item))
-        self.__menu.hide()
+        self.__menu.close()
 
     def _set_tm(self, tm):
         super()._set_tm(tm)

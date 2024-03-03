@@ -30,6 +30,9 @@ class KitCheckItem(QWidget, _KitWidget):
 
     def _on_clicked(self):
         self.__state = not self.__state
+        self.__on_state_changed()
+
+    def __on_state_changed(self):
         self.__button.setChecked(self.__state)
         self.stateChanged.emit(self.__state)
 
@@ -50,6 +53,7 @@ class KitCheckItem(QWidget, _KitWidget):
 
     def setState(self, state):
         self.__state = bool(state)
+        self.__on_state_changed()
 
     def _set_tm(self, tm):
         super()._set_tm(tm)
