@@ -21,7 +21,7 @@ label.setContentsMargins(10, 5, 10, 5)
 ```
 ![img_1.png](img/img_1.png) 
 
-Параметры:
+### Параметры:
 
 - `main_palette` (`KitPalette`, по умолчанию `'Transparent'`)
 - `border` (`int`, по умолчанию 0)

@@ -19,7 +19,7 @@ button.border = 0
 ```
 ![img_4.png](img/img_4.png)
 
-Параметры:
+### Параметры:
 
 - `main_palette` (`KitPalette`, по умолчанию `'Main'`)
 - `icon` (`str` (из встроенной коллекции иконок) или `KitIcon` (из файла))

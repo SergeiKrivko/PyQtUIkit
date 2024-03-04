@@ -15,6 +15,7 @@ class KitSpinBox(QWidget, _KitWidget):
         self._step = 1
         self._func = func
         self._last_text = '0'
+        self._last_pos = 0
         self.setMaximumHeight(24)
 
         main_layout = QHBoxLayout()
@@ -24,6 +25,7 @@ class KitSpinBox(QWidget, _KitWidget):
 
         self._line_edit = QLineEdit()
         self._line_edit.setText('0')
+        self._line_edit.cursorPositionChanged.connect(self._on_cursor_moved)
         self._line_edit.editingFinished.connect(self._on_editing_finished)
         self._line_edit.textEdited.connect(self._on_text_edited)
         self._line_edit.setFixedHeight(self.height())
@@ -49,7 +51,10 @@ class KitSpinBox(QWidget, _KitWidget):
         try:
             value = 0 if text in ['', '+', '-'] else self._func(text)
         except ValueError:
+            pos = self._last_pos
             self._line_edit.setText(self._last_text)
+            self._last_pos = pos
+            self._line_edit.setCursorPosition(self._last_pos)
         else:
             if value < self._min:
                 self._last_text = str(self._min)
@@ -59,6 +64,10 @@ class KitSpinBox(QWidget, _KitWidget):
                 self._line_edit.setText(self._last_text)
             else:
                 self._last_text = text
+            self._last_pos = self._line_edit.cursorPosition()
+
+    def _on_cursor_moved(self):
+        self._last_pos = self._line_edit.cursorPosition()
 
     def _on_editing_finished(self):
         text = self._line_edit.text()

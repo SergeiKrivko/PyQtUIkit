@@ -1,9 +1,9 @@
 # PyQtUIkit
 
-
 ## Установка
 
 ```shell
+pip install PyQt6 lxml beautifulsoup4
 pip install https://github.com/SergeiKrivko/PyQtUIkit/archive/master.zip 
 ```
 
@@ -15,10 +15,10 @@ pip install https://github.com/SergeiKrivko/PyQtUIkit/archive/master.zip
 - [IconWidget](doc%2Ficon_widget.md)
 - [Button](doc%2Fbutton.md)
 - [IconButton](doc%2Ficon_button.md)
-- LineEdit
-- ComboBox
-- CheckBox
-- CheckItem
+- [LineEdit](doc%2Fline_edit.md)
+- [ComboBox](doc%2Fcombo_box.md)
+- [CheckBox](doc%2Fcheck_box.md)
+- [CheckItem](doc%2Fcheck_item.md)
 - SpinBox
 - ListWidget
 - ScrollArea

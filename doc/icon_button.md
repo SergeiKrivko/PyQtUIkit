@@ -22,7 +22,7 @@ button.radius = 15
 ```
 ![img.png](img/img_6.png)
 
-Параметры:
+### Параметры:
 
 - `main_palette` (`KitPalette`, по умолчанию `'Main'`)
 - `icon` (`str` (из встроенной коллекции иконок) или `KitIcon` (из файла))

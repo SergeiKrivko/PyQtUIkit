@@ -59,4 +59,5 @@ class KitCheckBox(QWidget, _KitWidget):
         QPushButton {{
             color: {self.main_palette.text};
             background-color: transparent;
+            text-align: left;
         }}""")

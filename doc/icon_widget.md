@@ -11,7 +11,7 @@ icon_widget = KitIconWidget('python')
 ```
 ![img_2.png](img/img_2.png)
 
-Параметры:
+### Параметры:
 
 - `main_palette` (`KitPalette`, по умолчанию `'Transparent'`)
 - `icon` (`str` (из встроенной коллекции иконок) или `KitIcon` (из файла))

@@ -193,6 +193,9 @@ class _ComboBoxMenu(QMenu, _KitWidget):
 
     def _resize(self):
         self._height = 26 * min(12, self._scroll_layout.count()) + 8
+        self._scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded if
+                                                     self._scroll_layout.count() > 12 else
+                                                     Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.resize(self.width(), self._height)
 
     def _set_tm(self, tm):
