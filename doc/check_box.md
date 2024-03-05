@@ -14,11 +14,11 @@ checkbox = KitCheckBox("KitCheckBox")
 
 - `main_palette` (`KitPalette`, по умолчанию `'Main'`)
 
-### Сигналы
+### Сигналы:
 
 - `stateChanged`
 
-### Методы
+### Методы:
 
 - `state` Возвращает True, если элемент выбран, иначе False
 - `setState` устанавливает значение

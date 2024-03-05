@@ -27,3 +27,6 @@ class KitPalette:
         self.hover = hover or main
         self.selected = selected or hover or main
         self.text = text or selected or hover or main
+
+    def __str__(self):
+        return f"KitPalette({self.main}, {self.hover}, {self.selected}, {self.text})"

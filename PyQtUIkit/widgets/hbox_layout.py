@@ -36,20 +36,20 @@ class KitHBoxLayout(QWidget, _KitWidget):
 
     def insertWidget(self, index: int, widget: QWidget, stretch: int = None, alignment=None):
         if alignment is not None:
-            self.__layout.addWidget(widget, stretch, alignment)
+            self.__layout.insertWidget(index, widget, stretch, alignment)
         elif stretch is not None:
-            self.__layout.addWidget(widget, stretch)
+            self.__layout.insertWidget(index, widget, stretch)
         else:
-            self.__layout.addWidget(widget)
+            self.__layout.insertWidget(index, widget)
         self.__widgets.insert(index, widget)
         if hasattr(widget, '_set_tm'):
             widget._set_tm(self._tm)
 
     def deleteWidget(self, w: int | QWidget):
         if isinstance(w, int):
-            self.__layout.takeAt(w).widget().setParent(None)
-        else:
-            w.setParent(None)
+            w = self.__layout.takeAt(w).widget()
+        w.setParent(None)
+        return w
 
     def clear(self):
         for _ in range(self.__layout.count()):

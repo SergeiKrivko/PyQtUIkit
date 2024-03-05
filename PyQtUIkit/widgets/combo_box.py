@@ -61,6 +61,9 @@ class KitComboBox(QPushButton, _KitWidget):
     type = IntProperty('type', 1)
     icon = IconProperty('icon')
 
+    currentIndexChanged = pyqtSignal(object)
+    currentValueChanged = pyqtSignal(object)
+
     def __init__(self, *values: str | tuple | KitComboBoxItem):
         super().__init__()
         self.__widgets: list[KitComboBoxItem] = []
@@ -87,7 +90,7 @@ class KitComboBox(QPushButton, _KitWidget):
         self.__widgets.append(item)
         self.__menu.add_item(item)
         if len(self.__widgets) == 1:
-            self._select_item(0)
+            self.setCurrentIndex(0)
 
     def deleteItem(self, index):
         self.__widgets.pop(index)
@@ -116,7 +119,7 @@ class KitComboBox(QPushButton, _KitWidget):
             return None
         return self.__widgets[self.__current].value
 
-    def _select_item(self, index):
+    def setCurrentIndex(self, index):
         if self.__current is not None:
             self.__widgets[self.__current].setChecked(False)
         self.__current = index
@@ -126,13 +129,15 @@ class KitComboBox(QPushButton, _KitWidget):
             self.setText(self.__widgets[self.__current].text())
             if self.__widgets[self.__current].icon is not None and self._tm and self._tm.active:
                 self.setIcon(self.__widgets[self.__current].icon.icon(self.main_palette.text))
+        self.currentValueChanged.emit(self.currentValue())
+        self.currentIndexChanged.emit(self.__current)
 
     def _show_menu(self):
         pos = QPoint(0, self.height() if self.type == 1 else self.height() // 2)
         self.__menu.open(self.mapToGlobal(pos), self.type)
 
     def _on_item_selected(self, item: KitComboBoxItem):
-        self._select_item(self.__widgets.index(item))
+        self.setCurrentIndex(self.__widgets.index(item))
         self.__menu.close()
 
     def _set_tm(self, tm):

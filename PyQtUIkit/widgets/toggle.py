@@ -6,7 +6,7 @@ from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
 from PyQtUIkit.widgets.button import KitIconButton, KitButton
 
 
-class KitCheckItem(QWidget, _KitWidget):
+class KitToggle(QWidget, _KitWidget):
     main_palette = PaletteProperty('main_palette', 'Menu')
     rail_palette = PaletteProperty('rail_palette', 'Main')
 

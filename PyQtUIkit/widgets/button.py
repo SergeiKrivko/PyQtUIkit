@@ -78,7 +78,7 @@ class KitIconButton(QPushButton, _KitWidget):
     def _apply_theme(self):
         self._icon_label.icon = self.icon
         self.setFixedSize(self.size, self.size)
-        self.setStyleSheet(f"""
+        self.setStyleSheet(s := f"""
 QPushButton {{
     background-color: {self.main_palette.main};
     border: {self.border}px solid {self._tm['Border'].main};
@@ -97,3 +97,4 @@ QPushButton::checked {{
     background-color: {self.main_palette.selected};
     border: {self.border}px solid {self._tm['Border'].selected};
 }}""")
+        # print(s)

@@ -31,4 +31,18 @@ combo_box.type = 2
 - `radius` (`int`, по умолчанию 4)
 - `type` (1 или 2)
 
+### Сигналы:
+
+- `currentIndexChanged`
+- `currentValueChanged`
+
+### Методы:
+
+- `addItem`
+- `deleteItem`
+- `clear`
+- `currentItem`
+- `currentValue`
+- `setCurrentIndex`
+
 [◀ На главную страницу](..%2Freadme.md)
