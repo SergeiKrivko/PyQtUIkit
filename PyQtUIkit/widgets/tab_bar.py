@@ -141,9 +141,10 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
         self.setSpacing(0)
         self._main_palette = 'Bg'
 
-        self.__button_left = KitButton(icon='chevron-left')
-        self.__button_left.setFixedWidth(20)
+        self.__button_left = KitButton(icon='solid-chevron-left')
         self.__button_left.border = 0
+        self.__button_left.setFixedWidth(20)
+        self.__button_left.clicked.connect(self._scroll_left)
         self.addWidget(self.__button_left)
 
         self.__scroll_area = KitScrollArea()
@@ -152,9 +153,10 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
         self.__scroll_area.setWidget(self.__layout)
         self.__scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
 
-        self.__button_right = KitButton(icon='chevron-right')
+        self.__button_right = KitButton(icon='solid-chevron-right')
         self.__button_right.border = 0
         self.__button_right.setFixedWidth(20)
+        self.__button_right.clicked.connect(self._scroll_right)
         self.addWidget(self.__button_right)
 
     def addTab(self, tab: str | KitTab):
@@ -174,7 +176,14 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
             self.__current = tab
             tab._set_checked(True)
 
+    def _scroll_left(self):
+        self.__scroll_area.scroll(-10)
+
+    def _scroll_right(self):
+        self.__scroll_area.scroll(10)
+
     def setTabsClosable(self, flag):
+        self.__tabs_closable = flag
         for el in self.__tabs:
             el._set_closable(flag)
 
@@ -197,6 +206,8 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
         self.__button_right.setHidden(self.__layout.width() <= self.width())
 
     def _apply_theme(self):
+        self.__button_left.setHidden(self.__layout.width() <= self.width())
+        self.__button_right.setHidden(self.__layout.width() <= self.width())
         self.__scroll_area.main_palette = self.main_palette
         self.__scroll_area.setFixedHeight(self.height)
         self.__button_left.main_palette = self.main_palette
@@ -204,6 +215,7 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
         super()._apply_theme()
         for el in self.__tabs:
             el.main_palette = self.tabs_palette
+            el.setFixedHeight(self.height)
             el._apply_theme()
         self.__layout.update_tabs()
 

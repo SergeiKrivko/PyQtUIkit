@@ -1,3 +1,4 @@
+from PyQt6.QtCore import QPropertyAnimation, QParallelAnimationGroup
 from PyQt6.QtWidgets import QScrollArea
 
 from PyQtUIkit.core.properties import IntProperty, PaletteProperty
@@ -12,11 +13,41 @@ class KitScrollArea(QScrollArea, _KitWidget):
     def __init__(self):
         super().__init__()
         self.setWidgetResizable(True)
+        self.__anim = None
+        self.__scroll_x = 0
+        self.__scroll_y = 0
 
     def setWidget(self, w) -> None:
         super().setWidget(w)
         if hasattr(w, '_set_tm'):
             w._set_tm(self._tm)
+
+    def scrollTo(self, x=0, y=0, anim=False):
+        self.horizontalScrollBar().setValue(x)
+        self.verticalScrollBar().setValue(y)
+
+    def scroll(self, dx=0, dy=0, animation=True):
+        if isinstance(self.__anim, QPropertyAnimation) and not self.__anim.finished:
+            self.__anim.stop()
+        else:
+            self.__scroll_x = self.horizontalScrollBar().value()
+            self.__scroll_y = self.verticalScrollBar().value()
+        self.__scroll_x += dx
+        self.__scroll_y += dy
+        if animation:
+            self.__anim = QParallelAnimationGroup()
+            if dx:
+                anim = QPropertyAnimation(self.horizontalScrollBar(), b'value')
+                anim.setEndValue(self.__scroll_x + dx)
+                self.__anim.addAnimation(anim)
+            if dy:
+                anim = QPropertyAnimation(self.verticalScrollBar(), b'value')
+                anim.setEndValue(self.__scroll_y + dy)
+                self.__anim.addAnimation(anim)
+            self.__anim.start()
+        else:
+            self.horizontalScrollBar().setValue(self.__scroll_x + dx)
+            self.verticalScrollBar().setValue(self.__scroll_y + dy)
 
     def _set_tm(self, tm):
         super()._set_tm(tm)

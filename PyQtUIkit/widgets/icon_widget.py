@@ -22,8 +22,8 @@ class KitIconWidget(QWidget, _KitWidget):
     def paintEvent(self, a0) -> None:
         if self.icon:
             self.__painter.begin(self)
-            self.__painter.drawPixmap(0, 0, self.width(), self.height(),
-                                      self.icon.pixmap(self.main_palette.text, size=(self.width(), self.height())))
+            pixmap, width, height = self.icon.resized_pixmap(self.main_palette.text, (self.width(), self.height()))
+            self.__painter.drawPixmap((self.width() - width) // 2, (self.height() - height) // 2, width, height, pixmap)
             self.__painter.end()
         super().paintEvent(a0)
 

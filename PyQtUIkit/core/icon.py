@@ -23,5 +23,11 @@ class KitIcon:
             icon.resize(*size)
         return QPixmap.fromImage(QImage.fromData(icon.bytes()))
 
+    def resized_pixmap(self, color, size):
+        icon = SVG(self._get_data())
+        icon.change_color(color)
+        width, height = icon.resize(*size)
+        return QPixmap.fromImage(QImage.fromData(icon.bytes())), width, height
+
     def icon(self, color=None, size=None):
         return QIcon(self.pixmap(color, size))
