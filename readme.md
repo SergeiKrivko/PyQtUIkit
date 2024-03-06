@@ -18,7 +18,7 @@ pip install https://github.com/SergeiKrivko/PyQtUIkit/archive/master.zip
 - [LineEdit](doc%2Fline_edit.md)
 - [ComboBox](doc%2Fcombo_box.md)
 - [CheckBox](doc%2Fcheck_box.md)
-- [CheckItem](doc%2Fcheck_item.md)
+- [Toggle](doc%2Ftoggle.md)
 - SpinBox
 - ListWidget
 - ScrollArea

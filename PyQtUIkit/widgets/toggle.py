@@ -1,7 +1,7 @@
 from PyQt6.QtCore import Qt, pyqtSignal, QPoint, QPropertyAnimation, QEasingCurve
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QPushButton
 
-from PyQtUIkit.core.properties import PaletteProperty
+from PyQtUIkit.core.properties import PaletteProperty, StringProperty
 from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
 from PyQtUIkit.widgets.button import KitIconButton, KitButton
 
@@ -9,24 +9,42 @@ from PyQtUIkit.widgets.button import KitIconButton, KitButton
 class KitToggle(QWidget, _KitWidget):
     main_palette = PaletteProperty('main_palette', 'Menu')
     rail_palette = PaletteProperty('rail_palette', 'Main')
+    mode = StringProperty(default='s')
 
     stateChanged = pyqtSignal(bool)
 
     def __init__(self):
         super().__init__()
         self.__state = False
-        self.setFixedSize(44, 30)
         self.__anim = None
 
-        self.__rail = QWidget(self)
-        self.__rail.setGeometry(5, 5, 34, 16)
+        self.__sizes = {
+            'm': {
+                'size': (44, 26),
+                'rail_size': (34, 16),
+                'button_size': 24,
+            },
+            's': {
+                'size': (40, 20),
+                'rail_size': (40, 20),
+                'button_size': 14,
+            },
+            'l': {
+                'size': (46, 28),
+                'rail_size': (46, 28),
+                'button_size': 24,
+            }
+        }
+        self.__button_y = 0
+        self.__button_x = 0
+
+        self.__rail = QPushButton(self)
+        self.__rail.clicked.connect(self._on_clicked)
 
         self.__button = KitButton()
-        self.__button.radius = 12
         self.__button.setParent(self)
         self.__button.setCheckable(True)
         self.__button.clicked.connect(self._on_clicked)
-        self.__button.setGeometry(1, 1, 24, 24)
 
     def _on_clicked(self):
         self.__state = not self.__state
@@ -40,8 +58,10 @@ class KitToggle(QWidget, _KitWidget):
             self.__anim.stop()
 
         self.__anim = QPropertyAnimation(self.__button, b"pos")
-        self.__anim.setStartValue(QPoint(1, 1) if self.__state else QPoint(18, 1))
-        self.__anim.setEndValue(QPoint(18, 1) if self.__state else QPoint(1, 1))
+        self.__anim.setStartValue(QPoint(self.__button_x, self.__button_y) if self.__state else
+                                  QPoint(self.__button_x_r, self.__button_y))
+        self.__anim.setEndValue(QPoint(self.__button_x_r, self.__button_y) if self.__state else
+                                QPoint(self.__button_x, self.__button_y))
         self.__anim.setDuration(200)
         self.__anim.setEasingCurve(QEasingCurve.Type.OutCubic)
         self.__anim.start()
@@ -60,6 +80,21 @@ class KitToggle(QWidget, _KitWidget):
         self.__button._set_tm(tm)
 
     def _apply_theme(self):
+        sizes = self.__sizes[self.mode]
+        self.setFixedSize(*sizes['size'])
+
+        self.__button_x = (sizes['size'][0] - sizes['rail_size'][0]) // 2 + \
+                          (sizes['rail_size'][1] - sizes['button_size']) // 2
+        self.__button_y = (sizes['size'][1] - sizes['button_size']) // 2
+        self.__button_x_r = sizes['size'][0] - sizes['button_size'] - self.__button_y
+
+        self.__rail.setGeometry((sizes['size'][0] - sizes['rail_size'][0]) // 2,
+                                (sizes['size'][1] - sizes['rail_size'][1]) // 2,
+                                *sizes['rail_size'])
+        self.__button.setGeometry(self.__button_x, self.__button_y,
+                                  sizes['button_size'], sizes['button_size'])
+        self.__button.radius = sizes['button_size'] // 2
+
         self.__button.main_palette = self.main_palette
         self.__button._apply_theme()
         self.__rail.setStyleSheet(f"""
@@ -67,5 +102,5 @@ class KitToggle(QWidget, _KitWidget):
             color: {self.main_palette.text};
             background-color: {self.rail_palette.selected if self.__state else self.main_palette.main};
             border: 0px solid black;
-            border-radius: 7px;
+            border-radius: {sizes['rail_size'][1] // 2}px;
         }}""")

@@ -1,3 +1,4 @@
+from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLineEdit, QVBoxLayout, QPushButton
 
 from PyQtUIkit.core.properties import IntProperty, ColorProperty
@@ -7,6 +8,7 @@ from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
 class KitSpinBox(QWidget, _KitWidget):
     border = IntProperty('border', 1)
     radius = IntProperty('radius', 4)
+    valueChanged = pyqtSignal(object)
 
     def __init__(self, func=int):
         super().__init__()
@@ -64,6 +66,7 @@ class KitSpinBox(QWidget, _KitWidget):
                 self._line_edit.setText(self._last_text)
             else:
                 self._last_text = text
+            self.valueChanged.emit(value)
             self._last_pos = self._line_edit.cursorPosition()
 
     def _on_cursor_moved(self):
@@ -77,11 +80,13 @@ class KitSpinBox(QWidget, _KitWidget):
 
     def _decrease(self):
         self.setValue(round(self.value() - self._step, 2))
+        self.valueChanged.emit(self.value())
         # self._line_edit.selectAll()
         # self._line_edit.setFocus()
 
     def _increase(self):
         self.setValue(round(self.value() + self._step, 2))
+        self.valueChanged.emit(self.value())
         # self._line_edit.selectAll()
         # self._line_edit.setFocus()
 
