@@ -6,7 +6,7 @@ from PyQtUIkit.core._version import VERSION
 
 
 def readme():
-    with open('readme.md', 'r') as f:
+    with open('readme.md', 'r', encoding='utf-8') as f:
         return f.read()
 
 
