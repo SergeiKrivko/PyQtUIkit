@@ -12,3 +12,4 @@ from PyQtUIkit.widgets.combo_box import KitComboBox, KitComboBoxItem
 from PyQtUIkit.widgets.checkbox import KitCheckBox
 from PyQtUIkit.widgets.toggle import KitToggle
 from PyQtUIkit.widgets.tab_bar import KitTabBar, KitTab
+from PyQtUIkit.widgets.spinner import KitSpinner

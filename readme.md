@@ -22,3 +22,4 @@ pip install https://github.com/SergeiKrivko/PyQtUIkit/archive/master.zip
 - SpinBox
 - ListWidget
 - ScrollArea
+- [Spinner](doc%2Fspinner.md)
