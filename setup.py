@@ -10,6 +10,11 @@ def readme():
         return f.read()
 
 
+def requirements():
+    with open('requirements.txt', 'r', encoding='utf-8') as f:
+        return f.read().split()
+
+
 if __name__ == '__main__':
     setup(
         name='PyQtUIkit',
@@ -20,6 +25,6 @@ if __name__ == '__main__':
         package_dir={'PyQtUIkit': 'PyQtUIkit'},
         packages=find_packages(include=['PyQtUIkit*']),
         description='A PyQtUIkit package.',
-        install_requires=['PyQt6', 'lxml', 'beautifulsoup4'],
+        install_requires=requirements(),
         python_requires='>=3.11'
     )
