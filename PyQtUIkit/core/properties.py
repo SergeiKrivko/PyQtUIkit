@@ -22,6 +22,22 @@ class IntProperty(property):
         super().__init__(getter, setter)
 
 
+class BoolProperty(property):
+    def __init__(self, name='', default=True):
+        self._id = '_' + (str(name) or str(uuid4()).replace('-', '_'))
+
+        def getter(obj) -> bool:
+            try:
+                return getattr(obj, self._id)
+            except AttributeError:
+                return default
+
+        def setter(obj, value):
+            setattr(obj, self._id, bool(value))
+
+        super().__init__(getter, setter)
+
+
 class StringProperty(property):
     def __init__(self, name='', default=''):
         self._id = '_' + (str(name) or str(uuid4()).replace('-', '_'))
