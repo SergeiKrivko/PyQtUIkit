@@ -89,11 +89,15 @@ class KitSpinner(QWidget, _KitWidget):
         self.__angle_delta = value
 
     def pause(self):
+        if self.__paused:
+            return
         self.__paused = True
         if isinstance(self.__anim, QSequentialAnimationGroup):
             self.__anim.pause()
 
     def resume(self):
+        if not self.__paused:
+            return
         self.__paused = False
         if isinstance(self.__anim, QSequentialAnimationGroup):
             self.__anim.resume()
