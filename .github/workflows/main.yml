@@ -15,6 +15,7 @@ jobs:
 
     - name: Install dependencies
       run: |
+        apt-get install ffmpeg libsm6 libxext6  -y
         python -m pip install --upgrade pip virtualenv
         python -m venv venv
         source venv/bin/activate
