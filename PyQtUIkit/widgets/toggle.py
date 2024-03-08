@@ -54,6 +54,9 @@ class KitToggle(QWidget, _KitWidget):
         self.__button.setChecked(self.__state)
         self.stateChanged.emit(self.__state)
 
+        if not self._tm or not self._tm.active:
+            return
+
         if self.__anim:
             self.__anim.stop()
 
@@ -94,6 +97,7 @@ class KitToggle(QWidget, _KitWidget):
         self.__button.setGeometry(self.__button_x, self.__button_y,
                                   sizes['button_size'], sizes['button_size'])
         self.__button.radius = sizes['button_size'] // 2
+        self.__button.move(self.__button_x_r if self.__state else self.__button_x, self.__button_y)
 
         self.__button.main_palette = self.main_palette
         self.__button._apply_theme()

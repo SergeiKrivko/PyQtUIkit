@@ -11,6 +11,7 @@ pip install https://github.com/SergeiKrivko/PyQtUIkit/archive/master.zip
 
 - MainWindow
 - HBoxLayout, VBoxLayout
+- FlowLayout
 - [Label](doc%2Flabel.md)
 - [IconWidget](doc%2Ficon_widget.md)
 - [Button](doc%2Fbutton.md)

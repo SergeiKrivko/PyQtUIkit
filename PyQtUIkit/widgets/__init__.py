@@ -1,5 +1,6 @@
 from PyQtUIkit.widgets.hbox_layout import KitHBoxLayout
 from PyQtUIkit.widgets.vbox_layout import KitVBoxLayout
+from PyQtUIkit.widgets.flow_layout import KitFlowLayout
 from PyQtUIkit.widgets.label import KitLabel
 from PyQtUIkit.widgets.icon_widget import KitIconWidget
 from PyQtUIkit.widgets.button import KitButton, KitIconButton
