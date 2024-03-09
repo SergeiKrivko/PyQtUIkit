@@ -62,7 +62,10 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
         self.__layout.setContentsMargins(0, 0, 0, 0)
         self.__widget.setLayout(self.__layout)
 
-    def addItem(self, item: 'KitTreeWidgetItem'):
+    def addItem(self, item: 'KitTreeWidgetItem') -> None:
+        self.insertItem(len(self.__children), item)
+
+    def insertItem(self, index, item: 'KitTreeWidgetItem'):
         item._set_level(self.__level + 1)
         item._set_tm(self._tm)
         item._set_root(self.__root)
@@ -73,8 +76,21 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
         self.__arrow_right.setHidden(self.__expanded)
         self._update_padding()
 
-        self.__children.append(item)
-        self.__layout.addLayout(item)
+        self.__children.insert(index, item)
+        self.__layout.insertLayout(index, item)
+
+    def clear(self):
+        for _ in range(self.count()):
+            self.takeAt(0).widget().setParent(None)
+        for el in self.__children:
+            if el.selected():
+                self.__root._set_current(None)
+        self.__children.clear()
+
+    def deleteItem(self, index):
+        self.takeAt(index).widget().setParent(None)
+        if self.__children.pop(index).selected():
+            self.__root._set_current(None)
 
     def expand(self):
         self.__expanded = True
@@ -87,6 +103,9 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
         self.__widget.hide()
         self.__arrow_down.hide()
         self.__arrow_right.show()
+
+    def selected(self):
+        return self.__selected
 
     def _on_clicked(self):
         if self.__selected:
@@ -117,7 +136,6 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
             el._set_tm(tm)
 
     def _set_root(self, root):
-        print(root)
         self.__root = root
         for el in self.__children:
             el._set_root(root)
@@ -125,10 +143,8 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
     def _apply_theme(self):
         for el in self.__children:
             el.main_palette = self._main_palette
-            el._icon1 = self._icon1
-            el._icon2 = self._icon2
-        self.__arrow_right.setIcon(self._icon1)
-        self.__arrow_down.setIcon(self._icon2)
+        self.__arrow_right.setIcon(self.__root._icon1)
+        self.__arrow_down.setIcon(self.__root._icon2)
         self._apply_selected_theme()
         for el in [self.__arrow_right, self.__arrow_down]:
             el.setStyleSheet(f"""
@@ -200,7 +216,7 @@ class KitTreeWidget(KitScrollArea):
     def _apply_theme(self):
         self.__tree.main_palette = self._main_palette
         self.__widget.setStyleSheet("background-color: transparent;")
-        self.__tree._icon1 = self._tm.icon('solid-angle-right', self.main_palette.text)
-        self.__tree._icon2 = self._tm.icon('solid-angle-down', self.main_palette.text)
+        self._icon1 = self._tm.icon('solid-angle-right', self.main_palette.text)
+        self._icon2 = self._tm.icon('solid-angle-down', self.main_palette.text)
         self.__tree._apply_theme()
         super()._apply_theme()
