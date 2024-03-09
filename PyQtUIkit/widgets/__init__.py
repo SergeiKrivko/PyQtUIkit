@@ -15,3 +15,4 @@ from PyQtUIkit.widgets.toggle import KitToggle
 from PyQtUIkit.widgets.tab_bar import KitTabBar, KitTab
 from PyQtUIkit.widgets.spinner import KitSpinner
 from PyQtUIkit.widgets.progress_bar import KitProgressBar
+from PyQtUIkit.widgets.tree_widget import KitTreeWidget, KitTreeWidgetItem

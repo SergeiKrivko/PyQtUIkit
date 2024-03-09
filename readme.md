@@ -3,8 +3,7 @@
 ## Установка
 
 ```shell
-pip install PyQt6 lxml beautifulsoup4
-pip install https://github.com/SergeiKrivko/PyQtUIkit/archive/master.zip 
+pip install PyQtUIkit
 ```
 
 ## Виджеты
@@ -24,3 +23,4 @@ pip install https://github.com/SergeiKrivko/PyQtUIkit/archive/master.zip
 - ListWidget
 - ScrollArea
 - [Spinner](doc%2Fspinner.md)
+- [TreeWidget](doc%2Ftree_widget.md)
