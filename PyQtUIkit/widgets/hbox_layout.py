@@ -11,7 +11,7 @@ class KitHBoxLayout(QWidget, _KitWidget):
 
     def __init__(self):
         super().__init__()
-        self.__widgets = []
+        self._widgets = []
         self.main_palette = 'Transparent'
 
         strange_layout = QHBoxLayout()
@@ -31,7 +31,7 @@ class KitHBoxLayout(QWidget, _KitWidget):
             self.__layout.addWidget(widget, stretch)
         else:
             self.__layout.addWidget(widget)
-        self.__widgets.append(widget)
+        self._widgets.append(widget)
         if hasattr(widget, '_set_tm'):
             widget._set_tm(self._tm)
 
@@ -42,7 +42,7 @@ class KitHBoxLayout(QWidget, _KitWidget):
             self.__layout.insertWidget(index, widget, stretch)
         else:
             self.__layout.insertWidget(index, widget)
-        self.__widgets.insert(index, widget)
+        self._widgets.insert(index, widget)
         if hasattr(widget, '_set_tm'):
             widget._set_tm(self._tm)
 
@@ -55,7 +55,7 @@ class KitHBoxLayout(QWidget, _KitWidget):
     def clear(self):
         for _ in range(self.__layout.count()):
             self.__layout.takeAt(0).widget().setParent(None)
-        self.__widgets.clear()
+        self._widgets.clear()
 
     def setAlignment(self, a) -> bool:
         return self.__layout.setAlignment(a)
@@ -74,12 +74,12 @@ class KitHBoxLayout(QWidget, _KitWidget):
 
     def _set_tm(self, tm):
         super()._set_tm(tm)
-        for el in self.__widgets:
+        for el in self._widgets:
             if hasattr(el, '_set_tm'):
                 el._set_tm(tm)
 
     def _apply_theme(self):
-        for el in self.__widgets:
+        for el in self._widgets:
             if hasattr(el, '_apply_theme'):
                 el._apply_theme()
         self.setStyleSheet(f"""

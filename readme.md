@@ -25,3 +25,5 @@ pip install PyQtUIkit
 - [Spinner](doc%2Fspinner.md)
 - [TreeWidget](doc%2Ftree_widget.md)
 - KitMenu
+- [Group](doc%2Fgroup.md)
+- [Navigation](doc%2Fnavigation.md)

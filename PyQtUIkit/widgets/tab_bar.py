@@ -44,9 +44,10 @@ class KitTab(QPushButton, _KitWidget):
         layout.addWidget(self.__icon_widget)
 
         self.__label = KitLabel(name)
+        self.__label.setContentsMargins(4, 0, 4, 0)
         layout.addWidget(self.__label)
 
-        self.__button_close = KitIconButton(icon='close')
+        self.__button_close = KitIconButton(icon='solid-xmark')
         self.__button_close.border = 0
         self.__button_close.size = 18
         self.__button_close.hide()
@@ -137,6 +138,7 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
         self.__tabs: list[KitTab] = []
         self.__current = None
         self.__tabs_closable = False
+        self.__tabs_movable = False
         self.setContentsMargins(0, 0, 0, 0)
         self.setSpacing(0)
         self._main_palette = 'Bg'
@@ -187,6 +189,10 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
         for el in self.__tabs:
             el._set_closable(flag)
 
+    def setTabsMovable(self, flag):
+        self.__tabs_movable = flag
+        self.__layout.set_tabs_movable(flag)
+
     def setCurrentTab(self, tab: int | KitTab):
         if isinstance(tab, int):
             tab = self.__tabs[tab]
@@ -224,6 +230,7 @@ class _TabLayout(QWidget):
     def __init__(self, widgets: list[KitTab]):
         super().__init__()
         self.__widgets = widgets
+        self.__tabs_movable = False
         self.__widgets_positions = [0 for _ in widgets]
         self.__last_pos = QPoint(0, 0)
         self.__tab_move: KitTab | None = None
@@ -242,6 +249,8 @@ class _TabLayout(QWidget):
         self.setFixedWidth(x)
 
     def on_mouse_press(self, pos: QPoint):
+        if not self.__tabs_movable:
+            return
         index = -1
         for el in self.__widgets:
             if el.pos().x() > pos.x():
@@ -274,6 +283,9 @@ class _TabLayout(QWidget):
                     self.__widgets_positions[i] + self.__widgets[i].width() // 2:
                 self.__move_left(i)
                 i += 1
+
+    def set_tabs_movable(self, flag):
+        self.__tabs_movable = flag
 
     def __move_right(self, index):
         self.__widgets[index], self.__widgets[index + 1] = self.__widgets[index + 1], self.__widgets[index]
