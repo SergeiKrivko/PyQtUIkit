@@ -67,17 +67,15 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
 
     def insertItem(self, index, item: 'KitTreeWidgetItem'):
         item._set_level(self.__level + 1)
-        item._set_tm(self._tm)
         item._set_root(self.__root)
-        if self._tm and self._tm.active:
-            item._apply_theme()
+        item._set_tm(self._tm)
+
+        self.__children.insert(index, item)
+        self.__layout.insertLayout(index, item)
 
         self.__arrow_down.setHidden(not self.__expanded)
         self.__arrow_right.setHidden(self.__expanded)
         self._update_padding()
-
-        self.__children.insert(index, item)
-        self.__layout.insertLayout(index, item)
 
     def clear(self):
         for _ in range(self.count()):

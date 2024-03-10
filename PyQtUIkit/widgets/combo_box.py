@@ -1,14 +1,13 @@
-from PyQt6.QtCore import pyqtSignal, Qt, QPoint, QPropertyAnimation, QEasingCurve, QSequentialAnimationGroup, QSize, \
-    QParallelAnimationGroup
+from PyQt6.QtCore import pyqtSignal, Qt, QPoint, QPropertyAnimation, QEasingCurve, QSize, QParallelAnimationGroup
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout, QMenu, QHBoxLayout, QApplication
 
 from PyQtUIkit.core.properties import IconProperty
 from PyQtUIkit.core.properties import IntProperty, PaletteProperty
-from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
-from PyQtUIkit.widgets.vbox_layout import KitVBoxLayout
+from PyQtUIkit.widgets._widget import KitWidget as _KitWidget, KitGroupItem as _KitGroupItem
 from PyQtUIkit.widgets.icon_widget import KitIconWidget
 from PyQtUIkit.widgets.scroll_area import KitScrollArea
+from PyQtUIkit.widgets.vbox_layout import KitVBoxLayout
 
 
 class KitComboBoxItem(QPushButton, _KitWidget):
@@ -54,10 +53,8 @@ QPushButton::checked {{
             self.setIcon(self.icon.icon(self.main_palette.text))
 
 
-class KitComboBox(QPushButton, _KitWidget):
+class KitComboBox(QPushButton, _KitGroupItem):
     main_palette = PaletteProperty('Main')
-    border = IntProperty('border', 1)
-    radius = IntProperty('radius', 4)
     type = IntProperty('type', 1)
     icon = IconProperty('icon')
 
@@ -155,7 +152,7 @@ QPushButton {{
     color: {self.main_palette.text};
     background-color: {self.main_palette.main};
     border: {self.border}px solid {self._tm['Border'].main};
-    border-radius: {self.radius}px;
+    {self._border_radius_css()}
     padding: 3px 8px 3px 8px;
     text-align: left;
 }}

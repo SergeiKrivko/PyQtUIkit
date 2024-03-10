@@ -25,7 +25,7 @@ class _KitMenu:
         self.__icon = icon
         self.__actions = []
 
-    def addAction(self, text, icon):
+    def addAction(self, text, icon=''):
         action = self.__menu.addAction(text)
         self.__actions.append(_KitMenuAction(action, icon))
         return action

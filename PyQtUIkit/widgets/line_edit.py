@@ -1,13 +1,11 @@
 from PyQt6.QtWidgets import QLineEdit
 
-from PyQtUIkit.core.properties import IntProperty, StringProperty, PaletteProperty
-from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
+from PyQtUIkit.core.properties import PaletteProperty
+from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem
 
 
-class KitLineEdit(QLineEdit, _KitWidget):
+class KitLineEdit(QLineEdit, _KitGroupItem):
     main_palette = PaletteProperty('main_palette', 'Main')
-    border = IntProperty('border', )
-    radius = IntProperty('radius', )
 
     def __init__(self, text=''):
         super().__init__(text)
@@ -21,7 +19,7 @@ QLineEdit {{
     color: {self.main_palette.text};
     background-color: {self.main_palette.main};
     border: {self.border}px solid {self._tm.get('Border').main};
-    border-radius: {self.radius}px;
+    {self._border_radius_css()}
 }}
 QLineEdit:hover {{
     border: {self.border}px solid {self._tm.get('Border').hover};

@@ -1,11 +1,11 @@
 from PyQt6.QtCore import pyqtSignal
-from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLineEdit, QVBoxLayout, QPushButton
+from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLineEdit, QVBoxLayout, QPushButton, QSizePolicy
 
 from PyQtUIkit.core.properties import IntProperty, ColorProperty
-from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
+from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem, KitGroup as _KitGroup
 
 
-class KitSpinBox(QWidget, _KitWidget):
+class KitSpinBox(QWidget, _KitGroupItem):
     border = IntProperty('border', 1)
     radius = IntProperty('radius', 4)
     valueChanged = pyqtSignal(object)
@@ -39,12 +39,12 @@ class KitSpinBox(QWidget, _KitWidget):
         main_layout.addLayout(buttons_layout)
 
         self._button_up = QPushButton()
-        self._button_up.setFixedWidth(20)
+        # self._button_up.setFixedWidth(20)
         self._button_up.clicked.connect(self._increase)
         buttons_layout.addWidget(self._button_up)
 
         self._button_down = QPushButton()
-        self._button_down.setFixedWidth(20)
+        # self._button_down.setFixedWidth(20)
         self._button_down.clicked.connect(self._decrease)
         buttons_layout.addWidget(self._button_down)
 
@@ -113,13 +113,17 @@ class KitSpinBox(QWidget, _KitWidget):
         return self._func(self._line_edit.text())
 
     def _apply_theme(self):
+        orientation, position = self._group()
+        self._line_edit.setFixedHeight(self.height())
         self._line_edit.setStyleSheet(f"""
         QLineEdit {{
             color: {self.main_palette.text};
             background-color: {self.main_palette.main};
             border: {self.border}px solid {self._tm.get('Border').main};
-            border-top-left-radius: {self.radius}px;
-            border-bottom-left-radius: {self.radius}px;
+            border-top-left-radius: {self.radius if orientation == _KitGroup.NO_GROUP or position == _KitGroup.FIRST else 0}px;
+            border-bottom-left-radius: {self.radius if orientation == _KitGroup.NO_GROUP or
+                                                       orientation == _KitGroup.VERTICAL and position == _KitGroup.LAST or
+                                                       orientation == _KitGroup.HORIZONTAL and position == _KitGroup.FIRST else 0}px;
             border-top-right-radius: 0px;
             border-bottom-right-radius: 0px;
         }}
@@ -147,5 +151,9 @@ QPushButton::hover {{
     background-color: {self.main_palette.hover};
     border: {self.border}px solid {self._tm['Border'].selected};
 }}"""
-        self._button_up.setStyleSheet(css.replace("top-right-radius: 0px;", f"top-right-radius: {self.radius}px;"))
-        self._button_down.setStyleSheet(css.replace("bottom-right-radius: 0px;", f"bottom-right-radius: {self.radius}px;"))
+        radius = self.radius if orientation == _KitGroup.NO_GROUP or \
+                                orientation == _KitGroup.VERTICAL and position == _KitGroup.FIRST or \
+                                orientation == _KitGroup.HORIZONTAL and position == _KitGroup.LAST else 0
+        self._button_up.setStyleSheet(css.replace("top-right-radius: 0px;", f"top-right-radius: {radius}px;"))
+        radius = self.radius if orientation == _KitGroup.NO_GROUP or position == _KitGroup.LAST else 0
+        self._button_down.setStyleSheet(css.replace("bottom-right-radius: 0px;", f"bottom-right-radius: {radius}px;"))

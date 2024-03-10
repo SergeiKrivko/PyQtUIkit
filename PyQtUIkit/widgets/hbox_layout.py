@@ -1,3 +1,4 @@
+from PyQt6.QtCore import QMargins
 from PyQt6.QtWidgets import QWidget, QHBoxLayout
 
 from PyQtUIkit.core.properties import IntProperty
@@ -64,6 +65,9 @@ class KitHBoxLayout(QWidget, _KitWidget):
 
     def setContentsMargins(self, left: int, top: int, right: int, bottom: int) -> None:
         self.__layout.setContentsMargins(left, top, right, bottom)
+
+    def contentsMargins(self) -> QMargins:
+        return self.__layout.contentsMargins()
 
     def count(self):
         return self.__layout.count()

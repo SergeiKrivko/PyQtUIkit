@@ -1,17 +1,14 @@
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout
 
-from PyQtUIkit.core.properties import IntProperty, ColorProperty, PaletteProperty
-
 from PyQtUIkit.core.properties import IconProperty
+from PyQtUIkit.core.properties import IntProperty, PaletteProperty
 from PyQtUIkit.themes import ThemeManager
 from PyQtUIkit.widgets import KitIconWidget
-from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
+from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem
 
 
-class KitButton(QPushButton, _KitWidget):
+class KitButton(QPushButton, _KitGroupItem):
     main_palette = PaletteProperty('Main')
-    border = IntProperty('border', 1)
-    radius = IntProperty('radius', 4)
     icon = IconProperty('icon')
 
     def __init__(self, text='', icon=None):
@@ -27,7 +24,7 @@ QPushButton {{
     color: {self.main_palette.text};
     background-color: {self.main_palette.main};
     border: {self.border}px solid {self._tm['Border'].main};
-    border-radius: {self.radius}px;
+    {self._border_radius_css()}
     padding: 3px 8px 3px 8px;
 }}
 QPushButton::hover {{
@@ -52,10 +49,8 @@ QPushButton::menu-indicator {{
             self.setIcon(self.icon.icon(self.main_palette.text))
 
 
-class KitIconButton(QPushButton, _KitWidget):
+class KitIconButton(QPushButton, _KitGroupItem):
     main_palette = PaletteProperty('main_palette', 'Main')
-    border = IntProperty('border', 1)
-    radius = IntProperty('radius', 4)
     size = IntProperty('size', 24)
     icon = IconProperty('icon')
 
@@ -78,11 +73,11 @@ class KitIconButton(QPushButton, _KitWidget):
     def _apply_theme(self):
         self._icon_label.icon = self.icon
         self.setFixedSize(self.size, self.size)
-        self.setStyleSheet(s := f"""
+        self.setStyleSheet(f"""
 QPushButton {{
     background-color: {self.main_palette.main};
     border: {self.border}px solid {self._tm['Border'].main};
-    border-radius: {self.radius}px;
+    {self._border_radius_css()}
     padding: 3px 8px 3px 8px;
 }}
 QPushButton::hover {{
@@ -97,4 +92,3 @@ QPushButton::checked {{
     background-color: {self.main_palette.selected};
     border: {self.border}px solid {self._tm['Border'].selected};
 }}""")
-        # print(s)
