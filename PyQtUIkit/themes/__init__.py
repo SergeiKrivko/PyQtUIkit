@@ -18,10 +18,10 @@ class ThemeManager:
         for file in files('PyQtUIkit.fonts').iterdir():
             QFontDatabase.addApplicationFontFromData(file.read_bytes())
 
-        self._font_small = QFont()
-        self._font_medium = QFont()
-        self._font_big = QFont()
-        self._font_mono = QFont()
+        self._font_small = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeSmall'))
+        self._font_medium = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeMedium'))
+        self._font_big = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeBig'))
+        self._font_mono = QFont(self.__current_theme.get('FontMono'), self.__current_theme.get('FontSizeMono'))
 
     def add_theme(self, name: str, th: KitTheme):
         self.__themes[name] = th

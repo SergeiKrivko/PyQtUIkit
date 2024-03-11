@@ -7,6 +7,8 @@ basic_theme = KitTheme({
     'Bg': KitPalette('#ECF5F9', '#CBCDCF', '#5283C9', '#222222'),
     'Menu': KitPalette('#F7F8FA', '#DFE1E5', '#3573F0', '#222222'),
     'Border': KitPalette('#BFC0C2', '#A6A7A8', '#52AFDE', '#222222'),
+    'Green': KitPalette('#B3D635', '#D0FA3E', '#41D431', '#222222'),
+    'Red': KitPalette('#E33838', '#FC3E3E', '#FC1414', '#222222'),
 
     'Font': 'Roboto',
     'FontMono': 'Roboto Mono',
@@ -24,6 +26,8 @@ builtin_themes = {
         'Bg': KitPalette('#141517', '#222345', '#323466', '#F0F0F0'),
         'Menu': KitPalette('#1F2024', '#4E5157', '#3573F0', '#F0F0F0'),
         'Border': KitPalette('#474747', '#595959', '#2D63CC', '#F0F0F0'),
+        'Green': KitPalette('#214514', '#295419', '#397523', '#F0F0F0'),
+        'Red': KitPalette('#690B0B', '#7A0D0D', '#B31414', '#F0F0F0'),
     },
         basic_theme,
         is_dark=True),
