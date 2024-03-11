@@ -63,6 +63,7 @@ class KitNavigationButton(QPushButton, _KitWidget):
         self._set_expanded(not self.__label.isHidden())
         self.setFixedHeight(self._size)
         self.__icon.setFixedSize(self._size - 8, self._size - 8)
+        self.__label.setFont(self._tm.font_small)
         self.setStyleSheet(f"""
 QPushButton {{
     color: {self.main_palette.text};

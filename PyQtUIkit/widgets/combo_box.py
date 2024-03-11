@@ -34,6 +34,7 @@ class KitComboBoxItem(QPushButton, _KitWidget):
         return self._value
 
     def _apply_theme(self):
+        self.setFont(self._tm.font_small)
         self.setStyleSheet(f"""
 QPushButton {{
     color: {self.main_palette.text};
@@ -147,6 +148,7 @@ class KitComboBox(QPushButton, _KitGroupItem):
         self.__menu.setFixedWidth(self.width())
 
     def _apply_theme(self):
+        self.setFont(self._tm.font_small)
         self.setStyleSheet(f"""
 QPushButton {{
     color: {self.main_palette.text};

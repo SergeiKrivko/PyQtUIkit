@@ -115,6 +115,7 @@ class KitSpinBox(QWidget, _KitGroupItem):
     def _apply_theme(self):
         orientation, position = self._group()
         self._line_edit.setFixedHeight(self.height())
+        self._line_edit.setFont(self._tm.font_small)
         self._line_edit.setStyleSheet(f"""
         QLineEdit {{
             color: {self.main_palette.text};

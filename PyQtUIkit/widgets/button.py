@@ -19,6 +19,7 @@ class KitButton(QPushButton, _KitGroupItem):
         self._icon = icon
 
     def _apply_theme(self):
+        self.setFont(self._tm.font_small)
         self.setStyleSheet(f"""
 QPushButton {{
     color: {self.main_palette.text};

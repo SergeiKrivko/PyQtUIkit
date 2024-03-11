@@ -1,4 +1,4 @@
-from PyQt6.QtGui import QPixmap, QImage, QIcon
+from PyQt6.QtGui import QPixmap, QImage, QIcon, QFont, QFontDatabase
 
 from PyQtUIkit.themes.builtin_themes import basic_theme, builtin_themes
 from PyQtUIkit.themes.icons import icons
@@ -14,6 +14,15 @@ class ThemeManager:
         self.__on_theme_changed = on_theme_changed
         self.__active = False
 
+        from importlib.resources import files
+        for file in files('PyQtUIkit.fonts').iterdir():
+            QFontDatabase.addApplicationFontFromData(file.read_bytes())
+
+        self._font_small = QFont()
+        self._font_medium = QFont()
+        self._font_big = QFont()
+        self._font_mono = QFont()
+
     def add_theme(self, name: str, th: KitTheme):
         self.__themes[name] = th
 
@@ -22,6 +31,11 @@ class ThemeManager:
         self.__current_theme_name = new_theme
         self.__on_theme_changed()
 
+        self._font_small = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeSmall'))
+        self._font_medium = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeMedium'))
+        self._font_big = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeBig'))
+        self._font_mono = QFont(self.__current_theme.get('FontMono'), self.__current_theme.get('FontSizeMono'))
+
     @property
     def current_theme(self):
         return self.__current_theme_name
@@ -29,6 +43,22 @@ class ThemeManager:
     @property
     def active(self):
         return self.__active
+
+    @property
+    def font_small(self):
+        return self._font_small
+
+    @property
+    def font_medium(self):
+        return self._font_medium
+
+    @property
+    def font_big(self):
+        return self._font_big
+
+    @property
+    def font_mono(self):
+        return self._font_mono
 
     def _set_active(self):
         self.__active = KitTheme

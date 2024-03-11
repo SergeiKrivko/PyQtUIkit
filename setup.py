@@ -35,6 +35,9 @@ if __name__ == '__main__':
         license=license(),
         package_dir={'PyQtUIkit': 'PyQtUIkit'},
         packages=find_packages(include=['PyQtUIkit*']),
+        package_data={
+            '': ['fonts/*.ttf'],
+        },
         description='A PyQtUIkit package.',
         install_requires=requirements(),
         python_requires='>=3.10'

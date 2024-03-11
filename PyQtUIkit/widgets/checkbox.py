@@ -55,6 +55,7 @@ class KitCheckBox(QWidget, _KitWidget):
     def _apply_theme(self):
         self.__button.main_palette = self.main_palette
         self.__button._apply_theme()
+        self.__label.setFont(self._tm.font_small)
         self.__label.setStyleSheet(f"""
         QPushButton {{
             color: {self.main_palette.text};

@@ -95,6 +95,7 @@ class KitTab(QPushButton, _KitWidget):
             return
         self.__button_close.main_palette = KitPalette('#00000000', self.main_palette.main,
                                                       text=self.main_palette.text)
+        self.__label.setFont(self._tm.font_small)
         self.setStyleSheet(f"""
 QPushButton {{
     color: {self.main_palette.text};

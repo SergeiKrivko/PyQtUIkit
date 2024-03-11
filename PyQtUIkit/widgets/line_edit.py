@@ -14,6 +14,7 @@ class KitLineEdit(QLineEdit, _KitGroupItem):
         self.radius = 4
 
     def _apply_theme(self):
+        self.setFont(self._tm.font_small)
         self.setStyleSheet(f"""
 QLineEdit {{
     color: {self.main_palette.text};

@@ -73,6 +73,7 @@ class KitMenu(QMenu, _KitWidget):
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
+        self.setFont(self._tm.font_small)
         self.setStyleSheet(f"""
 QMenu {{
     color: {self.main_palette.text};

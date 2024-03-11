@@ -7,6 +7,13 @@ basic_theme = KitTheme({
     'Bg': KitPalette('#ECF5F9', '#CBCDCF', '#5283C9', '#222222'),
     'Menu': KitPalette('#F7F8FA', '#DFE1E5', '#3573F0', '#222222'),
     'Border': KitPalette('#BFC0C2', '#A6A7A8', '#52AFDE', '#222222'),
+
+    'Font': 'Roboto',
+    'FontMono': 'Roboto Mono',
+    'FontSizeSmall': 9,
+    'FontSizeMedium': 10,
+    'FontSizeBig': 14,
+    'FontSizeMono': 10,
 }, is_dark=False)
 
 builtin_themes = {
