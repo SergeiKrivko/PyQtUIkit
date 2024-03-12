@@ -27,3 +27,4 @@ pip install PyQtUIkit
 - KitMenu
 - [Group](doc%2Fgroup.md)
 - [Navigation](doc%2Fnavigation.md)
+- [Radio](doc%2Fradio.md)

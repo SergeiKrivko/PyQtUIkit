@@ -15,6 +15,8 @@ class KitMainWindow(QMainWindow):
         return self._tm
 
     def _apply_theme(self):
+        if not self._tm.active:
+            return
         cw = self.centralWidget()
         if hasattr(cw, '_apply_theme'):
             cw._apply_theme()
