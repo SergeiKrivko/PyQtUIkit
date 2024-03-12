@@ -8,7 +8,7 @@ from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem
 
 
 class KitButton(QPushButton, _KitGroupItem):
-    main_palette = PaletteProperty('Main')
+    main_palette = PaletteProperty('main_palette', 'Main')
     icon = IconProperty('icon')
 
     def __init__(self, text='', icon=None):
@@ -19,7 +19,9 @@ class KitButton(QPushButton, _KitGroupItem):
         self._icon = icon
 
     def _apply_theme(self):
-        self.setFont(self._tm.font_small)
+        if not self._tm or not self._tm.active:
+            return
+        self.setFont(self._tm.font_medium)
         self.setStyleSheet(f"""
 QPushButton {{
     color: {self.main_palette.text};
@@ -72,6 +74,8 @@ class KitIconButton(QPushButton, _KitGroupItem):
         self._icon_label._set_tm(tm)
 
     def _apply_theme(self):
+        if not self._tm or not self._tm.active:
+            return
         self._icon_label.icon = self.icon
         self.setFixedSize(self.size, self.size)
         self.setStyleSheet(f"""

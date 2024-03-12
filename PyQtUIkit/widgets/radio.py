@@ -44,13 +44,13 @@ class KitRadioButton(QPushButton, _KitWidget):
             self.selected.emit()
 
     def _apply_theme(self):
+        self.__label.setFont(self._tm.font_medium)
         fm = QFontMetrics(self.__label.font())
         fm.size(0, self.__label.text())
         self.setFixedWidth(34 + fm.size(0, self.__label.text()).width())
 
         self.setFixedHeight(self._size)
         self.__button.setFixedSize(self._size - 8, self._size - 8)
-        self.__label.setFont(self._tm.font_small)
         self.__button.setStyleSheet(f"""
 QPushButton {{
     background-color: {self.main_palette.main};
@@ -83,7 +83,6 @@ class KitVRadio(KitVBoxLayout):
         self.setAlignment(Qt.AlignmentFlag.AlignTop)
         self.setContentsMargins(5, 5, 5, 5)
         self.setSpacing(5)
-        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
     def setCurrentItem(self, tab: int):
         if isinstance(tab, int):
@@ -140,7 +139,6 @@ class KitHRadio(KitHBoxLayout):
         self.setAlignment(Qt.AlignmentFlag.AlignLeft)
         self.setContentsMargins(5, 5, 5, 5)
         self.setSpacing(5)
-        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
     def setCurrentItem(self, tab: int):
         if isinstance(tab, int):

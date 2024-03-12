@@ -20,7 +20,7 @@ class KitIconWidget(QWidget, _KitWidget):
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
     def paintEvent(self, a0) -> None:
-        if self.icon:
+        if self._tm and self._tm.active and self.icon:
             self.__painter.begin(self)
             pixmap, width, height = self.icon.resized_pixmap(self.main_palette.text, (self.width(), self.height()))
             self.__painter.drawPixmap((self.width() - width) // 2, (self.height() - height) // 2, width, height, pixmap)

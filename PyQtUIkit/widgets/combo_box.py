@@ -34,7 +34,9 @@ class KitComboBoxItem(QPushButton, _KitWidget):
         return self._value
 
     def _apply_theme(self):
-        self.setFont(self._tm.font_small)
+        if not self._tm or not self._tm.active:
+            return
+        self.setFont(self._tm.font_medium)
         self.setStyleSheet(f"""
 QPushButton {{
     color: {self.main_palette.text};
@@ -55,7 +57,7 @@ QPushButton::checked {{
 
 
 class KitComboBox(QPushButton, _KitGroupItem):
-    main_palette = PaletteProperty('Main')
+    main_palette = PaletteProperty('main_palette', 'Main')
     type = IntProperty('type', 1)
     icon = IconProperty('icon')
 
@@ -148,7 +150,9 @@ class KitComboBox(QPushButton, _KitGroupItem):
         self.__menu.setFixedWidth(self.width())
 
     def _apply_theme(self):
-        self.setFont(self._tm.font_small)
+        if not self._tm or not self._tm.active:
+            return
+        self.setFont(self._tm.font_medium)
         self.setStyleSheet(f"""
 QPushButton {{
     color: {self.main_palette.text};
@@ -217,6 +221,8 @@ class _ComboBoxMenu(QMenu, _KitWidget):
         self._scroll_layout.clear()
 
     def _apply_theme(self):
+        if not self._tm or not self._tm.active:
+            return
         self.setStyleSheet(f"""
 QMenu {{
     color: {self.main_palette.text};

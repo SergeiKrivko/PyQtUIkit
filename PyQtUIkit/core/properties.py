@@ -107,6 +107,8 @@ class ColorProperty(property):
 
 class PaletteProperty(property):
     def __init__(self, name='', default='Main'):
+        if name == 'Main':
+            raise Exception
         self._id = '_' + (str(name) or str(uuid4()).replace('-', '_'))
 
         def getter(obj) -> KitPalette:

@@ -9,7 +9,7 @@ from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
 
 
 class KitNavigationButton(QPushButton, _KitWidget):
-    main_palette = PaletteProperty('Main')
+    main_palette = PaletteProperty('main_palette', 'Main')
     icon = IconProperty('icon')
 
     selected = pyqtSignal()
@@ -63,7 +63,7 @@ class KitNavigationButton(QPushButton, _KitWidget):
         self._set_expanded(not self.__label.isHidden())
         self.setFixedHeight(self._size)
         self.__icon.setFixedSize(self._size - 8, self._size - 8)
-        self.__label.setFont(self._tm.font_small)
+        self.__label.setFont(self._tm.font_medium)
         self.setStyleSheet(f"""
 QPushButton {{
     color: {self.main_palette.text};

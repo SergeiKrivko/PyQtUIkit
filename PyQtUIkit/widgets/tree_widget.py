@@ -144,7 +144,7 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
         self.__arrow_right.setIcon(self.__root._icon1)
         self.__arrow_down.setIcon(self.__root._icon2)
         self._apply_selected_theme()
-        self.__label.setFont(self._tm.font_small)
+        self.__label.setFont(self._tm.font_medium)
         for el in [self.__arrow_right, self.__arrow_down]:
             el.setStyleSheet(f"""
             QPushButton {{

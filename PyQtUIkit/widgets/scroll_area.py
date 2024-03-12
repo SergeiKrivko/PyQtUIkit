@@ -56,6 +56,8 @@ class KitScrollArea(QScrollArea, _KitWidget):
             widget._set_tm(tm)
 
     def _apply_theme(self):
+        if not self._tm or not self._tm.active:
+            return
         self.setStyleSheet(f"""
 QScrollArea {{
     color: {self.main_palette.text};

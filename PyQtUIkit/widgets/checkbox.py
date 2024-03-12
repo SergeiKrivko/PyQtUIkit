@@ -1,5 +1,5 @@
 from PyQt6.QtCore import Qt, pyqtSignal
-from PyQt6.QtWidgets import QWidget, QHBoxLayout, QPushButton
+from PyQt6.QtWidgets import QWidget, QHBoxLayout, QPushButton, QSizePolicy
 
 from PyQtUIkit.core.properties import PaletteProperty
 from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
@@ -14,6 +14,7 @@ class KitCheckBox(QWidget, _KitWidget):
     def __init__(self, text=''):
         super().__init__()
         self.__state = False
+        self.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         main_layout = QHBoxLayout()
         main_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
@@ -53,9 +54,11 @@ class KitCheckBox(QWidget, _KitWidget):
         self.__button._set_tm(tm)
 
     def _apply_theme(self):
+        if not self._tm or not self._tm.active:
+            return
         self.__button.main_palette = self.main_palette
         self.__button._apply_theme()
-        self.__label.setFont(self._tm.font_small)
+        self.__label.setFont(self._tm.font_medium)
         self.__label.setStyleSheet(f"""
         QPushButton {{
             color: {self.main_palette.text};

@@ -83,6 +83,8 @@ class KitToggle(QWidget, _KitWidget):
         self.__button._set_tm(tm)
 
     def _apply_theme(self):
+        if not self._tm or not self._tm.active:
+            return
         sizes = self.__sizes[self.mode]
         self.setFixedSize(*sizes['size'])
 

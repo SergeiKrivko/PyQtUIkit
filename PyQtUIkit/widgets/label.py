@@ -13,7 +13,9 @@ class KitLabel(QLabel, _KitWidget):
         super().__init__(text)
 
     def _apply_theme(self):
-        self.setFont(self._tm.font_small)
+        if not self._tm or not self._tm.active:
+            return
+        self.setFont(self._tm.font_medium)
         self.setStyleSheet(f"""
         QWidget {{
             color: {self.main_palette.text};
