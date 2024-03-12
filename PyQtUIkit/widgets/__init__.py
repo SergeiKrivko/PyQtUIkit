@@ -20,3 +20,4 @@ from PyQtUIkit.widgets.menu import KitMenu
 from PyQtUIkit.widgets.group import KitHGroup, KitVGroup
 from PyQtUIkit.widgets.navigation import KitNavigation
 from PyQtUIkit.widgets.radio import KitVRadio, KitHRadio
+from PyQtUIkit.widgets.tabs import KitTabLayout
