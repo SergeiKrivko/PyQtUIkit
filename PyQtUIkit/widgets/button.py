@@ -1,3 +1,4 @@
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout
 
 from PyQtUIkit.core.properties import IconProperty
@@ -14,6 +15,7 @@ class KitButton(QPushButton, _KitGroupItem):
     def __init__(self, text='', icon=None):
         super().__init__()
         self.__widgets = []
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
 
         self.setText(text)
         self._icon = icon
@@ -61,6 +63,7 @@ class KitIconButton(QPushButton, _KitGroupItem):
         super().__init__()
         self.__widgets = []
         self._icon = icon
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
 
         layout = QVBoxLayout()
         layout.setContentsMargins(*[min(6, self.size // 5)] * 4)

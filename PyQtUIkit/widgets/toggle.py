@@ -39,6 +39,7 @@ class KitToggle(QWidget, _KitWidget):
         self.__button_x = 0
 
         self.__rail = QPushButton(self)
+        self.__rail.setCursor(Qt.CursorShape.PointingHandCursor)
         self.__rail.clicked.connect(self._on_clicked)
 
         self.__button = KitButton()

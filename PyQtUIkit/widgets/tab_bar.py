@@ -30,6 +30,7 @@ class KitTab(QPushButton, _KitWidget):
         self._icon = icon
         self.__click_time = 0
         self.__checked = False
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
 
         self.__closable = False
 

@@ -29,6 +29,7 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
         self.setSpacing(0)
 
         self.__button = QPushButton()
+        self.__button.setCursor(Qt.CursorShape.PointingHandCursor)
         self.__button.setFixedHeight(24)
         self.__button.clicked.connect(self._on_clicked)
         self.addWidget(self.__button)

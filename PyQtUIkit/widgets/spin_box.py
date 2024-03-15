@@ -1,4 +1,4 @@
-from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtCore import pyqtSignal, Qt
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLineEdit, QVBoxLayout, QPushButton, QSizePolicy
 
 from PyQtUIkit.core.properties import IntProperty, ColorProperty
@@ -39,11 +39,13 @@ class KitSpinBox(QWidget, _KitGroupItem):
         main_layout.addLayout(buttons_layout)
 
         self._button_up = QPushButton()
+        self._button_up.setCursor(Qt.CursorShape.PointingHandCursor)
         # self._button_up.setFixedWidth(20)
         self._button_up.clicked.connect(self._increase)
         buttons_layout.addWidget(self._button_up)
 
         self._button_down = QPushButton()
+        self._button_down.setCursor(Qt.CursorShape.PointingHandCursor)
         # self._button_down.setFixedWidth(20)
         self._button_down.clicked.connect(self._decrease)
         buttons_layout.addWidget(self._button_down)

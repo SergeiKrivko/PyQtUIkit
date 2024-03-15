@@ -23,6 +23,7 @@ class KitComboBoxItem(QPushButton, _KitWidget):
         self.clicked.connect(self._on_clicked)
         self.setText(self._name)
         self.setFixedHeight(24)
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
 
     def _on_clicked(self, flag):
         if not flag:
@@ -71,6 +72,7 @@ class KitComboBox(QPushButton, _KitGroupItem):
         self.__menu = _ComboBoxMenu()
         self.__menu.setFixedWidth(self.width())
         self.clicked.connect(self._show_menu)
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
 
         layout = QHBoxLayout()
         layout.setAlignment(Qt.AlignmentFlag.AlignRight)

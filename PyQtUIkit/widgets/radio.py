@@ -18,6 +18,7 @@ class KitRadioButton(QPushButton, _KitWidget):
         self._size = 30
         self.__selected = False
         self.clicked.connect(self._on_clicked)
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
 
         self.__layout = QHBoxLayout()
         self.__layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
