@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QWidget, QHBoxLayout
 
 from PyQtUIkit.core.properties import IntProperty, PaletteProperty
 from PyQtUIkit.widgets import KitHBoxLayout, KitIconButton, KitVBoxLayout
-from PyQtUIkit.widgets._widget import KitWidget as _KitWidget, KitGroup as _KitGroup, KitGroupItem as _KitGroupItem
+from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget, KitGroup as _KitGroup, KitGroupItem as _KitGroupItem
 
 
 class KitHGroup(KitHBoxLayout):

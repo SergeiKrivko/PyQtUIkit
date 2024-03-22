@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import QLabel, QPushButton, QHBoxLayout, QSizePolicy
 from PyQtUIkit.core.icon import KitIcon
 from PyQtUIkit.core.properties import IntProperty, PaletteProperty, IconProperty
 from PyQtUIkit.widgets import KitVBoxLayout, KitIconButton, KitIconWidget
-from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
+from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
 class KitNavigationButton(QPushButton, _KitWidget):

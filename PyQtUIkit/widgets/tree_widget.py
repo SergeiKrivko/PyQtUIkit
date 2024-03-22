@@ -5,7 +5,7 @@ from PyQtUIkit.core.properties import IntProperty, PaletteProperty, StringProper
 from PyQtUIkit.widgets.vbox_layout import KitVBoxLayout
 from PyQtUIkit.widgets.hbox_layout import KitHBoxLayout
 from PyQtUIkit.widgets.scroll_area import KitScrollArea
-from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
+from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
 class KitTreeWidgetItem(QVBoxLayout, _KitWidget):

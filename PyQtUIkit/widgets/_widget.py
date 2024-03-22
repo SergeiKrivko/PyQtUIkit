@@ -2,7 +2,7 @@ from PyQtUIkit.core.properties import PaletteProperty, IntProperty
 from PyQtUIkit.themes import ThemeManager
 
 
-class KitWidget:
+class _KitWidget:
     main_palette = PaletteProperty('main_palette')
 
     def __init__(self):
@@ -63,7 +63,7 @@ class KitGroup:
         return len(self.__items)
 
 
-class KitGroupItem(KitWidget):
+class KitGroupItem(_KitWidget):
     radius = IntProperty('radius', 4)
     border = IntProperty('border', 1)
 

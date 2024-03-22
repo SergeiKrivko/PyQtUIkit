@@ -99,4 +99,8 @@ QPushButton::disabled {{
 QPushButton::checked {{
     background-color: {self.main_palette.selected};
     border: {self.border}px solid {self._tm['Border'].selected};
+}}
+QPushButton::menu-indicator {{
+    image: none;
+    subcontrol-position: right;
 }}""")

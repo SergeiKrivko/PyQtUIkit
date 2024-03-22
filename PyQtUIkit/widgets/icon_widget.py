@@ -3,7 +3,7 @@ from PyQt6.QtGui import QPainter
 from PyQt6.QtWidgets import QWidget, QSizePolicy
 
 from PyQtUIkit.core.properties import IconProperty, IntProperty, PaletteProperty
-from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
+from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
 class KitIconWidget(QWidget, _KitWidget):

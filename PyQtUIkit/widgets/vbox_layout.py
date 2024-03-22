@@ -2,7 +2,7 @@ from PyQt6.QtCore import QMargins
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
 
 from PyQtUIkit.core.properties import IntProperty
-from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
+from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
 class KitVBoxLayout(QWidget, _KitWidget):

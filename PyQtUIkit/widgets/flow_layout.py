@@ -3,7 +3,7 @@ from PyQt6.QtCore import Qt, QRect, QSize, QPoint
 from PyQt6.QtWidgets import QSizePolicy
 
 from PyQtUIkit.core.properties import IntProperty
-from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
+from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
 class KitFlowLayout(QWidget, _KitWidget):

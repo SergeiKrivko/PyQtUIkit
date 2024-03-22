@@ -6,7 +6,7 @@ from PyQt6.QtGui import QFontMetrics
 
 from PyQtUIkit.core.properties import IntProperty, PaletteProperty, IconProperty
 from PyQtUIkit.themes import KitPalette
-from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
+from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 from PyQtUIkit.widgets.icon_widget import KitIconWidget
 from PyQtUIkit.widgets.button import KitIconButton, KitButton
 from PyQtUIkit.widgets.scroll_area import KitScrollArea

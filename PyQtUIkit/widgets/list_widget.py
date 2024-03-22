@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QListWidget
 
 from PyQtUIkit.core.properties import IntProperty, StringProperty, ColorProperty
-from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
+from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
 class KitListWidget(QListWidget, _KitWidget):

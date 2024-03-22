@@ -2,7 +2,7 @@ from PyQt6.QtCore import QPropertyAnimation
 from PyQt6.QtWidgets import QProgressBar
 
 from PyQtUIkit.core.properties import IntProperty, PaletteProperty, BoolProperty, StringProperty
-from PyQtUIkit.widgets._widget import KitWidget as _KitWidget
+from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
 class KitProgressBar(QProgressBar, _KitWidget):
