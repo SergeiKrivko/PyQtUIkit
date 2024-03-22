@@ -1,7 +1,7 @@
 from PyQtUIkit.themes.theme import KitTheme, KitPalette
 
 basic_theme = KitTheme({
-    'Transparent': KitPalette('#00000000', '#00000030', '#00000060', '#222222'),
+    'Transparent': KitPalette('#00FFFFFF', '#30FFFFFF', '#60FFFFFF', '#222222'),
 
     'Main': KitPalette('#FFFFFF', '#DFE1E5', '#CFDEFC', '#222222'),
     'Bg': KitPalette('#ECF5F9', '#CBCDCF', '#5283C9', '#222222'),
@@ -21,7 +21,7 @@ basic_theme = KitTheme({
 builtin_themes = {
     'Light': basic_theme,
     'Dark': KitTheme({
-        'Transparent': KitPalette('#00000000', '#00000030', '#00000060', '#F0F0F0'),
+        'Transparent': KitPalette('#00FFFFFF', '#30FFFFFF', '#60FFFFFF', '#F0F0F0'),
         'Main': KitPalette('#2B2D30', '#3E4145', '#2E436E', '#F0F0F0'),
         'Bg': KitPalette('#141517', '#222345', '#323466', '#F0F0F0'),
         'Menu': KitPalette('#1F2024', '#4E5157', '#3573F0', '#F0F0F0'),
@@ -33,7 +33,7 @@ builtin_themes = {
         is_dark=True),
 
     'Orange': KitTheme({
-        'Transparent': KitPalette('#00000000', '#00000030', '#00000060', '#000000'),
+        'Transparent': KitPalette('#00FFFFFF', '#30FFFFFF', '#60FFFFFF', '#000000'),
         'Main': KitPalette('#F2D7AD', '#F2CE9C', '#FFCB99', '#000000'),
         'Bg': KitPalette('#F0F0F0', '#E3D2C8', '#E3C3AE', '#000000'),
         'Menu': KitPalette('#F28B41', '#E3823D', '#E0651B', '#000000'),
@@ -43,7 +43,7 @@ builtin_themes = {
         is_dark=False),
 
     'Winter': KitTheme({
-        'Transparent': KitPalette('#00000000', '#00000030', '#00000060', '#191C42'),
+        'Transparent': KitPalette('#00FFFFFF', '#30FFFFFF', '#60FFFFFF', '#191C42'),
         'Main': KitPalette('#B4D2FA', '#93BBFA', '#4BA7FA', '#191C42'),
         'Bg': KitPalette('#EEEEEE', '#D1D1D1', '#7798C7', '#191C42'),
         'Menu': KitPalette('#7798C7', '#5787C7', '#2971C7', '#191C42'),
