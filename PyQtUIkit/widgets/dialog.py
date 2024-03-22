@@ -14,7 +14,7 @@ class KitDialog(QDialog, _KitWidget):
 
     def __init__(self, parent):
         super().__init__()
-        self._main_palette = 'Main'
+        self._main_palette = 'Bg'
         self._parent = parent
         self.setWindowFlag(Qt.WindowType.FramelessWindowHint)
 
