@@ -22,9 +22,12 @@ class KitScrollArea(QScrollArea, _KitWidget):
         if hasattr(w, '_set_tm'):
             w._set_tm(self._tm)
 
-    def scrollTo(self, x=0, y=0, anim=False):
-        self.horizontalScrollBar().setValue(x)
-        self.verticalScrollBar().setValue(y)
+    def scrollTo(self, x=0, y=0, animation=False):
+        if isinstance(self.__anim, QPropertyAnimation) and not self.__anim.finished:
+            self.__anim.stop()
+        self.__scroll_x = x
+        self.__scroll_y = y
+        self._scroll(animation)
 
     def scroll(self, dx=0, dy=0, animation=True):
         if isinstance(self.__anim, QPropertyAnimation) and not self.__anim.finished:
@@ -34,20 +37,24 @@ class KitScrollArea(QScrollArea, _KitWidget):
             self.__scroll_y = self.verticalScrollBar().value()
         self.__scroll_x += dx
         self.__scroll_y += dy
+        self._scroll(animation)
+
+    def _scroll(self, animation=False):
         if animation:
             self.__anim = QParallelAnimationGroup()
-            if dx:
-                anim = QPropertyAnimation(self.horizontalScrollBar(), b'value')
-                anim.setEndValue(self.__scroll_x + dx)
-                self.__anim.addAnimation(anim)
-            if dy:
-                anim = QPropertyAnimation(self.verticalScrollBar(), b'value')
-                anim.setEndValue(self.__scroll_y + dy)
-                self.__anim.addAnimation(anim)
+
+            anim = QPropertyAnimation(self.horizontalScrollBar(), b'value')
+            anim.setEndValue(self.__scroll_x)
+            self.__anim.addAnimation(anim)
+
+            anim = QPropertyAnimation(self.verticalScrollBar(), b'value')
+            anim.setEndValue(self.__scroll_y)
+            self.__anim.addAnimation(anim)
+
             self.__anim.start()
         else:
-            self.horizontalScrollBar().setValue(self.__scroll_x + dx)
-            self.verticalScrollBar().setValue(self.__scroll_y + dy)
+            self.horizontalScrollBar().setValue(self.__scroll_x)
+            self.verticalScrollBar().setValue(self.__scroll_y)
 
     def _set_tm(self, tm):
         super()._set_tm(tm)
