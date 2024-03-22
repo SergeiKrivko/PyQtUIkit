@@ -2,7 +2,7 @@ from PyQt6.QtCore import pyqtSignal, Qt, QPoint, QPropertyAnimation, QEasingCurv
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout, QMenu, QHBoxLayout, QApplication
 
-from PyQtUIkit.core.properties import IconProperty
+from PyQtUIkit.core.properties import IconProperty, LiteralProperty
 from PyQtUIkit.core.properties import IntProperty, PaletteProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget, KitGroupItem as _KitGroupItem
 from PyQtUIkit.widgets.icon_widget import KitIconWidget
@@ -13,6 +13,7 @@ from PyQtUIkit.widgets.vbox_layout import KitVBoxLayout
 class KitComboBoxItem(QPushButton, _KitWidget):
     selected = pyqtSignal(object)
     icon = IconProperty('icon')
+    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
 
     def __init__(self, name, value=None, icon=''):
         super().__init__()
@@ -61,6 +62,7 @@ class KitComboBox(QPushButton, _KitGroupItem):
     main_palette = PaletteProperty('main_palette', 'Main')
     type = IntProperty('type', 1)
     icon = IconProperty('icon')
+    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
 
     currentIndexChanged = pyqtSignal(object)
     currentValueChanged = pyqtSignal(object)
@@ -154,7 +156,7 @@ class KitComboBox(QPushButton, _KitGroupItem):
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
-        self.setFont(self._tm.font_medium)
+        self.setFont(self._tm.font(self.font_size))
         self.setStyleSheet(f"""
 QPushButton {{
     color: {self.main_palette.text};
@@ -183,6 +185,8 @@ QPushButton::checked {{
 
 
 class _ComboBoxMenu(QMenu, _KitWidget):
+    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
+
     def __init__(self):
         super().__init__()
         main_layout = QVBoxLayout()

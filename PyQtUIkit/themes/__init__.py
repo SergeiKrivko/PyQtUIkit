@@ -60,6 +60,15 @@ class ThemeManager:
     def font_mono(self):
         return self._font_mono
 
+    def font(self, size):
+        match size:
+            case 'small':
+                return self._font_small
+            case 'medium':
+                return self._font_medium
+            case 'big':
+                return self._font_big
+
     def _set_active(self):
         self.__active = KitTheme
 

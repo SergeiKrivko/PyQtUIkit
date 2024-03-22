@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QTextEdit
 
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty
+from PyQtUIkit.core.properties import IntProperty, PaletteProperty, LiteralProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
@@ -8,6 +8,7 @@ class KitTextEdit(QTextEdit, _KitWidget):
     main_palette = PaletteProperty('main_palette', 'Main')
     border = IntProperty('border', 1)
     radius = IntProperty('radius', 4)
+    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
 
     def __init__(self):
         super().__init__()
@@ -15,7 +16,7 @@ class KitTextEdit(QTextEdit, _KitWidget):
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
-        self.setFont(self._tm.font_medium)
+        self.setFont(self._tm.font(self.font_size))
         self.setStyleSheet(f"""
 QTextEdit {{
     color: {self.main_palette.text};

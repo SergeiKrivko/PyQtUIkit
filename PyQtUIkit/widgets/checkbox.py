@@ -1,13 +1,14 @@
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QPushButton, QSizePolicy
 
-from PyQtUIkit.core.properties import PaletteProperty
+from PyQtUIkit.core.properties import PaletteProperty, LiteralProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 from PyQtUIkit.widgets.button import KitIconButton
 
 
 class KitCheckBox(QWidget, _KitWidget):
     main_palette = PaletteProperty('main_palette', 'Main')
+    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
 
     stateChanged = pyqtSignal(bool)
 
@@ -58,7 +59,7 @@ class KitCheckBox(QWidget, _KitWidget):
             return
         self.__button.main_palette = self.main_palette
         self.__button._apply_theme()
-        self.__label.setFont(self._tm.font_medium)
+        self.__label.setFont(self._tm.font(self.font_size))
         self.__label.setStyleSheet(f"""
         QPushButton {{
             color: {self.main_palette.text};

@@ -1,7 +1,7 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout
 
-from PyQtUIkit.core.properties import IconProperty
+from PyQtUIkit.core.properties import IconProperty, LiteralProperty
 from PyQtUIkit.core.properties import IntProperty, PaletteProperty
 from PyQtUIkit.themes import ThemeManager
 from PyQtUIkit.widgets import KitIconWidget
@@ -11,6 +11,7 @@ from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem
 class KitButton(QPushButton, _KitGroupItem):
     main_palette = PaletteProperty('main_palette', 'Main')
     icon = IconProperty('icon')
+    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
 
     def __init__(self, text='', icon=None):
         super().__init__()
@@ -23,7 +24,7 @@ class KitButton(QPushButton, _KitGroupItem):
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
-        self.setFont(self._tm.font_medium)
+        self.setFont(self._tm.font(self.font_size))
         self.setStyleSheet(f"""
 QPushButton {{
     color: {self.main_palette.text};

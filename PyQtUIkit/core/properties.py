@@ -124,3 +124,22 @@ class PaletteProperty(property):
             setattr(obj, self._id, value)
 
         super().__init__(getter, setter)
+
+
+class LiteralProperty(property):
+    def __init__(self, name, values: list):
+        self._id = '_' + (str(name) or str(uuid4()).replace('-', '_'))
+        self._values = values
+
+        def getter(obj) -> str:
+            try:
+                return getattr(obj, self._id)
+            except AttributeError:
+                return values[0]
+
+        def setter(obj, value: str):
+            if value not in self._values:
+                raise ValueError(f"Invalid value: {name} must be one of {repr(values)}")
+            setattr(obj, self._id, str(value))
+
+        super().__init__(getter, setter)

@@ -3,7 +3,7 @@ from PyQt6.QtGui import QFontMetrics
 from PyQt6.QtWidgets import QLabel, QPushButton, QHBoxLayout, QSizePolicy
 
 from PyQtUIkit.core.icon import KitIcon
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty, IconProperty
+from PyQtUIkit.core.properties import IntProperty, PaletteProperty, IconProperty, LiteralProperty
 from PyQtUIkit.widgets import KitVBoxLayout, KitIconButton, KitIconWidget
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
@@ -11,6 +11,7 @@ from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 class KitNavigationButton(QPushButton, _KitWidget):
     main_palette = PaletteProperty('main_palette', 'Main')
     icon = IconProperty('icon')
+    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
 
     selected = pyqtSignal()
 
@@ -64,7 +65,7 @@ class KitNavigationButton(QPushButton, _KitWidget):
         self._set_expanded(not self.__label.isHidden())
         self.setFixedHeight(self._size)
         self.__icon.setFixedSize(self._size - 8, self._size - 8)
-        self.__label.setFont(self._tm.font_medium)
+        self.__label.setFont(self._tm.font(self.font_size))
         self.setStyleSheet(f"""
 QPushButton {{
     color: {self.main_palette.text};
