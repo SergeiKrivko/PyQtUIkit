@@ -101,6 +101,11 @@ class KitDialog(QDialog, _KitWidget):
         dialog.exec()
 
     @staticmethod
+    def warning(parent, title: str, text: str):
+        dialog = _KitMessageBox(parent, title, text, 'solid-triangle-exclamation', parent._tm['Warning'].main)
+        dialog.exec()
+
+    @staticmethod
     def success(parent, title: str, text: str):
         dialog = _KitMessageBox(parent, title, text, 'solid-circle-check', parent._tm['Success'].main)
         dialog.exec()
