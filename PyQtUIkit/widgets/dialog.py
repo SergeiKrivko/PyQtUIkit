@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel
 
 from PyQtUIkit.core.properties import PaletteProperty, BoolProperty, StringProperty, IconProperty
 from PyQtUIkit.themes import KitPalette
-from PyQtUIkit.widgets import KitIconButton, KitHBoxLayout, KitVBoxLayout, KitButton, KitIconWidget
+from PyQtUIkit.widgets import KitIconButton, KitHBoxLayout, KitVBoxLayout, KitButton, KitIconWidget, KitLabel
 from PyQtUIkit.widgets._widget import _KitWidget
 
 
@@ -127,7 +127,7 @@ class _KitAskDialog(KitDialog):
         self._icon_widget.setFixedSize(72, 72)
         layout.addWidget(self._icon_widget)
 
-        self._label = QLabel(question)
+        self._label = KitLabel(question)
         self._label.setWordWrap(True)
         layout.addWidget(self._label, 100)
 
@@ -182,7 +182,7 @@ class _KitMessageBox(KitDialog):
         self._icon_widget.setFixedSize(72, 72)
         layout.addWidget(self._icon_widget)
 
-        self._label = QLabel(text)
+        self._label = KitLabel(text)
         self._label.setWordWrap(True)
         layout.addWidget(self._label, 100)
 
