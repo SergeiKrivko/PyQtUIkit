@@ -1,11 +1,12 @@
 from PyQt6.QtWidgets import QLineEdit
 
-from PyQtUIkit.core.properties import PaletteProperty
+from PyQtUIkit.core.properties import PaletteProperty, LiteralProperty
 from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem
 
 
 class KitLineEdit(QLineEdit, _KitGroupItem):
     main_palette = PaletteProperty('main_palette', 'Main')
+    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
 
     def __init__(self, text=''):
         super().__init__(text)
@@ -16,7 +17,7 @@ class KitLineEdit(QLineEdit, _KitGroupItem):
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
-        self.setFont(self._tm.font_medium)
+        self.setFont(self._tm.font(self.font_size))
         self.setStyleSheet(f"""
 QLineEdit {{
     color: {self.main_palette.text};

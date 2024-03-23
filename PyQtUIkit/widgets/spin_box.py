@@ -1,7 +1,7 @@
 from PyQt6.QtCore import pyqtSignal, Qt
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLineEdit, QVBoxLayout, QPushButton, QSizePolicy
 
-from PyQtUIkit.core.properties import IntProperty, ColorProperty
+from PyQtUIkit.core.properties import IntProperty, ColorProperty, LiteralProperty
 from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem, KitGroup as _KitGroup
 
 
@@ -9,6 +9,7 @@ class KitSpinBox(QWidget, _KitGroupItem):
     border = IntProperty('border', 1)
     radius = IntProperty('radius', 4)
     valueChanged = pyqtSignal(object)
+    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
 
     def __init__(self, func=int):
         super().__init__()
@@ -119,7 +120,7 @@ class KitSpinBox(QWidget, _KitGroupItem):
             return
         orientation, position = self._group()
         self._line_edit.setFixedHeight(self.height())
-        self._line_edit.setFont(self._tm.font_medium)
+        self._line_edit.setFont(self._tm.font(self.font_size))
         self._line_edit.setStyleSheet(f"""
         QLineEdit {{
             color: {self.main_palette.text};

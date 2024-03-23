@@ -4,7 +4,7 @@ from PyQt6 import QtGui
 from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QMenu
 
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty, IconProperty
+from PyQtUIkit.core.properties import IntProperty, PaletteProperty, IconProperty, LiteralProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
@@ -48,6 +48,7 @@ class KitMenu(QMenu, _KitWidget):
     border = IntProperty('border', 0)
     radius = IntProperty('radius', 4)
     icon = IconProperty('icon')
+    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
 
     def __init__(self, parent):
         super().__init__()
@@ -73,7 +74,7 @@ class KitMenu(QMenu, _KitWidget):
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
-        self.setFont(self._tm.font_medium)
+        self.setFont(self._tm.font(self.font_size))
         self.setStyleSheet(f"""
 QMenu {{
     color: {self.main_palette.text};

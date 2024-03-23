@@ -88,6 +88,7 @@ QPushButton::checked {{
 class KitNavigation(KitVBoxLayout):
     button_size = IntProperty('button_size', 30)
     button_radius = IntProperty('button_radius', 4)
+    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
 
     currentChanged = pyqtSignal(int)
 
@@ -183,6 +184,7 @@ class KitNavigation(KitVBoxLayout):
         self.__button.size = self.button_size
         for el in self.__tabs:
             el.main_palette = self.main_palette
+            el.font_size = self.font_size
             el._size = self.button_size
             el._radius = self.button_radius
         super()._apply_theme()

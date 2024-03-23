@@ -2,13 +2,14 @@ from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QFontMetrics
 from PyQt6.QtWidgets import QLabel, QPushButton, QHBoxLayout, QSizePolicy
 
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty
+from PyQtUIkit.core.properties import IntProperty, PaletteProperty, LiteralProperty
 from PyQtUIkit.widgets import KitVBoxLayout, KitHBoxLayout
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
 class KitRadioButton(QPushButton, _KitWidget):
     main_palette = PaletteProperty('Bg')
+    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
 
     selected = pyqtSignal()
 
@@ -45,7 +46,7 @@ class KitRadioButton(QPushButton, _KitWidget):
             self.selected.emit()
 
     def _apply_theme(self):
-        self.__label.setFont(self._tm.font_medium)
+        self.__label.setFont(self._tm.font(self.font_size))
         fm = QFontMetrics(self.__label.font())
         fm.size(0, self.__label.text())
         self.setFixedWidth(34 + fm.size(0, self.__label.text()).width())
@@ -72,6 +73,7 @@ QPushButton::checked {{
 
 class KitVRadio(KitVBoxLayout):
     button_height = IntProperty('button_size', 24)
+    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
 
     currentChanged = pyqtSignal(int)
 
@@ -122,12 +124,14 @@ class KitVRadio(KitVBoxLayout):
     def _apply_theme(self):
         for el in self.__items:
             el.main_palette = self.main_palette
+            el.font_size = self.font_size
             el._size = self.button_height
         super()._apply_theme()
 
 
 class KitHRadio(KitHBoxLayout):
     button_height = IntProperty('button_size', 24)
+    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
 
     currentChanged = pyqtSignal(int)
 
@@ -178,5 +182,6 @@ class KitHRadio(KitHBoxLayout):
     def _apply_theme(self):
         for el in self.__items:
             el.main_palette = self.main_palette
+            el.font_size = self.font_size
             el._size = self.button_height
         super()._apply_theme()
