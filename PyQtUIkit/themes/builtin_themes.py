@@ -5,7 +5,7 @@ basic_theme = KitTheme({
 
     'Main': KitPalette('#FFFFFF', '#DFE1E5', '#CFDEFC', '#222222'),
     'Bg': KitPalette('#ECF5F9', '#CBCDCF', '#5283C9', '#222222'),
-    'Menu': KitPalette('#F7F8FA', '#DFE1E5', '#3573F0', '#222222'),
+    'Menu': KitPalette('#C4CBCF', '#9DA3A6', '#3B81F0', '#222222'),
     'Border': KitPalette('#BFC0C2', '#A6A7A8', '#52AFDE', '#222222'),
     'Success': KitPalette('#B3D635', '#D0FA3E', '#41D431', '#222222'),
     'SuccessText': KitPalette('#00FFFFFF', text='#2A8018'),

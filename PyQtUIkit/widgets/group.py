@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QWidget, QHBoxLayout
+from PyQt6.QtWidgets import QWidget, QHBoxLayout, QSizePolicy
 
 from PyQtUIkit.core.properties import IntProperty, PaletteProperty
 from PyQtUIkit.widgets import KitHBoxLayout, KitIconButton, KitVBoxLayout
@@ -16,6 +16,7 @@ class KitHGroup(KitHBoxLayout):
         self.setFixedHeight(self.height)
         self.setSpacing(0)
         self.__group = _KitGroup(_KitGroup.HORIZONTAL)
+        self.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
 
     def addItem(self, item: (QWidget, _KitGroupItem)):
         super().addWidget(item)
