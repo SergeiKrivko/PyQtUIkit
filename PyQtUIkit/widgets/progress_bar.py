@@ -36,6 +36,8 @@ class KitProgressBar(QProgressBar, _KitWidget):
             super().setTextVisible(False)
 
     def _apply_theme(self):
+        if not self._tm or not self._tm.active:
+            return
         self.setFont(self._tm.font_medium)
         if self.mode == 'l':
             self.setFixedHeight(24)
