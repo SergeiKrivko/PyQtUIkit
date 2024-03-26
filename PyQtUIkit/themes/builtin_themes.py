@@ -8,9 +8,9 @@ basic_theme = KitTheme({
     'Menu': KitPalette('#F7F8FA', '#DFE1E5', '#3573F0', '#222222'),
     'Border': KitPalette('#BFC0C2', '#A6A7A8', '#52AFDE', '#222222'),
     'Success': KitPalette('#B3D635', '#D0FA3E', '#41D431', '#222222'),
-    'SuccessText': KitPalette('#00FFFFFF', text='#AB8618'),
+    'SuccessText': KitPalette('#00FFFFFF', text='#2A8018'),
     'Warning': KitPalette('#E3C920', '#CFB71D', '#C7891E', '#222222'),
-    'WarningText': KitPalette('#00FFFFFF', text='#2A8018'),
+    'WarningText': KitPalette('#00FFFFFF', text='#AB8618'),
     'Danger': KitPalette('#E33838', '#FC3E3E', '#FC1414', '#222222'),
     'DangerText': KitPalette('#00FFFFFF', text='#B51702'),
 

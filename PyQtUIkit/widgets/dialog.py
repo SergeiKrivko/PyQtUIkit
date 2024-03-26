@@ -97,17 +97,20 @@ class KitDialog(QDialog, _KitWidget):
 
     @staticmethod
     def danger(parent, title: str, text: str):
-        dialog = _KitMessageBox(parent, title, text, 'solid-circle-exclamation', parent._tm['Danger'].main)
+        dialog = _KitMessageBox(parent, title, text, 'solid-circle-exclamation')
+        dialog.icon_palette = 'DangerText'
         dialog.exec()
 
     @staticmethod
     def warning(parent, title: str, text: str):
-        dialog = _KitMessageBox(parent, title, text, 'solid-triangle-exclamation', parent._tm['Warning'].main)
+        dialog = _KitMessageBox(parent, title, text, 'solid-triangle-exclamation')
+        dialog.icon_palette = 'WarningText'
         dialog.exec()
 
     @staticmethod
     def success(parent, title: str, text: str):
-        dialog = _KitMessageBox(parent, title, text, 'solid-circle-check', parent._tm['Success'].main)
+        dialog = _KitMessageBox(parent, title, text, 'solid-circle-check')
+        dialog.icon_palette = 'SuccessText'
         dialog.exec()
 
 
@@ -163,13 +166,13 @@ class _KitAskDialog(KitDialog):
 class _KitMessageBox(KitDialog):
     text = StringProperty('text', '')
     icon = IconProperty('icon')
+    icon_palette = PaletteProperty('icon_palette', 'Transparent')
 
-    def __init__(self, parent, title: str, text: str, icon: str, color=None):
+    def __init__(self, parent, title: str, text: str, icon: str):
         super().__init__(parent)
         self._name = title
         self._icon = icon
         self._text = text
-        self._color = color
         self.button_close = True
 
         self.setMinimumSize(300, 120)
@@ -205,5 +208,5 @@ class _KitMessageBox(KitDialog):
     def _apply_theme(self):
         self._label.setText(self.text)
         self._icon_widget.icon = self._icon
-        self._icon_widget.main_palette = KitPalette('#00FFFFFF', text=self._color or self.main_palette.text)
+        self._icon_widget.main_palette = self.icon_palette
         super()._apply_theme()
