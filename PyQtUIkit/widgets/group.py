@@ -16,7 +16,7 @@ class KitHGroup(KitHBoxLayout):
         self.setFixedHeight(self.height)
         self.setSpacing(0)
         self.__group = _KitGroup(_KitGroup.HORIZONTAL)
-        self.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+        self.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
     def addItem(self, item: (QWidget, _KitGroupItem)):
         super().addWidget(item)

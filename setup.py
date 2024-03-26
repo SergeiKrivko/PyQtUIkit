@@ -38,6 +38,11 @@ if __name__ == '__main__':
         package_data={
             '': ['fonts/*.ttf'],
         },
+        entry_points={
+            'console_scripts': [
+                'kit-icons = PyQtUIkit._icons:main'
+            ]
+        },
         description='A PyQtUIkit package.',
         install_requires=requirements(),
         python_requires='>=3.10'
