@@ -33,15 +33,16 @@ else:
             super().__init__([])
             import asyncio
 
-            event_loop = qasync.QEventLoop(self)
-            asyncio.set_event_loop(event_loop)
+            self.__event_loop = qasync.QEventLoop(super())
+            asyncio.set_event_loop(self.__event_loop)
 
-            app_close_event = asyncio.Event()
-            self.aboutToQuit.connect(app_close_event.set)
+            self.__app_close_event = asyncio.Event()
+            self.aboutToQuit.connect(self.__app_close_event.set)
 
             self._window = window()
             self._window.show()
             sys.excepthook = except_hook
 
-            with event_loop:
-                event_loop.run_until_complete(app_close_event.wait())
+        def exec(self):
+            with self.__event_loop:
+                self.__event_loop.run_until_complete(self.__app_close_event.wait())

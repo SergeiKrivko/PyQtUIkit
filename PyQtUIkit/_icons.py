@@ -4,12 +4,8 @@ from time import sleep
 from PyQt6.QtCore import QThread, pyqtSignal
 from PyQt6.QtWidgets import QApplication, QListWidgetItem, QSizePolicy
 
-from PyQtUIkit.themes import icons, KitPalette
+from PyQtUIkit.themes import icons
 from PyQtUIkit.widgets import *
-
-
-def except_hook(cls, exception, traceback):
-    sys.__excepthook__(cls, exception, traceback)
 
 
 class MainWindow(KitMainWindow):
@@ -127,11 +123,7 @@ class Searcher(QThread):
 
 
 def main():
-    app = QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
-    sys.excepthook = except_hook
-    sys.exit(app.exec())
+    sys.exit(KitApplication(MainWindow).exec())
 
 
 if __name__ == '__main__':
