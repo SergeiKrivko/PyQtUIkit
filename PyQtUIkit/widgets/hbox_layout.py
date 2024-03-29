@@ -22,6 +22,8 @@ class KitHBoxLayout(QWidget, _KitWidget):
         strange_layout.addWidget(strange_widget)
 
         self.__layout = QHBoxLayout()
+        self.__layout.setContentsMargins(0, 0, 0, 0)
+        self.__layout.setSpacing(0)
         strange_widget.setLayout(self.__layout)
 
     def addWidget(self, widget: QWidget, stretch: int = None, alignment=None):

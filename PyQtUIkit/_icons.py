@@ -16,19 +16,21 @@ class MainWindow(KitMainWindow):
     def __init__(self):
         super().__init__()
         self.set_theme('Dark')
-        self.resize(480, 320)
+        self.resize(640, 480)
         self.__searcher = None
 
         main_layout = KitHBoxLayout()
+        main_layout.setContentsMargins(10, 10, 10, 10)
+        main_layout.setSpacing(10)
         self.setCentralWidget(main_layout)
 
         right_layout = KitVBoxLayout()
-        right_layout.setMaximumWidth(220)
-        right_layout.setContentsMargins(0, 0, 0, 0)
+        right_layout.setMaximumWidth(300)
+        right_layout.setSpacing(10)
         main_layout.addWidget(right_layout, 1)
 
         top_layout = KitHBoxLayout()
-        top_layout.setContentsMargins(0, 0, 0, 0)
+        top_layout.setSpacing(10)
         top_layout.setFixedHeight(24)
         right_layout.addWidget(top_layout)
 
@@ -52,7 +54,6 @@ class MainWindow(KitMainWindow):
         self.update_icons()
 
         right_layout = KitVBoxLayout()
-        right_layout.setContentsMargins(0, 0, 0, 0)
         main_layout.addWidget(right_layout)
 
         self.icon_widget = KitIconWidget()

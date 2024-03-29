@@ -28,3 +28,5 @@ pip install PyQtUIkit
 - [Group](doc%2Fgroup.md)
 - [Navigation](doc%2Fnavigation.md)
 - [Radio](doc%2Fradio.md)
+- TextEdit
+- [Dialog](doc%2Fdialog.md)

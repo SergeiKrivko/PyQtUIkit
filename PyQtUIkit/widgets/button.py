@@ -66,12 +66,11 @@ class KitIconButton(QPushButton, _KitGroupItem):
         self._icon = icon
         self.setCursor(Qt.CursorShape.PointingHandCursor)
 
-        layout = QVBoxLayout()
-        layout.setContentsMargins(*[min(6, self.size // 5)] * 4)
-        self.setLayout(layout)
+        self.__layout = QVBoxLayout()
+        self.setLayout(self.__layout)
 
         self._icon_label = KitIconWidget()
-        layout.addWidget(self._icon_label)
+        self.__layout.addWidget(self._icon_label)
 
     def _set_tm(self, tm: ThemeManager):
         super()._set_tm(tm)
@@ -82,6 +81,7 @@ class KitIconButton(QPushButton, _KitGroupItem):
             return
         self._icon_label.icon = self.icon
         self.setFixedSize(self.size, self.size)
+        self.__layout.setContentsMargins(*[self.size // 5] * 4)
         self.setStyleSheet(f"""
 QPushButton {{
     background-color: {self.main_palette.main};
