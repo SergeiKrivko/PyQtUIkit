@@ -123,6 +123,7 @@ class _KitAskDialog(KitDialog):
         self.setMinimumSize(300, 120)
 
         main_layout = KitVBoxLayout()
+        main_layout.setContentsMargins(10, 10, 10, 10)
         self.setWidget(main_layout)
 
         layout = KitHBoxLayout()
@@ -178,6 +179,7 @@ class _KitMessageBox(KitDialog):
         self.setMinimumSize(300, 120)
 
         main_layout = KitVBoxLayout()
+        main_layout.setContentsMargins(10, 10, 10, 10)
         self.setWidget(main_layout)
 
         layout = KitHBoxLayout()
@@ -193,17 +195,6 @@ class _KitMessageBox(KitDialog):
         self._label = KitLabel(text)
         self._label.setWordWrap(True)
         layout.addWidget(self._label, 100)
-
-        # buttons_layout = KitHBoxLayout()
-        # buttons_layout.setAlignment(Qt.AlignmentFlag.AlignRight)
-        # buttons_layout.setContentsMargins(0, 0, 0, 0)
-        # main_layout.addWidget(buttons_layout)
-        #
-        # button = KitButton('Ok')
-        # button.setMinimumSize(100, 24)
-        # buttons_layout.addWidget(button)
-        # button.clicked.connect(lambda f, a=el: self._on_button_clicked(a))
-        # self._buttons[el] = button
 
     def _apply_theme(self):
         self._label.setText(self.text)
