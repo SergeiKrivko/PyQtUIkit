@@ -23,3 +23,4 @@ from PyQtUIkit.widgets.radio import KitVRadio, KitHRadio
 from PyQtUIkit.widgets.tabs import KitTabLayout
 from PyQtUIkit.widgets.text_edit import KitTextEdit
 from PyQtUIkit.widgets.dialog import KitDialog
+from PyQtUIkit.widgets.application import KitApplication, KitAsyncApplication
