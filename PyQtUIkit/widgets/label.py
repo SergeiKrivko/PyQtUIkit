@@ -12,6 +12,7 @@ class KitLabel(QLabel, _KitWidget):
 
     def __init__(self, text=''):
         super().__init__(text)
+        self._use_text_only = True
 
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
@@ -19,8 +20,7 @@ class KitLabel(QLabel, _KitWidget):
         self.setFont(self._tm.font(self.font_size))
         self.setStyleSheet(f"""
         QWidget {{
-            color: {self.main_palette.text};
-            background-color: {self.main_palette.main};
-            border: {self.border}px solid {self._tm.get('Border').main};
-            border-radius: {self.radius}px;
+            color: {self.main_palette.text_only if self._use_text_only else self.main_palette.text};
+            background-color: transparent;
+            border: none;
         }}""")

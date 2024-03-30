@@ -21,6 +21,7 @@ class ThemeManager:
         self._font_small = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeSmall'))
         self._font_medium = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeMedium'))
         self._font_big = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeBig'))
+        self._font_super_big = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeSuperBig'))
         self._font_mono = QFont(self.__current_theme.get('FontMono'), self.__current_theme.get('FontSizeMono'))
 
     def add_theme(self, name: str, th: KitTheme):
@@ -34,6 +35,7 @@ class ThemeManager:
         self._font_small = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeSmall'))
         self._font_medium = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeMedium'))
         self._font_big = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeBig'))
+        self._font_super_big = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeSuperBig'))
         self._font_mono = QFont(self.__current_theme.get('FontMono'), self.__current_theme.get('FontSizeMono'))
 
     @property
@@ -57,6 +59,10 @@ class ThemeManager:
         return self._font_big
 
     @property
+    def font_super_big(self):
+        return self._font_super_big
+
+    @property
     def font_mono(self):
         return self._font_mono
 
@@ -68,6 +74,8 @@ class ThemeManager:
                 return self._font_medium
             case 'big':
                 return self._font_big
+            case 'super_big':
+                return self._font_super_big
 
     def _set_active(self):
         self.__active = KitTheme

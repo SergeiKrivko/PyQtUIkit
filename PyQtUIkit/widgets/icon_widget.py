@@ -17,12 +17,15 @@ class KitIconWidget(QWidget, _KitWidget):
         self.__widgets = []
         self.__painter = QPainter()
         self._icon = icon
+        self._use_text_only = True
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
     def paintEvent(self, a0) -> None:
         if self._tm and self._tm.active and self.icon:
             self.__painter.begin(self)
-            pixmap, width, height = self.icon.resized_pixmap(self.main_palette.text, (self.width(), self.height()))
+            pixmap, width, height = self.icon.resized_pixmap(
+                self.main_palette.text_only if self._use_text_only else self.main_palette.text,
+                (self.width(), self.height()))
             self.__painter.drawPixmap((self.width() - width) // 2, (self.height() - height) // 2, width, height, pixmap)
             self.__painter.end()
         super().paintEvent(a0)
@@ -32,9 +35,8 @@ class KitIconWidget(QWidget, _KitWidget):
             return
         self.setStyleSheet(f"""
         QWidget {{
-            background-color: {self.main_palette.main};
-            border: {self.border}px solid {self._tm.get('Border').main};
-            border-radius: {self.radius}px;
+            background-color: transparent;
+            border: none;
         }}
         """)
         self.update()

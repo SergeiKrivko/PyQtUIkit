@@ -41,6 +41,7 @@ class KitTab(QPushButton, _KitWidget):
         self.setLayout(layout)
 
         self.__icon_widget = KitIconWidget(icon)
+        self.__icon_widget._use_icon_only = False
         self.__icon_widget.setFixedSize(18, 18)
         layout.addWidget(self.__icon_widget)
 

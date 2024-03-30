@@ -70,6 +70,7 @@ class KitIconButton(QPushButton, _KitGroupItem):
         self.setLayout(self.__layout)
 
         self._icon_label = KitIconWidget()
+        self._icon._use_icon_only = False
         self.__layout.addWidget(self._icon_label)
 
     def _set_tm(self, tm: ThemeManager):

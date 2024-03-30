@@ -31,6 +31,7 @@ class KitNavigationButton(QPushButton, _KitWidget):
         self.setLayout(self.__layout)
 
         self.__icon = KitIconWidget()
+        self.__icon._use_icon_only = False
         self.__layout.addWidget(self.__icon)
 
         self.__label = QLabel(text)

@@ -22,11 +22,12 @@ class KitTheme:
 
 
 class KitPalette:
-    def __init__(self, main, hover=None, selected=None, text=None):
+    def __init__(self, main, hover=None, selected=None, text=None, text_only=None):
         self.main = main
         self.hover = hover or main
         self.selected = selected or hover or main
         self.text = text or selected or hover or main
+        self.text_only = text_only or text or selected or hover or main
 
     def __str__(self):
-        return f"KitPalette({self.main}, {self.hover}, {self.selected}, {self.text})"
+        return f"KitPalette({self.main}, {self.hover}, {self.selected}, {self.text}, {self.text_only})"
