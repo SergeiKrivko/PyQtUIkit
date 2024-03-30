@@ -98,19 +98,19 @@ class KitDialog(QDialog, _KitWidget):
     @staticmethod
     def danger(parent, title: str, text: str):
         dialog = _KitMessageBox(parent, title, text, 'solid-circle-exclamation')
-        dialog.icon_palette = 'DangerText'
+        dialog.icon_palette = 'Danger'
         dialog.exec()
 
     @staticmethod
     def warning(parent, title: str, text: str):
         dialog = _KitMessageBox(parent, title, text, 'solid-triangle-exclamation')
-        dialog.icon_palette = 'WarningText'
+        dialog.icon_palette = 'Warning'
         dialog.exec()
 
     @staticmethod
     def success(parent, title: str, text: str):
         dialog = _KitMessageBox(parent, title, text, 'solid-circle-check')
-        dialog.icon_palette = 'SuccessText'
+        dialog.icon_palette = 'Success'
         dialog.exec()
 
 

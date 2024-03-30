@@ -64,13 +64,14 @@ class KitIconButton(QPushButton, _KitGroupItem):
         super().__init__()
         self.__widgets = []
         self._icon = icon
+        self._main_palette = 'Main'
         self.setCursor(Qt.CursorShape.PointingHandCursor)
 
         self.__layout = QVBoxLayout()
         self.setLayout(self.__layout)
 
         self._icon_label = KitIconWidget()
-        self._icon._use_icon_only = False
+        self._icon_label._use_text_only = False
         self.__layout.addWidget(self._icon_label)
 
     def _set_tm(self, tm: ThemeManager):
@@ -81,6 +82,7 @@ class KitIconButton(QPushButton, _KitGroupItem):
         if not self._tm or not self._tm.active:
             return
         self._icon_label.icon = self.icon
+        self._icon_label._main_palette = self._main_palette
         self.setFixedSize(self.size, self.size)
         self.__layout.setContentsMargins(*[self.size // 5] * 4)
         self.setStyleSheet(f"""

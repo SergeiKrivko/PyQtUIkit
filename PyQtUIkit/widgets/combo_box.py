@@ -81,7 +81,7 @@ class KitComboBox(QPushButton, _KitGroupItem):
         layout.setContentsMargins(0, 0, 6, 0)
         self.setLayout(layout)
         self._arrow = KitIconWidget('solid-angle-down')
-        self._arrow._use_icon_only = False
+        self._arrow._use_text_only = False
         self._arrow.setFixedSize(16, 12)
         layout.addWidget(self._arrow)
 
