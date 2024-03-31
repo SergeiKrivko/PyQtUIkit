@@ -30,7 +30,7 @@ builtin_themes = {
         'Border': KitPalette('#474747', '#595959', '#2D63CC', '#F0F0F0'),
         'Success': KitPalette('#214514', '#295419', '#397523', '#F0F0F0', '#2A8018'),
         'Warning': KitPalette('#B8901A', '#A17E17', '#8C6E14', '#F0F0F0', '#D9AA1F'),
-        'Danger': KitPalette('#690B0B', '#7A0D0D', '#B31414', '#F0F0F0', '#B51702'),
+        'Danger': KitPalette('#690B0B', '#7A0D0D', '#B31414', '#F0F0F0', '#FA2A08'),
     },
         basic_theme,
         is_dark=True),

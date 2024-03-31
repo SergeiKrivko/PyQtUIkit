@@ -1,3 +1,4 @@
+from enum import Enum
 from uuid import uuid4
 
 from PyQt6.QtGui import QColor
@@ -141,5 +142,25 @@ class LiteralProperty(property):
             if value not in self._values:
                 raise ValueError(f"Invalid value: {name} must be one of {repr(values)}")
             setattr(obj, self._id, str(value))
+
+        super().__init__(getter, setter)
+
+
+class EnumProperty(property):
+    def __init__(self, name, enum, default=0):
+        self._id = '_' + (str(name) or str(uuid4()).replace('-', '_'))
+        self._enum = enum
+        self._default = default
+
+        def getter(obj):
+            try:
+                return getattr(obj, self._id)
+            except AttributeError:
+                return default
+
+        def setter(obj, value: str):
+            if value not in self._enum:
+                raise ValueError(f"Invalid value: {name} must be one of {repr(list(self._enum))}")
+            setattr(obj, self._id, value)
 
         super().__init__(getter, setter)
