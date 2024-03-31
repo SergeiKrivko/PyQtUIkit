@@ -4,7 +4,7 @@ from PyQt6 import QtGui
 from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QMenu
 
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty, IconProperty, LiteralProperty
+from PyQtUIkit.core import IntProperty, PaletteProperty, IconProperty, EnumProperty, FontSize
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
@@ -48,7 +48,7 @@ class KitMenu(QMenu, _KitWidget):
     border = IntProperty('border', 0)
     radius = IntProperty('radius', 4)
     icon = IconProperty('icon')
-    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
+    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
 
     def __init__(self, parent):
         super().__init__()

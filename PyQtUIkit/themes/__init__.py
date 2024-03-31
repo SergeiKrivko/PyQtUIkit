@@ -1,5 +1,6 @@
 from PyQt6.QtGui import QPixmap, QImage, QIcon, QFont, QFontDatabase
 
+from PyQtUIkit.core.font_size import FontSize
 from PyQtUIkit.themes.builtin_themes import basic_theme, builtin_themes
 from PyQtUIkit.themes.icons import icons
 from PyQtUIkit.themes.svg import SVG
@@ -66,15 +67,15 @@ class ThemeManager:
     def font_mono(self):
         return self._font_mono
 
-    def font(self, size):
+    def font(self, size: FontSize):
         match size:
-            case 'small':
+            case FontSize.SMALL:
                 return self._font_small
-            case 'medium':
+            case FontSize.MEDIUM:
                 return self._font_medium
-            case 'big':
+            case FontSize.BIG:
                 return self._font_big
-            case 'super_big':
+            case FontSize.SUPER_BIG:
                 return self._font_super_big
 
     def _set_active(self):

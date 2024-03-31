@@ -1,8 +1,7 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout
 
-from PyQtUIkit.core.properties import IconProperty, LiteralProperty
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty
+from PyQtUIkit.core import IconProperty, EnumProperty, IntProperty, PaletteProperty, FontSize
 from PyQtUIkit.themes import ThemeManager
 from PyQtUIkit.widgets import KitIconWidget
 from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem
@@ -11,7 +10,7 @@ from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem
 class KitButton(QPushButton, _KitGroupItem):
     main_palette = PaletteProperty('main_palette', 'Main')
     icon = IconProperty('icon')
-    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
+    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
 
     def __init__(self, text='', icon=None):
         super().__init__()

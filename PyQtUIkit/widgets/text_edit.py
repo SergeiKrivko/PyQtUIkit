@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import QTextEdit
 
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty, LiteralProperty
+from PyQtUIkit.core import FontSize
+from PyQtUIkit.core.properties import IntProperty, PaletteProperty, EnumProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
@@ -8,7 +9,7 @@ class KitTextEdit(QTextEdit, _KitWidget):
     main_palette = PaletteProperty('main_palette', 'Main')
     border = IntProperty('border', 1)
     radius = IntProperty('radius', 4)
-    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
+    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
 
     def __init__(self):
         super().__init__()

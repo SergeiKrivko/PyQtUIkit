@@ -1,16 +1,22 @@
+from enum import Enum
+
 from PyQt6.QtCore import QPropertyAnimation
 from PyQt6.QtWidgets import QProgressBar
 
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty, BoolProperty, StringProperty
+from PyQtUIkit.core import IntProperty, PaletteProperty, BoolProperty, EnumProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
 class KitProgressBar(QProgressBar, _KitWidget):
+    class Mode(Enum):
+        SMALL = 0
+        LARGE = 1
+
     main_palette = PaletteProperty('main_palette', 'Main')
     border = IntProperty('border', 1)
     radius = IntProperty('radius', 4)
     animations = BoolProperty('animations', True)
-    mode = StringProperty('mode', 'l')
+    mode = EnumProperty('mode', Mode, Mode.LARGE)
 
     def __init__(self):
         super().__init__()
@@ -30,7 +36,7 @@ class KitProgressBar(QProgressBar, _KitWidget):
             
     def setTextVisible(self, visible: bool) -> None:
         self.__text_visible = visible
-        if self.mode == 'l':
+        if self.mode == KitProgressBar.Mode.LARGE:
             super().setTextVisible(visible)
         else:
             super().setTextVisible(False)
@@ -39,7 +45,7 @@ class KitProgressBar(QProgressBar, _KitWidget):
         if not self._tm or not self._tm.active:
             return
         self.setFont(self._tm.font_medium)
-        if self.mode == 'l':
+        if self.mode == KitProgressBar.Mode.LARGE:
             self.setFixedHeight(24)
             self.setTextVisible(self.__text_visible)
             self.setStyleSheet(f"""

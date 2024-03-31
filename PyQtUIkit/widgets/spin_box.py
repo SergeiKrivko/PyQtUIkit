@@ -1,7 +1,7 @@
 from PyQt6.QtCore import pyqtSignal, Qt
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLineEdit, QVBoxLayout, QPushButton, QSizePolicy
 
-from PyQtUIkit.core.properties import IntProperty, ColorProperty, LiteralProperty
+from PyQtUIkit.core import IntProperty, EnumProperty, FontSize
 from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem, KitGroup as _KitGroup
 
 
@@ -9,7 +9,7 @@ class KitSpinBox(QWidget, _KitGroupItem):
     border = IntProperty('border', 1)
     radius = IntProperty('radius', 4)
     valueChanged = pyqtSignal(object)
-    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
+    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
 
     def __init__(self, func=int):
         super().__init__()

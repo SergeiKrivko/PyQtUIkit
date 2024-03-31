@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QLabel
 
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty, LiteralProperty
+from PyQtUIkit.core import IntProperty, PaletteProperty, EnumProperty, FontSize
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
@@ -8,7 +8,7 @@ class KitLabel(QLabel, _KitWidget):
     main_palette = PaletteProperty('main_palette', 'Transparent')
     border = IntProperty('border', 0)
     radius = IntProperty('radius', 4)
-    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
+    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
 
     def __init__(self, text=''):
         super().__init__(text)

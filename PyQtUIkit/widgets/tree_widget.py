@@ -162,10 +162,10 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
         if not self.__root.movable:
             return 
         if self.__move_widget is None:
-            self.__move_widget = _MoveItem(self, self.name, self._icon)
+            self.__move_widget = _MoveItem(self, (self.__button.width(), self._height), self.name, self._icon,
+                                           self._text_palette)
             self.__move_widget.main_palette = self.main_palette
             self.__move_widget.move(self.__button.mapToGlobal(a0.pos()))
-            self.__move_widget.setFixedSize(self.__button.width(), self._height)
             self.__move_widget.show()
         else:
             self.__move_widget.move(self.__move_widget.pos() + a0.pos() - self.__last_pos)
@@ -266,9 +266,10 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
 
 
 class _MoveItem(KitDialog):
-    def __init__(self, parent, name, icon=''):
+    def __init__(self, parent, size: tuple, name, icon='', palette='Main'):
         super().__init__(parent)
         self.button_close = False
+        self.setFixedSize(*size)
 
         main_layout = KitHBoxLayout()
         self.setWidget(main_layout)
@@ -276,8 +277,11 @@ class _MoveItem(KitDialog):
         if icon:
             self._icon_widget = KitIconWidget(icon)
             main_layout.addWidget(self._icon_widget)
+            self._icon_widget.setFixedSize(size[1] - 6, size[1] - 6)
+            self._icon_widget.main_palette = palette
 
         self._label = KitLabel(name)
+        self._label.main_palette = palette
         main_layout.addWidget(self._label)
 
 

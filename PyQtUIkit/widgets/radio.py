@@ -2,14 +2,14 @@ from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QFontMetrics
 from PyQt6.QtWidgets import QLabel, QPushButton, QHBoxLayout, QSizePolicy
 
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty, LiteralProperty
+from PyQtUIkit.core import IntProperty, PaletteProperty, FontSize, EnumProperty
 from PyQtUIkit.widgets import KitVBoxLayout, KitHBoxLayout
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
 class KitRadioButton(QPushButton, _KitWidget):
     main_palette = PaletteProperty('Bg')
-    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
+    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
 
     selected = pyqtSignal()
 
@@ -73,7 +73,7 @@ QPushButton::checked {{
 
 class KitVRadio(KitVBoxLayout):
     button_height = IntProperty('button_size', 24)
-    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
+    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
 
     currentChanged = pyqtSignal(int)
 
@@ -131,7 +131,7 @@ class KitVRadio(KitVBoxLayout):
 
 class KitHRadio(KitHBoxLayout):
     button_height = IntProperty('button_size', 24)
-    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
+    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
 
     currentChanged = pyqtSignal(int)
 

@@ -1,18 +1,16 @@
-from PyQt6.QtWidgets import QWidget, QHBoxLayout, QListWidget
+from PyQt6.QtWidgets import QListWidget
 
-from PyQtUIkit.core.properties import IntProperty, StringProperty, ColorProperty
+from PyQtUIkit.core.properties import IntProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
 class KitListWidget(QListWidget, _KitWidget):
-    border = IntProperty('border', )
-    radius = IntProperty('radius', )
+    border = IntProperty('border', 1)
+    radius = IntProperty('radius', 4)
 
     def __init__(self):
         super().__init__()
         self.__widgets = []
-        self.border = 1
-        self.radius = 4
 
     def _apply_theme(self):
         self.setStyleSheet(f"""

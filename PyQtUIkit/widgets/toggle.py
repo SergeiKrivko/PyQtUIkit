@@ -1,15 +1,22 @@
-from PyQt6.QtCore import Qt, pyqtSignal, QPoint, QPropertyAnimation, QEasingCurve
-from PyQt6.QtWidgets import QWidget, QHBoxLayout, QPushButton
+from enum import Enum
 
-from PyQtUIkit.core.properties import PaletteProperty, StringProperty
+from PyQt6.QtCore import Qt, pyqtSignal, QPoint, QPropertyAnimation, QEasingCurve
+from PyQt6.QtWidgets import QWidget, QPushButton
+
+from PyQtUIkit.core import PaletteProperty, EnumProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
-from PyQtUIkit.widgets.button import KitIconButton, KitButton
+from PyQtUIkit.widgets.button import KitButton
 
 
 class KitToggle(QWidget, _KitWidget):
+    class Mode(Enum):
+        SMALL = 0
+        MEDIUM = 1
+        LARGE = 2
+
     main_palette = PaletteProperty('main_palette', 'Menu')
     rail_palette = PaletteProperty('rail_palette', 'Main')
-    mode = StringProperty(default='s')
+    mode = EnumProperty('mode', Mode, Mode.SMALL)
 
     stateChanged = pyqtSignal(bool)
 
@@ -19,17 +26,17 @@ class KitToggle(QWidget, _KitWidget):
         self.__anim = None
 
         self.__sizes = {
-            'm': {
+            KitToggle.Mode.MEDIUM: {
                 'size': (44, 26),
                 'rail_size': (34, 16),
                 'button_size': 24,
             },
-            's': {
+            KitToggle.Mode.SMALL: {
                 'size': (40, 20),
                 'rail_size': (40, 20),
                 'button_size': 14,
             },
-            'l': {
+            KitToggle.Mode.LARGE: {
                 'size': (46, 28),
                 'rail_size': (46, 28),
                 'button_size': 24,

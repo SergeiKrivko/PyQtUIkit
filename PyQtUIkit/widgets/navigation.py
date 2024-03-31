@@ -1,9 +1,9 @@
-from PyQt6.QtCore import Qt, QPropertyAnimation, QSize, QEasingCurve, pyqtSignal
+from PyQt6.QtCore import Qt, QPropertyAnimation, QEasingCurve, pyqtSignal
 from PyQt6.QtGui import QFontMetrics
 from PyQt6.QtWidgets import QLabel, QPushButton, QHBoxLayout, QSizePolicy
 
 from PyQtUIkit.core.icon import KitIcon
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty, IconProperty, LiteralProperty
+from PyQtUIkit.core import IntProperty, PaletteProperty, IconProperty, EnumProperty, FontSize
 from PyQtUIkit.widgets import KitVBoxLayout, KitIconButton, KitIconWidget
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
@@ -11,7 +11,7 @@ from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 class KitNavigationButton(QPushButton, _KitWidget):
     main_palette = PaletteProperty('main_palette', 'Main')
     icon = IconProperty('icon')
-    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
+    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
 
     selected = pyqtSignal()
 
@@ -89,7 +89,7 @@ QPushButton::checked {{
 class KitNavigation(KitVBoxLayout):
     button_size = IntProperty('button_size', 30)
     button_radius = IntProperty('button_radius', 4)
-    font_size = LiteralProperty('font_size', ['medium', 'small', 'big'])
+    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
 
     currentChanged = pyqtSignal(int)
 
