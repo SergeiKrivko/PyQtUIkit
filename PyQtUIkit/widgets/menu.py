@@ -4,7 +4,7 @@ from PyQt6 import QtGui
 from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QMenu
 
-from PyQtUIkit.core import IntProperty, PaletteProperty, IconProperty, EnumProperty, FontSize
+from PyQtUIkit.core import IntProperty, PaletteProperty, IconProperty, EnumProperty, KitFont, FontProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
@@ -48,7 +48,8 @@ class KitMenu(QMenu, _KitWidget):
     border = IntProperty('border', 0)
     radius = IntProperty('radius', 4)
     icon = IconProperty('icon')
-    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
+    font = FontProperty('font')
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     def __init__(self, parent):
         super().__init__()
@@ -74,19 +75,19 @@ class KitMenu(QMenu, _KitWidget):
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
-        self.setFont(self._tm.font(self.font_size))
+        self.setFont(self.font.get(self.font_size))
         self.setStyleSheet(f"""
 QMenu {{
     color: {self.main_palette.text};
     background-color: {self.main_palette.main};
-    border: 1px solid {self._tm['Border'].main};
+    border: 1px solid {self.border_palette.main};
     border-radius: 6px;
     spacing: 4px;
     padding: 3px;
 }}
 
 QMenu::item {{
-    border: 0px solid {self._tm['Border'].main};
+    border: 0px solid {self.border_palette.main};
     background-color: transparent;
     border-radius: 8px;
     padding: 4px 16px;
@@ -101,7 +102,7 @@ QMenu::item:selected {{
 }}
 QMenu::separator {{
     height: 1px;
-    background: {self._tm['Border'].main};
+    background: {self.border_palette.main};
     margin: 4px 10px;
 }}""")
         if self.icon:

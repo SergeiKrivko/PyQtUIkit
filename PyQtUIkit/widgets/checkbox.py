@@ -1,14 +1,15 @@
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QPushButton, QSizePolicy
 
-from PyQtUIkit.core import PaletteProperty, EnumProperty, FontSize
+from PyQtUIkit.core import PaletteProperty, EnumProperty, KitFont, FontProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 from PyQtUIkit.widgets.button import KitIconButton
 
 
 class KitCheckBox(QWidget, _KitWidget):
     main_palette = PaletteProperty('main_palette', 'Main')
-    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
+    font = FontProperty('font')
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     stateChanged = pyqtSignal(bool)
 
@@ -43,12 +44,18 @@ class KitCheckBox(QWidget, _KitWidget):
         self.__button.setChecked(self.__state)
         self.stateChanged.emit(self.__state)
 
-    def state(self):
+    def isChecked(self):
         return self.__state
 
-    def setState(self, state):
+    def setChecked(self, state):
         self.__state = bool(state)
         self.__on_state_changed()
+
+    def setText(self, text):
+        self.__label.setText(text)
+
+    def getText(self):
+        return self.__label.text()
 
     def _set_tm(self, tm):
         super()._set_tm(tm)
@@ -59,10 +66,13 @@ class KitCheckBox(QWidget, _KitWidget):
             return
         self.__button.main_palette = self.main_palette
         self.__button._apply_theme()
-        self.__label.setFont(self._tm.font(self.font_size))
+        self.__label.setFont(self.font.get(self.font_size))
         self.__label.setStyleSheet(f"""
         QPushButton {{
             color: {self.main_palette.text};
             background-color: transparent;
             text-align: left;
         }}""")
+
+    state = property(isChecked, setChecked)
+    text = property(getText, setText)

@@ -3,7 +3,7 @@ from PyQt6.QtGui import QFontMetrics
 from PyQt6.QtWidgets import QLabel, QPushButton, QHBoxLayout, QSizePolicy
 
 from PyQtUIkit.core.icon import KitIcon
-from PyQtUIkit.core import IntProperty, PaletteProperty, IconProperty, EnumProperty, FontSize
+from PyQtUIkit.core import IntProperty, PaletteProperty, IconProperty, EnumProperty, KitFont, FontProperty
 from PyQtUIkit.widgets import KitVBoxLayout, KitIconButton, KitIconWidget
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
@@ -11,7 +11,8 @@ from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 class KitNavigationButton(QPushButton, _KitWidget):
     main_palette = PaletteProperty('main_palette', 'Main')
     icon = IconProperty('icon')
-    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
+    font = FontProperty('font')
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     selected = pyqtSignal()
 
@@ -66,12 +67,13 @@ class KitNavigationButton(QPushButton, _KitWidget):
         self._set_expanded(not self.__label.isHidden())
         self.setFixedHeight(self._size)
         self.__icon.setFixedSize(self._size - 8, self._size - 8)
-        self.__label.setFont(self._tm.font(self.font_size))
+        self.__icon._main_palette = self._main_palette
+        self.__label.setFont(self.font.get(self.font_size))
         self.setStyleSheet(f"""
 QPushButton {{
     color: {self.main_palette.text};
     background-color: {self.main_palette.main};
-    border: 0px solid {self._tm['Border'].main};
+    border: 0px solid {self.border_palette.main};
     border-radius: {self._radius}px;
     padding: 3px 8px 3px 8px;
 }}
@@ -89,7 +91,8 @@ QPushButton::checked {{
 class KitNavigation(KitVBoxLayout):
     button_size = IntProperty('button_size', 30)
     button_radius = IntProperty('button_radius', 4)
-    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
+    font = FontProperty('font')
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     currentChanged = pyqtSignal(int)
 
@@ -185,6 +188,7 @@ class KitNavigation(KitVBoxLayout):
         self.__button.size = self.button_size
         for el in self.__tabs:
             el.main_palette = self.main_palette
+            el.font = self.font
             el.font_size = self.font_size
             el._size = self.button_size
             el._radius = self.button_radius

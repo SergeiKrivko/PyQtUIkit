@@ -17,7 +17,7 @@ class KitListWidget(QListWidget, _KitWidget):
 QListWidget {{
     color: {self.main_palette.text};
     background-color: {self.main_palette.main};
-    border: {self.border}px solid {self._tm.get('Border').main};
+    border: {self.border}px solid {self.border_palette.main};
     border-radius: {self.radius}px;
 }}
 QListWidget::item {{
@@ -46,7 +46,7 @@ QListWidget QScrollBar:horizontal {{
     margin: 0px;
 }}
 QListWidget QScrollBar::handle::vertical {{
-    background-color: {self._tm['Border'].main};
+    background-color: {self.border_palette.main};
     margin: 2px 2px 2px 6px;
     border-radius: 2px;
     min-height: 20px;
@@ -56,7 +56,7 @@ QListWidget QScrollBar::handle::vertical:hover {{
     border-radius: 4px;
 }}
 QListWidget QScrollBar::handle::horizontal {{
-    background-color: {self._tm['Border'].main};
+    background-color: {self.border_palette.main};
     margin: 6px 2px 2px 2px;
     border-radius: 2px;
     min-width: 20px;

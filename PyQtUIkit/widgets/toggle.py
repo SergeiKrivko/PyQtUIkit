@@ -79,10 +79,10 @@ class KitToggle(QWidget, _KitWidget):
 
         self._apply_theme()
 
-    def state(self):
+    def isChecked(self):
         return self.__state
 
-    def setState(self, state):
+    def setChecked(self, state):
         self.__state = bool(state)
         self.__on_state_changed()
 
@@ -114,7 +114,9 @@ class KitToggle(QWidget, _KitWidget):
         self.__rail.setStyleSheet(f"""
         QWidget {{
             color: {self.main_palette.text};
-            background-color: {self.rail_palette.selected if self.__state else self.main_palette.main};
+            background-color: {self.rail_palette.selected if self.__state else self.rail_palette.main};
             border: 0px solid black;
             border-radius: {sizes['rail_size'][1] // 2}px;
         }}""")
+
+    state = property(isChecked, setChecked)

@@ -1,7 +1,8 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout
 
-from PyQtUIkit.core import IconProperty, EnumProperty, IntProperty, PaletteProperty, FontSize
+from PyQtUIkit.core import IconProperty, EnumProperty, IntProperty, PaletteProperty, KitFont, FontProperty, \
+    SignalProperty
 from PyQtUIkit.themes import ThemeManager
 from PyQtUIkit.widgets import KitIconWidget
 from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem
@@ -10,7 +11,9 @@ from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem
 class KitButton(QPushButton, _KitGroupItem):
     main_palette = PaletteProperty('main_palette', 'Main')
     icon = IconProperty('icon')
-    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
+    font = FontProperty('font')
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
+    on_click = SignalProperty('on_click', 'clicked')
 
     def __init__(self, text='', icon=None):
         super().__init__()
@@ -20,29 +23,31 @@ class KitButton(QPushButton, _KitGroupItem):
         self.setText(text)
         self._icon = icon
 
+        self._build_from_kui()
+
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
-        self.setFont(self._tm.font(self.font_size))
+        self.setFont(self.font.get(self.font_size))
         self.setStyleSheet(f"""
 QPushButton {{
     color: {self.main_palette.text};
     background-color: {self.main_palette.main};
-    border: {self.border}px solid {self._tm['Border'].main};
+    border: {self.border}px solid {self.border_palette.main};
     {self._border_radius_css()}
     padding: 3px 8px 3px 8px;
 }}
 QPushButton::hover {{
     background-color: {self.main_palette.hover};
-    border: {self.border}px solid {self._tm['Border'].selected};
+    border: {self.border}px solid {self.border_palette.selected};
 }}
 QPushButton::disabled {{
     color: {self.main_palette.main};
-    border-color: {self._tm['Border'].main};
+    border-color: {self.border_palette.main};
 }}
 QPushButton::checked {{
     background-color: {self.main_palette.selected};
-    border: {self.border}px solid {self._tm['Border'].selected};
+    border: {self.border}px solid {self.border_palette.selected};
 }}
 QPushButton::menu-indicator {{
     image: none;
@@ -52,6 +57,8 @@ QPushButton::menu-indicator {{
 }}""")
         if self.icon is not None:
             self.setIcon(self.icon.icon(self.main_palette.text))
+
+    text = property(QPushButton.text, QPushButton.setText)
 
 
 class KitIconButton(QPushButton, _KitGroupItem):
@@ -87,21 +94,21 @@ class KitIconButton(QPushButton, _KitGroupItem):
         self.setStyleSheet(f"""
 QPushButton {{
     background-color: {self.main_palette.main};
-    border: {self.border}px solid {self._tm['Border'].main};
+    border: {self.border}px solid {self.border_palette.main};
     {self._border_radius_css()}
     padding: 3px 8px 3px 8px;
 }}
 QPushButton::hover {{
     background-color: {self.main_palette.hover};
-    border: {self.border}px solid {self._tm['Border'].selected};
+    border: {self.border}px solid {self.border_palette.selected};
 }}
 QPushButton::disabled {{
     color: {self.main_palette.main};
-    border-color: {self._tm['Border'].main};
+    border-color: {self.border_palette.main};
 }}
 QPushButton::checked {{
     background-color: {self.main_palette.selected};
-    border: {self.border}px solid {self._tm['Border'].selected};
+    border: {self.border}px solid {self.border_palette.selected};
 }}
 QPushButton::menu-indicator {{
     image: none;

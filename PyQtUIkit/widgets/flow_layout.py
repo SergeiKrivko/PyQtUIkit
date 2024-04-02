@@ -63,7 +63,7 @@ class KitFlowLayout(QWidget, _KitWidget):
         self.setStyleSheet(f"""
         QWidget {{
             background-color: {self.main_palette.main};
-            border: {self.border}px solid {self._tm.get('Border').main};
+            border: {self.border}px solid {self.border_palette.main};
             border-radius: {self.radius}px;
         }}
         """)

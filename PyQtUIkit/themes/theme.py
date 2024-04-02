@@ -1,24 +1,4 @@
-class KitTheme:
-    def __init__(self,
-                 theme_data: dict,
-                 inherit: 'KitTheme' = None,
-                 is_dark=False):
-        self.is_dark = is_dark
-        self._data = theme_data
-        self._inherit = inherit
-
-    def get(self, key: str | tuple):
-        if isinstance(key, str):
-            key = (key,)
-        for el in key:
-            if el in self._data:
-                return self._data[el]
-        if not self._inherit:
-            raise KeyError(f"Key {key} not found")
-        return self._inherit.get(key)
-
-    def __getitem__(self, item):
-        return self.get(item)
+from PyQtUIkit.core.font import KitFont
 
 
 class KitPalette:
@@ -31,3 +11,29 @@ class KitPalette:
 
     def __str__(self):
         return f"KitPalette({self.main}, {self.hover}, {self.selected}, {self.text}, {self.text_only})"
+
+
+class KitTheme:
+    def __init__(self,
+                 palettes: dict[str: KitPalette] = None,
+                 fonts: dict[str: KitFont] = None,
+                 inherit: 'KitTheme' = None,
+                 is_dark=False):
+        self.is_dark = is_dark
+        self._palettes = palettes
+        self._fonts = fonts
+        self._inherit = inherit
+
+    def palette(self, key: str):
+        if self._palettes and key in self._palettes:
+            return self._palettes[key]
+        if not self._inherit:
+            raise KeyError(f"Key '{key}' not found")
+        return self._inherit.palette(key)
+
+    def font(self, key='default') -> KitFont:
+        if self._fonts and key in self._fonts:
+            return self._fonts[key]
+        if not self._inherit:
+            raise KeyError(f"Key '{key}' not found")
+        return self._inherit.font(key)

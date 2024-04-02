@@ -69,7 +69,7 @@ class KitScrollArea(QScrollArea, _KitWidget):
 QScrollArea {{
     color: {self.main_palette.text};
     background-color: {self.main_palette.main};
-    border: {self.border}px solid {self._tm.get('Border').main};
+    border: {self.border}px solid {self.border_palette.main};
     border-radius: {self.radius}px;
 }}
 QScrollArea QScrollBar:vertical {{
@@ -87,7 +87,7 @@ QScrollArea QScrollBar:horizontal {{
     margin: 0px;
 }}
 QScrollArea QScrollBar::handle::vertical {{
-    background-color: {self._tm['Border'].main};
+    background-color: {self.border_palette.main};
     margin: 2px 2px 2px 6px;
     border-radius: 2px;
     min-height: 20px;
@@ -97,7 +97,7 @@ QScrollArea QScrollBar::handle::vertical:hover {{
     border-radius: 4px;
 }}
 QScrollArea QScrollBar::handle::horizontal {{
-    background-color: {self._tm['Border'].main};
+    background-color: {self.border_palette.main};
     margin: 6px 2px 2px 2px;
     border-radius: 2px;
     min-width: 20px;

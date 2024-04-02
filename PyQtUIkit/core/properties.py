@@ -1,8 +1,10 @@
 from enum import Enum
 from uuid import uuid4
 
+from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtGui import QColor
 
+from PyQtUIkit.core.font import KitFont
 from PyQtUIkit.core.icon import KitIcon
 from PyQtUIkit.themes import KitPalette, icons
 
@@ -77,39 +79,8 @@ class IconProperty(property):
         super().__init__(getter, setter)
 
 
-class _Color(QColor):
-    def __str__(self):
-        return self.name()
-
-
-class ColorProperty(property):
-    def __init__(self, name='', default='#00000000'):
-        self._id = '_' + (str(name) or str(uuid4()).replace('-', '_'))
-
-        def getter(obj) -> _Color:
-            try:
-                res = getattr(obj, self._id)
-            except AttributeError:
-                res = default
-            if isinstance(res, str):
-                if res.startswith('#'):
-                    res = _Color(res)
-                else:
-                    res = obj.theme_manager.get(res)
-            return res
-
-        def setter(obj, value: str | _Color | QColor):
-            if isinstance(value, QColor):
-                value = _Color(value.name())
-            setattr(obj, self._id, value)
-
-        super().__init__(getter, setter)
-
-
 class PaletteProperty(property):
     def __init__(self, name='', default='Main'):
-        if name == 'Main':
-            raise Exception
         self._id = '_' + (str(name) or str(uuid4()).replace('-', '_'))
 
         def getter(obj) -> KitPalette:
@@ -118,10 +89,29 @@ class PaletteProperty(property):
             except AttributeError:
                 res = default
             if isinstance(res, str):
-                res = obj.theme_manager.get(res)
+                res = obj.theme_manager.palette(res)
             return res
 
         def setter(obj, value: str | KitPalette):
+            setattr(obj, self._id, value)
+
+        super().__init__(getter, setter)
+
+
+class FontProperty(property):
+    def __init__(self, name='', default='default'):
+        self._id = '_' + (str(name) or str(uuid4()).replace('-', '_'))
+
+        def getter(obj) -> KitFont:
+            try:
+                res = getattr(obj, self._id)
+            except AttributeError:
+                res = default
+            if isinstance(res, str):
+                res = obj.theme_manager.font(res)
+            return res
+
+        def setter(obj, value: str | KitFont):
             setattr(obj, self._id, value)
 
         super().__init__(getter, setter)
@@ -143,5 +133,19 @@ class EnumProperty(property):
             if value not in self._enum:
                 raise ValueError(f"Invalid value: {name} must be one of {repr(list(self._enum))}")
             setattr(obj, self._id, value)
+
+        super().__init__(getter, setter)
+
+
+class SignalProperty(property):
+    def __init__(self, name, signal: str):
+        self._id = '_' + (str(name) or str(uuid4()).replace('-', '_'))
+        self._signal = signal
+
+        def getter(obj):
+            return None
+
+        def setter(obj, value: str):
+            getattr(obj, self._signal).connect(value)
 
         super().__init__(getter, setter)

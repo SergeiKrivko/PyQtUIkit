@@ -75,7 +75,7 @@ class KitDialog(QDialog, _KitWidget):
         self.__label.setText(self.name)
         css = f"""color: {self.main_palette.text};
                   background-color: {self.main_palette.main};
-                  border: 1px solid {self._tm['Border'].main};
+                  border: 1px solid {self.border_palette.main};
                   border-radius: 5px;"""
         self.setStyleSheet(css)
 

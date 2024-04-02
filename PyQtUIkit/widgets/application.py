@@ -12,13 +12,10 @@ def except_hook(cls, exception, traceback):
 
 class KitApplication(QApplication):
     def __init__(self, window: Callable[[], KitMainWindow]):
-        print(0)
         super().__init__([])
-        print(1)
         self._window = window()
         self._window.show()
         sys.excepthook = except_hook
-        print(2)
 
 
 try:

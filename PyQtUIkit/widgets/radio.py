@@ -2,14 +2,15 @@ from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QFontMetrics
 from PyQt6.QtWidgets import QLabel, QPushButton, QHBoxLayout, QSizePolicy
 
-from PyQtUIkit.core import IntProperty, PaletteProperty, FontSize, EnumProperty
+from PyQtUIkit.core import IntProperty, PaletteProperty, KitFont, EnumProperty, FontProperty
 from PyQtUIkit.widgets import KitVBoxLayout, KitHBoxLayout
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
 class KitRadioButton(QPushButton, _KitWidget):
     main_palette = PaletteProperty('Bg')
-    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
+    font = FontProperty('font')
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     selected = pyqtSignal()
 
@@ -46,7 +47,7 @@ class KitRadioButton(QPushButton, _KitWidget):
             self.selected.emit()
 
     def _apply_theme(self):
-        self.__label.setFont(self._tm.font(self.font_size))
+        self.__label.setFont(self.font.get(self.font_size))
         fm = QFontMetrics(self.__label.font())
         fm.size(0, self.__label.text())
         self.setFixedWidth(34 + fm.size(0, self.__label.text()).width())
@@ -56,24 +57,25 @@ class KitRadioButton(QPushButton, _KitWidget):
         self.__button.setStyleSheet(f"""
 QPushButton {{
     background-color: {self.main_palette.main};
-    border: 1px solid {self._tm['Border'].main};
+    border: 1px solid {self.border_palette.main};
     border-radius: {(self._size - 8) // 2}px;
     padding: 3px 8px 3px 8px;
 }}
 QPushButton::hover {{
     background-color: {self.main_palette.hover};
-    border: 1px solid {self._tm['Border'].selected};
+    border: 1px solid {self.border_palette.selected};
 }}
 QPushButton::checked {{
     background-color: {self.main_palette.main};
-    border: {(self._size - 8) // 4}px solid {self._tm['Border'].selected};
+    border: {(self._size - 8) // 4}px solid {self.border_palette.selected};
 }}""")
         self.__label.setStyleSheet(f"color: {self.main_palette.text}; border: none; background-color: transparent")
 
 
 class KitVRadio(KitVBoxLayout):
     button_height = IntProperty('button_size', 24)
-    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
+    font = FontProperty('font')
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     currentChanged = pyqtSignal(int)
 
@@ -124,6 +126,7 @@ class KitVRadio(KitVBoxLayout):
     def _apply_theme(self):
         for el in self.__items:
             el.main_palette = self.main_palette
+            el.font = self.font
             el.font_size = self.font_size
             el._size = self.button_height
         super()._apply_theme()
@@ -131,7 +134,8 @@ class KitVRadio(KitVBoxLayout):
 
 class KitHRadio(KitHBoxLayout):
     button_height = IntProperty('button_size', 24)
-    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
+    font = FontProperty('font')
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     currentChanged = pyqtSignal(int)
 
@@ -182,6 +186,7 @@ class KitHRadio(KitHBoxLayout):
     def _apply_theme(self):
         for el in self.__items:
             el.main_palette = self.main_palette
+            el.font = self.font
             el.font_size = self.font_size
             el._size = self.button_height
         super()._apply_theme()

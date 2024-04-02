@@ -1,12 +1,12 @@
 from PyQt6.QtWidgets import QLineEdit
 
-from PyQtUIkit.core import PaletteProperty, EnumProperty, FontSize
+from PyQtUIkit.core import PaletteProperty, EnumProperty, KitFont
 from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem
 
 
 class KitLineEdit(QLineEdit, _KitGroupItem):
     main_palette = PaletteProperty('main_palette', 'Main')
-    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     def __init__(self, text=''):
         super().__init__(text)
@@ -17,19 +17,21 @@ class KitLineEdit(QLineEdit, _KitGroupItem):
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
-        self.setFont(self._tm.font(self.font_size))
+        self.setFont(self.font.get(self.font_size))
         self.setStyleSheet(f"""
 QLineEdit {{
     color: {self.main_palette.text};
     background-color: {self.main_palette.main};
-    border: {self.border}px solid {self._tm.get('Border').main};
+    border: {self.border}px solid {self.border_palette.main};
     {self._border_radius_css()}
 }}
 QLineEdit:hover {{
-    border: {self.border}px solid {self._tm.get('Border').hover};
+    border: {self.border}px solid {self.border_palette.hover};
     background-color: {self.main_palette.hover};
 }}
 QLineEdit:focus {{
-    border: {self.border}px solid {self._tm.get('Border').selected};
+    border: {self.border}px solid {self.border_palette.selected};
     background-color: {self.main_palette.hover};
 }}""")
+
+    text = property(QLineEdit.text, QLineEdit.setText)

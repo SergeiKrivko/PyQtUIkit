@@ -1,7 +1,7 @@
 from PyQt6.QtCore import pyqtSignal, Qt
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLineEdit, QVBoxLayout, QPushButton, QSizePolicy
 
-from PyQtUIkit.core import IntProperty, EnumProperty, FontSize
+from PyQtUIkit.core import IntProperty, EnumProperty, KitFont, FontProperty
 from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem, KitGroup as _KitGroup
 
 
@@ -9,7 +9,8 @@ class KitSpinBox(QWidget, _KitGroupItem):
     border = IntProperty('border', 1)
     radius = IntProperty('radius', 4)
     valueChanged = pyqtSignal(object)
-    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
+    font = FontProperty('font')
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     def __init__(self, func=int):
         super().__init__()
@@ -110,7 +111,7 @@ class KitSpinBox(QWidget, _KitGroupItem):
         self._line_edit.setText(str(value))
         self._on_text_edited()
 
-    def value(self):
+    def getValue(self):
         if not self._line_edit.text():
             return 0
         return self._func(self._line_edit.text())
@@ -120,12 +121,12 @@ class KitSpinBox(QWidget, _KitGroupItem):
             return
         orientation, position = self._group()
         self._line_edit.setFixedHeight(self.height())
-        self._line_edit.setFont(self._tm.font(self.font_size))
+        self._line_edit.setFont(self.font.get(self.font_size))
         self._line_edit.setStyleSheet(f"""
         QLineEdit {{
             color: {self.main_palette.text};
             background-color: {self.main_palette.main};
-            border: {self.border}px solid {self._tm.get('Border').main};
+            border: {self.border}px solid {self.border_palette.main};
             border-top-left-radius: {self.radius if orientation == _KitGroup.NO_GROUP or position == _KitGroup.FIRST else 0}px;
             border-bottom-left-radius: {self.radius if orientation == _KitGroup.NO_GROUP or
                                                        orientation == _KitGroup.VERTICAL and position == _KitGroup.LAST or
@@ -134,11 +135,11 @@ class KitSpinBox(QWidget, _KitGroupItem):
             border-bottom-right-radius: 0px;
         }}
         QLineEdit:hover {{
-            border: {self.border}px solid {self._tm.get('Border').hover};
+            border: {self.border}px solid {self.border_palette.hover};
             background-color: {self.main_palette.hover};
         }}
         QLineEdit:focus {{
-            border: {self.border}px solid {self._tm.get('Border').selected};
+            border: {self.border}px solid {self.border_palette.selected};
             background-color: {self.main_palette.hover};
         }}""")
         self._button_up.setIcon(self._tm.icon('solid-angle-up', self.main_palette.text))
@@ -147,7 +148,7 @@ class KitSpinBox(QWidget, _KitGroupItem):
 QPushButton {{
     color: {self.main_palette.text};
     background-color: {self.main_palette.main};
-    border: {self.border}px solid {self._tm['Border'].main};
+    border: {self.border}px solid {self.border_palette.main};
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     border-top-right-radius: 0px;
@@ -155,7 +156,7 @@ QPushButton {{
 }}
 QPushButton::hover {{
     background-color: {self.main_palette.hover};
-    border: {self.border}px solid {self._tm['Border'].selected};
+    border: {self.border}px solid {self.border_palette.selected};
 }}"""
         radius = self.radius if orientation == _KitGroup.NO_GROUP or \
                                 orientation == _KitGroup.VERTICAL and position == _KitGroup.FIRST or \
@@ -163,3 +164,5 @@ QPushButton::hover {{
         self._button_up.setStyleSheet(css.replace("top-right-radius: 0px;", f"top-right-radius: {radius}px;"))
         radius = self.radius if orientation == _KitGroup.NO_GROUP or position == _KitGroup.LAST else 0
         self._button_down.setStyleSheet(css.replace("bottom-right-radius: 0px;", f"bottom-right-radius: {radius}px;"))
+
+    value = property(getValue, setValue)

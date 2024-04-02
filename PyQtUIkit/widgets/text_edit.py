@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QTextEdit
 
-from PyQtUIkit.core import FontSize
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty, EnumProperty
+from PyQtUIkit.core import KitFont
+from PyQtUIkit.core.properties import IntProperty, PaletteProperty, EnumProperty, FontProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
@@ -9,7 +9,8 @@ class KitTextEdit(QTextEdit, _KitWidget):
     main_palette = PaletteProperty('main_palette', 'Main')
     border = IntProperty('border', 1)
     radius = IntProperty('radius', 4)
-    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
+    font = FontProperty('font')
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     def __init__(self):
         super().__init__()
@@ -17,12 +18,12 @@ class KitTextEdit(QTextEdit, _KitWidget):
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
-        self.setFont(self._tm.font(self.font_size))
+        self.setFont(self.font.get(self.font_size))
         self.setStyleSheet(f"""
 QTextEdit {{
     color: {self.main_palette.text};
     background-color: {self.main_palette.main};
-    border: {self.border}px solid {self._tm.get('Border').main};
+    border: {self.border}px solid {self.border_palette.main};
     border-radius: {self.radius}px;
 }}
 QTextEdit QScrollBar:vertical {{
@@ -40,7 +41,7 @@ QTextEdit QScrollBar:horizontal {{
     margin: 0px;
 }}
 QTextEdit QScrollBar::handle::horizontal {{
-    background-color: {self._tm.get('Border').main};
+    background-color: {self.border_palette.main};
     margin: 6px 2px 2px 2px;
     border-radius: 2px;
     min-width: 20px;
@@ -50,7 +51,7 @@ QTextEdit QScrollBar::handle::horizontal:hover {{
     border-radius: 4px;
 }}
 QTextEdit QScrollBar::handle::vertical {{
-    background-color: {self._tm.get('Border').main};
+    background-color: {self.border_palette.main};
     margin: 2px 2px 2px 6px;
     border-radius: 2px;
     min-height: 20px;

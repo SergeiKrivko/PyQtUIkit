@@ -2,7 +2,7 @@ from PyQt6.QtCore import pyqtSignal, Qt, QPoint, QPropertyAnimation, QEasingCurv
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout, QMenu, QHBoxLayout, QApplication
 
-from PyQtUIkit.core import IntProperty, PaletteProperty, IconProperty, EnumProperty, FontSize
+from PyQtUIkit.core import IntProperty, PaletteProperty, IconProperty, EnumProperty, KitFont, FontProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget, KitGroupItem as _KitGroupItem
 from PyQtUIkit.widgets.icon_widget import KitIconWidget
 from PyQtUIkit.widgets.scroll_area import KitScrollArea
@@ -12,9 +12,10 @@ from PyQtUIkit.widgets.vbox_layout import KitVBoxLayout
 class KitComboBoxItem(QPushButton, _KitWidget):
     selected = pyqtSignal(object)
     icon = IconProperty('icon')
-    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
+    font = FontProperty('font')
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
-    def __init__(self, name, value=None, icon=''):
+    def __init__(self, name='', value=None, icon=''):
         super().__init__()
         self._name = name
         self._value = value or name
@@ -37,12 +38,12 @@ class KitComboBoxItem(QPushButton, _KitWidget):
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
-        self.setFont(self._tm.font_medium)
+        self.setFont(self.font.get(self.font_size))
         self.setStyleSheet(f"""
 QPushButton {{
     color: {self.main_palette.text};
     background-color: {self.main_palette.main};
-    border: 0px solid {self._tm['Border'].main};
+    border: 0px solid {self.border_palette.main};
     border-radius: 5px;
     padding: 3px 5px 3px 5px;
     text-align: left;
@@ -56,12 +57,15 @@ QPushButton::checked {{
         if self.icon is not None:
             self.setIcon(self.icon.icon(self.main_palette.text))
 
+    name = property(QPushButton.text, QPushButton.setText)
+
 
 class KitComboBox(QPushButton, _KitGroupItem):
     main_palette = PaletteProperty('main_palette', 'Main')
     type = IntProperty('type', 1)
     icon = IconProperty('icon')
-    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
+    font = FontProperty('font')
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     currentIndexChanged = pyqtSignal(object)
     currentValueChanged = pyqtSignal(object)
@@ -86,6 +90,9 @@ class KitComboBox(QPushButton, _KitGroupItem):
 
         for el in values:
             self.addItem(el)
+
+        self._add_child_func = self.addItem
+        self._build_from_kui()
 
     def addItem(self, item: str | KitComboBoxItem, value=None):
         if not isinstance(item, KitComboBoxItem):
@@ -156,27 +163,27 @@ class KitComboBox(QPushButton, _KitGroupItem):
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
-        self.setFont(self._tm.font(self.font_size))
+        self.setFont(self.font.get(self.font_size))
         self.setStyleSheet(f"""
 QPushButton {{
     color: {self.main_palette.text};
     background-color: {self.main_palette.main};
-    border: {self.border}px solid {self._tm['Border'].main};
+    border: {self.border}px solid {self.border_palette.main};
     {self._border_radius_css()}
     padding: 3px 8px 3px 8px;
     text-align: left;
 }}
 QPushButton::hover {{
     background-color: {self.main_palette.hover};
-    border: {self.border}px solid {self._tm['Border'].selected};
+    border: {self.border}px solid {self.border_palette.selected};
 }}
 QPushButton::disabled {{
     color: {self.main_palette.main};
-    border-color: {self._tm['Border'].main};
+    border-color: {self.border_palette.main};
 }}
 QPushButton::checked {{
     background-color: {self.main_palette.selected};
-    border: {self.border}px solid {self._tm['Border'].selected};
+    border: {self.border}px solid {self.border_palette.selected};
 }}""")
         if self.__current is not None and self.__widgets[self.__current].icon is not None:
             self.setIcon(self.__widgets[self.__current].icon.icon(self.main_palette.text))
@@ -185,7 +192,8 @@ QPushButton::checked {{
 
 
 class _ComboBoxMenu(QMenu, _KitWidget):
-    font_size = EnumProperty('font_size', FontSize, FontSize.MEDIUM)
+    font = FontProperty('font')
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     def __init__(self):
         super().__init__()
@@ -233,7 +241,7 @@ class _ComboBoxMenu(QMenu, _KitWidget):
 QMenu {{
     color: {self.main_palette.text};
     background-color: {self.main_palette.main};
-    border: 1px solid {self._tm['Border'].main};
+    border: 1px solid {self.border_palette.main};
     border-radius: 5px;
     spacing: 4px;
     padding: 3px;

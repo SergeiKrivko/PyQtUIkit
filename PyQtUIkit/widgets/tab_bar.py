@@ -102,7 +102,7 @@ class KitTab(QPushButton, _KitWidget):
 QPushButton {{
     color: {self.main_palette.text};
     background-color: {self.main_palette.main if not self.__checked else self.main_palette.selected};
-    border: 0px solid {self._tm['Border'].main};
+    border: 0px solid {self.border_palette.main};
     border-top-left-radius: {self.radius_top}px;
     border-top-right-radius: {self.radius_top}px;
     border-bottom-left-radius: {self.radius_bottom}px;

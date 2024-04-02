@@ -52,7 +52,7 @@ class KitProgressBar(QProgressBar, _KitWidget):
 QProgressBar {{
     color: {self.main_palette.text};
     background-color: {self.main_palette.main};
-    border: {self.border}px solid {self._tm['Border'].main};
+    border: {self.border}px solid {self.border_palette.main};
     border-radius: {self.radius}px;
     text-align: center;
 }}

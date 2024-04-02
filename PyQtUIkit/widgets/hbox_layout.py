@@ -26,6 +26,9 @@ class KitHBoxLayout(QWidget, _KitWidget):
         self.__layout.setSpacing(0)
         strange_widget.setLayout(self.__layout)
 
+        self._add_child_func = self.addWidget
+        self._build_from_kui()
+
     def addWidget(self, widget: QWidget, stretch: int = None, alignment=None):
         if alignment is not None:
             self.__layout.addWidget(widget, stretch, alignment)
@@ -59,14 +62,33 @@ class KitHBoxLayout(QWidget, _KitWidget):
             self.__layout.takeAt(0).widget().setParent(None)
         self._widgets.clear()
 
-    def setAlignment(self, a) -> bool:
-        return self.__layout.setAlignment(a)
+    def setAlignment(self, a):
+        self.__layout.setAlignment(a)
+
+    def getAlignment(self):
+        return self.__layout.alignment()
 
     def setSpacing(self, spacing):
         self.__layout.setSpacing(spacing)
 
+    def getSpacing(self):
+        return self.__layout.spacing()
+
     def setContentsMargins(self, left: int, top: int, right: int, bottom: int) -> None:
         self.__layout.setContentsMargins(left, top, right, bottom)
+
+    def getContentsMargins(self):
+        return self.__layout.contentsMargins()
+
+    def _set_margins(self, margins):
+        if len(margins) == 1:
+            self.__layout.setContentsMargins(margins[0], margins[0], margins[0], margins[0])
+        elif len(margins) == 2:
+            self.__layout.setContentsMargins(margins[0], margins[1], margins[0], margins[1])
+        elif len(margins) == 4:
+            self.__layout.setContentsMargins(*margins)
+        else:
+            raise ValueError
 
     def contentsMargins(self) -> QMargins:
         return self.__layout.contentsMargins()
@@ -89,7 +111,11 @@ class KitHBoxLayout(QWidget, _KitWidget):
         self.setStyleSheet(f"""
         QWidget {{
             background-color: {self.main_palette.main};
-            border: {self.border}px solid {self._tm.get('Border').main};
+            border: {self.border}px solid {self.border_palette.main};
             border-radius: {self.radius}px;
         }}
         """)
+
+    padding = property(getContentsMargins, _set_margins)
+    spacing = property(getSpacing, setSpacing)
+    alignment = property(getAlignment, setAlignment)

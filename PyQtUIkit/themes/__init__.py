@@ -1,6 +1,6 @@
 from PyQt6.QtGui import QPixmap, QImage, QIcon, QFont, QFontDatabase
 
-from PyQtUIkit.core.font_size import FontSize
+from PyQtUIkit.core.font import KitFont
 from PyQtUIkit.themes.builtin_themes import basic_theme, builtin_themes
 from PyQtUIkit.themes.icons import icons
 from PyQtUIkit.themes.svg import SVG
@@ -19,12 +19,6 @@ class ThemeManager:
         for file in files('PyQtUIkit.fonts').iterdir():
             QFontDatabase.addApplicationFontFromData(file.read_bytes())
 
-        self._font_small = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeSmall'))
-        self._font_medium = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeMedium'))
-        self._font_big = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeBig'))
-        self._font_super_big = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeSuperBig'))
-        self._font_mono = QFont(self.__current_theme.get('FontMono'), self.__current_theme.get('FontSizeMono'))
-
     def add_theme(self, name: str, th: KitTheme):
         self.__themes[name] = th
 
@@ -32,12 +26,6 @@ class ThemeManager:
         self.__current_theme = self.__themes.get(new_theme)
         self.__current_theme_name = new_theme
         self.__on_theme_changed()
-
-        self._font_small = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeSmall'))
-        self._font_medium = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeMedium'))
-        self._font_big = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeBig'))
-        self._font_super_big = QFont(self.__current_theme.get('Font'), self.__current_theme.get('FontSizeSuperBig'))
-        self._font_mono = QFont(self.__current_theme.get('FontMono'), self.__current_theme.get('FontSizeMono'))
 
     @property
     def current_theme(self):
@@ -47,49 +35,19 @@ class ThemeManager:
     def active(self):
         return self.__active
 
-    @property
-    def font_small(self):
-        return self._font_small
-
-    @property
-    def font_medium(self):
-        return self._font_medium
-
-    @property
-    def font_big(self):
-        return self._font_big
-
-    @property
-    def font_super_big(self):
-        return self._font_super_big
-
-    @property
-    def font_mono(self):
-        return self._font_mono
-
-    def font(self, size: FontSize):
-        match size:
-            case FontSize.SMALL:
-                return self._font_small
-            case FontSize.MEDIUM:
-                return self._font_medium
-            case FontSize.BIG:
-                return self._font_big
-            case FontSize.SUPER_BIG:
-                return self._font_super_big
-
     def _set_active(self):
         self.__active = KitTheme
 
-    def get(self, key: str | tuple):
-        return self.__current_theme.get(key)
+    def palette(self, key: str):
+        return self.__current_theme.palette(key)
 
-    def __getitem__(self, item):
-        return self.__current_theme.get(item)
+    def font(self, font):
+        return self.__current_theme.font(font)
 
-    def pixmap(self, name, color=None, size=None):
-        if not color:
-            color = self.get('TextColor')
+    def border(self):
+        return self.__current_theme.border()
+
+    def pixmap(self, name, color, size=None):
         icon = SVG(icons[name])
         icon.change_color(color)
         if size:
