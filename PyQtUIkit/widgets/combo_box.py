@@ -2,7 +2,8 @@ from PyQt6.QtCore import pyqtSignal, Qt, QPoint, QPropertyAnimation, QEasingCurv
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout, QMenu, QHBoxLayout, QApplication
 
-from PyQtUIkit.core import IntProperty, PaletteProperty, IconProperty, EnumProperty, KitFont, FontProperty
+from PyQtUIkit.core import IntProperty, PaletteProperty, IconProperty, EnumProperty, KitFont, FontProperty, \
+    MethodsProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget, KitGroupItem as _KitGroupItem
 from PyQtUIkit.widgets.icon_widget import KitIconWidget
 from PyQtUIkit.widgets.scroll_area import KitScrollArea
@@ -57,7 +58,7 @@ QPushButton::checked {{
         if self.icon is not None:
             self.setIcon(self.icon.icon(self.main_palette.text))
 
-    name = property(QPushButton.text, QPushButton.setText)
+    name = MethodsProperty(QPushButton.text, QPushButton.setText)
 
 
 class KitComboBox(QPushButton, _KitGroupItem):

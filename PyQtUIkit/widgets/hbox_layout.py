@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QMargins
 from PyQt6.QtWidgets import QWidget, QHBoxLayout
 
-from PyQtUIkit.core.properties import IntProperty
+from PyQtUIkit.core.properties import IntProperty, MethodsProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
@@ -116,6 +116,6 @@ class KitHBoxLayout(QWidget, _KitWidget):
         }}
         """)
 
-    padding = property(getContentsMargins, _set_margins)
-    spacing = property(getSpacing, setSpacing)
-    alignment = property(getAlignment, setAlignment)
+    padding = MethodsProperty(getContentsMargins, _set_margins)
+    spacing = MethodsProperty(getSpacing, setSpacing)
+    alignment = MethodsProperty(getAlignment, setAlignment)

@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QMargins
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
 
-from PyQtUIkit.core.properties import IntProperty
+from PyQtUIkit.core.properties import IntProperty, MethodsProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
@@ -116,10 +116,10 @@ class KitVBoxLayout(QWidget, _KitWidget):
         }}
         """)
 
-    padding = property(getContentsMargins, _set_margins)
-    spacing = property(getSpacing, setSpacing)
-    alignment = property(getAlignment, setAlignment)
-    max_width = property(QWidget.maximumWidth, QWidget.setMaximumWidth)
-    min_width = property(QWidget.minimumWidth, QWidget.setMinimumWidth)
-    max_height = property(QWidget.maximumHeight, QWidget.setMaximumHeight)
-    min_height = property(QWidget.minimumHeight, QWidget.setMinimumHeight)
+    padding = MethodsProperty(getContentsMargins, _set_margins)
+    spacing = MethodsProperty(getSpacing, setSpacing)
+    alignment = MethodsProperty(getAlignment, setAlignment)
+    max_width = MethodsProperty(QWidget.maximumWidth, QWidget.setMaximumWidth)
+    min_width = MethodsProperty(QWidget.minimumWidth, QWidget.setMinimumWidth)
+    max_height = MethodsProperty(QWidget.maximumHeight, QWidget.setMaximumHeight)
+    min_height = MethodsProperty(QWidget.minimumHeight, QWidget.setMinimumHeight)

@@ -1,7 +1,7 @@
 from PyQt6.QtCore import pyqtSignal, Qt
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLineEdit, QVBoxLayout, QPushButton, QSizePolicy
 
-from PyQtUIkit.core import IntProperty, EnumProperty, KitFont, FontProperty
+from PyQtUIkit.core import IntProperty, EnumProperty, KitFont, FontProperty, MethodsProperty
 from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem, KitGroup as _KitGroup
 
 
@@ -165,4 +165,4 @@ QPushButton::hover {{
         radius = self.radius if orientation == _KitGroup.NO_GROUP or position == _KitGroup.LAST else 0
         self._button_down.setStyleSheet(css.replace("bottom-right-radius: 0px;", f"bottom-right-radius: {radius}px;"))
 
-    value = property(getValue, setValue)
+    value = MethodsProperty(getValue, setValue)

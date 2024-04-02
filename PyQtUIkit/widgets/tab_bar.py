@@ -4,7 +4,8 @@ from PyQt6.QtCore import pyqtSignal, Qt, QPoint, QPropertyAnimation, QEasingCurv
 from PyQt6.QtWidgets import QPushButton, QHBoxLayout, QSizePolicy, QWidget
 from PyQt6.QtGui import QFontMetrics
 
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty, IconProperty
+from PyQtUIkit.core import KitFont
+from PyQtUIkit.core.properties import IntProperty, PaletteProperty, IconProperty, EnumProperty, FontProperty
 from PyQtUIkit.themes import KitPalette
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 from PyQtUIkit.widgets.icon_widget import KitIconWidget
@@ -17,6 +18,8 @@ from PyQtUIkit.widgets.label import KitLabel
 class KitTab(QPushButton, _KitWidget):
     radius_top = IntProperty('radius_top', 5)
     radius_bottom = IntProperty('radius_bottom', 0)
+    font = FontProperty('font')
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     selected = pyqtSignal(object)
     _mousePress = pyqtSignal(object)
@@ -97,7 +100,7 @@ class KitTab(QPushButton, _KitWidget):
             return
         self.__button_close.main_palette = KitPalette('#00000000', self.main_palette.main,
                                                       text=self.main_palette.text)
-        self.__label.setFont(self._tm.font_medium)
+        self.__label.setFont(font := self.font.get(self.font_size))
         self.setStyleSheet(f"""
 QPushButton {{
     color: {self.main_palette.text};
@@ -113,8 +116,8 @@ QPushButton {{
 QPushButton::hover {{
     background-color: {self.main_palette.hover if not self.__checked else self.main_palette.selected};
 }}""")
-        font_metrics = QFontMetrics(self.font())
-        width = font_metrics.size(0, self.__label.text()).width() + 10
+        font_metrics = QFontMetrics(font)
+        width = font_metrics.size(0, self.__label.text).width() + 10
         if self.icon:
             width += 20
         if self.__closable:

@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QLabel
 
-from PyQtUIkit.core import IntProperty, PaletteProperty, EnumProperty, KitFont, FontProperty
+from PyQtUIkit.core import IntProperty, PaletteProperty, EnumProperty, KitFont, FontProperty, MethodsProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
@@ -27,4 +27,4 @@ class KitLabel(QLabel, _KitWidget):
             border: none;
         }}""")
 
-    text = property(QLabel.text, QLabel.setText)
+    text = MethodsProperty(QLabel.text, QLabel.setText)

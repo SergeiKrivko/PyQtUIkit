@@ -1,7 +1,7 @@
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QPushButton, QSizePolicy
 
-from PyQtUIkit.core import PaletteProperty, EnumProperty, KitFont, FontProperty
+from PyQtUIkit.core import PaletteProperty, EnumProperty, KitFont, FontProperty, MethodsProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 from PyQtUIkit.widgets.button import KitIconButton
 
@@ -74,5 +74,5 @@ class KitCheckBox(QWidget, _KitWidget):
             text-align: left;
         }}""")
 
-    state = property(isChecked, setChecked)
-    text = property(getText, setText)
+    state = MethodsProperty(isChecked, setChecked)
+    text = MethodsProperty(getText, setText)

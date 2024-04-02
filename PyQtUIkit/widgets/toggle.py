@@ -3,7 +3,7 @@ from enum import Enum
 from PyQt6.QtCore import Qt, pyqtSignal, QPoint, QPropertyAnimation, QEasingCurve
 from PyQt6.QtWidgets import QWidget, QPushButton
 
-from PyQtUIkit.core import PaletteProperty, EnumProperty
+from PyQtUIkit.core import PaletteProperty, EnumProperty, MethodsProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 from PyQtUIkit.widgets.button import KitButton
 
@@ -119,4 +119,4 @@ class KitToggle(QWidget, _KitWidget):
             border-radius: {sizes['rail_size'][1] // 2}px;
         }}""")
 
-    state = property(isChecked, setChecked)
+    state = MethodsProperty(isChecked, setChecked)

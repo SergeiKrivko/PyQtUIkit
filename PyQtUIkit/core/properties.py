@@ -149,3 +149,8 @@ class SignalProperty(property):
             getattr(obj, self._signal).connect(value)
 
         super().__init__(getter, setter)
+        
+        
+class MethodsProperty(property):
+    def __init__(self, getter, setter):
+        super().__init__(lambda obj: getter(obj), lambda obj, x: setter(obj, x))

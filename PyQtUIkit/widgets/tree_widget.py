@@ -3,8 +3,9 @@ from enum import Enum
 from PyQt6.QtCore import Qt, pyqtSignal, QPoint
 from PyQt6.QtWidgets import QPushButton, QHBoxLayout, QLabel, QVBoxLayout, QWidget
 
+from PyQtUIkit.core import KitFont
 from PyQtUIkit.core.properties import IntProperty, StringProperty, IconProperty, BoolProperty, EnumProperty, \
-    PaletteProperty
+    PaletteProperty, FontProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 from PyQtUIkit.widgets.dialog import KitDialog
 from PyQtUIkit.widgets.hbox_layout import KitHBoxLayout
@@ -18,6 +19,8 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
     radius = IntProperty('radius', 4)
     icon = IconProperty('icon')
     text_palette = PaletteProperty('text_palette', 'Main')
+    font = FontProperty('font')
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     def __init__(self, name='', icon=''):
         super().__init__()
@@ -235,7 +238,7 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
         self.__arrow_right.setIcon(self.__root._icon1)
         self.__arrow_down.setIcon(self.__root._icon2)
         self._apply_selected_theme()
-        self.__label.setFont(self._tm.font_medium)
+        self.__label.setFont(self.font.get(self.font_size))
         for el in [self.__arrow_right, self.__arrow_down]:
             el.setStyleSheet(f"""
             QPushButton {{

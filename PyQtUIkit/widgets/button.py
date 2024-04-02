@@ -2,7 +2,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout
 
 from PyQtUIkit.core import IconProperty, EnumProperty, IntProperty, PaletteProperty, KitFont, FontProperty, \
-    SignalProperty
+    SignalProperty, MethodsProperty
 from PyQtUIkit.themes import ThemeManager
 from PyQtUIkit.widgets import KitIconWidget
 from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem
@@ -58,12 +58,11 @@ QPushButton::menu-indicator {{
         if self.icon is not None:
             self.setIcon(self.icon.icon(self.main_palette.text))
 
-    text = property(QPushButton.text, QPushButton.setText)
+    text = MethodsProperty(QPushButton.text, QPushButton.setText)
 
 
 class KitIconButton(QPushButton, _KitGroupItem):
     main_palette = PaletteProperty('main_palette', 'Main')
-    size = IntProperty('size', 24)
     icon = IconProperty('icon')
 
     def __init__(self, icon=''):
@@ -84,13 +83,20 @@ class KitIconButton(QPushButton, _KitGroupItem):
         super()._set_tm(tm)
         self._icon_label._set_tm(tm)
 
+    def _set_size(self, x, y=None):
+        if isinstance(x, int) and isinstance(y, int):
+            self.setFixedSize(x, y)
+        elif y is None:
+            self.setFixedSize(x, x)
+        else:
+            self.setFixedSize(x)
+
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
         self._icon_label.icon = self.icon
         self._icon_label._main_palette = self._main_palette
-        self.setFixedSize(self.size, self.size)
-        self.__layout.setContentsMargins(*[self.size // 5] * 4)
+        self.__layout.setContentsMargins(*[min(self.width(), self.height()) // 5] * 4)
         self.setStyleSheet(f"""
 QPushButton {{
     background-color: {self.main_palette.main};
@@ -114,3 +120,5 @@ QPushButton::menu-indicator {{
     image: none;
     subcontrol-position: right;
 }}""")
+
+    size = MethodsProperty(QPushButton.size, _set_size)

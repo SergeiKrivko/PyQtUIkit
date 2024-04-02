@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QLineEdit
 
-from PyQtUIkit.core import PaletteProperty, EnumProperty, KitFont, FontProperty
+from PyQtUIkit.core import PaletteProperty, EnumProperty, KitFont, FontProperty, MethodsProperty
 from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem
 
 
@@ -35,4 +35,4 @@ QLineEdit:focus {{
     background-color: {self.main_palette.hover};
 }}""")
 
-    text = property(QLineEdit.text, QLineEdit.setText)
+    text = MethodsProperty(QLineEdit.text, QLineEdit.setText)
