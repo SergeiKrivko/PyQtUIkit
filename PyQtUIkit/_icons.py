@@ -90,7 +90,7 @@ class MainWindow(KitMainWindow):
         self.list_widget.clear()
         if isinstance(self.__searcher, QThread):
             self.__searcher.terminate()
-        search = self.line_edit.text()
+        search = self.line_edit.text
         self.__searcher = Searcher(search, icons.keys())
         self.__searcher.find.connect(self._add_icon)
         self.__searcher.finished.connect(self._on_search_finished)

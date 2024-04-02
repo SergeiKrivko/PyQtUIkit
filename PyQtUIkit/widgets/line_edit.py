@@ -1,12 +1,13 @@
 from PyQt6.QtWidgets import QLineEdit
 
-from PyQtUIkit.core import PaletteProperty, EnumProperty, KitFont
+from PyQtUIkit.core import PaletteProperty, EnumProperty, KitFont, FontProperty
 from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem
 
 
 class KitLineEdit(QLineEdit, _KitGroupItem):
     main_palette = PaletteProperty('main_palette', 'Main')
     font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
+    font = FontProperty('font')
 
     def __init__(self, text=''):
         super().__init__(text)
