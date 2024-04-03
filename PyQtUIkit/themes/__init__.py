@@ -1,6 +1,5 @@
-from PyQt6.QtGui import QPixmap, QImage, QIcon, QFont, QFontDatabase
+from PyQt6.QtGui import QPixmap, QImage, QIcon, QFontDatabase
 
-from PyQtUIkit.core.font import KitFont
 from PyQtUIkit.themes.builtin_themes import basic_theme, builtin_themes
 from PyQtUIkit.themes.icons import icons
 from PyQtUIkit.themes.svg import SVG
@@ -56,3 +55,16 @@ class ThemeManager:
 
     def icon(self, name, color=None, size=None):
         return QIcon(self.pixmap(name, color, size))
+
+    @staticmethod
+    def add_icon(icon: str, name: str):
+        """
+        Add icon (from .svg file or from data)
+        :param icon: path to file or data
+        :param name: icon name, str
+        :return:
+        """
+        if icon.endswith('.svg'):
+            with open(icon, encoding='utf-8') as f:
+                icon = f.read()
+        icons[name] = icon

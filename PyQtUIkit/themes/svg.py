@@ -7,8 +7,11 @@ class SVG:
 
     def change_color(self, color):
         for tag in self._data.find_all(['path', 'circle', 'polygon', 'rect', 'ellipse']):
-            tag['fill'] = color
-            tag['stroke'] = color
+            fill, stroke = tag.get('fill'), tag.get('stroke')
+            if fill or not stroke:
+                tag['fill'] = color
+            if stroke:
+                tag['stroke'] = color
 
     def set_width(self, width):
         for tag in self._data.find_all('svg'):
