@@ -107,6 +107,12 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
         self.__arrow_right.setHidden(self.__expanded)
         self._update_padding()
 
+    def count(self):
+        return len(self.__children)
+
+    def child(self, index):
+        return self.__children[index]
+
     def clear(self):
         for _ in range(self.count()):
             self.takeAt(0).widget().setParent(None)
