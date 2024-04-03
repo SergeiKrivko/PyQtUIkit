@@ -6,6 +6,7 @@ from PyQt6.QtWidgets import QApplication, QListWidgetItem, QSizePolicy
 
 from PyQtUIkit.themes import icons
 from PyQtUIkit.widgets import *
+from widgets.list_widget import KitListWidgetItem
 
 
 class MainWindow(KitMainWindow):
@@ -77,13 +78,11 @@ class MainWindow(KitMainWindow):
             self.copy_line.setText("")
 
     def copy_icon_name(self):
-        if self.copy_line.text():
-            QApplication.clipboard().setText(self.copy_line.text())
+        if self.copy_line.text:
+            QApplication.clipboard().setText(self.copy_line.text)
 
     def _add_icon(self, key):
-        item = QListWidgetItem()
-        item.setIcon(self.theme_manager.icon(key, color=self.list_widget.main_palette.text))
-        item.setText(key)
+        item = KitListWidgetItem(key, key)
         self.list_widget.addItem(item)
 
     def update_icons(self):
