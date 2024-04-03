@@ -107,7 +107,7 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
         self.__arrow_right.setHidden(self.__expanded)
         self._update_padding()
 
-    def count(self):
+    def childrenCount(self):
         return len(self.__children)
 
     def child(self, index):
@@ -228,6 +228,8 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
                     return res
 
     def _apply_theme(self):
+        if not self._tm or not self._tm.active:
+            return
         for el in self.__children:
             el._height = self._height
             el.main_palette = self._main_palette
@@ -328,7 +330,6 @@ class KitTreeWidget(KitScrollArea):
 
         self.__widget = QWidget()
         self.__widget.setLayout(self.__tree)
-
         self.setWidget(self.__widget)
 
     def addItem(self, item: KitTreeWidgetItem):
