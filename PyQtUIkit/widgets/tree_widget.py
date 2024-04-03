@@ -49,6 +49,7 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
         self.__button.mousePressEvent = self._on_clicked
         self.__button.mouseMoveEvent = self._on_move
         self.__button.mouseReleaseEvent = self._on_released
+        self.__button.mouseDoubleClickEvent = self._on_double_clicked
         self.addWidget(self.__button)
 
         self.__top_layout = QHBoxLayout()
@@ -155,7 +156,11 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
     def _on_clicked(self, a0):
         QPushButton.mousePressEvent(self.__button, a0)
         self.__last_pos = a0.pos()
-        self.__root._item_click(self)
+        self.__root._item_click(self, right=a0.button() == Qt.MouseButton.RightButton)
+
+    def _on_double_clicked(self, a0):
+        QPushButton.mouseDoubleClickEvent(self.__button, a0)
+        self.__root._item_double_click(self)
 
     def _select(self, multi=False):
         self.__selected = True
@@ -313,6 +318,8 @@ class KitTreeWidget(KitScrollArea):
 
     currentItemChanged = pyqtSignal(object)
     moveRequested = pyqtSignal(object, object)
+    doubleClicked = pyqtSignal(object)
+    contextMenuRequested = pyqtSignal(QPoint, KitTreeWidgetItem)
 
     def __init__(self):
         super().__init__()
@@ -320,6 +327,8 @@ class KitTreeWidget(KitScrollArea):
         self._main_palette = 'Main'
         self._items_palette = 'Main'
         self._border = 1
+        self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.customContextMenuRequested.connect(self._on_context_menu)
 
         self.__shift = False
         self.__control = False
@@ -355,7 +364,7 @@ class KitTreeWidget(KitScrollArea):
         if dest:
             self.moveRequested.emit(item, dest)
 
-    def _item_click(self, item: KitTreeWidgetItem):
+    def _item_click(self, item: KitTreeWidgetItem, right=False):
         if self.selection_type == KitTreeWidget.SelectionType.MULTI:
             if self.__control:
                 if not item.selected():
@@ -378,6 +387,13 @@ class KitTreeWidget(KitScrollArea):
             if isinstance(self.__current, KitTreeWidgetItem):
                 self.__current._deselect()
         self._set_current(item)
+
+    def _item_double_click(self, item: KitTreeWidgetItem):
+        self.doubleClicked.emit(item)
+
+    def _on_context_menu(self, pos):
+        item, _ = self.__tree._find_by_pos(pos)
+        self.contextMenuRequested.emit(pos, item)
 
     def _add_to_selected(self, item: KitTreeWidgetItem):
         if not self.__selected:

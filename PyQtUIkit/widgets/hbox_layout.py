@@ -81,7 +81,9 @@ class KitHBoxLayout(QWidget, _KitWidget):
         return self.__layout.contentsMargins()
 
     def _set_margins(self, margins):
-        if len(margins) == 1:
+        if isinstance(margins, int):
+            self.setContentsMargins(margins, margins, margins, margins)
+        elif len(margins) == 1:
             self.__layout.setContentsMargins(margins[0], margins[0], margins[0], margins[0])
         elif len(margins) == 2:
             self.__layout.setContentsMargins(margins[0], margins[1], margins[0], margins[1])
