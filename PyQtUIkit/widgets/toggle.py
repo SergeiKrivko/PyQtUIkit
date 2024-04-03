@@ -3,10 +3,9 @@ from enum import Enum
 from PyQt6.QtCore import Qt, pyqtSignal, QPoint, QPropertyAnimation, QEasingCurve
 from PyQt6.QtWidgets import QWidget, QPushButton
 
-from PyQtUIkit.core import PaletteProperty, EnumProperty, MethodsProperty
+from PyQtUIkit.core import *
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 from PyQtUIkit.widgets.button import KitButton
-from core import SignalProperty
 
 
 class KitToggle(QWidget, _KitWidget):

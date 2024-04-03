@@ -1,9 +1,8 @@
 from PyQt6.QtCore import pyqtSignal, Qt
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLineEdit, QVBoxLayout, QPushButton, QSizePolicy
 
-from PyQtUIkit.core import IntProperty, EnumProperty, KitFont, FontProperty, MethodsProperty
+from PyQtUIkit.core import IntProperty, EnumProperty, KitFont, FontProperty, MethodsProperty, SignalProperty
 from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem, KitGroup as _KitGroup
-from core import SignalProperty
 
 
 class KitSpinBox(QWidget, _KitGroupItem):

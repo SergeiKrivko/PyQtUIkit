@@ -2,10 +2,9 @@ from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QFontMetrics
 from PyQt6.QtWidgets import QLabel, QPushButton, QHBoxLayout, QSizePolicy
 
-from PyQtUIkit.core import IntProperty, PaletteProperty, KitFont, EnumProperty, FontProperty
+from PyQtUIkit.core import *
 from PyQtUIkit.widgets import KitVBoxLayout, KitHBoxLayout
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
-from core import SignalProperty
 
 
 class KitRadioButton(QPushButton, _KitWidget):
