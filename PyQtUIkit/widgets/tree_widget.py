@@ -221,11 +221,15 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
 
     def _find_by_pos(self, pos: QPoint):
         if not self.__button.isHidden() and pos.x() < self.__button.width() and pos.y() < self.__button.height():
-            return self
+            return self, 0
+        height = 0 if self.__button.isHidden() else self._height
         if self.__expanded:
             for i, el in enumerate(self.__children):
-                if res := el._find_by_pos(pos - QPoint(0, self._height * (i + (0 if self.__button.isHidden() else 1)))):
-                    return res
+                res, h = el._find_by_pos(pos - QPoint(0, height))
+                if res:
+                    return res, 0
+                height += h
+        return None, height
 
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
@@ -347,7 +351,7 @@ class KitTreeWidget(KitScrollArea):
         self.__current = item
 
     def _request_move(self, item, pos):
-        dest = self.__tree._find_by_pos(pos - self.mapToGlobal(QPoint(0, 0)))
+        dest, _ = self.__tree._find_by_pos(pos - self.__widget.mapToGlobal(QPoint(0, 0)))
         if dest:
             self.moveRequested.emit(item, dest)
 
