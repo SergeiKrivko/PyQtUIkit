@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QWidget, QHBoxLayout, QPushButton, QSizePolicy
 from PyQtUIkit.core import PaletteProperty, EnumProperty, KitFont, FontProperty, MethodsProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 from PyQtUIkit.widgets.button import KitIconButton
+from core import SignalProperty
 
 
 class KitCheckBox(QWidget, _KitWidget):
@@ -12,6 +13,7 @@ class KitCheckBox(QWidget, _KitWidget):
     font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     stateChanged = pyqtSignal(bool)
+    stateEdited = pyqtSignal(bool)
 
     def __init__(self, text=''):
         super().__init__()
@@ -38,6 +40,7 @@ class KitCheckBox(QWidget, _KitWidget):
     def _on_clicked(self):
         self.__state = not self.__state
         self.__on_state_changed()
+        self.stateEdited.emit(self.__state)
 
     def __on_state_changed(self):
         self.__button.icon = 'solid-check' if self.__state else ''
@@ -76,3 +79,5 @@ class KitCheckBox(QWidget, _KitWidget):
 
     state = MethodsProperty(isChecked, setChecked)
     text = MethodsProperty(getText, setText)
+    on_state_changed = SignalProperty('on_state_changed', 'stateChanged')
+    on_state_edited = SignalProperty('on_state_edited', 'stateEdited')

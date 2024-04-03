@@ -6,6 +6,7 @@ from PyQt6.QtWidgets import QWidget, QPushButton
 from PyQtUIkit.core import PaletteProperty, EnumProperty, MethodsProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 from PyQtUIkit.widgets.button import KitButton
+from core import SignalProperty
 
 
 class KitToggle(QWidget, _KitWidget):
@@ -120,3 +121,4 @@ class KitToggle(QWidget, _KitWidget):
         }}""")
 
     state = MethodsProperty(isChecked, setChecked)
+    on_state_changed = SignalProperty('on_state_changed', 'stateChanged')

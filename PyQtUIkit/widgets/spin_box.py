@@ -3,12 +3,14 @@ from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLineEdit, QVBoxLayout, QPushB
 
 from PyQtUIkit.core import IntProperty, EnumProperty, KitFont, FontProperty, MethodsProperty
 from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem, KitGroup as _KitGroup
+from core import SignalProperty
 
 
 class KitSpinBox(QWidget, _KitGroupItem):
     border = IntProperty('border', 1)
     radius = IntProperty('radius', 4)
     valueChanged = pyqtSignal(object)
+    valueEdited = pyqtSignal(object)
     font = FontProperty('font')
     font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
@@ -52,7 +54,7 @@ class KitSpinBox(QWidget, _KitGroupItem):
         self._button_down.clicked.connect(self._decrease)
         buttons_layout.addWidget(self._button_down)
 
-    def _on_text_edited(self):
+    def _on_text_edited(self, manually=True):
         text = self._line_edit.text()
         try:
             value = 0 if text in ['', '+', '-'] else self._func(text)
@@ -62,15 +64,17 @@ class KitSpinBox(QWidget, _KitGroupItem):
             self._last_pos = pos
             self._line_edit.setCursorPosition(self._last_pos)
         else:
-            if value < self._min:
+            if text and value < self._min:
                 self._last_text = str(self._min)
                 self._line_edit.setText(self._last_text)
-            elif value > self._max:
+            elif text and value > self._max:
                 self._last_text = str(self._max)
                 self._line_edit.setText(self._last_text)
             else:
                 self._last_text = text
             self.valueChanged.emit(value)
+            if manually:
+                self.valueEdited.emit(value)
             self._last_pos = self._line_edit.cursorPosition()
 
     def _on_cursor_moved(self):
@@ -85,31 +89,31 @@ class KitSpinBox(QWidget, _KitGroupItem):
     def _decrease(self):
         self.setValue(round(self.value() - self._step, 2))
         self.valueChanged.emit(self.value())
-        # self._line_edit.selectAll()
-        # self._line_edit.setFocus()
+        self._line_edit.selectAll()
+        self._line_edit.setFocus()
 
     def _increase(self):
         self.setValue(round(self.value() + self._step, 2))
         self.valueChanged.emit(self.value())
-        # self._line_edit.selectAll()
-        # self._line_edit.setFocus()
+        self._line_edit.selectAll()
+        self._line_edit.setFocus()
 
     def setRange(self, minimum, maximum):
         self._min = minimum
         self._max = maximum
-        self._on_text_edited()
+        self._on_text_edited(False)
 
     def setMinimum(self, minimum):
         self._min = minimum
-        self._on_text_edited()
+        self._on_text_edited(False)
 
     def setMaximum(self, maximum):
         self._max = maximum
-        self._on_text_edited()
+        self._on_text_edited(False)
 
     def setValue(self, value):
         self._line_edit.setText(str(value))
-        self._on_text_edited()
+        self._on_text_edited(False)
 
     def getValue(self):
         if not self._line_edit.text():
@@ -166,3 +170,5 @@ QPushButton::hover {{
         self._button_down.setStyleSheet(css.replace("bottom-right-radius: 0px;", f"bottom-right-radius: {radius}px;"))
 
     value = MethodsProperty(getValue, setValue)
+    on_value_changed = SignalProperty('on_value_changed', 'valueChanged')
+    on_value_edited = SignalProperty('on_value_edited', 'valueEdited')

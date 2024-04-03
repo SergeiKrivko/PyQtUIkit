@@ -64,6 +64,7 @@ QPushButton::menu-indicator {{
 class KitIconButton(QPushButton, _KitGroupItem):
     main_palette = PaletteProperty('main_palette', 'Main')
     icon = IconProperty('icon')
+    on_click = SignalProperty('on_click', 'clicked')
 
     def __init__(self, icon=''):
         super().__init__()

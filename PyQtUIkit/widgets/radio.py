@@ -5,6 +5,7 @@ from PyQt6.QtWidgets import QLabel, QPushButton, QHBoxLayout, QSizePolicy
 from PyQtUIkit.core import IntProperty, PaletteProperty, KitFont, EnumProperty, FontProperty
 from PyQtUIkit.widgets import KitVBoxLayout, KitHBoxLayout
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
+from core import SignalProperty
 
 
 class KitRadioButton(QPushButton, _KitWidget):
@@ -78,6 +79,7 @@ class KitVRadio(KitVBoxLayout):
     font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     currentChanged = pyqtSignal(int)
+    on_current_changed = SignalProperty('on_current_changed', 'currentChanged')
 
     def __init__(self):
         super().__init__()
@@ -138,6 +140,7 @@ class KitHRadio(KitHBoxLayout):
     font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     currentChanged = pyqtSignal(int)
+    on_current_changed = SignalProperty('on_current_changed', 'currentChanged')
 
     def __init__(self):
         super().__init__()

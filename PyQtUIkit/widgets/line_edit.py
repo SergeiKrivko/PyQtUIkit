@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import QLineEdit
 
 from PyQtUIkit.core import PaletteProperty, EnumProperty, KitFont, FontProperty, MethodsProperty
 from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem
+from core import SignalProperty
 
 
 class KitLineEdit(QLineEdit, _KitGroupItem):
@@ -36,3 +37,5 @@ QLineEdit:focus {{
 }}""")
 
     text = MethodsProperty(QLineEdit.text, QLineEdit.setText)
+    on_text_changed = SignalProperty('on_text_changed', 'textChanged')
+    on_text_edited = SignalProperty('on_text_edited', 'textEdited')
