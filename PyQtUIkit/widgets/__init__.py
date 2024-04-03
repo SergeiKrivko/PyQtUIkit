@@ -5,7 +5,7 @@ from PyQtUIkit.widgets.label import KitLabel
 from PyQtUIkit.widgets.icon_widget import KitIconWidget
 from PyQtUIkit.widgets.button import KitButton, KitIconButton
 from PyQtUIkit.widgets.line_edit import KitLineEdit
-from PyQtUIkit.widgets.list_widget import KitListWidget
+from PyQtUIkit.widgets.list_widget import KitListWidget, KitListWidgetItem
 from PyQtUIkit.widgets.main_window import KitMainWindow
 from PyQtUIkit.widgets.spin_box import KitSpinBox
 from PyQtUIkit.widgets.scroll_area import KitScrollArea

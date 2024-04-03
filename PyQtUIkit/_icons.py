@@ -2,11 +2,10 @@ import sys
 from time import sleep
 
 from PyQt6.QtCore import QThread, pyqtSignal
-from PyQt6.QtWidgets import QApplication, QListWidgetItem, QSizePolicy
+from PyQt6.QtWidgets import QApplication, QSizePolicy
 
 from PyQtUIkit.themes import icons
 from PyQtUIkit.widgets import *
-from widgets.list_widget import KitListWidgetItem
 
 
 class MainWindow(KitMainWindow):

@@ -6,7 +6,7 @@ class SVG:
         self._data = bs4.BeautifulSoup(data, 'xml')
 
     def change_color(self, color):
-        for tag in self._data.find_all(['path', 'circle', 'polygon', 'rect', 'ellipse']):
+        for tag in self._data.find_all(['path', 'circle', 'polygon', 'rect', 'ellipse', 'line']):
             fill, stroke = tag.get('fill'), tag.get('stroke')
             if fill or not stroke:
                 tag['fill'] = color
