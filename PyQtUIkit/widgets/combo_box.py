@@ -19,7 +19,7 @@ class KitComboBoxItem(QPushButton, _KitWidget):
     def __init__(self, name='', value=None, icon=''):
         super().__init__()
         self._name = name
-        self._value = value or name
+        self._value = value if value is not None else name
         self._icon = icon
         self.setCheckable(True)
         self.clicked.connect(self._on_clicked)

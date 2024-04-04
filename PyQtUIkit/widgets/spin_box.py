@@ -8,8 +8,11 @@ from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem, KitGroup as
 class KitSpinBox(QWidget, _KitGroupItem):
     border = IntProperty('border', 1)
     radius = IntProperty('radius', 4)
+
     valueChanged = pyqtSignal(object)
     valueEdited = pyqtSignal(object)
+    editingFinished = pyqtSignal()
+
     font = FontProperty('font')
     font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
@@ -84,18 +87,21 @@ class KitSpinBox(QWidget, _KitGroupItem):
         if not text:
             self._line_edit.setText('0')
             self._on_text_edited()
+        self.editingFinished.emit()
 
     def _decrease(self):
-        self.setValue(round(self.value() - self._step, 2))
-        self.valueChanged.emit(self.value())
-        self._line_edit.selectAll()
-        self._line_edit.setFocus()
+        self.setValue(round(self.value - self._step, 2))
+        self.valueChanged.emit(self.value)
+        # self._line_edit.selectAll()
+        # self._line_edit.setFocus()
+        self.editingFinished.emit()
 
     def _increase(self):
-        self.setValue(round(self.value() + self._step, 2))
-        self.valueChanged.emit(self.value())
-        self._line_edit.selectAll()
-        self._line_edit.setFocus()
+        self.setValue(round(self.value + self._step, 2))
+        self.valueChanged.emit(self.value)
+        # self._line_edit.selectAll()
+        # self._line_edit.setFocus()
+        self.editingFinished.emit()
 
     def setRange(self, minimum, maximum):
         self._min = minimum
