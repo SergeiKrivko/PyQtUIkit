@@ -33,10 +33,7 @@ class KitHGroup(KitHBoxLayout):
     def _apply_theme(self):
         self.setFixedHeight(self.height + self.contentsMargins().top() + self.contentsMargins().bottom())
         for item in self.__group:
-            if isinstance(item, KitIconButton):
-                item.size = self.height
-            else:
-                item.setFixedHeight(self.height)
+            item.setFixedHeight(self.height)
             item.border = self.border
             item.radius = self.radius
         super()._apply_theme()
@@ -61,10 +58,7 @@ class KitVGroup(KitVBoxLayout):
     def _apply_theme(self):
         self.setFixedWidth(self.width + self.contentsMargins().left() + self.contentsMargins().right())
         for item in self.__group:
-            if isinstance(item, KitIconButton):
-                item.size = self.width
-            else:
-                item.setFixedWidth(self.width)
+            item.setFixedWidth(self.width)
             item.border = self.border
             item.radius = self.radius
         super()._apply_theme()

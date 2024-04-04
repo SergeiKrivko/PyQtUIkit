@@ -25,6 +25,7 @@ QLineEdit {{
     background-color: {self.main_palette.main};
     border: {self.border}px solid {self.border_palette.main};
     {self._border_radius_css()}
+    padding: 2px;
 }}
 QLineEdit:hover {{
     border: {self.border}px solid {self.border_palette.hover};

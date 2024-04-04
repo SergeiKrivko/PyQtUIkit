@@ -11,7 +11,6 @@ class KitSpinBox(QWidget, _KitGroupItem):
 
     valueChanged = pyqtSignal(object)
     valueEdited = pyqtSignal(object)
-    editingFinished = pyqtSignal()
 
     font = FontProperty('font')
     font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
@@ -24,6 +23,7 @@ class KitSpinBox(QWidget, _KitGroupItem):
         self._func = func
         self._last_text = '0'
         self._last_pos = 0
+        self._value_changed = False
         self.setMaximumHeight(24)
 
         main_layout = QHBoxLayout()
@@ -56,7 +56,13 @@ class KitSpinBox(QWidget, _KitGroupItem):
         self._button_down.clicked.connect(self._decrease)
         buttons_layout.addWidget(self._button_down)
 
-    def _on_text_edited(self, manually=True):
+    def _on_text_edited(self):
+        value = 0 if not self._last_text else self._func(self._last_text)
+        self._fix_value()
+        if value != self.value:
+            self._value_changed = True
+
+    def _fix_value(self):
         text = self._line_edit.text()
         try:
             value = 0 if text in ['', '+', '-'] else self._func(text)
@@ -75,8 +81,6 @@ class KitSpinBox(QWidget, _KitGroupItem):
             else:
                 self._last_text = text
             self.valueChanged.emit(value)
-            if manually:
-                self.valueEdited.emit(value)
             self._last_pos = self._line_edit.cursorPosition()
 
     def _on_cursor_moved(self):
@@ -87,38 +91,36 @@ class KitSpinBox(QWidget, _KitGroupItem):
         if not text:
             self._line_edit.setText('0')
             self._on_text_edited()
-        self.editingFinished.emit()
+        if self._value_changed:
+            self.valueEdited.emit(self.value)
+            self._value_changed = False
 
     def _decrease(self):
         self.setValue(round(self.value - self._step, 2))
-        self.valueChanged.emit(self.value)
-        # self._line_edit.selectAll()
-        # self._line_edit.setFocus()
-        self.editingFinished.emit()
+        self.valueEdited.emit(self.value)
+        self._value_changed = False
 
     def _increase(self):
         self.setValue(round(self.value + self._step, 2))
-        self.valueChanged.emit(self.value)
-        # self._line_edit.selectAll()
-        # self._line_edit.setFocus()
-        self.editingFinished.emit()
+        self.valueEdited.emit(self.value)
+        self._value_changed = False
 
     def setRange(self, minimum, maximum):
         self._min = minimum
         self._max = maximum
-        self._on_text_edited(False)
+        self._on_text_edited()
 
     def setMinimum(self, minimum):
         self._min = minimum
-        self._on_text_edited(False)
+        self._on_text_edited()
 
     def setMaximum(self, maximum):
         self._max = maximum
-        self._on_text_edited(False)
+        self._on_text_edited()
 
     def setValue(self, value):
         self._line_edit.setText(str(value))
-        self._on_text_edited(False)
+        self._on_text_edited()
 
     def getValue(self):
         if not self._line_edit.text():
