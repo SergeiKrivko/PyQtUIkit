@@ -22,6 +22,7 @@ class KitTab(QPushButton, _KitWidget):
     font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
 
     selected = pyqtSignal(object)
+    closeRequested = pyqtSignal()
     _mousePress = pyqtSignal(object)
     _mouseRelease = pyqtSignal()
     icon = IconProperty('icon')
@@ -54,8 +55,10 @@ class KitTab(QPushButton, _KitWidget):
 
         self.__button_close = KitIconButton(icon='solid-xmark')
         self.__button_close.border = 0
-        self.__button_close.size = 18
+        self.__button_close.size = 16
+        self.__button_close.radius = 8
         self.__button_close.hide()
+        self.__button_close.on_click = self.closeRequested.emit
         layout.addWidget(self.__button_close)
 
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
@@ -131,13 +134,14 @@ QPushButton::hover {{
 
 
 class KitTabBar(KitHBoxLayout, _KitWidget):
-    main_palette = PaletteProperty('main_palette', 'Bg')
     tabs_palette = PaletteProperty('tabs_palette', 'Main')
     height = IntProperty('height', 26)
-    border = IntProperty('border', 0)
-    radius = IntProperty('radius', 4)
+    radius_top = IntProperty('radius_top', 6)
+    radius_bottom = IntProperty('radius_bottom', 0)
 
-    currentChanged = pyqtSignal(int)
+    currentChanged = pyqtSignal(object)
+    tabCloseRequested = pyqtSignal(int)
+    tabMoved = pyqtSignal(int, int)
 
     def __init__(self):
         super().__init__()
@@ -146,6 +150,7 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
         self.__tabs_closable = False
         self.__tabs_movable = False
         self.setContentsMargins(0, 0, 0, 0)
+        self.radius = 0
         self.setSpacing(0)
         self._main_palette = 'Bg'
 
@@ -159,6 +164,7 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
         self.addWidget(self.__scroll_area)
         self.__layout = _TabLayout(self.__tabs)
         self.__scroll_area.setWidget(self.__layout)
+        self.__layout.tabMoved.connect(self.tabMoved.emit)
         self.__scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
 
         self.__button_right = KitButton(icon='solid-chevron-right')
@@ -176,6 +182,7 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
         tab._set_closable(self.__tabs_closable)
         tab._set_tm(self._tm)
         tab.selected.connect(lambda: self.setCurrentTab(tab))
+        tab.closeRequested.connect(lambda: self._close_requested(tab))
         tab._mousePress.connect(self.__layout.on_mouse_press)
         tab._mouseRelease.connect(self.__layout.on_mouse_release)
         self.__tabs.insert(index, tab)
@@ -185,10 +192,13 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
             tab._set_checked(True)
 
     def _scroll_left(self):
-        self.__scroll_area.scroll(-10)
+        self.__scroll_area.scroll(-50)
 
     def _scroll_right(self):
-        self.__scroll_area.scroll(10)
+        self.__scroll_area.scroll(50)
+
+    def _close_requested(self, tab):
+        self.tabCloseRequested.emit(self.__tabs.index(tab))
 
     def setTabsClosable(self, flag):
         self.__tabs_closable = flag
@@ -201,11 +211,27 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
 
     def setCurrentTab(self, tab: int | KitTab):
         if isinstance(tab, int):
-            tab = self.__tabs[tab]
-        self.__current._set_checked(False)
+            try:
+                tab = self.__tabs[tab]
+            except IndexError:
+                tab = None
+        if self.__current:
+            self.__current._set_checked(False)
         self.__current = tab
-        self.__current._set_checked(True)
-        self.currentChanged.emit(self.__tabs.index(tab))
+        if self.__current:
+            self.__current._set_checked(True)
+        self.currentChanged.emit(None if tab is None else self.__tabs.index(tab))
+
+    def tabsCount(self):
+        return len(self.__tabs)
+
+    def removeTab(self, index):
+        tab = self.__tabs.pop(index)
+        self.__layout.update_tabs()
+        if self.__current == tab:
+            self.setCurrentTab(min(index, self.tabsCount() - 1))
+        self.__button_left.setHidden(self.__layout.width() <= self.width())
+        self.__button_right.setHidden(self.__layout.width() <= self.width())
 
     def _set_tm(self, tm):
         super()._set_tm(tm)
@@ -227,12 +253,16 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
         super()._apply_theme()
         for el in self.__tabs:
             el.main_palette = self.tabs_palette
+            el.radius_top = self.radius_top
+            el.radius_bottom = self.radius_bottom
             el.setFixedHeight(self.height)
             el._apply_theme()
         self.__layout.update_tabs()
 
 
 class _TabLayout(QWidget):
+    tabMoved = pyqtSignal(int, int)
+
     def __init__(self, widgets: list[KitTab]):
         super().__init__()
         self.__widgets = widgets
@@ -297,12 +327,14 @@ class _TabLayout(QWidget):
         self.__widgets[index], self.__widgets[index + 1] = self.__widgets[index + 1], self.__widgets[index]
         self.__widgets_positions[index + 1] = self.__widgets_positions[index] + self.__tab_move.width()
         self.__move_tab(index + 1)
+        self.tabMoved.emit(self.__tab_move_index, self.__tab_move_index - 1)
         self.__tab_move_index -= 1
 
     def __move_left(self, index):
         self.__widgets[index], self.__widgets[index - 1] = self.__widgets[index - 1], self.__widgets[index]
         self.__widgets_positions[index] = self.__widgets_positions[index - 1] + self.__widgets[index - 1].width()
         self.__move_tab(index - 1)
+        self.tabMoved.emit(self.__tab_move_index, self.__tab_move_index + 1)
         self.__tab_move_index += 1
 
     def __move_tab(self, index):
