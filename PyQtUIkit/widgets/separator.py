@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QWidget
+from PyQt6.QtWidgets import QWidget, QVBoxLayout
 
 from PyQtUIkit.core import IntProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
@@ -11,6 +11,11 @@ class KitHSeparator(QWidget, _KitWidget):
         super().__init__()
         self._use_text_only = True
         self.setFixedHeight(self.border)
+
+        layout = QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        self.setLayout(layout)
+        layout.addWidget(QWidget())
 
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
@@ -30,6 +35,11 @@ class KitVSeparator(QWidget, _KitWidget):
         super().__init__()
         self._use_text_only = True
         self.setFixedWidth(self.border)
+
+        layout = QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        self.setLayout(layout)
+        layout.addWidget(QWidget())
 
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
