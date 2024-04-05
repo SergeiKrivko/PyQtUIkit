@@ -108,19 +108,19 @@ class KitSpinBox(QWidget, _KitGroupItem):
     def setRange(self, minimum, maximum):
         self._min = minimum
         self._max = maximum
-        self._on_text_edited()
+        self._fix_value()
 
     def setMinimum(self, minimum):
         self._min = minimum
-        self._on_text_edited()
+        self._fix_value()
 
     def setMaximum(self, maximum):
         self._max = maximum
-        self._on_text_edited()
+        self._fix_value()
 
     def setValue(self, value):
         self._line_edit.setText(str(value))
-        self._on_text_edited()
+        self._fix_value()
 
     def getValue(self):
         if not self._line_edit.text():
