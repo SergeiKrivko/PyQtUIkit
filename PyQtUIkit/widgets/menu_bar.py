@@ -7,9 +7,11 @@ from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 class KitMenuBar(QMenuBar, _KitWidget):
     class Action(QAction):
-        def __init__(self, name, icon, func=None):
+        def __init__(self, name, icon, func=None, shortcut=None):
             super().__init__()
             self.setText(name)
+            if shortcut:
+                self.setShortcut(shortcut)
             self._icon = icon
             self._func = func
             if self._func:
@@ -24,6 +26,7 @@ class KitMenuBar(QMenuBar, _KitWidget):
             super().__init__()
             self.setTitle(name)
             self._icon = icon
+            self.setMinimumWidth(160)
             self._children = []
             for el in args:
                 if isinstance(el, QMenu):
