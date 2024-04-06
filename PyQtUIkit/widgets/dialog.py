@@ -123,6 +123,7 @@ class _KitAskDialog(KitDialog):
 
         main_layout = KitVBoxLayout()
         main_layout.setContentsMargins(10, 10, 10, 10)
+        main_layout.spacing = 6
         self.setWidget(main_layout)
 
         layout = KitHBoxLayout()
@@ -141,7 +142,7 @@ class _KitAskDialog(KitDialog):
 
         buttons_layout = KitHBoxLayout()
         buttons_layout.setAlignment(Qt.AlignmentFlag.AlignRight)
-        buttons_layout.setContentsMargins(0, 0, 0, 0)
+        buttons_layout.spacing = 6
         main_layout.addWidget(buttons_layout)
 
         self._buttons = dict()

@@ -17,7 +17,7 @@ class KitMenuBar(QMenuBar, _KitWidget):
             if self._func:
                 self.triggered.connect(self._func)
 
-        def _apply_styles(self, tm, main_palette, border_palette):
+        def _apply_styles(self, tm, main_palette, *args):
             if self._icon:
                 self.setIcon(tm.icon(self._icon, main_palette.text))
 
@@ -45,9 +45,10 @@ class KitMenuBar(QMenuBar, _KitWidget):
         def clear(self) -> None:
             self._children.clear()
 
-        def _apply_styles(self, tm, main_palette, border_palette):
+        def _apply_styles(self, tm, main_palette, border_palette, font):
             if self._icon:
                 self.setIcon(tm.icon(self._icon, main_palette.text))
+            self.setFont(font)
             self.setStyleSheet(f"""
 QMenu {{
     color: {main_palette.text};
@@ -76,7 +77,7 @@ QMenu::separator {{
 }}""")
             for el in self._children:
                 if hasattr(el, '_apply_styles'):
-                    el._apply_styles(tm, main_palette, border_palette)
+                    el._apply_styles(tm, main_palette, border_palette, font)
 
     main_palette = PaletteProperty('main_palette', 'Menu')
     border = IntProperty('border', 0)
@@ -130,4 +131,4 @@ QMenuBar::item:pressed {{
 }}""")
         for el in self._children:
             if hasattr(el, '_apply_styles'):
-                el._apply_styles(self._tm, self.main_palette, self.border_palette)
+                el._apply_styles(self._tm, self.main_palette, self.border_palette, self.font.get(self.font_size))

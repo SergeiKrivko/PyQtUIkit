@@ -3,7 +3,7 @@ from enum import Enum
 from PyQt6.QtCore import QPropertyAnimation
 from PyQt6.QtWidgets import QProgressBar
 
-from PyQtUIkit.core import IntProperty, PaletteProperty, BoolProperty, EnumProperty
+from PyQtUIkit.core import IntProperty, PaletteProperty, BoolProperty, EnumProperty, KitFont, FontProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
@@ -17,6 +17,8 @@ class KitProgressBar(QProgressBar, _KitWidget):
     radius = IntProperty('radius', 4)
     animations = BoolProperty('animations', True)
     mode = EnumProperty('mode', Mode, Mode.LARGE)
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
+    font = FontProperty('font')
 
     def __init__(self):
         super().__init__()
@@ -44,7 +46,7 @@ class KitProgressBar(QProgressBar, _KitWidget):
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
-        self.setFont(self._tm.font_medium)
+        self.setFont(self.font.get(self.font_size))
         if self.mode == KitProgressBar.Mode.LARGE:
             self.setFixedHeight(24)
             self.setTextVisible(self.__text_visible)
