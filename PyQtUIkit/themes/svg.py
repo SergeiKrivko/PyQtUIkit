@@ -6,12 +6,29 @@ class SVG:
         self._data = bs4.BeautifulSoup(data, 'xml')
 
     def change_color(self, color):
-        for tag in self._data.find_all(['path', 'circle', 'polygon', 'rect', 'ellipse', 'line']):
-            fill, stroke = tag.get('fill'), tag.get('stroke')
-            if fill or not stroke:
+
+        tag = self._data.find('svg')
+        fill, stroke = tag.get('fill'), tag.get('stroke')
+        if fill == 'none':
+            fill = None
+        if stroke == 'none':
+            fill = None
+        if fill or stroke:
+            if fill:
                 tag['fill'] = color
             if stroke:
                 tag['stroke'] = color
+        else:
+            for tag in self._data.find_all(['path', 'circle', 'polygon', 'rect', 'ellipse', 'line']):
+                fill, stroke = tag.get('fill'), tag.get('stroke')
+                if fill == 'none':
+                    fill = None
+                if stroke == 'none':
+                    fill = None
+                if fill or not stroke:
+                    tag['fill'] = color
+                if stroke:
+                    tag['stroke'] = color
 
     def set_width(self, width):
         for tag in self._data.find_all('svg'):
