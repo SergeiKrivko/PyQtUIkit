@@ -40,7 +40,7 @@ class MainWindow(KitMainWindow):
         self._spinner.width = 3
         top_layout.addWidget(self._spinner)
 
-        self._icon = KitIconWidget('regular-circle-check')
+        self._icon = KitIconWidget('line-checkmark-circle')
         self._icon.setFixedSize(20, 20)
         top_layout.addWidget(self._icon)
 
@@ -56,6 +56,7 @@ class MainWindow(KitMainWindow):
         right_layout.addWidget(self.icon_widget, 1)
 
         group = KitHGroup()
+        group.height = 24
         group.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
         right_layout.addWidget(group)
 
@@ -63,7 +64,8 @@ class MainWindow(KitMainWindow):
         self.copy_line.setReadOnly(True)
         group.addItem(self.copy_line)
 
-        self.copy_button = KitIconButton('regular-copy')
+        self.copy_button = KitIconButton('line-copy')
+        self.copy_button.size = 24
         self.copy_button.clicked.connect(self.copy_icon_name)
         group.addItem(self.copy_button)
 

@@ -53,7 +53,7 @@ class KitTab(QPushButton, _KitWidget):
         self.__label.setContentsMargins(4, 0, 4, 0)
         layout.addWidget(self.__label)
 
-        self.__button_close = KitIconButton(icon='solid-xmark')
+        self.__button_close = KitIconButton(icon='line-close')
         self.__button_close.border = 0
         self.__button_close.size = 16
         self.__button_close.radius = 8
@@ -154,7 +154,7 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
         self.setSpacing(0)
         self._main_palette = 'Bg'
 
-        self.__button_left = KitButton(icon='solid-chevron-left')
+        self.__button_left = KitButton(icon='line-chevron-left')
         self.__button_left.border = 0
         self.__button_left.setFixedWidth(20)
         self.__button_left.clicked.connect(self._scroll_left)
@@ -167,7 +167,7 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
         self.__layout.tabMoved.connect(self.tabMoved.emit)
         self.__scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
 
-        self.__button_right = KitButton(icon='solid-chevron-right')
+        self.__button_right = KitButton(icon='line-chevron-right')
         self.__button_right.border = 0
         self.__button_right.setFixedWidth(20)
         self.__button_right.clicked.connect(self._scroll_right)

@@ -30,7 +30,7 @@ class KitDialog(QDialog, _KitWidget):
         self.__label.setFixedHeight(25)
         self.__top_widget.addWidget(self.__label)
 
-        self.__button_close = KitIconButton('solid-xmark')
+        self.__button_close = KitIconButton('line-close')
         self.__button_close.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self.__button_close.size = 25
         self.__button_close.border = 0
@@ -91,24 +91,24 @@ class KitDialog(QDialog, _KitWidget):
 
     @staticmethod
     def info(parent, title: str, text: str):
-        dialog = _KitMessageBox(parent, title, text, 'solid-circle-info')
+        dialog = _KitMessageBox(parent, title, text, 'sharp-information-circle')
         dialog.exec()
 
     @staticmethod
     def danger(parent, title: str, text: str):
-        dialog = _KitMessageBox(parent, title, text, 'solid-circle-exclamation')
+        dialog = _KitMessageBox(parent, title, text, 'sharp-alert-circle')
         dialog.icon_palette = 'Danger'
         dialog.exec()
 
     @staticmethod
     def warning(parent, title: str, text: str):
-        dialog = _KitMessageBox(parent, title, text, 'solid-triangle-exclamation')
+        dialog = _KitMessageBox(parent, title, text, 'solid-alert-triangle')
         dialog.icon_palette = 'Warning'
         dialog.exec()
 
     @staticmethod
     def success(parent, title: str, text: str):
-        dialog = _KitMessageBox(parent, title, text, 'solid-circle-check')
+        dialog = _KitMessageBox(parent, title, text, 'sharp-checkmark-circle')
         dialog.icon_palette = 'Success'
         dialog.exec()
 
@@ -132,7 +132,7 @@ class _KitAskDialog(KitDialog):
         main_layout.addWidget(layout)
 
         self._icon_widget = KitIconWidget()
-        self._icon_widget.icon = 'solid-circle-question'
+        self._icon_widget.icon = 'sharp-help-circle'
         self._icon_widget.setFixedSize(72, 72)
         layout.addWidget(self._icon_widget)
 

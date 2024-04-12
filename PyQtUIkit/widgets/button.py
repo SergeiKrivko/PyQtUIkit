@@ -99,7 +99,7 @@ class KitIconButton(QPushButton, _KitGroupItem):
             return
         self._icon_label.icon = self.icon
         self._icon_label._main_palette = self._main_palette
-        self.__layout.setContentsMargins(*[min(self.width(), self.height()) // 5] * 4)
+        self.__layout.setContentsMargins(*[min(self.width(), self.height()) // 6] * 4)
         self.setStyleSheet(f"""
 QPushButton {{
     background-color: {self.main_palette.main};

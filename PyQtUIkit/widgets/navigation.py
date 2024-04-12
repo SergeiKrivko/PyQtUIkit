@@ -109,7 +109,7 @@ class KitNavigation(KitVBoxLayout):
         self.setSpacing(5)
         self.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
-        self.__button = KitIconButton('solid-bars')
+        self.__button = KitIconButton('line-reorder-three')
         self.__button.border = 0
         self.__button.clicked.connect(self._on_clicked)
         self.addWidget(self.__button)

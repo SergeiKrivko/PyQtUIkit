@@ -460,8 +460,8 @@ class KitTreeWidget(KitScrollArea):
     def _apply_theme(self):
         self.__tree.main_palette = self._main_palette
         self.__widget.setStyleSheet("background-color: transparent;")
-        self._icon1 = self._tm.icon('solid-angle-right', self.main_palette.text)
-        self._icon2 = self._tm.icon('solid-angle-down', self.main_palette.text)
+        self._icon1 = self._tm.icon('line-chevron-right', self.main_palette.text)
+        self._icon2 = self._tm.icon('line-chevron-down', self.main_palette.text)
         self.__tree._main_palette = self._main_palette
         self.__tree._text_palette = self._items_palette
         self.__tree._apply_theme()
