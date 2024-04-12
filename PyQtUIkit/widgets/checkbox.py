@@ -42,7 +42,7 @@ class KitCheckBox(QWidget, _KitWidget):
         self.stateEdited.emit(self.__state)
 
     def __on_state_changed(self):
-        self.__button.icon = 'solid-check' if self.__state else ''
+        self.__button.icon = 'line-checkmark' if self.__state else ''
         self.__button.setChecked(self.__state)
         self.stateChanged.emit(self.__state)
 
