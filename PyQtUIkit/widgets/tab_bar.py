@@ -11,7 +11,7 @@ from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 from PyQtUIkit.widgets.icon_widget import KitIconWidget
 from PyQtUIkit.widgets.button import KitIconButton, KitButton
 from PyQtUIkit.widgets.scroll_area import KitScrollArea
-from PyQtUIkit.widgets.hbox_layout import KitHBoxLayout
+from PyQtUIkit.widgets.layout import KitHBoxLayout
 from PyQtUIkit.widgets.label import KitLabel
 
 

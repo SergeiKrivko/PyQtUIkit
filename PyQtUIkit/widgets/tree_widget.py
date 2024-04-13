@@ -6,8 +6,7 @@ from PyQtUIkit.core import KitFont
 from PyQtUIkit.core.properties import IntProperty, StringProperty, IconProperty, BoolProperty, EnumProperty, \
     PaletteProperty, FontProperty
 from PyQtUIkit.widgets.dialog import KitDialog
-from PyQtUIkit.widgets.hbox_layout import KitHBoxLayout
-from PyQtUIkit.widgets.vbox_layout import KitVBoxLayout
+from PyQtUIkit.widgets.layout import KitVBoxLayout, KitHBoxLayout
 from PyQtUIkit.widgets.icon_widget import KitIconWidget
 from PyQtUIkit.widgets.label import KitLabel
 from PyQtUIkit.widgets.scroll_area import KitScrollArea
@@ -46,6 +45,7 @@ class KitTreeWidgetItem(KitVBoxLayout):
 
         self.__button = KitLayoutButton()
         self.__button.setSpacing(3)
+        self.__button.border = 0
         self.__button.mousePressEvent = self._on_clicked
         self.__button.mouseMoveEvent = self._on_move
         self.__button.mouseReleaseEvent = self._on_released
@@ -138,6 +138,9 @@ class KitTreeWidgetItem(KitVBoxLayout):
         self.__layout.hide()
         self.__arrow_down.hide()
         self.__arrow_right.show()
+
+    def expanded(self):
+        return self.__expanded
 
     def selected(self):
         return self.__selected
@@ -247,8 +250,8 @@ class KitTreeWidgetItem(KitVBoxLayout):
             self.__arrow_down.setHidden(not self.__expanded)
             self.__arrow_right.setHidden(self.__expanded)
         else:
-            self.__arrow_down.setHidden(False)
-            self.__arrow_right.setHidden(False)
+            self.__arrow_down.setHidden(True)
+            self.__arrow_right.setHidden(True)
 
         super()._apply_theme()
         self._apply_selected_theme()

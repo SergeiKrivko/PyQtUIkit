@@ -7,7 +7,7 @@ from PyQtUIkit.core import IntProperty, PaletteProperty, IconProperty, EnumPrope
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget, KitGroupItem as _KitGroupItem
 from PyQtUIkit.widgets.icon_widget import KitIconWidget
 from PyQtUIkit.widgets.scroll_area import KitScrollArea
-from PyQtUIkit.widgets.vbox_layout import KitVBoxLayout
+from PyQtUIkit.widgets.layout import KitVBoxLayout
 from PyQtUIkit.widgets.button import KitLayoutButton
 
 

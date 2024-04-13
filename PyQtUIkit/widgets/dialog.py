@@ -102,7 +102,7 @@ class KitDialog(QDialog, _KitWidget):
 
     @staticmethod
     def warning(parent, title: str, text: str):
-        dialog = _KitMessageBox(parent, title, text, 'solid-alert-triangle')
+        dialog = _KitMessageBox(parent, title, text, 'solid-warning')
         dialog.icon_palette = 'Warning'
         dialog.exec()
 

@@ -1,15 +1,15 @@
-from PyQt6.QtCore import QMargins
-from PyQt6.QtWidgets import QWidget, QVBoxLayout
+from PyQt6.QtCore import QMargins, Qt
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
 from PyQtUIkit.core.properties import IntProperty, MethodsProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
-class KitVBoxLayout(QWidget, _KitWidget):
+class KitBoxLayout(QWidget, _KitWidget):
     border = IntProperty('border', 0)
     radius = IntProperty('radius', 4)
 
-    def __init__(self):
+    def __init__(self, orientation=Qt.Orientation.Horizontal):
         super().__init__()
         self._widgets = []
         self._main_palette = 'Transparent'
@@ -21,7 +21,7 @@ class KitVBoxLayout(QWidget, _KitWidget):
         strange_widget = QWidget()
         strange_layout.addWidget(strange_widget)
 
-        self.__layout = QVBoxLayout()
+        self.__layout = QVBoxLayout() if orientation == Qt.Orientation.Vertical else QHBoxLayout()
         self.__layout.setContentsMargins(0, 0, 0, 0)
         self.__layout.setSpacing(0)
         strange_widget.setLayout(self.__layout)
@@ -125,3 +125,13 @@ class KitVBoxLayout(QWidget, _KitWidget):
     min_width = MethodsProperty(QWidget.minimumWidth, QWidget.setMinimumWidth)
     max_height = MethodsProperty(QWidget.maximumHeight, QWidget.setMaximumHeight)
     min_height = MethodsProperty(QWidget.minimumHeight, QWidget.setMinimumHeight)
+
+
+class KitVBoxLayout(KitBoxLayout):
+    def __init__(self):
+        super().__init__(orientation=Qt.Orientation.Vertical)
+
+
+class KitHBoxLayout(KitBoxLayout):
+    def __init__(self):
+        super().__init__(orientation=Qt.Orientation.Horizontal)
