@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel
 
 from PyQtUIkit.core.properties import PaletteProperty, BoolProperty, StringProperty, IconProperty
 from PyQtUIkit.widgets import KitIconButton, KitHBoxLayout, KitVBoxLayout, KitButton, KitIconWidget, KitLabel
+from PyQtUIkit.widgets.form import KitForm
 from PyQtUIkit.widgets._widget import _KitWidget
 
 
@@ -201,3 +202,40 @@ class _KitMessageBox(KitDialog):
         self._icon_widget.icon = self._icon
         self._icon_widget.main_palette = self.icon_palette
         super()._apply_theme()
+
+
+class KitFormDialog(KitDialog):
+    def __init__(self, parent, *args):
+        super().__init__(parent)
+        self.button_close = False
+        self.setMinimumWidth(320)
+        self.setMaximumHeight(60)
+
+        main_layout = KitVBoxLayout()
+        main_layout.alignment = Qt.AlignmentFlag.AlignTop
+        main_layout.padding = 20, 20, 20, 10
+        main_layout.spacing = 16
+        self.setWidget(main_layout)
+
+        self._form = KitForm(*args)
+        main_layout.addWidget(self._form)
+
+        buttons_layout = KitHBoxLayout()
+        buttons_layout.spacing = 6
+        buttons_layout.alignment = Qt.AlignmentFlag.AlignRight
+        main_layout.addWidget(buttons_layout)
+
+        self._button_cancel = KitButton("Cancel")
+        self._button_cancel.setFixedSize(100, 26)
+        self._button_cancel.on_click = self.reject
+        buttons_layout.addWidget(self._button_cancel)
+
+        self._button_ok = KitButton("Ok")
+        self._button_ok.setFixedSize(100, 26)
+        self._button_ok.on_click = self.accept
+        buttons_layout.addWidget(self._button_ok)
+
+        self.resize(300, 60)
+
+    def res(self):
+        return self._form.res()
