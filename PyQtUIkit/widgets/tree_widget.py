@@ -1,26 +1,27 @@
 from enum import Enum
 
 from PyQt6.QtCore import Qt, pyqtSignal, QPoint
-from PyQt6.QtWidgets import QPushButton, QHBoxLayout, QLabel, QVBoxLayout, QWidget
 
 from PyQtUIkit.core import KitFont
 from PyQtUIkit.core.properties import IntProperty, StringProperty, IconProperty, BoolProperty, EnumProperty, \
     PaletteProperty, FontProperty
-from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 from PyQtUIkit.widgets.dialog import KitDialog
 from PyQtUIkit.widgets.hbox_layout import KitHBoxLayout
+from PyQtUIkit.widgets.vbox_layout import KitVBoxLayout
 from PyQtUIkit.widgets.icon_widget import KitIconWidget
 from PyQtUIkit.widgets.label import KitLabel
 from PyQtUIkit.widgets.scroll_area import KitScrollArea
+from PyQtUIkit.widgets.button import KitLayoutButton, KitIconButton
 
 
-class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
+class KitTreeWidgetItem(KitVBoxLayout):
     name = StringProperty('name', '')
     radius = IntProperty('radius', 4)
     icon = IconProperty('icon')
     text_palette = PaletteProperty('text_palette', 'Main')
     font = FontProperty('font')
     font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
+    always_expandable = BoolProperty('always_expandable', False)
 
     def __init__(self, name='', icon=''):
         super().__init__()
@@ -42,47 +43,38 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
         self.__last_pos = None
 
         self.setAlignment(Qt.AlignmentFlag.AlignTop)
-        self.setContentsMargins(0, 0, 0, 0)
-        self.setSpacing(0)
 
-        self.__button = QPushButton()
+        self.__button = KitLayoutButton()
+        self.__button.setSpacing(3)
         self.__button.mousePressEvent = self._on_clicked
         self.__button.mouseMoveEvent = self._on_move
         self.__button.mouseReleaseEvent = self._on_released
         self.__button.mouseDoubleClickEvent = self._on_double_clicked
         self.addWidget(self.__button)
 
-        self.__top_layout = QHBoxLayout()
-        self.__top_layout.setContentsMargins(0, 0, 0, 0)
-        self.__top_layout.setSpacing(3)
-        self.__button.setLayout(self.__top_layout)
-
-        self.__arrow_right = QPushButton()
+        self.__arrow_right = KitIconButton('line-chevron-forward')
         self.__arrow_right.setFixedSize(20, 20)
+        self.__arrow_right.border = 0
         self.__arrow_right.hide()
         self.__arrow_right.clicked.connect(self.expand)
-        self.__top_layout.addWidget(self.__arrow_right)
+        self.__button.addWidget(self.__arrow_right)
 
-        self.__arrow_down = QPushButton()
+        self.__arrow_down = KitIconButton('line-chevron-down')
         self.__arrow_down.setFixedSize(20, 20)
+        self.__arrow_down.border = 0
         self.__arrow_down.hide()
         self.__arrow_down.clicked.connect(self.collapse)
-        self.__top_layout.addWidget(self.__arrow_down)
+        self.__button.addWidget(self.__arrow_down)
 
         self.__icon_widget = KitIconWidget()
-        self.__top_layout.addWidget(self.__icon_widget)
+        self.__button.addWidget(self.__icon_widget)
 
-        self.__label = QLabel(self._name)
-        self.__top_layout.addWidget(self.__label)
+        self.__label = KitLabel(self._name)
+        self.__button.addWidget(self.__label)
 
-        self.__widget = QWidget()
-        self.addWidget(self.__widget)
-        self.__widget.hide()
-
-        self.__layout = QVBoxLayout()
-        self.__layout.setSpacing(0)
-        self.__layout.setContentsMargins(0, 0, 0, 0)
-        self.__widget.setLayout(self.__layout)
+        self.__layout = KitVBoxLayout()
+        self.__layout.hide()
+        self.addWidget(self.__layout)
 
     def parent(self):
         return self.__parent
@@ -102,7 +94,7 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
         item._set_tm(self._tm)
 
         self.__children.insert(index, item)
-        self.__layout.insertLayout(index, item)
+        self.__layout.insertWidget(index, item)
 
         self.__arrow_down.setHidden(not self.__expanded)
         self.__arrow_right.setHidden(self.__expanded)
@@ -116,7 +108,7 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
 
     def clear(self):
         for _ in range(self.count()):
-            self.takeAt(0).widget().setParent(None)
+            self.__layout.clear()
         for el in self.__children:
             if el.selected():
                 self.__root._set_current(None)
@@ -125,7 +117,7 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
     def deleteItem(self, item):
         if isinstance(item, KitTreeWidgetItem):
             item = self.__children.index(item)
-        self.takeAt(item).widget().setParent(None)
+        self.__layout.deleteWidget(item)
         if self.__children.pop(item).selected():
             self.__root._set_current(None)
 
@@ -134,7 +126,7 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
 
     def expand(self):
         self.__expanded = True
-        self.__widget.show()
+        self.__layout.show()
         self.__arrow_down.show()
         self.__arrow_right.hide()
         if self.__never_expanded:
@@ -143,7 +135,7 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
 
     def collapse(self):
         self.__expanded = False
-        self.__widget.hide()
+        self.__layout.hide()
         self.__arrow_down.hide()
         self.__arrow_right.show()
 
@@ -153,13 +145,16 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
     def firstExpand(self):
         pass
 
+    def neverExpanded(self):
+        return self.__never_expanded
+
     def _on_clicked(self, a0):
-        QPushButton.mousePressEvent(self.__button, a0)
+        KitLayoutButton.mousePressEvent(self.__button, a0)
         self.__last_pos = a0.pos()
         self.__root._item_click(self, right=a0.button() == Qt.MouseButton.RightButton)
 
     def _on_double_clicked(self, a0):
-        QPushButton.mouseDoubleClickEvent(self.__button, a0)
+        KitLayoutButton.mouseDoubleClickEvent(self.__button, a0)
         self.__root._item_double_click(self)
 
     def _select(self, multi=False):
@@ -170,7 +165,7 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
                 el._select(True)
 
     def _on_move(self, a0):
-        QPushButton.mouseMoveEvent(self.__button, a0)
+        KitLayoutButton.mouseMoveEvent(self.__button, a0)
         if self.__last_pos is None:
             return
         if not self.__root.movable:
@@ -186,7 +181,7 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
         self.__last_pos = a0.pos()
 
     def _on_released(self, a0):
-        QPushButton.mouseReleaseEvent(self.__button, a0)
+        KitLayoutButton.mouseReleaseEvent(self.__button, a0)
         if isinstance(self.__move_widget, _MoveItem):
             self.__move_widget.close()
             self.__root._request_move(self, self.__move_widget.pos())
@@ -207,7 +202,8 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
             item._set_level(self.__level + 1)
 
     def _update_padding(self):
-        self.__top_layout.setContentsMargins((self.__level - 1) * 15 + 3 + (0 if self.__children else 25), 0, 0, 0)
+        self.__button.setContentsMargins((self.__level - 1) * 15 + 3 +
+                                         (0 if self.__children or self.always_expandable else 25), 0, 0, 0)
 
     def _hide_button(self):
         self.__button.hide()
@@ -243,33 +239,19 @@ class KitTreeWidgetItem(QVBoxLayout, _KitWidget):
             el._height = self._height
             el.main_palette = self._main_palette
             el.text_palette = self._text_palette
-        if self._icon:
-            self.__icon_widget._icon = self._icon
-            self.__icon_widget.show()
-            self.__icon_widget._main_palette = self._text_palette
-            self.__icon_widget.setFixedSize(self._height - 6, self._height - 6)
-            self.__icon_widget._apply_theme()
-        else:
-            self.__icon_widget.hide()
         self.__button.setFixedHeight(self._height)
-        self.__arrow_right.setIcon(self.__root._icon1)
-        self.__arrow_down.setIcon(self.__root._icon2)
+        self.__icon_widget.setFixedSize(self._height - 4, self._height - 4)
+        self.__icon_widget._icon = self._icon
+
+        if self.__children or self.always_expandable:
+            self.__arrow_down.setHidden(not self.__expanded)
+            self.__arrow_right.setHidden(self.__expanded)
+        else:
+            self.__arrow_down.setHidden(False)
+            self.__arrow_right.setHidden(False)
+
+        super()._apply_theme()
         self._apply_selected_theme()
-        self.__label.setFont(self.font.get(self.font_size))
-        for el in [self.__arrow_right, self.__arrow_down]:
-            el.setStyleSheet(f"""
-            QPushButton {{
-                background-color: transparent;
-                border: 0px solid black;
-                border-radius: {self.radius}px;
-            }}
-            QPushButton:hover {{
-                background-color: {self.main_palette.main};
-            }}
-            """)
-        self.__label.setStyleSheet(f"color: {self.text_palette.text_only}; background-color: transparent;")
-        for el in self.__children:
-            el._apply_theme()
 
     def _apply_selected_theme(self):
         self.__button.setStyleSheet(f"""
@@ -340,10 +322,7 @@ class KitTreeWidget(KitScrollArea):
         self.__tree._hide_button()
         self.__tree._set_root(self, None)
         self.__tree.expand()
-
-        self.__widget = QWidget()
-        self.__widget.setLayout(self.__tree)
-        self.setWidget(self.__widget)
+        self.setWidget(self.__tree)
 
     def addItem(self, item: KitTreeWidgetItem):
         item._main_palette = self._main_palette
@@ -360,7 +339,7 @@ class KitTreeWidget(KitScrollArea):
         self.__current = item
 
     def _request_move(self, item, pos):
-        dest, _ = self.__tree._find_by_pos(pos - self.__widget.mapToGlobal(QPoint(0, 0)))
+        dest, _ = self.__tree._find_by_pos(pos - self.__tree.mapToGlobal(QPoint(0, 0)))
         if dest:
             self.moveRequested.emit(item, dest)
 
@@ -459,9 +438,6 @@ class KitTreeWidget(KitScrollArea):
 
     def _apply_theme(self):
         self.__tree.main_palette = self._main_palette
-        self.__widget.setStyleSheet("background-color: transparent;")
-        self._icon1 = self._tm.icon('line-chevron-right', self.main_palette.text)
-        self._icon2 = self._tm.icon('line-chevron-down', self.main_palette.text)
         self.__tree._main_palette = self._main_palette
         self.__tree._text_palette = self._items_palette
         self.__tree._apply_theme()
