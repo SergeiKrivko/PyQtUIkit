@@ -8,7 +8,7 @@ class KitForm(KitVBoxLayout):
         pass
 
     class StrField(KitHBoxLayout):
-        def __init__(self, name=''):
+        def __init__(self, name='', default=''):
             super().__init__()
             self.name = name
             self.spacing = 6
@@ -18,13 +18,14 @@ class KitForm(KitVBoxLayout):
                 self.addWidget(KitLabel(name))
 
             self._line_edit = KitLineEdit()
+            self._line_edit.text = default
             self.addWidget(self._line_edit)
 
         def value(self):
             return self._line_edit.text
 
     class IntField(KitHBoxLayout):
-        def __init__(self, name='', min=0, max=100):
+        def __init__(self, name='', min=0, max=100, default=0):
             super().__init__()
             self.name = name
             self.spacing = 6
@@ -34,6 +35,7 @@ class KitForm(KitVBoxLayout):
                 self.addWidget(KitLabel(name))
 
             self._spin_box = KitSpinBox()
+            self._spin_box.value = default
             self._spin_box.setMaximumWidth(120)
             self._spin_box.setRange(min, max)
             self.addWidget(self._spin_box)
@@ -42,7 +44,7 @@ class KitForm(KitVBoxLayout):
             return self._spin_box.value
 
     class ComboField(KitHBoxLayout):
-        def __init__(self, name='', values: list = tuple()):
+        def __init__(self, name='', values: list = tuple(), default=0):
             super().__init__()
             self.name = name
             self.spacing = 6
@@ -53,14 +55,16 @@ class KitForm(KitVBoxLayout):
 
             self._combo_box = KitComboBox(*values)
             self._combo_box.setMaximumWidth(120)
+            self._combo_box.setCurrentIndex(default)
             self.addWidget(self._combo_box)
 
         def value(self):
             return self._combo_box.currentValue()
 
     class BoolField(KitCheckBox):
-        def __init__(self, name):
+        def __init__(self, name, default=False):
             super().__init__(name)
+            self.state = default
 
         def value(self):
             return self.state
