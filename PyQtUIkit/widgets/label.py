@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import QLabel
 
 from PyQtUIkit.core import IntProperty, PaletteProperty, EnumProperty, KitFont, FontProperty, MethodsProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
+from core import TextProperty
 
 
 class KitLabel(QLabel, _KitWidget):
@@ -10,11 +11,12 @@ class KitLabel(QLabel, _KitWidget):
     radius = IntProperty('radius', 4)
     font = FontProperty('font')
     font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
+    text = TextProperty('text')
 
     def __init__(self, text=''):
-        super().__init__(text)
+        super().__init__()
+        self._text = text
         self._use_text_only = True
-        self._build_from_kui()
 
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
@@ -27,4 +29,7 @@ class KitLabel(QLabel, _KitWidget):
             border: none;
         }}""")
 
-    text = MethodsProperty(QLabel.text, QLabel.setText)
+    def _apply_lang(self):
+        if not self._tm:
+            return
+        self.setText(self.text)

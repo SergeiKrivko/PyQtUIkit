@@ -4,7 +4,7 @@ from PyQt6.QtCore import Qt, QMargins
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout, QHBoxLayout, QWidget
 
 from PyQtUIkit.core import IconProperty, EnumProperty, PaletteProperty, KitFont, FontProperty, \
-    SignalProperty, MethodsProperty
+    SignalProperty, MethodsProperty, TextProperty
 from PyQtUIkit.themes import ThemeManager
 from PyQtUIkit.widgets import KitIconWidget
 from PyQtUIkit.widgets._widget import KitGroupItem as _KitGroupItem
@@ -16,16 +16,15 @@ class KitButton(QPushButton, _KitGroupItem):
     font = FontProperty('font')
     font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
     on_click = SignalProperty('on_click', 'clicked')
+    text = TextProperty('text')
 
     def __init__(self, text='', icon=None):
         super().__init__()
         self.__widgets = []
         self.setCursor(Qt.CursorShape.PointingHandCursor)
 
-        self.setText(text)
+        self._text = text
         self._icon = icon
-
-        self._build_from_kui()
 
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
@@ -60,7 +59,10 @@ QPushButton::menu-indicator {{
         if self.icon is not None:
             self.setIcon(self.icon.icon(self.main_palette.text))
 
-    text = MethodsProperty(QPushButton.text, QPushButton.setText)
+    def _apply_lang(self):
+        if not self._tm:
+            return
+        self.setText(self.text)
 
 
 class KitIconButton(QPushButton, _KitGroupItem):

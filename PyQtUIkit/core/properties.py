@@ -57,6 +57,27 @@ class StringProperty(property):
         super().__init__(getter, setter)
 
 
+class TextProperty(property):
+    def __init__(self, name='', default=''):
+        self._id = '_' + (str(name) or str(uuid4()).replace('-', '_'))
+
+        def getter(obj) -> str:
+            try:
+                res = getattr(obj, self._id)
+                if isinstance(res, str):
+                    return res
+                return obj._tm.get_text(res.key)
+            except AttributeError as ex:
+                print(ex)
+                return default
+
+        def setter(obj, value: str):
+            setattr(obj, self._id, str(value))
+            obj._apply_lang()
+
+        super().__init__(getter, setter)
+
+
 class IconProperty(property):
     def __init__(self, name=''):
         self._id = '_' + (str(name) or str(uuid4()).replace('-', '_'))

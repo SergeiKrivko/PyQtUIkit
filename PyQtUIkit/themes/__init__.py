@@ -1,3 +1,6 @@
+import importlib
+from importlib.resources import files
+
 from PyQt6.QtGui import QPixmap, QImage, QIcon, QFontDatabase
 
 from PyQtUIkit.themes.builtin_themes import basic_theme, builtin_themes
@@ -7,14 +10,18 @@ from PyQtUIkit.themes.theme import KitTheme, KitPalette
 
 
 class ThemeManager:
-    def __init__(self, on_theme_changed):
+    def __init__(self, on_theme_changed, on_lang_changed):
         self.__current_theme_name = 'Light'
         self.__current_theme = basic_theme
         self.__themes = builtin_themes
         self.__on_theme_changed = on_theme_changed
+        self.__on_lang_changed = on_lang_changed
         self.__active = False
 
-        from importlib.resources import files
+        self.__lang = None
+        self.__lang_data = None
+        self.__lang_path = None
+
         for file in files('PyQtUIkit.fonts').iterdir():
             QFontDatabase.addApplicationFontFromData(file.read_bytes())
 
@@ -68,3 +75,18 @@ class ThemeManager:
             with open(icon, encoding='utf-8') as f:
                 icon = f.read()
         icons[name] = icon
+
+    def set_lang_path(self, path):
+        self.__lang_path = path
+
+    def get_languages(self):
+        for file in files(self.__lang_path).iterdir():
+            yield file
+
+    def set_lang(self, lang):
+        self.__lang = lang
+        self.__lang_data = importlib.import_module(f'{self.__lang_path}.{lang}').local
+        self.__on_lang_changed()
+
+    def get_text(self, key):
+        return self.__lang_data.get(key)

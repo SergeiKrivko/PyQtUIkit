@@ -63,6 +63,12 @@ class KitTab(QPushButton, _KitWidget):
 
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
+    def currentIndex(self):
+        return self.__tabs.index(self.__current)
+
+    def currentTab(self):
+        return self.__current
+
     def _set_checked(self, flag):
         self.__checked = flag
         self._apply_theme()
@@ -133,7 +139,7 @@ QPushButton::hover {{
         self.__button_close._apply_theme()
 
 
-class KitTabBar(KitHBoxLayout, _KitWidget):
+class KitTabBar(KitHBoxLayout):
     tabs_palette = PaletteProperty('tabs_palette', 'Main')
     height = IntProperty('height', 26)
     radius_top = IntProperty('radius_top', 6)
@@ -154,7 +160,7 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
         self.setSpacing(0)
         self._main_palette = 'Bg'
 
-        self.__button_left = KitButton(icon='line-chevron-left')
+        self.__button_left = KitButton(icon='line-chevron-back')
         self.__button_left.border = 0
         self.__button_left.setFixedWidth(20)
         self.__button_left.clicked.connect(self._scroll_left)
@@ -167,11 +173,20 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
         self.__layout.tabMoved.connect(self.tabMoved.emit)
         self.__scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
 
-        self.__button_right = KitButton(icon='line-chevron-right')
+        self.__button_right = KitButton(icon='line-chevron-forward')
         self.__button_right.border = 0
         self.__button_right.setFixedWidth(20)
         self.__button_right.clicked.connect(self._scroll_right)
         self.addWidget(self.__button_right)
+
+    def currentIndex(self):
+        return self.__tabs.index(self.__current)
+
+    def currentTab(self):
+        return self.__current
+
+    def tab(self, index):
+        return self.__tabs[index]
 
     def addTab(self, tab: str | KitTab):
         self.insertTab(len(self.__tabs), tab)
@@ -180,6 +195,13 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
         if isinstance(tab, str):
             tab = KitTab(tab)
         tab._set_closable(self.__tabs_closable)
+
+        if self._tm and self._tm.active:
+            tab.main_palette = self.tabs_palette
+            tab.radius_top = self.radius_top
+            tab.radius_bottom = self.radius_bottom
+            tab.setFixedHeight(self.height)
+
         tab._set_tm(self._tm)
         tab.selected.connect(lambda: self.setCurrentTab(tab))
         tab.closeRequested.connect(lambda: self._close_requested(tab))
@@ -187,6 +209,7 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
         tab._mouseRelease.connect(self.__layout.on_mouse_release)
         self.__tabs.insert(index, tab)
         self.__layout.update_tabs()
+        tab.show()
         if self.__current is None:
             self.__current = tab
             tab._set_checked(True)
@@ -227,6 +250,7 @@ class KitTabBar(KitHBoxLayout, _KitWidget):
 
     def removeTab(self, index):
         tab = self.__tabs.pop(index)
+        tab.setParent(None)
         self.__layout.update_tabs()
         if self.__current == tab:
             self.setCurrentTab(min(index, self.tabsCount() - 1))

@@ -118,6 +118,13 @@ class KitBoxLayout(QWidget, _KitWidget):
         }}
         """)
 
+    def _apply_lang(self):
+        if not self._tm or not self._tm.active:
+            return
+        for el in self._widgets:
+            if hasattr(el, '_apply_theme'):
+                el._apply_lang()
+
     padding = MethodsProperty(getContentsMargins, _set_margins)
     spacing = MethodsProperty(getSpacing, setSpacing)
     alignment = MethodsProperty(getAlignment, setAlignment)

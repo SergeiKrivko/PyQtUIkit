@@ -23,12 +23,16 @@ class _KitWidget:
         self._tm = tm
         if tm and tm.active:
             self._apply_theme()
+            self._apply_lang()
 
     @property
     def theme_manager(self):
         return self._tm
 
     def _apply_theme(self):
+        pass
+
+    def _apply_lang(self):
         pass
 
 

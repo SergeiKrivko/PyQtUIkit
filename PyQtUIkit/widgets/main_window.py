@@ -8,7 +8,7 @@ from PyQtUIkit.themes import ThemeManager
 class KitMainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self._tm = ThemeManager(self._apply_theme)
+        self._tm = ThemeManager(self._apply_theme, self._apply_lang)
         self.__menu_bar = None
 
     @property
@@ -23,6 +23,15 @@ class KitMainWindow(QMainWindow):
             cw._apply_theme()
         if hasattr(self.__menu_bar, '_apply_theme'):
             self.__menu_bar._apply_theme()
+
+    def _apply_lang(self):
+        if not self._tm.active:
+            return
+        cw = self.centralWidget()
+        if hasattr(cw, '_apply_lang'):
+            cw._apply_lang()
+        if hasattr(self.__menu_bar, '_apply_lang'):
+            self.__menu_bar._apply_lang()
 
     def setCentralWidget(self, widget: typing.Optional[QWidget]) -> None:
         super().setCentralWidget(widget)
@@ -42,6 +51,7 @@ class KitMainWindow(QMainWindow):
         if not self._tm.active:
             self._tm._set_active()
             self._apply_theme()
+            self._apply_lang()
 
     def set_theme(self, theme):
         self._tm.set_theme(theme)
