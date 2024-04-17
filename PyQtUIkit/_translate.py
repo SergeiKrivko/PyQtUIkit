@@ -26,6 +26,14 @@ def translate(text, dest):
     return _translator.translate(text, dest=dest).text
 
 
+def get_exists_langs(filename):
+    if not filename.endswith('.py'):
+        filename += '.py'
+    for el in os.listdir(os.path.dirname(filename)):
+        if el.endswith('.py') and el != os.path.basename(filename):
+            yield el[:-3]
+
+
 def import_module(path):
     import sys
     sys.path.insert(0, os.path.dirname(path))
@@ -61,20 +69,27 @@ def translate_to_lang(filename, lang: str, rewrite=False):
 
 
 def main():
-    init_googletrans()
-
     _parser = argparse.ArgumentParser(prog="PyQtUIkit auto translator")
 
     _parser.add_argument('filename', help="Путь к файлу")
     _parser.add_argument('langs', nargs='*', help="Код(ы) языка(ов)")
     _parser.add_argument('--rewrite', help="При использовании полностью перезаписывает конечный файл.",
                          action='store_true')
+    _parser.add_argument('--update', help="Обновить все файлы локализаций в той же папке, что и filename,"
+                                          "кроме самого filename", action='store_true')
     _parser.add_argument('-v', '--version', action='version', version=f"{version.VERSION}")
 
     args = _parser.parse_args()
 
+    init_googletrans()
+
     for lang in args.langs:
         translate_to_lang(args.filename, lang, rewrite=args.rewrite)
+
+    if args.update:
+        for lang in get_exists_langs(args.filename):
+            if lang not in args.langs and lang in LANGUAGES:
+                translate_to_lang(args.filename, lang, rewrite=args.rewrite)
 
 
 if __name__ == '__main__':
