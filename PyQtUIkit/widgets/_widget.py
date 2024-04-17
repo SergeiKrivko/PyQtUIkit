@@ -1,6 +1,3 @@
-from typing import Callable
-
-from PyQtUIkit.builder import BUILDER
 from PyQtUIkit.core.properties import PaletteProperty, IntProperty
 from PyQtUIkit.themes import ThemeManager
 
@@ -12,12 +9,6 @@ class _KitWidget:
     def __init__(self):
         self._tm: ThemeManager = None
         self._add_child_func = lambda x: None
-
-    def _build_from_kui(self):
-        BUILDER.build_from_file(self, self._add_child_func)
-
-    def _build_from_kui_as_child(self, _class, vars):
-        BUILDER.build(_class, self, self._add_child_func, vars)
 
     def _set_tm(self, tm: ThemeManager):
         self._tm = tm

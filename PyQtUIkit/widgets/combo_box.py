@@ -3,7 +3,7 @@ from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout, QMenu, QHBoxLayout, QApplication
 
 from PyQtUIkit.core import IntProperty, PaletteProperty, IconProperty, EnumProperty, KitFont, FontProperty, \
-    MethodsProperty
+    MethodsProperty, TextProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget, KitGroupItem as _KitGroupItem
 from PyQtUIkit.widgets.icon_widget import KitIconWidget
 from PyQtUIkit.widgets.scroll_area import KitScrollArea
@@ -16,15 +16,15 @@ class KitComboBoxItem(QPushButton, _KitWidget):
     icon = IconProperty('icon')
     font = FontProperty('font')
     font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
+    text = TextProperty('text')
 
     def __init__(self, name='', value=None, icon=''):
         super().__init__()
-        self._name = name
+        self._text = name
         self._value = value if value is not None else name
         self._icon = icon
         self.setCheckable(True)
         self.clicked.connect(self._on_clicked)
-        self.setText(self._name)
         self.setFixedHeight(24)
         self.setCursor(Qt.CursorShape.PointingHandCursor)
 
@@ -59,7 +59,8 @@ QPushButton::checked {{
         if self.icon is not None:
             self.setIcon(self.icon.icon(self.main_palette.text))
 
-    name = MethodsProperty(QPushButton.text, QPushButton.setText)
+    def _apply_lang(self):
+        self.setText(self.text)
 
 
 class KitComboBox(QPushButton, _KitGroupItem):
@@ -94,7 +95,6 @@ class KitComboBox(QPushButton, _KitGroupItem):
             self.addItem(el)
 
         self._add_child_func = self.addItem
-        self._build_from_kui()
 
     def addItem(self, item: str | KitComboBoxItem, value=None):
         if not isinstance(item, KitComboBoxItem):
@@ -127,6 +127,9 @@ class KitComboBox(QPushButton, _KitGroupItem):
             return None
         return self.__widgets[self.__current]
 
+    def count(self):
+        return len(self.__widgets)
+
     def currentValue(self):
         if not self.__widgets:
             return None
@@ -139,7 +142,7 @@ class KitComboBox(QPushButton, _KitGroupItem):
         self.__widgets[self.__current].setChecked(True)
 
         if self.__current is not None:
-            self.setText(self.__widgets[self.__current].text())
+            self.setText(self.__widgets[self.__current].text)
             if self.__widgets[self.__current].icon is not None and self._tm and self._tm.active:
                 self.setIcon(self.__widgets[self.__current].icon.icon(self.main_palette.text))
         self.currentValueChanged.emit(self.currentValue())
@@ -191,6 +194,14 @@ QPushButton::checked {{
             self.setIcon(self.__widgets[self.__current].icon.icon(self.main_palette.text))
         self.__menu._apply_theme()
         self._arrow._apply_theme()
+
+    def _apply_lang(self):
+        if not self._tm:
+            return
+        item = self.currentItem()
+        self.setText('' if not item else item.text)
+        for el in self.__widgets:
+            el._apply_lang()
 
 
 class _ComboBoxMenu(QMenu, _KitWidget):
@@ -277,3 +288,29 @@ QMenu {{
         self.__anim.start()
 
         self.exec()
+
+
+class KitLanguageBox(KitComboBox):
+    langChanged = pyqtSignal(str)
+
+    def __init__(self):
+        super().__init__()
+        self.__loading = False
+        self.currentValueChanged.connect(self._on_value_changed)
+
+    def _on_value_changed(self, value):
+        if self.__loading:
+            return
+        self.theme_manager.set_lang(value)
+        self.langChanged.emit(value)
+
+    def _apply_lang(self):
+        if not self._tm:
+            return
+        self.__loading = True
+        self.clear()
+        for lang, name in self.theme_manager.get_languages():
+            self.addItem(KitComboBoxItem(name, lang))
+            if lang == self.theme_manager.lang:
+                self.setCurrentIndex(self.count() - 1)
+        self.__loading = False

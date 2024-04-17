@@ -27,7 +27,6 @@ class KitBoxLayout(QWidget, _KitWidget):
         strange_widget.setLayout(self.__layout)
 
         self._add_child_func = self.addWidget
-        self._build_from_kui()
 
     def addWidget(self, widget: QWidget, stretch: int = None, alignment=None):
         if alignment is not None:

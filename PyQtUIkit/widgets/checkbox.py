@@ -10,6 +10,7 @@ class KitCheckBox(QWidget, _KitWidget):
     main_palette = PaletteProperty('main_palette', 'Main')
     font = FontProperty('font')
     font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
+    text = TextProperty('text')
 
     stateChanged = pyqtSignal(bool)
     stateEdited = pyqtSignal(bool)
@@ -17,6 +18,7 @@ class KitCheckBox(QWidget, _KitWidget):
     def __init__(self, text=''):
         super().__init__()
         self.__state = False
+        self._text = text
         self.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         main_layout = QHBoxLayout()
@@ -30,7 +32,7 @@ class KitCheckBox(QWidget, _KitWidget):
         self.__button.size = 16
         main_layout.addWidget(self.__button)
 
-        self.__label = QPushButton(text)
+        self.__label = QPushButton()
         self.__label.clicked.connect(self._on_clicked)
         main_layout.addWidget(self.__label)
         if not text:
@@ -53,12 +55,6 @@ class KitCheckBox(QWidget, _KitWidget):
         self.__state = bool(state)
         self.__on_state_changed()
 
-    def setText(self, text):
-        self.__label.setText(text)
-
-    def getText(self):
-        return self.__label.text()
-
     def _set_tm(self, tm):
         super()._set_tm(tm)
         self.__button._set_tm(tm)
@@ -76,7 +72,9 @@ class KitCheckBox(QWidget, _KitWidget):
             text-align: left;
         }}""")
 
+    def _apply_lang(self):
+        self.__label.setText(self.text)
+
     state = MethodsProperty(isChecked, setChecked)
-    text = MethodsProperty(getText, setText)
     on_state_changed = SignalProperty('on_state_changed', 'stateChanged')
     on_state_edited = SignalProperty('on_state_edited', 'stateEdited')

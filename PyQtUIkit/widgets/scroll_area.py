@@ -119,3 +119,8 @@ QScrollArea QScrollBar::sub-line, QScrollBar::add-line {{
         widget = self.widget()
         if hasattr(widget, '_apply_theme'):
             widget._apply_theme()
+
+    def _apply_lang(self):
+        widget = self.widget()
+        if hasattr(widget, '_apply_lang'):
+            widget._apply_lang()

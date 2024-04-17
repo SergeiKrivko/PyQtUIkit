@@ -1,7 +1,7 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel
 
-from PyQtUIkit.core.properties import PaletteProperty, BoolProperty, StringProperty, IconProperty
+from PyQtUIkit.core.properties import PaletteProperty, BoolProperty, StringProperty, IconProperty, TextProperty
 from PyQtUIkit.widgets import KitIconButton, KitHBoxLayout, KitVBoxLayout, KitButton, KitIconWidget, KitLabel
 from PyQtUIkit.widgets.form import KitForm
 from PyQtUIkit.widgets._widget import _KitWidget
@@ -10,7 +10,7 @@ from PyQtUIkit.widgets._widget import _KitWidget
 class KitDialog(QDialog, _KitWidget):
     header_palette = PaletteProperty('header_palette', 'Menu')
     button_close = BoolProperty('button_close', True)
-    name = StringProperty('name', '')
+    name = TextProperty('name')
 
     def __init__(self, parent):
         super().__init__()
@@ -73,7 +73,6 @@ class KitDialog(QDialog, _KitWidget):
         self.__label.setHidden(not self.name)
         self.__top_widget.setHidden(not self.button_close and not self.name)
 
-        self.__label.setText(self.name)
         css = f"""color: {self.main_palette.text};
                   background-color: {self.main_palette.main};
                   border: 1px solid {self.border_palette.main};
@@ -83,6 +82,10 @@ class KitDialog(QDialog, _KitWidget):
         self.__top_widget._set_tm(self._parent._tm)
         self.__widget._set_tm(self._parent._tm)
         super()._apply_theme()
+
+    def _apply_lang(self):
+        self.__label.setText(self.name)
+        self.__widget._apply_lang()
 
     @staticmethod
     def question(parent, question: str, answers=('No', 'Yes'), default='No'):

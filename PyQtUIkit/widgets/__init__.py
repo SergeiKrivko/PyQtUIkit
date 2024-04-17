@@ -8,7 +8,7 @@ from PyQtUIkit.widgets.list_widget import KitListWidget, KitListWidgetItem
 from PyQtUIkit.widgets.main_window import KitMainWindow
 from PyQtUIkit.widgets.spin_box import KitSpinBox
 from PyQtUIkit.widgets.scroll_area import KitScrollArea
-from PyQtUIkit.widgets.combo_box import KitComboBox, KitComboBoxItem
+from PyQtUIkit.widgets.combo_box import KitComboBox, KitComboBoxItem, KitLanguageBox
 from PyQtUIkit.widgets.checkbox import KitCheckBox
 from PyQtUIkit.widgets.toggle import KitToggle
 from PyQtUIkit.widgets.tab_bar import KitTabBar, KitTab

@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QTextEdit
 
 from PyQtUIkit.core import KitFont
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty, EnumProperty, FontProperty
+from PyQtUIkit.core.properties import IntProperty, PaletteProperty, EnumProperty, FontProperty, TextProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
@@ -11,6 +11,7 @@ class KitTextEdit(QTextEdit, _KitWidget):
     radius = IntProperty('radius', 4)
     font = FontProperty('font')
     font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
+    placeholder_text = TextProperty('placeholder_text')
 
     def __init__(self):
         super().__init__()
@@ -70,3 +71,8 @@ QTextEdit QScrollBar::sub-line, QScrollBar::add-line {{
     subcontrol-origin: margin;
 }}
 """)
+
+    def _apply_lang(self):
+        if not self._tm:
+            return
+        self.setPlaceholderText(self.placeholder_text)

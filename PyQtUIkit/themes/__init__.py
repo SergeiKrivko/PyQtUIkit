@@ -81,7 +81,15 @@ class ThemeManager:
 
     def get_languages(self):
         for file in files(self.__lang_path).iterdir():
-            yield file
+            try:
+                local = importlib.import_module(self.__lang_path + '.' + file.name[:-3]).local
+                yield local.lang, local.name
+            except ModuleNotFoundError:
+                pass
+            except AttributeError:
+                pass
+            except ImportError:
+                pass
 
     def set_lang(self, lang):
         self.__lang = lang
@@ -90,3 +98,7 @@ class ThemeManager:
 
     def get_text(self, key):
         return self.__lang_data.get(key)
+
+    @property
+    def lang(self):
+        return self.__lang

@@ -66,13 +66,12 @@ class TextProperty(property):
                 res = getattr(obj, self._id)
                 if isinstance(res, str):
                     return res
-                return obj._tm.get_text(res.key)
-            except AttributeError as ex:
-                print(ex)
+                return res.get(obj._tm)
+            except AttributeError:
                 return default
 
         def setter(obj, value: str):
-            setattr(obj, self._id, str(value))
+            setattr(obj, self._id, value)
             obj._apply_lang()
 
         super().__init__(getter, setter)
