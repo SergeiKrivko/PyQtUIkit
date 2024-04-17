@@ -9,7 +9,9 @@ class KitMenuBar(QMenuBar, _KitWidget):
     class Action(QAction):
         def __init__(self, name, icon, func=None, shortcut=None):
             super().__init__()
-            self.setText(name)
+            self._name = name
+            if isinstance(name, str):
+                self.setText(name)
             if shortcut:
                 self.setShortcut(shortcut)
             self._icon = icon
@@ -20,11 +22,15 @@ class KitMenuBar(QMenuBar, _KitWidget):
         def _apply_styles(self, tm, main_palette, *args):
             if self._icon:
                 self.setIcon(tm.icon(self._icon, main_palette.text))
+            if isinstance(self._name, str):
+                self.setText(self._name)
+            else:
+                self.setText(self._name.get(tm))
 
     class Menu(QMenu):
         def __init__(self, name, icon, *args):
             super().__init__()
-            self.setTitle(name)
+            self._name = name
             self._icon = icon
             self.setMinimumWidth(160)
             self._children = []
@@ -49,6 +55,10 @@ class KitMenuBar(QMenuBar, _KitWidget):
             if self._icon:
                 self.setIcon(tm.icon(self._icon, main_palette.text))
             self.setFont(font)
+            if isinstance(self._name, str):
+                self.setTitle(self._name)
+            else:
+                self.setTitle(self._name.get(tm))
             self.setStyleSheet(f"""
 QMenu {{
     color: {main_palette.text};
@@ -129,6 +139,11 @@ QMenuBar::item:selected {{
 QMenuBar::item:pressed {{
     background: {self.main_palette.selected};
 }}""")
+        for el in self._children:
+            if hasattr(el, '_apply_styles'):
+                el._apply_styles(self._tm, self.main_palette, self.border_palette, self.font.get(self.font_size))
+
+    def _apply_lang(self):
         for el in self._children:
             if hasattr(el, '_apply_styles'):
                 el._apply_styles(self._tm, self.main_palette, self.border_palette, self.font.get(self.font_size))

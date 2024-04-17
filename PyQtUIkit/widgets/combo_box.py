@@ -148,6 +148,12 @@ class KitComboBox(QPushButton, _KitGroupItem):
         self.currentValueChanged.emit(self.currentValue())
         self.currentIndexChanged.emit(self.__current)
 
+    def setCurrentValue(self, value):
+        for i, item in enumerate(self.__widgets):
+            if item.value == value:
+                self.setCurrentIndex(i)
+                break
+
     def _show_menu(self):
         pos = QPoint(0, self.height() if self.type == 1 else self.height() // 2)
         self.__menu.open(self.mapToGlobal(pos), self.type)

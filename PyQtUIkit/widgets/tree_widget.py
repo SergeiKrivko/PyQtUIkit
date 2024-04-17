@@ -11,6 +11,7 @@ from PyQtUIkit.widgets.icon_widget import KitIconWidget
 from PyQtUIkit.widgets.label import KitLabel
 from PyQtUIkit.widgets.scroll_area import KitScrollArea
 from PyQtUIkit.widgets.button import KitLayoutButton, KitIconButton
+from PyQtUIkit.widgets.checkbox import KitCheckBox
 
 
 class KitTreeWidgetItem(KitVBoxLayout):
@@ -21,6 +22,9 @@ class KitTreeWidgetItem(KitVBoxLayout):
     font = FontProperty('font')
     font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
     always_expandable = BoolProperty('always_expandable', False)
+    checkable = BoolProperty('checkable', False)
+
+    stateEdited = pyqtSignal(bool)
 
     def __init__(self, name='', icon=''):
         super().__init__()
@@ -65,6 +69,10 @@ class KitTreeWidgetItem(KitVBoxLayout):
         self.__arrow_down.hide()
         self.__arrow_down.clicked.connect(self.collapse)
         self.__button.addWidget(self.__arrow_down)
+
+        self.__checkbox = KitCheckBox()
+        self.__checkbox.on_state_edited = self.stateEdited.emit
+        self.__button.addWidget(self.__checkbox)
 
         self.__icon_widget = KitIconWidget()
         self.__button.addWidget(self.__icon_widget)
@@ -235,9 +243,17 @@ class KitTreeWidgetItem(KitVBoxLayout):
                 height += h
         return None, height
 
+    @property
+    def checked(self):
+        return self.checkable and self.__checkbox.state
+
+    def setChecked(self, state):
+        self.__checkbox.state = state
+
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
+        self.__checkbox.setHidden(not self.checkable)
         for el in self.__children:
             el._height = self._height
             el.main_palette = self._main_palette
@@ -434,6 +450,9 @@ class KitTreeWidget(KitScrollArea):
             self.__shift = False
         elif a0.key() == Qt.Key.Key_Control:
             self.__control = False
+
+    def clear(self):
+        self.__tree.clear()
 
     def _set_tm(self, tm):
         super()._set_tm(tm)

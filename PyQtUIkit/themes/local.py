@@ -63,5 +63,8 @@ class _KitLocalStringClass:
     def __getattr__(self, item):
         return _KitLocalString(item)
 
+    def get(self, item):
+        return _KitLocalString(item)
+
 
 KitLocalString = _KitLocalStringClass()

@@ -57,15 +57,16 @@ def translate_to_lang(filename, lang: str, rewrite=False):
         dst_local = KitLocal(lang, translate(LANGUAGES[lang].capitalize(), lang), dict())
 
     print(f"Translating to {lang.capitalize()}...")
+    res = ["from PyQtUIkit.themes.local import KitLocal\n",
+           f"local = KitLocal('{lang}', '{dst_local.name}', {{"]
+    for key, item in src_local.items():
+        try:
+            res.append(f"    '{key}': \"{dst_local.get(key)}\",")
+        except Exception:
+            res.append(f"    '{key}': \"{translate(item, lang)}\",")
+    res.append("})\n")
     with open(f"{os.path.dirname(filename)}/{lang}.py", mode='w', encoding='utf-8') as f:
-        f.write(f"from PyQtUIkit.themes.local import KitLocal\n\n"
-                f"local = KitLocal('{lang}', '{dst_local.name}', {{\n")
-        for key, item in src_local.items():
-            try:
-                f.write(f"    '{key}': \"{dst_local.get(key)}\",\n")
-            except Exception:
-                f.write(f"    '{key}': \"{translate(item, lang)}\",\n")
-        f.write("})\n")
+        f.write('\n'.join(res))
 
 
 def main():
