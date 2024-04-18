@@ -3,7 +3,7 @@ import importlib
 import os
 
 import PyQtUIkit.core._version as version
-from PyQtUIkit.themes.local import KitLocal
+from PyQtUIkit.themes.locale import KitLocale
 
 LANGUAGES = dict()
 _translator = None
@@ -43,25 +43,25 @@ def import_module(path):
 
 
 def translate_to_lang(filename, lang: str, rewrite=False):
-    src_local = import_module(filename).local
+    src_locale = import_module(filename).locale
 
-    dst_local = None
+    dst_locale = None
     if not rewrite:
         try:
-            dst_local = import_module(f"{os.path.dirname(filename)}/{lang}.py").local
+            dst_locale = import_module(f"{os.path.dirname(filename)}/{lang}.py").locale
         except ImportError:
             pass
         except AttributeError:
             pass
-    if dst_local is None:
-        dst_local = KitLocal(lang, translate(LANGUAGES[lang].capitalize(), lang), dict())
+    if dst_locale is None:
+        dst_locale = KitLocale(lang, translate(LANGUAGES[lang].capitalize(), lang), dict())
 
     print(f"Translating to {lang.capitalize()}...")
-    res = ["from PyQtUIkit.themes.local import KitLocal\n",
-           f"local = KitLocal('{lang}', '{dst_local.name}', {{"]
-    for key, item in src_local.items():
+    res = ["from PyQtUIkit.themes.locale import KitLocale\n",
+           f"locale = KitLocale('{lang}', '{dst_locale.name}', {{"]
+    for key, item in src_locale.items():
         try:
-            res.append(f"    '{key}': \"{dst_local.get(key)}\",")
+            res.append(f"    '{key}': \"{dst_locale.get(key)}\",")
         except Exception:
             res.append(f"    '{key}': \"{translate(item, lang)}\",")
     res.append("})\n")

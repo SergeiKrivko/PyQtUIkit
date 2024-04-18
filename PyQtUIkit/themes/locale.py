@@ -1,4 +1,4 @@
-class KitLocal:
+class KitLocale:
     def __init__(self, lang: str, name: str, dct: dict[str: str]):
         self.__lang = lang
         self.__name = name
@@ -67,4 +67,4 @@ class _KitLocalStringClass:
         return _KitLocalString(item)
 
 
-KitLocalString = _KitLocalStringClass()
+KitLocaleString = _KitLocalStringClass()

@@ -1,6 +1,7 @@
 import importlib
 from importlib.resources import files
 
+from PyQt6.QtCore import QLocale
 from PyQt6.QtGui import QPixmap, QImage, QIcon, QFontDatabase
 
 from PyQtUIkit.themes.builtin_themes import basic_theme, builtin_themes
@@ -76,14 +77,14 @@ class ThemeManager:
                 icon = f.read()
         icons[name] = icon
 
-    def set_lang_path(self, path):
+    def set_locales_path(self, path):
         self.__lang_path = path
 
     def get_languages(self):
         for file in files(self.__lang_path).iterdir():
             try:
-                local = importlib.import_module(self.__lang_path + '.' + file.name[:-3]).local
-                yield local.lang, local.name
+                locale = importlib.import_module(self.__lang_path + '.' + file.name[:-3]).locale
+                yield locale.lang, locale.name
             except ModuleNotFoundError:
                 pass
             except AttributeError:
@@ -91,14 +92,29 @@ class ThemeManager:
             except ImportError:
                 pass
 
-    def set_lang(self, lang):
+    def set_locale(self, lang=None, default=None):
+        if lang is None:
+            lang = QLocale.languageToCode(QLocale.system().language())
+        if default is None:
+            default = QLocale.languageToCode(QLocale.system().language())
+
         self.__lang = lang
-        self.__lang_data = importlib.import_module(f'{self.__lang_path}.{lang}').local
+        try:
+            self.__lang_data = importlib.import_module(f'{self.__lang_path}.{lang}').locale
+        except ImportError:
+            try:
+                self.__lang_data = importlib.import_module(f'{self.__lang_path}.{default}').locale
+            except ImportError:
+                for el, _ in self.get_languages():
+                    self.__lang_data = importlib.import_module(f'{self.__lang_path}.{el}').locale
+                    break
+                else:
+                    raise ModuleNotFoundError("no locales found")
         self.__on_lang_changed()
 
     def get_text(self, key):
         return self.__lang_data.get(key)
 
     @property
-    def lang(self):
+    def locale(self):
         return self.__lang

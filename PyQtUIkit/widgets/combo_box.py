@@ -307,7 +307,7 @@ class KitLanguageBox(KitComboBox):
     def _on_value_changed(self, value):
         if self.__loading:
             return
-        self.theme_manager.set_lang(value)
+        self.theme_manager.set_locale(value)
         self.langChanged.emit(value)
 
     def _apply_lang(self):
@@ -317,6 +317,6 @@ class KitLanguageBox(KitComboBox):
         self.clear()
         for lang, name in self.theme_manager.get_languages():
             self.addItem(KitComboBoxItem(name, lang))
-            if lang == self.theme_manager.lang:
+            if lang == self.theme_manager.locale:
                 self.setCurrentIndex(self.count() - 1)
         self.__loading = False
