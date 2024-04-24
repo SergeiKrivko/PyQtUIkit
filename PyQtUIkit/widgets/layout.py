@@ -73,6 +73,9 @@ class KitBoxLayout(QWidget, _KitWidget):
     def getSpacing(self):
         return self.__layout.spacing()
 
+    def setDirection(self, a0: QHBoxLayout.Direction):
+        self.__layout.setDirection(a0)
+
     def setContentsMargins(self, left: int, top: int, right: int, bottom: int) -> None:
         self.__layout.setContentsMargins(left, top, right, bottom)
 

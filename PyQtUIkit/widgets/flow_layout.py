@@ -57,6 +57,8 @@ class KitFlowLayout(QWidget, _KitWidget):
                 el._set_tm(tm)
 
     def _apply_theme(self):
+        if not self._tm or not self._tm.active:
+            return
         for el in self.__widgets:
             if hasattr(el, '_apply_theme'):
                 el._apply_theme()

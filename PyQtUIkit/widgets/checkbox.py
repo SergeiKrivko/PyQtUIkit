@@ -52,6 +52,8 @@ class KitCheckBox(QWidget, _KitWidget):
         return self.__state
 
     def setChecked(self, state):
+        if state == self.__state:
+            return
         self.__state = bool(state)
         self.__on_state_changed()
 

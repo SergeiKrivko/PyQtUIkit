@@ -20,7 +20,7 @@ from PyQtUIkit.widgets.group import KitHGroup, KitVGroup
 from PyQtUIkit.widgets.navigation import KitNavigation
 from PyQtUIkit.widgets.radio import KitVRadio, KitHRadio
 from PyQtUIkit.widgets.tabs import KitTabLayout
-from PyQtUIkit.widgets.text_edit import KitTextEdit
+from PyQtUIkit.widgets.text_edit import KitTextEdit, KitTextBrowser
 from PyQtUIkit.widgets.form import KitForm
 from PyQtUIkit.widgets.dialog import KitDialog, KitFormDialog
 from PyQtUIkit.widgets.application import KitApplication, KitAsyncApplication

@@ -4,7 +4,7 @@ from PyQt6.QtCore import Qt, pyqtSignal, QPoint
 
 from PyQtUIkit.core import KitFont
 from PyQtUIkit.core.properties import IntProperty, StringProperty, IconProperty, BoolProperty, EnumProperty, \
-    PaletteProperty, FontProperty
+    PaletteProperty, FontProperty, MethodsProperty
 from PyQtUIkit.widgets.dialog import KitDialog
 from PyQtUIkit.widgets.layout import KitVBoxLayout, KitHBoxLayout
 from PyQtUIkit.widgets.icon_widget import KitIconWidget
@@ -37,10 +37,9 @@ class KitTreeWidgetItem(KitVBoxLayout):
         self.__selected = False
         self.__expanded = False
         self.__children: list[KitTreeWidgetItem] = []
+        self.__children_checked = 0
         self.__root: KitTreeWidget = None
         self.__parent: KitTreeWidgetItem = None
-        self._icon1 = None
-        self._icon2 = None
         self.__never_expanded = True
         self.__move_widget = None
         self.__last_pos = None
@@ -57,21 +56,25 @@ class KitTreeWidgetItem(KitVBoxLayout):
         self.addWidget(self.__button)
 
         self.__arrow_right = KitIconButton('line-chevron-forward')
-        self.__arrow_right.setFixedSize(20, 20)
+        self.__arrow_right.main_palette = 'Transparent'
+        self.__arrow_right.size = 16
+        self.__arrow_right.radius = 8
         self.__arrow_right.border = 0
         self.__arrow_right.hide()
         self.__arrow_right.clicked.connect(self.expand)
         self.__button.addWidget(self.__arrow_right)
 
         self.__arrow_down = KitIconButton('line-chevron-down')
-        self.__arrow_down.setFixedSize(20, 20)
+        self.__arrow_down.main_palette = 'Transparent'
+        self.__arrow_down.size = 16
+        self.__arrow_down.radius = 8
         self.__arrow_down.border = 0
         self.__arrow_down.hide()
         self.__arrow_down.clicked.connect(self.collapse)
         self.__button.addWidget(self.__arrow_down)
 
         self.__checkbox = KitCheckBox()
-        self.__checkbox.on_state_edited = self.stateEdited.emit
+        self.__checkbox.on_state_edited = self._on_state_edited
         self.__button.addWidget(self.__checkbox)
 
         self.__icon_widget = KitIconWidget()
@@ -103,6 +106,8 @@ class KitTreeWidgetItem(KitVBoxLayout):
 
         self.__children.insert(index, item)
         self.__layout.insertWidget(index, item)
+        if item.state:
+            self.__children_checked += 1
 
         self.__arrow_down.setHidden(not self.__expanded)
         self.__arrow_right.setHidden(self.__expanded)
@@ -115,6 +120,7 @@ class KitTreeWidgetItem(KitVBoxLayout):
         return self.__children[index]
 
     def clear(self):
+        self.__children_checked = 0
         for _ in range(self.count()):
             self.__layout.clear()
         for el in self.__children:
@@ -175,6 +181,24 @@ class KitTreeWidgetItem(KitVBoxLayout):
             for el in self.__children:
                 el._select(True)
 
+    def _on_state_edited(self, state):
+        for el in self.__children:
+            el._parent_state_edited(state)
+        self.__children_checked = self.childrenCount() if state else 0
+        self.__parent._child_state_changed(state)
+        self.stateEdited.emit(state)
+
+    def _parent_state_edited(self, state: bool):
+        self.state = state
+        for el in self.__children:
+            el._parent_state_edited(state)
+
+    def _child_state_changed(self, state: bool):
+        self.__children_checked += 1 if state else -1
+        self.setChecked(self.__children_checked == self.childrenCount())
+        if self.__parent:
+            self.__parent._child_state_changed(self.__children_checked == self.childrenCount())
+
     def _on_move(self, a0):
         KitLayoutButton.mouseMoveEvent(self.__button, a0)
         if self.__last_pos is None:
@@ -221,7 +245,6 @@ class KitTreeWidgetItem(KitVBoxLayout):
 
     def _set_tm(self, tm):
         super()._set_tm(tm)
-        self.__icon_widget._set_tm(tm)
         for el in self.__children:
             el._set_tm(tm)
 
@@ -243,12 +266,13 @@ class KitTreeWidgetItem(KitVBoxLayout):
                 height += h
         return None, height
 
-    @property
-    def checked(self):
+    def isChecked(self):
         return self.checkable and self.__checkbox.state
 
     def setChecked(self, state):
         self.__checkbox.state = state
+
+    state = MethodsProperty(isChecked, setChecked)
 
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
@@ -261,6 +285,7 @@ class KitTreeWidgetItem(KitVBoxLayout):
         self.__button.setFixedHeight(self._height)
         self.__icon_widget.setFixedSize(self._height - 4, self._height - 4)
         self.__icon_widget._icon = self._icon
+        self.__icon_widget.setHidden(not self._icon)
 
         if self.__children or self.always_expandable:
             self.__arrow_down.setHidden(not self.__expanded)
@@ -453,6 +478,9 @@ class KitTreeWidget(KitScrollArea):
 
     def clear(self):
         self.__tree.clear()
+
+    def items(self):
+        return self.__tree.children()
 
     def _set_tm(self, tm):
         super()._set_tm(tm)

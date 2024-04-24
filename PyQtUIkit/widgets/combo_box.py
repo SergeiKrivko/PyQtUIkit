@@ -105,6 +105,10 @@ class KitComboBox(QPushButton, _KitGroupItem):
         if len(self.__widgets) == 1:
             self.setCurrentIndex(0)
 
+    def addItems(self, items: [KitComboBoxItem | str]):
+        for el in items:
+            self.addItem(el)
+
     def deleteItem(self, index):
         self.__widgets.pop(index)
         self.__menu.delete_item(index)

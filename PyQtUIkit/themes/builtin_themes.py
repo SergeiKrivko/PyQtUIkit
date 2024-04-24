@@ -2,7 +2,7 @@ from PyQtUIkit.core.font import KitFont
 from PyQtUIkit.themes.theme import KitTheme, KitPalette
 
 basic_theme = KitTheme({
-    'Transparent': KitPalette('#00FFFFFF', '#30FFFFFF', '#60FFFFFF', '#222222'),
+    'Transparent': KitPalette('#00000000', '#30000000', '#60000000', '#222222'),
 
     'Main': KitPalette('#FFFFFF', '#DFE1E5', '#CFDEFC', '#222222'),
     'Bg': KitPalette('#ECF5F9', '#CBCDCF', '#5283C9', '#222222'),

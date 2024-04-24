@@ -214,6 +214,10 @@ class KitTabBar(KitHBoxLayout):
             self.__current = tab
             tab._set_checked(True)
 
+    def clear(self):
+        self.__tabs.clear()
+        self.__layout.update_tabs()
+
     def _scroll_left(self):
         self.__scroll_area.scroll(-50)
 

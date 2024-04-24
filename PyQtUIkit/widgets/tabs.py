@@ -21,7 +21,7 @@ class KitTabLayout(KitHBoxLayout):
         self.insertWidget(len(self._widgets), widget)
 
     def setCurrent(self, index):
-        if self.__current is not None:
+        if self.__current is not None and self.__current < len(self._widgets):
             self._widgets[self.__current].hide()
         self.__current = index
         self._widgets[self.__current].show()
@@ -31,4 +31,5 @@ class KitTabLayout(KitHBoxLayout):
             raise Exception("can connect only one widget")
         self.__connected_widget = widget
         widget.currentChanged.connect(self.setCurrent)
-        self.setCurrent(widget.currentIndex())
+        if widget.currentTab():
+            self.setCurrent(widget.currentIndex())

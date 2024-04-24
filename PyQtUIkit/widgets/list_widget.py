@@ -1,13 +1,15 @@
 from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import QListWidget, QListWidgetItem
 
-from PyQtUIkit.core.properties import IntProperty, IconProperty
+from PyQtUIkit.core.properties import IntProperty, IconProperty, EnumProperty, KitFont,FontProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
 class KitListWidget(QListWidget, _KitWidget):
     border = IntProperty('border', 1)
     radius = IntProperty('radius', 4)
+    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
+    font = FontProperty('font')
 
     def __init__(self):
         super().__init__()
@@ -33,6 +35,7 @@ class KitListWidget(QListWidget, _KitWidget):
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
+        self.setFont(self.font.get(self.font_size))
         self.setStyleSheet(f"""
 QListWidget {{
     color: {self.main_palette.text};
@@ -42,6 +45,7 @@ QListWidget {{
 }}
 QListWidget::item {{
     border-radius: 6px;
+    min-height: 24px;
 }}
 QListWidget::item:hover {{
     background-color: {self.main_palette.hover};
