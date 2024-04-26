@@ -180,6 +180,8 @@ class KitTabBar(KitHBoxLayout):
         self.addWidget(self.__button_right)
 
     def currentIndex(self):
+        if self.__current is None:
+            return None
         return self.__tabs.index(self.__current)
 
     def currentTab(self):

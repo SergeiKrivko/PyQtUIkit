@@ -5,25 +5,22 @@ import os
 import PyQtUIkit.core._version as version
 from PyQtUIkit.themes.locale import KitLocale
 
-LANGUAGES = dict()
 _translator = None
 
 
 def init_googletrans():
     try:
-        from googletrans import Translator, LANGUAGES as LANGS
+        from translatepy import Translator, Language
 
         global _translator
         _translator = Translator()
-        global LANGUAGES
-        LANGUAGES = LANGS
     except ImportError:
-        print("googletrans is not installed.\nPlease install it with `pip install googletrans==3.1.0a0`")
+        print("translatepy is not installed.\nPlease install it with `pip install translatepy`")
         exit(0)
 
 
 def translate(text, dest):
-    return _translator.translate(text, dest=dest).text
+    return _translator.translate(text, dest).result
 
 
 def get_exists_langs(filename):
@@ -54,7 +51,8 @@ def translate_to_lang(filename, lang: str, rewrite=False):
         except AttributeError:
             pass
     if dst_locale is None:
-        dst_locale = KitLocale(lang, translate(LANGUAGES[lang].capitalize(), lang), dict())
+        from translatepy import Language
+        dst_locale = KitLocale(lang, translate(Language(lang).name, lang).capitalize(), dict())
 
     print(f"Translating to {lang.capitalize()}...")
     res = ["from PyQtUIkit.themes.locale import KitLocale\n",
@@ -89,7 +87,7 @@ def main():
 
     if args.update:
         for lang in get_exists_langs(args.filename):
-            if lang not in args.langs and lang in LANGUAGES:
+            if lang not in args.langs:
                 translate_to_lang(args.filename, lang, rewrite=args.rewrite)
 
 

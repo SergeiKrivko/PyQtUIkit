@@ -1,4 +1,5 @@
 import importlib
+import os.path
 from importlib.resources import files
 
 from PyQt6.QtCore import QLocale
@@ -63,6 +64,13 @@ class ThemeManager:
 
     def icon(self, name, color=None, size=None):
         return QIcon(self.pixmap(name, color, size))
+
+    @staticmethod
+    def add_icons(path: str, prefix=None):
+        if prefix is None:
+            prefix = os.path.basename(path)
+        for el in os.listdir(path):
+            ThemeManager.add_icon(os.path.join(path, el), f'{prefix}-{el}')
 
     @staticmethod
     def add_icon(icon: str, name: str):

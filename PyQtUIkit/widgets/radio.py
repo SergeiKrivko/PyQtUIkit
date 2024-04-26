@@ -122,6 +122,8 @@ class KitVRadio(KitVBoxLayout):
         self.__current = None
 
     def currentIndex(self):
+        if self.__current is None:
+            return None
         return self.__items.index(self.__current)
 
     def _apply_theme(self):
@@ -183,6 +185,8 @@ class KitHRadio(KitHBoxLayout):
         self.__current = None
 
     def currentIndex(self):
+        if self.__current is None:
+            return None
         return self.__items.index(self.__current)
 
     def _apply_theme(self):

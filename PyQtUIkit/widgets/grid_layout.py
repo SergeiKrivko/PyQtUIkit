@@ -1,11 +1,11 @@
 from PyQt6.QtCore import QMargins, Qt
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
+from PyQt6.QtWidgets import QWidget, QGridLayout, QVBoxLayout
 
 from PyQtUIkit.core.properties import IntProperty, MethodsProperty
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
-class KitBoxLayout(QWidget, _KitWidget):
+class KitGridLayout(QWidget, _KitWidget):
     border = IntProperty('border', 0)
     radius = IntProperty('radius', 4)
 
@@ -21,32 +21,19 @@ class KitBoxLayout(QWidget, _KitWidget):
         strange_widget = QWidget()
         strange_layout.addWidget(strange_widget)
 
-        self.__layout = QVBoxLayout() if orientation == Qt.Orientation.Vertical else QHBoxLayout()
+        self.__layout = QGridLayout()
         self.__layout.setContentsMargins(0, 0, 0, 0)
         self.__layout.setSpacing(0)
         strange_widget.setLayout(self.__layout)
 
         self._add_child_func = self.addWidget
 
-    def addWidget(self, widget: QWidget, stretch: int = None, alignment=None):
-        if alignment is not None:
-            self.__layout.addWidget(widget, stretch, alignment)
-        elif stretch is not None:
-            self.__layout.addWidget(widget, stretch)
-        else:
+    def addWidget(self, widget: QWidget, row: int = None, column: int = None):
+        if row is None and column is None:
             self.__layout.addWidget(widget)
-        self.__widgets.append(widget)
-        if hasattr(widget, '_set_tm'):
-            widget._set_tm(self._tm)
-
-    def insertWidget(self, index: int, widget: QWidget, stretch: int = None, alignment=None):
-        if alignment is not None:
-            self.__layout.insertWidget(index, widget, stretch, alignment)
-        elif stretch is not None:
-            self.__layout.insertWidget(index, widget, stretch)
         else:
-            self.__layout.insertWidget(index, widget)
-        self.__widgets.insert(index, widget)
+            self.__layout.addWidget(widget, row, column)
+        self.__widgets.append(widget)
         if hasattr(widget, '_set_tm'):
             widget._set_tm(self._tm)
 
@@ -75,9 +62,6 @@ class KitBoxLayout(QWidget, _KitWidget):
 
     def getSpacing(self):
         return self.__layout.spacing()
-
-    def setDirection(self, a0: QHBoxLayout.Direction):
-        self.__layout.setDirection(a0)
 
     def setContentsMargins(self, left: int, top: int, right: int, bottom: int) -> None:
         self.__layout.setContentsMargins(left, top, right, bottom)
@@ -137,13 +121,3 @@ class KitBoxLayout(QWidget, _KitWidget):
     min_width = MethodsProperty(QWidget.minimumWidth, QWidget.setMinimumWidth)
     max_height = MethodsProperty(QWidget.maximumHeight, QWidget.setMaximumHeight)
     min_height = MethodsProperty(QWidget.minimumHeight, QWidget.setMinimumHeight)
-
-
-class KitVBoxLayout(KitBoxLayout):
-    def __init__(self):
-        super().__init__(orientation=Qt.Orientation.Vertical)
-
-
-class KitHBoxLayout(KitBoxLayout):
-    def __init__(self):
-        super().__init__(orientation=Qt.Orientation.Horizontal)
