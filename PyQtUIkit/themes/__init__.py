@@ -70,7 +70,8 @@ class ThemeManager:
         if prefix is None:
             prefix = os.path.basename(path)
         for el in os.listdir(path):
-            ThemeManager.add_icon(os.path.join(path, el), f'{prefix}-{el}')
+            if el.endswith('.svg'):
+                ThemeManager.add_icon(os.path.join(path, el), f'{prefix}-{el[:-4]}')
 
     @staticmethod
     def add_icon(icon: str, name: str):
