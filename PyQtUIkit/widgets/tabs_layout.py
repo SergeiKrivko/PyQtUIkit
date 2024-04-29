@@ -18,13 +18,14 @@ class KitTabLayout(KitHBoxLayout):
             widget.hide()
 
     def addWidget(self, widget: QWidget, *args):
-        self.insertWidget(len(self._widgets), widget)
+        self.insertWidget(self.count(), widget)
 
     def setCurrent(self, index):
-        if self.__current is not None and self.__current < len(self._widgets):
-            self._widgets[self.__current].hide()
+        widgets = list(self.widgets())
+        if self.__current is not None and self.__current < self.count():
+            widgets[self.__current].hide()
         self.__current = index
-        self._widgets[self.__current].show()
+        widgets[self.__current].show()
 
     def connect(self, widget: KitTabBar | KitNavigation | KitVRadio | KitHRadio):
         if self.__connected_widget is not None:

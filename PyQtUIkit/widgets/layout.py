@@ -11,7 +11,7 @@ class KitBoxLayout(QWidget, _KitWidget):
 
     def __init__(self, orientation=Qt.Orientation.Horizontal):
         super().__init__()
-        self._widgets = []
+        self.__widgets = []
         self._main_palette = 'Transparent'
 
         strange_layout = QVBoxLayout()
@@ -35,7 +35,7 @@ class KitBoxLayout(QWidget, _KitWidget):
             self.__layout.addWidget(widget, stretch)
         else:
             self.__layout.addWidget(widget)
-        self._widgets.append(widget)
+        self.__widgets.append(widget)
         if hasattr(widget, '_set_tm'):
             widget._set_tm(self._tm)
 
@@ -46,23 +46,27 @@ class KitBoxLayout(QWidget, _KitWidget):
             self.__layout.insertWidget(index, widget, stretch)
         else:
             self.__layout.insertWidget(index, widget)
-        self._widgets.insert(index, widget)
+        self.__widgets.insert(index, widget)
         if hasattr(widget, '_set_tm'):
             widget._set_tm(self._tm)
 
     def removeWidget(self, w: int | QWidget):
         if isinstance(w, QWidget):
-            w = self._widgets.index(w)
+            w = self.__widgets.index(w)
 
-        self._widgets.pop(w)
+        self.__widgets.pop(w)
         w = self.__layout.takeAt(w).widget()
         w.setParent(None)
         return w
 
+    def widgets(self):
+        for el in self.__widgets:
+            yield el
+
     def clear(self):
         for _ in range(self.__layout.count()):
             self.__layout.takeAt(0).widget().setParent(None)
-        self._widgets.clear()
+        self.__widgets.clear()
 
     def setAlignment(self, a):
         self.__layout.setAlignment(a)
@@ -105,14 +109,14 @@ class KitBoxLayout(QWidget, _KitWidget):
 
     def _set_tm(self, tm):
         super()._set_tm(tm)
-        for el in self._widgets:
+        for el in self.__widgets:
             if hasattr(el, '_set_tm'):
                 el._set_tm(tm)
 
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
-        for el in self._widgets:
+        for el in self.__widgets:
             if hasattr(el, '_apply_theme'):
                 el._apply_theme()
         self.setStyleSheet(f"""
@@ -126,7 +130,7 @@ class KitBoxLayout(QWidget, _KitWidget):
     def _apply_lang(self):
         if not self._tm or not self._tm.active:
             return
-        for el in self._widgets:
+        for el in self.__widgets:
             if hasattr(el, '_apply_theme'):
                 el._apply_lang()
 
