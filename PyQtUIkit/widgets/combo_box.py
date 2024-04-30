@@ -193,7 +193,7 @@ QPushButton::hover {{
     border: {self.border}px solid {self.border_palette.selected};
 }}
 QPushButton::disabled {{
-    color: {self.main_palette.main};
+    background-color: {self.main_palette.main};
     border-color: {self.border_palette.main};
 }}
 QPushButton::checked {{
