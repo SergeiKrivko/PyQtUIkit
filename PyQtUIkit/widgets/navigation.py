@@ -3,7 +3,7 @@ from PyQt6.QtGui import QFontMetrics
 from PyQt6.QtWidgets import QLabel, QPushButton, QHBoxLayout, QSizePolicy
 
 from PyQtUIkit.core.icon import KitIcon
-from PyQtUIkit.core import IntProperty, PaletteProperty, IconProperty, EnumProperty, KitFont, FontProperty
+from PyQtUIkit.core import IntProperty, PaletteProperty, IconProperty, EnumProperty, KitFont, FontProperty, TextProperty
 from PyQtUIkit.widgets import KitVBoxLayout, KitIconButton, KitIconWidget
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
@@ -13,11 +13,14 @@ class KitNavigationButton(QPushButton, _KitWidget):
     icon = IconProperty('icon')
     font = FontProperty('font')
     font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
+    text = TextProperty('text')
 
     selected = pyqtSignal()
 
     def __init__(self, text='', icon=None):
         super().__init__()
+        self._text = text
+        self._main_palette = 'Main'
         self.__widgets = []
         self._radius = 4
         self._size = 30
@@ -35,7 +38,7 @@ class KitNavigationButton(QPushButton, _KitWidget):
         self.__icon._use_text_only = False
         self.__layout.addWidget(self.__icon)
 
-        self.__label = QLabel(text)
+        self.__label = QLabel()
         self.__layout.addWidget(self.__label)
 
         self._icon = icon
@@ -86,6 +89,9 @@ QPushButton::checked {{
         self.__label.setStyleSheet(f"color: {self.main_palette.text}; border: none; background-color: transparent")
         if self.icon is not None:
             self.__icon.icon = self.icon
+
+    def _apply_lang(self):
+        self.__label.setText(self.text)
 
 
 class KitNavigation(KitVBoxLayout):
@@ -195,3 +201,9 @@ class KitNavigation(KitVBoxLayout):
             el._size = self.button_size
             el._radius = self.button_radius
         super()._apply_theme()
+
+    def _apply_lang(self):
+        for el in self.__tabs:
+            el._apply_lang()
+        if self.__expanded:
+            self.expand()
