@@ -1,8 +1,8 @@
+import asyncio
 import sys
-from time import sleep
 
-from PyQt6.QtCore import QThread, pyqtSignal
 from PyQt6.QtWidgets import QApplication, QSizePolicy
+from qasync import asyncSlot
 
 from PyQtUIkit.themes import icons
 from PyQtUIkit.widgets import *
@@ -32,7 +32,7 @@ class MainWindow(KitMainWindow):
 
         self.line_edit = KitLineEdit()
         self.line_edit.setFixedHeight(24)
-        self.line_edit.textEdited.connect(self.update_icons)
+        self.line_edit.textEdited.connect(lambda: self.update_icons())
         top_layout.addWidget(self.line_edit)
 
         self._spinner = KitSpinner()
@@ -69,6 +69,8 @@ class MainWindow(KitMainWindow):
         self.copy_button.clicked.connect(self.copy_icon_name)
         group.addItem(self.copy_button)
 
+        self._search_id = None
+
     def select_icon(self):
         item = self.list_widget.currentItem()
         if item:
@@ -86,44 +88,27 @@ class MainWindow(KitMainWindow):
         item = KitListWidgetItem(key, key)
         self.list_widget.addItem(item)
 
-    def update_icons(self):
+    @asyncSlot()
+    async def update_icons(self):
         self.list_widget.clear()
-        if isinstance(self.__searcher, QThread):
-            self.__searcher.terminate()
         search = self.line_edit.text
-        self.__searcher = Searcher(search, icons.keys())
-        self.__searcher.find.connect(self._add_icon)
-        self.__searcher.finished.connect(self._on_search_finished)
 
         self._spinner.resume()
         self._spinner.show()
         self._icon.hide()
 
-        self.__searcher.start()
+        for key in icons.keys():
+            if not search or search in key:
+                self._add_icon(key)
+                await asyncio.sleep(0.01)
 
-    def _on_search_finished(self):
         self._spinner.pause()
         self._spinner.hide()
         self._icon.show()
 
 
-class Searcher(QThread):
-    find = pyqtSignal(str)
-
-    def __init__(self, key, data):
-        super().__init__()
-        self._key = key
-        self._data = data
-
-    def run(self):
-        for key in self._data:
-            if not self._key or self._key in key:
-                self.find.emit(key)
-                sleep(0.01)
-
-
 def main():
-    sys.exit(KitApplication(MainWindow).exec())
+    sys.exit(KitAsyncApplication(MainWindow).exec())
 
 
 if __name__ == '__main__':

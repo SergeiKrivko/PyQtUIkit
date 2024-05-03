@@ -22,7 +22,7 @@ try:
     import qasync
 except ImportError:
     class KitAsyncApplication:
-        def __init__(self):
+        def __init__(self, window):
             raise ImportError("Qasync is not installed. Please use \"pip install qasync\"")
 else:
     class KitAsyncApplication(qasync.QApplication):
