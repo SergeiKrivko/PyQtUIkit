@@ -69,9 +69,9 @@ class ThemeManager:
     def add_icons(path: str, prefix=None):
         if prefix is None:
             prefix = os.path.basename(path)
-        for el in os.listdir(path):
-            if el.endswith('.svg'):
-                ThemeManager.add_icon(os.path.join(path, el), f'{prefix}-{el[:-4]}')
+        for file in files(path).iterdir():
+            if file.name.endswith('.svg'):
+                icons[f'{prefix}-{file.name[:-4]}'] = file.read_text()
 
     @staticmethod
     def add_icon(icon: str, name: str):
