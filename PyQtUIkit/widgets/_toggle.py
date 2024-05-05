@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import QWidget, QPushButton
 
 from PyQtUIkit.core import *
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
-from PyQtUIkit.widgets.button import KitButton
+from PyQtUIkit.widgets._button import KitButton
 
 
 class KitToggle(QWidget, _KitWidget):

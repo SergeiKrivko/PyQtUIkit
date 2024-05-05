@@ -8,11 +8,11 @@ from PyQtUIkit.core import KitFont
 from PyQtUIkit.core.properties import IntProperty, PaletteProperty, IconProperty, EnumProperty, FontProperty
 from PyQtUIkit.themes import KitPalette
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
-from PyQtUIkit.widgets.icon_widget import KitIconWidget
-from PyQtUIkit.widgets.button import KitIconButton, KitButton
-from PyQtUIkit.widgets.scroll_area import KitScrollArea
-from PyQtUIkit.widgets.layout import KitHBoxLayout
-from PyQtUIkit.widgets.label import KitLabel
+from PyQtUIkit.widgets._icon_widget import KitIconWidget
+from PyQtUIkit.widgets._button import KitIconButton, KitButton
+from PyQtUIkit.widgets._scroll_area import KitScrollArea
+from PyQtUIkit.widgets._layout import KitHBoxLayout
+from PyQtUIkit.widgets._label import KitLabel
 
 
 class KitTab(QPushButton, _KitWidget):

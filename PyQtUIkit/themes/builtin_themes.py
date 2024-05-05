@@ -1,7 +1,9 @@
+from PyQt6.QtGui import QColor
+
 from PyQtUIkit.core.font import KitFont
 from PyQtUIkit.themes.theme import KitTheme, KitPalette
 
-basic_theme = KitTheme({
+basic_theme = KitTheme(palettes={
     'Transparent': KitPalette('#00000000', '#30000000', '#60000000', '#222222'),
 
     'Main': KitPalette('#FFFFFF', '#DFE1E5', '#CFDEFC', '#222222'),
@@ -11,18 +13,25 @@ basic_theme = KitTheme({
     'Success': KitPalette('#B3D635', '#D0FA3E', '#41D431', '#222222', '#2A8018'),
     'Warning': KitPalette('#E3C920', '#CFB71D', '#C7891E', '#222222', '#AB8618'),
     'Danger': KitPalette('#E33838', '#FC3E3E', '#FC1414', '#222222', '#B51702'),
-}, {
+}, fonts={
     'default': KitFont('Roboto', 9, 10, 14, 20),
     'italic': KitFont('Roboto', 9, 10, 14, 20, italic=True),
     'bold': KitFont('Roboto', 9, 10, 14, 20, bold=True),
     'strike': KitFont('Roboto', 9, 10, 14, 20, strike=True),
     'mono': KitFont('Roboto Mono', 9, 10, 14, 20)
+}, code_colors={
+    'Identifier': QColor('#101010'),
+    'Preprocessor': QColor('#997509'),
+    'Comment': QColor('#B0B0B0'),
+    'Keyword': QColor('#0057D5'),
+    'Number': QColor('#0057D5'),
+    'String': QColor('#18822C'),
 },
     is_dark=False)
 
 builtin_themes = {
     'Light': basic_theme,
-    'Dark': KitTheme({
+    'Dark': KitTheme(palettes={
         'Transparent': KitPalette('#00FFFFFF', '#30FFFFFF', '#60FFFFFF', '#F0F0F0'),
         'Main': KitPalette('#2B2D30', '#3E4145', '#2E436E', '#F0F0F0'),
         'Bg': KitPalette('#141517', '#222345', '#323466', '#F0F0F0'),
@@ -31,6 +40,13 @@ builtin_themes = {
         'Success': KitPalette('#214514', '#295419', '#397523', '#F0F0F0', '#2A8018'),
         'Warning': KitPalette('#B8901A', '#A17E17', '#8C6E14', '#F0F0F0', '#D9AA1F'),
         'Danger': KitPalette('#690B0B', '#7A0D0D', '#B31414', '#F0F0F0', '#FA2A08'),
+    }, code_colors={
+        'Identifier': QColor('#DFDFDF'),
+        'Preprocessor': QColor('#56A8F5'),
+        'Comment': QColor('#74797B'),
+        'Keyword': QColor('#CC7832'),
+        'Number': QColor('#5191A6'),
+        'String': QColor('#5F864C'),
     },
         inherit=basic_theme,
         is_dark=True),

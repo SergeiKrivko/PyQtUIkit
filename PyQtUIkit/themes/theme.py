@@ -1,3 +1,5 @@
+from PyQt6.QtGui import QColor
+
 from PyQtUIkit.core.font import KitFont
 
 
@@ -17,11 +19,13 @@ class KitTheme:
     def __init__(self,
                  palettes: dict[str: KitPalette] = None,
                  fonts: dict[str: KitFont] = None,
+                 code_colors: dict[str, QColor] = None,
                  inherit: 'KitTheme' = None,
                  is_dark=False):
         self.is_dark = is_dark
         self._palettes = palettes
         self._fonts = fonts
+        self._code_colors = code_colors
         self._inherit = inherit
 
     def palette(self, key: str):
@@ -30,6 +34,13 @@ class KitTheme:
         if not self._inherit:
             raise KeyError(f"Key '{key}' not found")
         return self._inherit.palette(key)
+
+    def code_color(self, key: str):
+        if self._code_colors and key in self._code_colors:
+            return self._code_colors[key]
+        if not self._inherit:
+            raise KeyError(f"Key '{key}' not found")
+        return self._inherit.code_color(key)
 
     def font(self, key='default') -> KitFont:
         if self._fonts and key in self._fonts:

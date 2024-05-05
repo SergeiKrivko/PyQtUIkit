@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel
 
 from PyQtUIkit.core.properties import PaletteProperty, BoolProperty, StringProperty, IconProperty, TextProperty
 from PyQtUIkit.widgets import KitIconButton, KitHBoxLayout, KitVBoxLayout, KitButton, KitIconWidget, KitLabel
-from PyQtUIkit.widgets.form import KitForm
+from PyQtUIkit.widgets._form import KitForm
 from PyQtUIkit.widgets._widget import _KitWidget
 
 

@@ -49,6 +49,9 @@ class ThemeManager:
     def palette(self, key: str):
         return self.__current_theme.palette(key)
 
+    def code_color(self, key: str):
+        return self.__current_theme.code_color(key)
+
     def font(self, font):
         return self.__current_theme.font(font)
 

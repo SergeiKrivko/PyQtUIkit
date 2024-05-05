@@ -5,13 +5,13 @@ from PyQt6.QtCore import Qt, pyqtSignal, QPoint
 from PyQtUIkit.core import KitFont
 from PyQtUIkit.core.properties import IntProperty, StringProperty, IconProperty, BoolProperty, EnumProperty, \
     PaletteProperty, FontProperty, MethodsProperty
-from PyQtUIkit.widgets.dialog import KitDialog
-from PyQtUIkit.widgets.layout import KitVBoxLayout, KitHBoxLayout
-from PyQtUIkit.widgets.icon_widget import KitIconWidget
-from PyQtUIkit.widgets.label import KitLabel
-from PyQtUIkit.widgets.scroll_area import KitScrollArea
-from PyQtUIkit.widgets.button import KitLayoutButton, KitIconButton
-from PyQtUIkit.widgets.checkbox import KitCheckBox
+from PyQtUIkit.widgets._dialog import KitDialog
+from PyQtUIkit.widgets._layout import KitVBoxLayout, KitHBoxLayout
+from PyQtUIkit.widgets._icon_widget import KitIconWidget
+from PyQtUIkit.widgets._label import KitLabel
+from PyQtUIkit.widgets._scroll_area import KitScrollArea
+from PyQtUIkit.widgets._button import KitLayoutButton, KitIconButton
+from PyQtUIkit.widgets._checkbox import KitCheckBox
 
 
 class KitTreeWidgetItem(KitVBoxLayout):

@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import QWidget, QHBoxLayout, QPushButton, QSizePolicy
 
 from PyQtUIkit.core import *
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
-from PyQtUIkit.widgets.button import KitIconButton
+from PyQtUIkit.widgets._button import KitIconButton
 
 
 class KitCheckBox(QWidget, _KitWidget):
