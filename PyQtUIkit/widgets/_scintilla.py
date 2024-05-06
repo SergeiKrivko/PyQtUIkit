@@ -10,14 +10,14 @@ from PyQtUIkit.widgets._widget import _KitWidget
 
 try:
     from PyQt6.Qsci import QsciScintilla, QsciLexer
-
-    from themes import languages
 except ImportError:
     class KitScintilla(QWidget, _KitWidget):
         def __init__(self, *args, **kwargs):
             super().__init__()
             raise ImportError("QScintilla is not installed. Please install by running 'pip install PyQt6-QScintilla'.")
 else:
+    from PyQtUIkit.themes import languages
+
     class KitScintilla(QsciScintilla, _KitWidget):
         main_palette = PaletteProperty('main_palette', 'Main')
         margins_palette = PaletteProperty('margins_palette', 'Bg')
@@ -53,6 +53,16 @@ else:
             self.current_row = 0
 
             self._apply_lexer()
+
+        @property
+        def language(self):
+            return self._lang
+
+        @language.setter
+        def language(self, value):
+            self._lang = value
+            self._apply_lexer()
+            self._apply_theme()
 
         def _apply_lexer(self):
             if self._lang.lexer is not None:
