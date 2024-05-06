@@ -23,9 +23,11 @@ basic_theme = KitTheme(palettes={
     'Identifier': QColor('#101010'),
     'Preprocessor': QColor('#997509'),
     'Comment': QColor('#B0B0B0'),
-    'Keyword': QColor('#0057D5'),
+    'Keyword': QColor('#D5731D'),
     'Number': QColor('#0057D5'),
     'String': QColor('#18822C'),
+    'Function': QColor('#762E87'),
+    'Danger': QColor('#CC1A1A'),
 },
     is_dark=False)
 
@@ -42,11 +44,13 @@ builtin_themes = {
         'Danger': KitPalette('#690B0B', '#7A0D0D', '#B31414', '#F0F0F0', '#FA2A08'),
     }, code_colors={
         'Identifier': QColor('#DFDFDF'),
-        'Preprocessor': QColor('#56A8F5'),
+        'Preprocessor': QColor('#7B57A6'),
         'Comment': QColor('#74797B'),
         'Keyword': QColor('#CC7832'),
         'Number': QColor('#5191A6'),
         'String': QColor('#5F864C'),
+        'Function': QColor('#CCC451'),
+        'Danger': QColor('#CC1A1A'),
     },
         inherit=basic_theme,
         is_dark=True),
