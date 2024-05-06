@@ -60,7 +60,7 @@ else:
 
         @language.setter
         def language(self, value):
-            self._lang = value
+            self._lang = languages.language(value)
             self._apply_lexer()
             self._apply_theme()
 
