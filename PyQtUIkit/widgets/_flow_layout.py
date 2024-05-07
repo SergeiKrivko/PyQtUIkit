@@ -30,7 +30,7 @@ class KitFlowLayout(QWidget, _KitWidget):
         self.__widgets.append(widget)
         self.__layout.addWidget(widget)
 
-    def deleteWidget(self, w: int | QWidget):
+    def removeWidget(self, w: int | QWidget):
         if isinstance(w, int):
             w = self.__layout.takeAt(w).widget()
         w.setParent(None)

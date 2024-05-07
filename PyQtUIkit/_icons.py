@@ -1,5 +1,6 @@
 import asyncio
 import sys
+from uuid import uuid4
 
 from PyQt6.QtWidgets import QApplication, QSizePolicy
 from qasync import asyncSlot
@@ -97,7 +98,11 @@ class MainWindow(KitMainWindow):
         self._spinner.show()
         self._icon.hide()
 
+        self._search_id = search_id = uuid4()
+
         for key in icons.keys():
+            if search_id != self._search_id:
+                break
             if not search or search in key:
                 self._add_icon(key)
                 await asyncio.sleep(0.01)

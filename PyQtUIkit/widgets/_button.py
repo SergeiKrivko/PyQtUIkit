@@ -164,7 +164,7 @@ class KitLayoutButton(KitButton):
         if hasattr(widget, '_set_tm'):
             widget._set_tm(self._tm)
 
-    def deleteWidget(self, w: int | QWidget):
+    def removeWidget(self, w: int | QWidget):
         if isinstance(w, int):
             w = self.__layout.takeAt(w).widget()
         w.setParent(None)

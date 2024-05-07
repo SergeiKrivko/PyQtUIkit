@@ -131,7 +131,7 @@ class KitTreeWidgetItem(KitVBoxLayout):
     def deleteItem(self, item):
         if isinstance(item, KitTreeWidgetItem):
             item = self.__children.index(item)
-        self.__layout.deleteWidget(item)
+        self.__layout.removeWidget(item)
         if self.__children.pop(item).selected():
             self.__root._set_current(None)
 

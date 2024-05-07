@@ -252,7 +252,7 @@ class _ComboBoxMenu(QMenu, _KitWidget):
         self._resize()
 
     def delete_item(self, index):
-        self._scroll_layout.deleteWidget(index)
+        self._scroll_layout.removeWidget(index)
 
     def clear(self) -> None:
         self._scroll_layout.clear()
