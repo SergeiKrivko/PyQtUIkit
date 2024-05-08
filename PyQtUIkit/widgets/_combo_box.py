@@ -131,6 +131,9 @@ class KitComboBox(QPushButton, _KitGroupItem):
             return None
         return self.__widgets[self.__current]
 
+    def currentIndex(self):
+        return self.__current
+
     def count(self):
         return len(self.__widgets)
 
