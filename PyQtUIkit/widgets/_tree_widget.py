@@ -238,7 +238,7 @@ class KitTreeWidgetItem(KitVBoxLayout):
 
     def _update_padding(self):
         self.__button.setContentsMargins((self.__level - 1) * 15 + 3 +
-                                         (0 if self.__children or self.always_expandable else 25), 0, 0, 0)
+                                         (0 if self.__children or self.always_expandable else 18), 0, 0, 0)
 
     def _hide_button(self):
         self.__button.hide()
