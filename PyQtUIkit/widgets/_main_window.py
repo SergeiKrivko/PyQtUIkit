@@ -1,5 +1,6 @@
 import typing
 
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QMainWindow, QWidget, QMenuBar
 
 from PyQtUIkit.themes import ThemeManager
@@ -14,6 +15,19 @@ class KitMainWindow(QMainWindow):
     @property
     def theme_manager(self):
         return self._tm
+
+    def toTop(self):
+        if self.isMinimized():
+            if self.isMaximized():
+                self.showMaximized()
+            else:
+                self.showNormal()
+        else:
+            self.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint, True)
+            self.show()
+            self.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint, False)
+            self.show()
+        self.setFocus()
 
     def _apply_theme(self):
         if not self._tm.active:

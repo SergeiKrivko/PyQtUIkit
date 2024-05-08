@@ -67,6 +67,7 @@ _languages = {
             QsciLexerPython.TripleDoubleQuotedFString: 'String',
             QsciLexerPython.TripleSingleQuotedFString: 'String',
             QsciLexerPython.UnclosedString: 'String',
+            QsciLexerPython.HighlightedIdentifier: 'Function'
         },
     ),
     'c++': _Language(
@@ -198,13 +199,17 @@ _languages = {
             QsciLexerJSON.Default: 'Identifier',
             QsciLexerJSON.Number: 'Number',
             QsciLexerJSON.Keyword: 'Keyword',
+            QsciLexerJSON.KeywordLD: 'Keyword',
             QsciLexerJSON.Operator: 'Identifier',
             QsciLexerJSON.CommentBlock: 'Comment',
             QsciLexerJSON.CommentLine: 'Comment',
             QsciLexerJSON.EscapeSequence: 'Identifier',
             QsciLexerJSON.String: 'String',
-            QsciLexerJSON.Property: 'Preprocessor',
             QsciLexerJSON.UnclosedString: 'String',
+            QsciLexerJSON.Property: 'Preprocessor',
+            QsciLexerJSON.Error: 'Danger',
+            QsciLexerJSON.IRI: 'Function',
+            QsciLexerJSON.IRICompact: 'Function',
         },
     ),
     'c#': _Language(

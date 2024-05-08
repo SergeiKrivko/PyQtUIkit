@@ -22,7 +22,7 @@ basic_theme = KitTheme(palettes={
 }, code_colors={
     'Identifier': QColor('#101010'),
     'Preprocessor': QColor('#997509'),
-    'Comment': QColor('#B0B0B0'),
+    'Comment': QColor('#9E9E9E'),
     'Keyword': QColor('#D5731D'),
     'Number': QColor('#0057D5'),
     'String': QColor('#18822C'),
