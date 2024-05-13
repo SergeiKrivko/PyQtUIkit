@@ -207,6 +207,16 @@ class _KitMessageBox(KitDialog):
         super()._apply_theme()
 
 
+class _DialogForm(KitForm):
+    def __init__(self, on_resized, *args):
+        super().__init__(*args)
+        self._on_resized = on_resized
+
+    def resizeEvent(self, a0):
+        super().resizeEvent(a0)
+        self._on_resized()
+
+
 class KitFormDialog(KitDialog):
     def __init__(self, parent, *args):
         super().__init__(parent)
@@ -220,7 +230,7 @@ class KitFormDialog(KitDialog):
         main_layout.spacing = 16
         self.setWidget(main_layout)
 
-        self._form = KitForm(*args)
+        self._form = _DialogForm(self._on_resized, *args)
         main_layout.addWidget(self._form)
 
         buttons_layout = KitHBoxLayout()
@@ -238,7 +248,8 @@ class KitFormDialog(KitDialog):
         self._button_ok.on_click = self.accept
         buttons_layout.addWidget(self._button_ok)
 
-        self.resize(300, 60)
+    def _on_resized(self):
+        self.setFixedHeight(self._form.height() + 82)
 
     def res(self):
         return self._form.res()
