@@ -25,6 +25,22 @@ class IntProperty(property):
         super().__init__(getter, setter)
 
 
+class FloatProperty(property):
+    def __init__(self, name='', default=0.0):
+        self._id = '_' + (str(name) or str(uuid4()).replace('-', '_'))
+
+        def getter(obj) -> float:
+            try:
+                return getattr(obj, self._id)
+            except AttributeError:
+                return float(default)
+
+        def setter(obj, value: int | float):
+            setattr(obj, self._id, float(value))
+
+        super().__init__(getter, setter)
+
+
 class BoolProperty(property):
     def __init__(self, name='', default=True):
         self._id = '_' + (str(name) or str(uuid4()).replace('-', '_'))

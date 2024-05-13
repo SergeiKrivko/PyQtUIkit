@@ -1,14 +1,23 @@
 from PyQt6.QtCore import Qt, QPoint
 from PyQt6.QtGui import QPixmap
-from PyQtUIkit.widgets import KitScrollArea, KitLabel
+from PyQtUIkit.core.properties import FloatProperty
+
+from PyQtUIkit.widgets import KitScrollArea, KitLabel, KitHBoxLayout
 
 
 class KitImageViewer(KitScrollArea):
+    min_zoom = FloatProperty('min_zoom', 1.0)
+    max_zoom = FloatProperty('max_zoom', 32.0)
+
     def __init__(self):
         super().__init__()
 
+        layout = KitHBoxLayout()
+        layout.alignment = Qt.AlignmentFlag.AlignCenter
+        self.setWidget(layout)
+
         self._label = KitLabel(self)
-        self.setWidget(self._label)
+        layout.addWidget(self._label)
 
         self._initial_pixmap = QPixmap()
         self._pixmap = QPixmap()
@@ -33,10 +42,10 @@ class KitImageViewer(KitScrollArea):
         self._label.setFixedSize(self._pixmap.size())
 
     def zoom_in(self, pos: QPoint = None):
-        self._set_zoom(min(32.0, self._zoom * 1.5), pos)
+        self._set_zoom(min(self.max_zoom, self._zoom * 1.5), pos)
 
     def zoom_out(self, pos: QPoint = None):
-        self._set_zoom(max(1.0, self._zoom / 1.5), pos)
+        self._set_zoom(max(self.min_zoom, self._zoom / 1.5), pos)
 
     def _set_zoom(self, new_zoom, pos: QPoint = None):
         old_zoom = self._zoom
