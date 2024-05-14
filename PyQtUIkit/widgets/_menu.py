@@ -57,7 +57,7 @@ class _KitMenu:
             el._apply_icon(tm, palette)
 
     def _apply_lang(self, tm):
-        if self.__icon:
+        if self.__key:
             self.__menu.setTitle(self.__key.get(tm))
         for el in self.__actions:
             el._apply_lang(tm)
