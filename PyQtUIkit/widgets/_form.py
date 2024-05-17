@@ -80,3 +80,6 @@ class KitForm(KitVBoxLayout):
 
     def res(self):
         return [el.value() for el in self.__fields]
+
+    def value():
+        return self.res()
