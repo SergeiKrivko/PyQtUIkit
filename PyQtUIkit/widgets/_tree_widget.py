@@ -397,13 +397,13 @@ class KitTreeWidget(KitScrollArea):
             elif self.__shift:
                 self._shift_select(item)
             else:
-                item._select(multi=False)
                 for el in self.__selected:
                     el._deselect(multi=True)
+                item._select(multi=False)
                 self.__selected.clear()
                 self.__selected_level = item.level()
                 self.__selected.append(item)
-        elif self.selection_type == KitTreeWidget.SelectionType.SINGLE:
+        elif self.selection_type == KitTreeWidget.SelectionType.SINGLE and item != self.__current:
             self.__selected.clear()
             self.__selected.append(item)
             item._select()
