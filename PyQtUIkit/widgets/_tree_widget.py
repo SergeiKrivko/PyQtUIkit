@@ -5,13 +5,13 @@ from PyQt6.QtCore import Qt, pyqtSignal, QPoint
 from PyQtUIkit.core import KitFont
 from PyQtUIkit.core.properties import IntProperty, StringProperty, IconProperty, BoolProperty, EnumProperty, \
     PaletteProperty, FontProperty, MethodsProperty
-from PyQtUIkit.widgets._dialog import KitDialog
-from PyQtUIkit.widgets._layout import KitVBoxLayout, KitHBoxLayout
-from PyQtUIkit.widgets._icon_widget import KitIconWidget
-from PyQtUIkit.widgets._label import KitLabel
-from PyQtUIkit.widgets._scroll_area import KitScrollArea
 from PyQtUIkit.widgets._button import KitLayoutButton, KitIconButton
 from PyQtUIkit.widgets._checkbox import KitCheckBox
+from PyQtUIkit.widgets._dialog import KitDialog
+from PyQtUIkit.widgets._icon_widget import KitIconWidget
+from PyQtUIkit.widgets._label import KitLabel
+from PyQtUIkit.widgets._layout import KitVBoxLayout, KitHBoxLayout
+from PyQtUIkit.widgets._scroll_area import KitScrollArea
 
 
 class KitTreeWidgetItem(KitVBoxLayout):
@@ -43,6 +43,7 @@ class KitTreeWidgetItem(KitVBoxLayout):
         self.__never_expanded = True
         self.__move_widget = None
         self.__last_pos = None
+        self.__pressed = False
 
         self.setAlignment(Qt.AlignmentFlag.AlignTop)
 
@@ -168,7 +169,9 @@ class KitTreeWidgetItem(KitVBoxLayout):
     def _on_clicked(self, a0):
         KitLayoutButton.mousePressEvent(self.__button, a0)
         self.__last_pos = a0.pos()
-        self.__root._item_click(self, right=a0.button() == Qt.MouseButton.RightButton)
+        if self not in self.__root.selectedItems():
+            self.__root._item_click(self, right=a0.button() == Qt.MouseButton.RightButton)
+            self.__pressed = True
 
     def _on_double_clicked(self, a0):
         KitLayoutButton.mouseDoubleClickEvent(self.__button, a0)
@@ -204,10 +207,14 @@ class KitTreeWidgetItem(KitVBoxLayout):
         if self.__last_pos is None:
             return
         if not self.__root.movable:
-            return 
+            return
+
+        if self not in self.__root.selectedItems():
+            self.__root._item_click(self, right=False)
+
         if self.__move_widget is None:
-            self.__move_widget = _MoveItem(self, (self.__button.width(), self._height), self.name, self._icon,
-                                           self._text_palette)
+            self.__move_widget = _MoveItem(self, (self.__button.width(), self._height),
+                                           self.__root.selectedItems(), self._text_palette)
             self.__move_widget.main_palette = self.main_palette
             self.__move_widget.move(self.__button.mapToGlobal(a0.pos()))
             self.__move_widget.show()
@@ -219,8 +226,11 @@ class KitTreeWidgetItem(KitVBoxLayout):
         KitLayoutButton.mouseReleaseEvent(self.__button, a0)
         if isinstance(self.__move_widget, _MoveItem):
             self.__move_widget.close()
-            self.__root._request_move(self, self.__move_widget.pos())
+            self.__root._request_move(self.__move_widget.pos())
             self.__move_widget = None
+        elif not self.__pressed:
+            self.__root._item_click(self, right=a0.button() == Qt.MouseButton.RightButton)
+        self.__pressed = False
         self.__last_pos = None
 
     def _deselect(self, multi=False):
@@ -312,23 +322,29 @@ class KitTreeWidgetItem(KitVBoxLayout):
 
 
 class _MoveItem(KitDialog):
-    def __init__(self, parent, size: tuple, name, icon='', palette='Main'):
+    def __init__(self, parent, item_size: tuple, items: list[KitTreeWidgetItem], palette='Main'):
         super().__init__(parent)
         self.button_close = False
-        self.setFixedSize(*size)
+        self.setFixedSize(item_size[0], item_size[1] * len(items))
 
-        main_layout = KitHBoxLayout()
+        main_layout = KitVBoxLayout()
         self.setWidget(main_layout)
 
-        if icon:
-            self._icon_widget = KitIconWidget(icon)
-            main_layout.addWidget(self._icon_widget)
-            self._icon_widget.setFixedSize(size[1] - 6, size[1] - 6)
-            self._icon_widget.main_palette = palette
+        icons = any(el.icon for el in items)
 
-        self._label = KitLabel(name)
-        self._label.main_palette = palette
-        main_layout.addWidget(self._label)
+        for item in items:
+            layout = KitHBoxLayout()
+            main_layout.addWidget(layout)
+
+            if icons:
+                self._icon_widget = KitIconWidget(item.icon)
+                self._icon_widget.setFixedSize(item_size[1] - 6, item_size[1] - 6)
+                self._icon_widget.main_palette = palette
+                layout.addWidget(self._icon_widget)
+
+            self._label = KitLabel(item.name)
+            self._label.main_palette = palette
+            layout.addWidget(self._label)
 
 
 class KitTreeWidget(KitScrollArea):
@@ -382,10 +398,11 @@ class KitTreeWidget(KitScrollArea):
         self.currentItemChanged.emit(item)
         self.__current = item
 
-    def _request_move(self, item, pos):
+    def _request_move(self, pos):
         dest, _ = self.__tree._find_by_pos(pos - self.__tree.mapToGlobal(QPoint(0, 0)))
         if dest:
-            self.moveRequested.emit(item, dest)
+            self.moveRequested.emit(self.selectedItems() if self.selection_type == KitTreeWidget.SelectionType.MULTI
+                                    else self.__current, dest)
 
     def _item_click(self, item: KitTreeWidgetItem, right=False):
         if self.selection_type == KitTreeWidget.SelectionType.MULTI:
