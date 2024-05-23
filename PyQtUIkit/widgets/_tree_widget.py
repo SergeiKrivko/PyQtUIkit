@@ -170,7 +170,9 @@ class KitTreeWidgetItem(KitVBoxLayout):
         KitLayoutButton.mousePressEvent(self.__button, a0)
         self.__last_pos = a0.pos()
         if self not in self.__root.selectedItems():
-            self.__root._item_click(self, right=a0.button() == Qt.MouseButton.RightButton)
+            self.__root._item_click(self, right=a0.button() == Qt.MouseButton.RightButton,
+                                    shift=a0.modifiers() & Qt.KeyboardModifier.ShiftModifier,
+                                    control=a0.modifiers() & Qt.KeyboardModifier.ControlModifier)
             self.__pressed = True
 
     def _on_double_clicked(self, a0):
@@ -229,7 +231,9 @@ class KitTreeWidgetItem(KitVBoxLayout):
             self.__root._request_move(self.__move_widget.pos())
             self.__move_widget = None
         elif not self.__pressed:
-            self.__root._item_click(self, right=a0.button() == Qt.MouseButton.RightButton)
+            self.__root._item_click(self, right=a0.button() == Qt.MouseButton.RightButton,
+                                    shift=a0.modifiers() & Qt.KeyboardModifier.ShiftModifier,
+                                    control=a0.modifiers() & Qt.KeyboardModifier.ControlModifier)
         self.__pressed = False
         self.__last_pos = None
 
@@ -372,8 +376,6 @@ class KitTreeWidget(KitScrollArea):
         self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.customContextMenuRequested.connect(self._on_context_menu)
 
-        self.__shift = False
-        self.__control = False
         self.__current = None
         self.__selected = []
         self.__selected_level = 0
@@ -404,14 +406,14 @@ class KitTreeWidget(KitScrollArea):
             self.moveRequested.emit(self.selectedItems() if self.selection_type == KitTreeWidget.SelectionType.MULTI
                                     else self.__current, dest)
 
-    def _item_click(self, item: KitTreeWidgetItem, right=False):
+    def _item_click(self, item: KitTreeWidgetItem, right=False, shift=False, control=False):
         if self.selection_type == KitTreeWidget.SelectionType.MULTI:
-            if self.__control:
+            if control:
                 if not item.selected():
                     self._add_to_selected(item)
                 else:
                     self._remove_from_selected(item)
-            elif self.__shift:
+            elif shift:
                 self._shift_select(item)
             else:
                 for el in self.__selected:
@@ -478,20 +480,6 @@ class KitTreeWidget(KitScrollArea):
         else:
             self.__selected.append(item)
             item._select()
-
-    def keyPressEvent(self, a0) -> None:
-        super().keyPressEvent(a0)
-        if a0.key() == Qt.Key.Key_Shift:
-            self.__shift = True
-        elif a0.key() == Qt.Key.Key_Control:
-            self.__control = True
-
-    def keyReleaseEvent(self, a0) -> None:
-        super().keyReleaseEvent(a0)
-        if a0.key() == Qt.Key.Key_Shift:
-            self.__shift = False
-        elif a0.key() == Qt.Key.Key_Control:
-            self.__control = False
 
     def clear(self):
         self.__tree.clear()

@@ -48,12 +48,14 @@ class KitSpinBox(QWidget, _KitGroupItem):
         self._button_up.setCursor(Qt.CursorShape.PointingHandCursor)
         # self._button_up.setFixedWidth(20)
         self._button_up.clicked.connect(self._increase)
+        self._button_up.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         buttons_layout.addWidget(self._button_up)
 
         self._button_down = QPushButton()
         self._button_down.setCursor(Qt.CursorShape.PointingHandCursor)
         # self._button_down.setFixedWidth(20)
         self._button_down.clicked.connect(self._decrease)
+        self._button_down.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         buttons_layout.addWidget(self._button_down)
 
     def _on_text_edited(self):

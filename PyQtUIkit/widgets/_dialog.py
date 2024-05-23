@@ -118,7 +118,7 @@ class KitDialog(QDialog, _KitWidget):
 
 
 class _KitAskDialog(KitDialog):
-    def __init__(self, parent, question: str, answers=('No', 'Yes'), default=''):
+    def __init__(self, parent, question: str, answers=('No', 'Yes'), default='', enter=None):
         super().__init__(parent)
         self._answers = answers
         self.button_close = False
@@ -151,17 +151,25 @@ class _KitAskDialog(KitDialog):
 
         self._buttons = dict()
         self._answer = default
+        self._enter = answers[-1] if enter is None else enter
 
         for el in answers:
             button = KitButton(el)
             button.setMinimumSize(100, 24)
             buttons_layout.addWidget(button)
             button.clicked.connect(lambda f, a=el: self._on_button_clicked(a))
+            button.setFocus()
             self._buttons[el] = button
 
     def _on_button_clicked(self, answer):
         self._answer = answer
         self.accept()
+        
+    # def keyPressEvent(self, a0):
+    #     if a0.key() == Qt.Key.Key_Return:
+    #         self._on_button_clicked(self._enter)
+    #     else:
+    #         super().keyPressEvent(a0)
 
     @property
     def answer(self):
@@ -231,6 +239,7 @@ class KitFormDialog(KitDialog):
         self.setWidget(main_layout)
 
         self._form = _DialogForm(self._on_resized, *args)
+        self._form.returnPressed.connect(self.accept)
         main_layout.addWidget(self._form)
 
         buttons_layout = KitHBoxLayout()

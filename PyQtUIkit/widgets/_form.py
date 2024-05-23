@@ -1,4 +1,4 @@
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, pyqtSignal
 
 from PyQtUIkit.widgets import KitVBoxLayout, KitHBoxLayout, KitLabel, KitLineEdit, KitSpinBox, KitComboBox, KitCheckBox
 
@@ -69,6 +69,8 @@ class KitForm(KitVBoxLayout):
         def value(self):
             return self.state
 
+    returnPressed = pyqtSignal()
+
     def __init__(self, *args):
         super().__init__()
         self.__fields = []
@@ -77,6 +79,16 @@ class KitForm(KitVBoxLayout):
             if not isinstance(arg, KitForm.Label):
                 self.__fields.append(arg)
             self.addWidget(arg)
+
+    def keyPressEvent(self, a0):
+        if a0.key() == Qt.Key.Key_Return:
+            self.returnPressed.emit()
+        else:
+            super().keyPressEvent(a0)
+
+    @property
+    def fields(self):
+        return self.__fields
 
     def res(self):
         return [el.value() for el in self.__fields]

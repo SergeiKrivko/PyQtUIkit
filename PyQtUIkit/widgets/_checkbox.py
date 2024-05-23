@@ -30,10 +30,12 @@ class KitCheckBox(QWidget, _KitWidget):
         self.__button.setCheckable(True)
         self.__button.clicked.connect(self._on_clicked)
         self.__button.size = 16
+        self.__button.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         main_layout.addWidget(self.__button)
 
         self.__label = QPushButton()
         self.__label.clicked.connect(self._on_clicked)
+        self.__label.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         main_layout.addWidget(self.__label)
         if not text:
             self.__label.hide()
