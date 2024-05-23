@@ -1,5 +1,6 @@
 import importlib
 import os.path
+from functools import lru_cache
 from importlib.resources import files
 
 from PyQt6.QtCore import QLocale
@@ -58,6 +59,7 @@ class ThemeManager:
     def border(self):
         return self.__current_theme.border()
 
+    @lru_cache
     def pixmap(self, name, color, size=None):
         icon = SVG(icons[name])
         icon.change_color(color)
@@ -65,6 +67,7 @@ class ThemeManager:
             icon.resize(*size)
         return QPixmap.fromImage(QImage.fromData(icon.bytes()))
 
+    @lru_cache
     def icon(self, name, color=None, size=None):
         return QIcon(self.pixmap(name, color, size))
 

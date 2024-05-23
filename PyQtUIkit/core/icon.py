@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from PyQt6.QtGui import QPixmap, QImage, QIcon
 
 from PyQtUIkit.themes import SVG
@@ -16,17 +18,28 @@ class KitIcon:
         with open(self._file, encoding='utf-8') as f:
             return f.read()
 
+    def __eq__(self, other):
+        if not isinstance(other, KitIcon):
+            return False
+        if self._data:
+            return self._data == other._data
+        return self._file == other._file
+
     def pixmap(self, color, size=None):
-        icon = SVG(self._get_data())
-        icon.change_color(color)
-        if size:
-            icon.resize(*size)
-        return QPixmap.fromImage(QImage.fromData(icon.bytes()))
+        return KitIcon._pixmap(self._get_data(), color, size)[0]
 
     def resized_pixmap(self, color, size):
-        icon = SVG(self._get_data())
+        return KitIcon._pixmap(self._get_data(), color, size)
+
+    @staticmethod
+    @lru_cache
+    def _pixmap(data, color, size=None):
+        icon = SVG(data)
         icon.change_color(color)
-        width, height = icon.resize(*size)
+        if size:
+            width, height = icon.resize(*size)
+        else:
+            width, height = None, None
         return QPixmap.fromImage(QImage.fromData(icon.bytes())), width, height
 
     def icon(self, color=None, size=None):
