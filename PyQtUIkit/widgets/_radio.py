@@ -37,6 +37,7 @@ class KitRadioButton(QPushButton, _KitWidget):
         self.__layout.addWidget(self.__label)
 
     def _on_clicked(self):
+        self.__button.setChecked(True)
         if not self.__selected:
             self._set_selected(True)
 

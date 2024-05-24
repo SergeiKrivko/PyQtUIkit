@@ -260,5 +260,9 @@ class KitFormDialog(KitDialog):
     def _on_resized(self):
         self.setFixedHeight(self._form.height() + 82)
 
+    @property
+    def form(self):
+        return self._form
+
     def res(self):
         return self._form.res()
