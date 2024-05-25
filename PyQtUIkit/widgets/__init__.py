@@ -29,3 +29,4 @@ from PyQtUIkit.widgets._menu_bar import KitMenuBar
 from PyQtUIkit.widgets._grid_layout import KitGridLayout
 from PyQtUIkit.widgets._scintilla import KitScintilla
 from PyQtUIkit.widgets._image_viewer import KitImageViewer
+from PyQtUIkit.widgets._notification import KitSystemNotification, KitBaseNotification, KitNotification

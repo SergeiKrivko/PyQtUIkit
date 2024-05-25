@@ -91,16 +91,16 @@ class KitVRadio(KitVBoxLayout):
         self.setContentsMargins(5, 5, 5, 5)
         self.setSpacing(5)
 
-    def setCurrentItem(self, tab: int):
-        if isinstance(tab, int):
-            tab = self.__items[tab]
-        self.__current.setChecked(False)
+    def setCurrentItem(self, index: int):
+        tab: KitRadioButton = self.__items[index]
+        if self.__current:
+            self.__current._set_selected(False)
         self.__current = tab
-        self.__current.setChecked(True)
-        self.currentChanged.emit(self.__items.index(tab))
+        self.__current._set_selected(True)
+        self.currentChanged.emit(index)
 
     def _on_item_selected(self, button: KitRadioButton):
-        if isinstance(self.__current, KitRadioButton):
+        if isinstance(self.__current, KitRadioButton) and self.__current != button:
             self.__current._set_selected(False)
         self.__current = button
         self.currentChanged.emit(self.__items.index(button))

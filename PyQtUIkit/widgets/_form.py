@@ -1,6 +1,9 @@
+from typing import Callable
+
 from PyQt6.QtCore import Qt, pyqtSignal
 
-from PyQtUIkit.widgets import KitVBoxLayout, KitHBoxLayout, KitLabel, KitLineEdit, KitSpinBox, KitComboBox, KitCheckBox
+from PyQtUIkit.widgets import KitVBoxLayout, KitHBoxLayout, KitLabel, KitLineEdit, KitSpinBox, KitComboBox, \
+    KitCheckBox, KitButton
 
 
 class KitForm(KitVBoxLayout):
@@ -24,6 +27,9 @@ class KitForm(KitVBoxLayout):
         def value(self):
             return self._line_edit.text
 
+        def has_focus(self):
+            return self._line_edit.hasFocus()
+
     class IntField(KitHBoxLayout):
         def __init__(self, name='', min=0, max=100, default=0):
             super().__init__()
@@ -43,6 +49,9 @@ class KitForm(KitVBoxLayout):
         def value(self):
             return self._spin_box.value
 
+        def has_focus(self):
+            return self._spin_box.hasFocus()
+
     class ComboField(KitHBoxLayout):
         def __init__(self, name='', values: list = tuple(), default=0):
             super().__init__()
@@ -61,6 +70,9 @@ class KitForm(KitVBoxLayout):
         def value(self):
             return self._combo_box.currentValue()
 
+        def has_focus(self):
+            return self._combo_box.hasFocus()
+
     class BoolField(KitCheckBox):
         def __init__(self, name, default=False):
             super().__init__(name)
@@ -68,6 +80,18 @@ class KitForm(KitVBoxLayout):
 
         def value(self):
             return self.state
+
+        def has_focus(self):
+            return self.hasFocus()
+
+    class Button(KitButton):
+        def __init__(self, name, icon='', on_click: Callable = None):
+            super().__init__(name, icon)
+            if on_click:
+                self.clicked.connect(on_click)
+
+        def has_focus(self):
+            return self.hasFocus()
 
     returnPressed = pyqtSignal()
 
@@ -89,6 +113,12 @@ class KitForm(KitVBoxLayout):
     @property
     def fields(self):
         return self.__fields
+
+    def has_focus(self):
+        for el in self.__fields:
+            if el.has_focus():
+                return True
+        return False
 
     def res(self):
         return [el.value() for el in self.__fields]
