@@ -1,9 +1,9 @@
-from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFontMetrics
-from PyQt6.QtWidgets import QLabel, QPushButton, QHBoxLayout, QSizePolicy
+from PyQt6.QtWidgets import QLabel, QPushButton, QHBoxLayout
 
 from PyQtUIkit.core import *
-from PyQtUIkit.widgets import KitVBoxLayout, KitHBoxLayout
+from PyQtUIkit.widgets._layout import KitBoxLayout
 from PyQtUIkit.widgets._widget import _KitWidget as _KitWidget
 
 
@@ -73,7 +73,7 @@ QPushButton::checked {{
         self.__label.setStyleSheet(f"color: {self.main_palette.text}; border: none; background-color: transparent")
 
 
-class KitVRadio(KitVBoxLayout):
+class KitRadio(KitBoxLayout):
     button_height = IntProperty('button_size', 24)
     font = FontProperty('font')
     font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
@@ -81,15 +81,19 @@ class KitVRadio(KitVBoxLayout):
     currentChanged = pyqtSignal(int)
     on_current_changed = SignalProperty('on_current_changed', 'currentChanged')
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, orientation=Qt.Orientation.Vertical):
+        super().__init__(orientation)
         self._main_palette = 'Bg'
         self.__items = []
         self.__current = None
 
-        self.setAlignment(Qt.AlignmentFlag.AlignTop)
-        self.setContentsMargins(5, 5, 5, 5)
-        self.setSpacing(5)
+        if orientation == Qt.Orientation.Vertical:
+            self.setAlignment(Qt.AlignmentFlag.AlignTop)
+        else:
+            self.setAlignment(Qt.AlignmentFlag.AlignLeft)
+
+        self.padding = 5
+        self.spacing = 5
 
     def setCurrentItem(self, index: int):
         tab: KitRadioButton = self.__items[index]
@@ -136,64 +140,11 @@ class KitVRadio(KitVBoxLayout):
         super()._apply_theme()
 
 
-class KitHRadio(KitHBoxLayout):
-    button_height = IntProperty('button_size', 24)
-    font = FontProperty('font')
-    font_size = EnumProperty('font_size', KitFont.Size, KitFont.Size.MEDIUM)
-
-    currentChanged = pyqtSignal(int)
-    on_current_changed = SignalProperty('on_current_changed', 'currentChanged')
-
+class KitHRadio(KitRadio):
     def __init__(self):
-        super().__init__()
-        self._main_palette = 'Bg'
-        self.__items = []
-        self.__current = None
+        super().__init__(orientation=Qt.Orientation.Horizontal)
 
-        self.setAlignment(Qt.AlignmentFlag.AlignLeft)
-        self.setContentsMargins(5, 5, 5, 5)
-        self.setSpacing(5)
 
-    def setCurrentItem(self, tab: int):
-        if isinstance(tab, int):
-            tab = self.__items[tab]
-        self.__current.setChecked(False)
-        self.__current = tab
-        self.__current.setChecked(True)
-        self.currentChanged.emit(self.__items.index(tab))
-
-    def _on_item_selected(self, button: KitRadioButton):
-        if isinstance(self.__current, KitRadioButton):
-            self.__current._set_selected(False)
-        self.__current = button
-        self.currentChanged.emit(self.__items.index(button))
-
-    def addItem(self, name: str):
-        self.insertItem(len(self.__items), name)
-
-    def insertItem(self, index: int, name: str):
-        button = KitRadioButton(name)
-        if not self.__current:
-            self.__current = button
-            button._set_selected(True)
-        button.selected.connect(lambda: self._on_item_selected(button))
-        self.__items.insert(index, button)
-        self.insertWidget(index, button)
-
-    def clear(self):
-        super().clear()
-        self.__items.clear()
-        self.__current = None
-
-    def currentIndex(self):
-        if self.__current is None:
-            return None
-        return self.__items.index(self.__current)
-
-    def _apply_theme(self):
-        for el in self.__items:
-            el.main_palette = self.main_palette
-            el.font = self.font
-            el.font_size = self.font_size
-            el._size = self.button_height
-        super()._apply_theme()
+class KitVRadio(KitRadio):
+    def __init__(self):
+        super().__init__(orientation=Qt.Orientation.Vertical)
