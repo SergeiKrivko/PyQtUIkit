@@ -39,6 +39,8 @@ class KitMenuBar(QMenuBar, _KitWidget):
                     self.addMenu(el)
                 elif isinstance(el, QAction):
                     self.addAction(el)
+                elif isinstance(el, KitMenuBar.Separator):
+                    self.addSeparator()
 
         def addAction(self, action: QAction, *args):
             super().addAction(action)
@@ -89,6 +91,9 @@ QMenu::separator {{
                 if hasattr(el, '_apply_styles'):
                     el._apply_styles(tm, main_palette, border_palette, font)
 
+    class Separator:
+        pass
+
     main_palette = PaletteProperty('main_palette', 'Menu')
     border = IntProperty('border', 0)
     radius = IntProperty('radius', 4)
@@ -105,6 +110,8 @@ QMenu::separator {{
                 self.addMenu(el)
             elif isinstance(el, QAction):
                 self.addAction(el)
+            elif isinstance(el, KitMenuBar.Separator):
+                self.addSeparator()
 
     def addAction(self, action: QAction, *args):
         super().addAction(action)

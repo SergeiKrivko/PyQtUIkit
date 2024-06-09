@@ -48,6 +48,8 @@ class KitRadioButton(QPushButton, _KitWidget):
             self.selected.emit()
 
     def _apply_theme(self):
+        if not self._tm or not self._tm.active:
+            return 
         self.__label.setFont(self.font.get(self.font_size))
         fm = QFontMetrics(self.__label.font())
         fm.size(0, self.__label.text())
@@ -132,6 +134,8 @@ class KitRadio(KitBoxLayout):
         return self.__items.index(self.__current)
 
     def _apply_theme(self):
+        if not self._tm or not self._tm.active:
+            return
         for el in self.__items:
             el.main_palette = self.main_palette
             el.font = self.font
