@@ -91,6 +91,9 @@ class KitTreeWidgetItem(KitVBoxLayout):
     def parent(self):
         return self.__parent
 
+    def root(self):
+        return self.__root
+
     def level(self):
         return self.__level
 
