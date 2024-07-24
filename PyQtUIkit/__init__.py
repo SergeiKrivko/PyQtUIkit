@@ -1,2 +1,2 @@
 import PyQtUIkit.core
-import PyQtUIkit.widgets
+import PyQtUIkit._impl

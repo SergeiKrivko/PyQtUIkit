@@ -133,3 +133,6 @@ class ThemeManager:
     @property
     def locale(self):
         return self.__lang
+
+
+theme_manager = ThemeManager()

@@ -6,7 +6,7 @@ from PyQt6.QtWidgets import QApplication, QSizePolicy
 from qasync import asyncSlot
 
 from PyQtUIkit.themes import icons
-from PyQtUIkit.widgets import *
+from PyQtUIkit._impl import *
 
 
 class MainWindow(KitMainWindow):
