@@ -124,7 +124,7 @@
     </type>
 
     <type name="KitButton">
-        <property name="padding" value="6 3 6 3"/>
+        <property name="padding" value="6 12 6 12"/>
     </type>
 
     <class name="__PyQtUIkit_Button_Label">

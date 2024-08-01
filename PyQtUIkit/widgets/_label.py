@@ -1,17 +1,22 @@
+from typing import Iterable
+
 from PyQt6.QtWidgets import QLabel
 
 from PyQtUIkit.core.locale import _KitLocaleString, _KitLocaleStringArray
 from PyQtUIkit.widgets._widget import KitWidget
-from core._style_obj import CardStyle
-from core._styles import style_service
+from core.style_obj import CardStyle
+from core.styles import style_service
 
 
 class KitLabel(KitWidget):
     def __init__(self,
-                 text: str | _KitLocaleString | _KitLocaleStringArray):
+                 text: str | _KitLocaleString | _KitLocaleStringArray,
+                 classes: Iterable[str] | str = None,):
         super().__init__(QLabel())
         self.__text = text
         self.__style = CardStyle()
+        if classes:
+            self.classes = classes
 
     @property
     def qt_widget(self) -> QLabel:

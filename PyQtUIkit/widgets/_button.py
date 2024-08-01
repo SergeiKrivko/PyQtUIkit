@@ -2,9 +2,12 @@ from enum import Enum
 from typing import Iterable
 
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QFontMetrics
 from PyQt6.QtWidgets import QSizePolicy
 
 from core import KitIcon
+from core.style_obj import ButtonStyle
+from core.styles import style_service
 from core.locale import _KitLocaleString, _KitLocaleStringArray
 from PyQtUIkit.widgets._layout_button import KitLayoutButton
 from PyQtUIkit.widgets._label import KitLabel
@@ -41,7 +44,18 @@ class KitButton(KitLayoutButton):
             self.__label.classes.remove('pressed')
         self.__label.apply_style()
 
+    def __apply_width(self):
+        style: ButtonStyle = style_service.get_style(self)
+        fm = QFontMetrics(self.__label.qt_widget.font())
+        width = fm.size(0, self.__label.qt_widget.text()).width() + style.padding[1] + style.padding[3]
+        self.qt_widget.setFixedWidth(width)
+
     def apply_style(self):
         self.__label.classes = self.classes.copy()
         self.__label.classes.add('__PyQtUIkit_Button_Label')
         super().apply_style()
+        self.__apply_width()
+
+    def apply_lang(self):
+        super().apply_lang()
+        self.__apply_width()

@@ -3,7 +3,7 @@ from typing import Any, Type
 
 import bs4
 
-from PyQtUIkit.core._style_obj import BaseStyle
+from PyQtUIkit.core.style_obj import BaseStyle
 from PyQtUIkit.core.service import KitService
 
 

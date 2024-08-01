@@ -7,7 +7,25 @@
         <property name="color" var="default-text-color"/>
 
         <class name="primary">
-            <property name="color" var="primary-text-color"/>
+            <property name="color" var="primary-text-only-color"/>
+        </class>
+        <class name="secondary">
+            <property name="color" var="secondary-text-only-color"/>
+        </class>
+        <class name="success">
+            <property name="color" var="success-text-only-color"/>
+        </class>
+        <class name="info">
+            <property name="color" var="info-text-only-color"/>
+        </class>
+        <class name="warning">
+            <property name="color" var="warning-text-only-color"/>
+        </class>
+        <class name="danger">
+            <property name="color" var="danger-text-only-color"/>
+        </class>
+        <class name="contrast">
+            <property name="color" var="contrast-text-only-color"/>
         </class>
     </type>
 </uikit-style>

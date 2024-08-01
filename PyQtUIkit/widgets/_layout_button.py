@@ -5,8 +5,8 @@ from PyQt6.QtWidgets import QPushButton, QWidget, QLayout
 
 from PyQtUIkit.widgets._layout import KitBoxLayout
 from PyQtUIkit.widgets._widget import KitWidget
-from core._style_obj import ButtonStyle
-from core._styles import style_service
+from core.style_obj import ButtonStyle
+from core.styles import style_service
 from core.event import KitSignals
 
 
@@ -64,8 +64,8 @@ class KitLayoutButton(KitWidget):
         self.__layout.apply_lang()
 
     def apply_style(self):
-        self.__layout.apply_style()
         style: ButtonStyle = style_service.get_style(self)
+        self.__layout.apply_style()
         self.qt_widget.setStyleSheet(s := f"""
         QPushButton {{
             color: rgba{style.color.getRgb()};

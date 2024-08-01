@@ -2,8 +2,8 @@ from PyQt6.QtWidgets import QMainWindow, QWidget
 
 from PyQtUIkit.widgets._layout import KitVBoxLayout
 from PyQtUIkit.widgets._widget import KitWidget
-from core._style_obj import CardStyle
-from core._styles import style_service
+from core.style_obj import CardStyle
+from core.styles import style_service
 
 
 class KitMainWindow(KitWidget):
