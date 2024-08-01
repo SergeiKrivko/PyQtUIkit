@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uikit-style>
+    <type name="KitCard">
+        <property name="radius" var="card-border-radius"/>
+        <property name="padding" value="0"/>
+
+        <!--    Default: "primary"    -->
+        <property name="background" var="primary-bg-color"/>
+
+        <class name="primary">
+            <property name="background" var="primary-bg-color"/>
+        </class>
+        <class name="secondary">
+            <property name="background" var="secondary-bg-color"/>
+        </class>
+        <class name="contrast">
+            <property name="background" var="contrast-bg-color"/>
+        </class>
+    </type>
+</uikit-style>

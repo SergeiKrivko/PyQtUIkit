@@ -4,6 +4,7 @@
 
     <include path="./themes/dark.xml"/>
 
+    <include path="./widgets/card.xml"/>
     <include path="./widgets/label.xml"/>
     <include path="./widgets/button.xml"/>
     <include path="./widgets/main_window.xml"/>

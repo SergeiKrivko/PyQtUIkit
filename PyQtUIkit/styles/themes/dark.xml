@@ -5,7 +5,7 @@
         <var name="transparent-hover-color" value="#20FFFFFF"/>
 
         <var name="primary-color" value="#60A5FA"/>
-        <var name="secondary-text-only-color" value="#60A5FA"/>
+        <var name="primary-text-only-color" value="#60A5FA"/>
         <var name="primary-text-color" value="#020617"/>
         <var name="primary-hover-color" value="#538FD9"/>
         <var name="primary-pressed-color" value="#2964B3"/>

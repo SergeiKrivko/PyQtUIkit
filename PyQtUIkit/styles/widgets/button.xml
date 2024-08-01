@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uikit-style>
     <type name="KitLayoutButton">
-        <property name="radius.top_left" var="button-border-radius"/>
-        <property name="radius.top_right" var="button-border-radius"/>
-        <property name="radius.bottom_left" var="button-border-radius"/>
-        <property name="radius.bottom_right" var="button-border-radius"/>
+        <property name="radius" var="button-border-radius"/>
         <property name="padding" value="0"/>
 
         <!--    Default: "fill primary"    -->

@@ -2,6 +2,7 @@ from enum import Enum
 from typing import Iterable
 
 from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QSizePolicy
 
 from core import KitIcon
 from core.locale import _KitLocaleString, _KitLocaleStringArray

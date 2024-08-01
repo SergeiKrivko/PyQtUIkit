@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uikit-style>
     <var name="button-border-radius" value="5"/>
+    <var name="card-border-radius" value="10"/>
 
     <property name="color" value="transparent"/>
     <property name="background" value="transparent"/>
