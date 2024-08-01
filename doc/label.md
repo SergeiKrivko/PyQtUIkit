@@ -5,15 +5,14 @@
 Наследует `QLabel`
 
 ```python
-from PyQtUIkit.widgets import KitLabel
+from PyQtUIkit._impl import KitLabel
 
 label = KitLabel("KitLabel")
 ```
-![img.png](img/img.png) 
-
+![img.png](img/img.png)
 
 ```python
-from PyQtUIkit.widgets import KitLabel
+from PyQtUIkit._impl import KitLabel
 
 label = KitLabel("KitLabel")
 label.main_palette = 'Main'

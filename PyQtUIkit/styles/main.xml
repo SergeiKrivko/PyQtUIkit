@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uikit-style>
+    <include path="./general.xml"/>
+
+    <include path="./themes/dark.xml"/>
+
+    <include path="./widgets/label.xml"/>
+    <include path="./widgets/button.xml"/>
+    <include path="./widgets/main_window.xml"/>
+</uikit-style>

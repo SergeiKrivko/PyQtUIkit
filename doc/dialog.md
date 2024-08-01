@@ -8,7 +8,8 @@
 
 ```python
 from PyQt6.QtWidgets import QApplication
-from PyQtUIkit.widgets import KitMainWindow, KitButton, KitDialog, KitHBoxLayout
+from PyQtUIkit._impl import KitMainWindow, KitButton, KitDialog, KitHBoxLayout
+
 
 class MainWindow(KitMainWindow):
     def __init__(self):
@@ -21,7 +22,8 @@ class MainWindow(KitMainWindow):
 
     def open_dialog(self):
         KitDialog.info(self, "Info", "Some very interesting info")
-        
+
+
 app = QApplication([])
 window = MainWindow()
 window.show()

@@ -5,7 +5,7 @@
 Наследует `KitScrollArea`
 
 ```python
-from PyQtUIkit.widgets import KitTreeWidget, KitTreeWidgetItem
+from PyQtUIkit._impl import KitTreeWidget, KitTreeWidgetItem
 
 tree = KitTreeWidget()
 for i in range(10):

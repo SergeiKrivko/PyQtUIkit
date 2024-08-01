@@ -5,7 +5,7 @@
 Наследует `QWidget`
 
 ```python
-from PyQtUIkit.widgets import KitToggle
+from PyQtUIkit._impl import KitToggle
 
 toggle = KitToggle()
 ```
@@ -13,7 +13,7 @@ toggle = KitToggle()
 ![img_1.png](img/img_17.png)
 
 ```python
-from PyQtUIkit.widgets import KitToggle
+from PyQtUIkit._impl import KitToggle
 
 toggle = KitToggle()
 toggle.mode = 'm'
@@ -22,7 +22,7 @@ toggle.mode = 'm'
 ![img.png](img/img_15.png)
 
 ```python
-from PyQtUIkit.widgets import KitToggle
+from PyQtUIkit._impl import KitToggle
 
 toggle = KitToggle()
 toggle.mode = 'l'

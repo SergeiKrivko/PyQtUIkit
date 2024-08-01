@@ -204,6 +204,6 @@ class KitNavigation(KitVBoxLayout):
 
     def _apply_lang(self):
         for el in self.__tabs:
-            el._apply_lang()
+            el.apply_lang()
         if self.__expanded:
             self.expand()

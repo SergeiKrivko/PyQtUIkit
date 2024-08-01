@@ -61,7 +61,7 @@ class KitFlowLayout(QWidget, _KitWidget):
             return
         for el in self.__widgets:
             if hasattr(el, '_apply_theme'):
-                el._apply_theme()
+                el.apply_style()
         self.setStyleSheet(f"""
         QWidget {{
             background-color: {self.main_palette.main};

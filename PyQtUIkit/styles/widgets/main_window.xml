@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uikit-style>
+    <type name="KitMainWindow">
+        <property name="background" var="primary-bg-color"/>
+    </type>
+</uikit-style>

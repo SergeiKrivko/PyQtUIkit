@@ -3,7 +3,7 @@
 Наследует `QWidget`
 
 ```python
-from PyQtUIkit.widgets import KitCheckBox
+from PyQtUIkit._impl import KitCheckBox
 
 checkbox = KitCheckBox("KitCheckBox")
 ```

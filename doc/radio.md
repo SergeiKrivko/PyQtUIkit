@@ -3,7 +3,7 @@
 Наследует `KitVBoxLayout` (`KitHBoxLayout`)
 
 ```python
-from PyQtUIkit.widgets import *
+from PyQtUIkit._impl import *
 
 radio = KitVRadio()
 radio.addItem("Item 1")
@@ -15,7 +15,7 @@ radio.addItem("Item 5")
 ![img.png](img/img_29.png)
 
 ```python
-from PyQtUIkit.widgets import *
+from PyQtUIkit._impl import *
 
 radio = KitHRadio()
 radio.addItem("Item 1")

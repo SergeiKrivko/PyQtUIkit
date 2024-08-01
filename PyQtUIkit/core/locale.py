@@ -1,3 +1,6 @@
+
+
+
 class KitLocale:
     def __init__(self, lang: str, name: str, dct: dict[str: str]):
         self.__lang = lang
@@ -19,52 +22,52 @@ class KitLocale:
         return self.__name
 
 
-class _KitLocalString:
+class _KitLocaleString:
     def __init__(self, key: str):
         self.__key = key
 
     def __add__(self, other):
-        return _KitLocalStringArray(self, other)
+        return _KitLocaleStringArray(self, other)
     
     def __radd__(self, other):
-        return _KitLocalStringArray(other, self)
+        return _KitLocaleStringArray(other, self)
     
-    def get(self, tm):
-        return tm.get_text(self.__key)
+    def get(self):
+        return theme_manager.get_text(self.__key)
     
     
-class _KitLocalStringArray:
+class _KitLocaleStringArray:
     def __init__(self, *args):
         self.__args = args
         
-    def get(self, tm):
+    def get(self):
         lst = []
         for el in self.__args:
-            if isinstance(el, _KitLocalString):
-                lst.append(el.get(tm))
+            if isinstance(el, _KitLocaleString):
+                lst.append(el.get())
             elif callable(el):
-                lst.append(el(tm))
+                lst.append(el(theme_manager))
             else:
                 lst.append(str(el))
         return ''.join(lst)
 
     def __add__(self, other):
-        if isinstance(other, _KitLocalStringArray):
-            return _KitLocalStringArray(*self.__args, *other.__args)
-        return _KitLocalStringArray(*self.__args, other)
+        if isinstance(other, _KitLocaleStringArray):
+            return _KitLocaleStringArray(*self.__args, *other.__args)
+        return _KitLocaleStringArray(*self.__args, other)
     
     def __radd__(self, other):
-        if isinstance(other, _KitLocalStringArray):
-            return _KitLocalStringArray(*other.__args, *self.__args)
-        return _KitLocalStringArray(other, *self.__args)
+        if isinstance(other, _KitLocaleStringArray):
+            return _KitLocaleStringArray(*other.__args, *self.__args)
+        return _KitLocaleStringArray(other, *self.__args)
 
 
 class _KitLocalStringClass:
     def __getattr__(self, item):
-        return _KitLocalString(item)
+        return _KitLocaleString(item)
 
     def get(self, item):
-        return _KitLocalString(item)
+        return _KitLocaleString(item)
 
 
 KitLocaleString = _KitLocalStringClass()

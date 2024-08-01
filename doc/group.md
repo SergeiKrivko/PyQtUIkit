@@ -10,7 +10,7 @@
 - `KitSpinBox`
 
 ```python
-from PyQtUIkit.widgets import KitHGroup, KitButton, KitIconButton, KitComboBox
+from PyQtUIkit._impl import KitHGroup, KitButton, KitIconButton, KitComboBox
 
 group = KitHGroup()
 group.addItem(KitButton("Button 1"))
@@ -24,9 +24,8 @@ group.addItem(combo)
 ```
 ![img_1.png](img/img_25.png)
 
-
 ```python
-from PyQtUIkit.widgets import KitVGroup, KitButton, KitIconButton, KitComboBox
+from PyQtUIkit._impl import KitVGroup, KitButton, KitIconButton, KitComboBox
 
 group = KitVGroup()
 group.addItem(KitButton("Button 1"))

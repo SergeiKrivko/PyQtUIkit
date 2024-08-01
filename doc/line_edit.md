@@ -5,7 +5,7 @@
 Наследует `QLineEdit`
 
 ```python
-from PyQtUIkit.widgets import KitLineEdit
+from PyQtUIkit._impl import KitLineEdit
 
 Line_edit = KitLineEdit()
 ```

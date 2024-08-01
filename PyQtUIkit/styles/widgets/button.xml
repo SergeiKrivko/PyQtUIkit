@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uikit-style>
+    <type name="KitLayoutButton">
+        <property name="radius.top_left" var="button-border-radius"/>
+        <property name="radius.top_right" var="button-border-radius"/>
+        <property name="radius.bottom_left" var="button-border-radius"/>
+        <property name="radius.bottom_right" var="button-border-radius"/>
+        <property name="padding" value="0"/>
+
+        <!--    Default: "fill primary"    -->
+        <property name="background" var="primary-color"/>
+        <property name="hover.background" var="primary-hover-color"/>
+        <property name="pressed.background" var="primary-pressed-color"/>
+
+        <class name="primary">
+            <property name="background" var="primary-color"/>
+            <property name="hover.background" var="primary-hover-color"/>
+            <property name="pressed.background" var="primary-pressed-color"/>
+        </class>
+        <class name="secondary">
+            <property name="background" var="secondary-color"/>
+            <property name="hover.background" var="secondary-hover-color"/>
+            <property name="pressed.background" var="secondary-pressed-color"/>
+        </class>
+        <class name="success">
+            <property name="background" var="success-color"/>
+            <property name="hover.background" var="success-hover-color"/>
+            <property name="pressed.background" var="success-pressed-color"/>
+        </class>
+        <class name="info">
+            <property name="background" var="info-color"/>
+            <property name="hover.background" var="info-hover-color"/>
+            <property name="pressed.background" var="info-pressed-color"/>
+        </class>
+        <class name="warning">
+            <property name="background" var="warning-color"/>
+            <property name="hover.background" var="warning-hover-color"/>
+            <property name="pressed.background" var="warning-pressed-color"/>
+        </class>
+        <class name="danger">
+            <property name="background" var="danger-color"/>
+            <property name="hover.background" var="danger-hover-color"/>
+            <property name="pressed.background" var="danger-pressed-color"/>
+        </class>
+        <class name="contrast">
+            <property name="background" var="contrast-color"/>
+            <property name="hover.background" var="contrast-hover-color"/>
+            <property name="pressed.background" var="contrast-pressed-color"/>
+        </class>
+
+        <class name="outline">
+            <property name="background" value="transparent"/>
+            <property name="hover.background" var="transparent-hover-color"/>
+            <property name="border.width" value="1"/>
+
+            <!--     Default: "primary"       -->
+            <property name="border.color" var="primary-color"/>
+            <property name="hover.border.color" var="primary-hover-color"/>
+            <property name="pressed.background" var="primary-color"/>
+
+            <class name="primary">
+                <property name="border.color" var="primary-color"/>
+                <property name="hover.border.color" var="primary-hover-color"/>
+                <property name="pressed.background" var="primary-color"/>
+            </class>
+            <class name="secondary">
+                <property name="border.color" var="secondary-color"/>
+                <property name="hover.border.color" var="secondary-hover-color"/>
+                <property name="pressed.background" var="secondary-color"/>
+            </class>
+            <class name="success">
+                <property name="border.color" var="success-color"/>
+                <property name="hover.border.color" var="success-hover-color"/>
+                <property name="pressed.background" var="success-color"/>
+            </class>
+            <class name="info">
+                <property name="border.color" var="info-color"/>
+                <property name="hover.border.color" var="info-hover-color"/>
+                <property name="pressed.background" var="info-color"/>
+            </class>
+            <class name="warning">
+                <property name="border.color" var="warning-color"/>
+                <property name="hover.border.color" var="warning-hover-color"/>
+                <property name="pressed.background" var="warning-color"/>
+            </class>
+            <class name="danger">
+                <property name="border.color" var="danger-color"/>
+                <property name="hover.border.color" var="danger-hover-color"/>
+                <property name="pressed.background" var="danger-color"/>
+            </class>
+            <class name="contrast">
+                <property name="border.color" var="contrast-color"/>
+                <property name="hover.border.color" var="contrast-hover-color"/>
+                <property name="pressed.background" var="contrast-color"/>
+            </class>
+        </class>
+
+        <class name="text">
+            <property name="background" value="transparent"/>
+            <property name="hover.background" var="transparent-hover-color"/>
+
+            <!--     Default: "primary"       -->
+            <property name="pressed.background" var="primary-color"/>
+
+            <class name="primary">
+                <property name="pressed.background" var="primary-color"/>
+            </class>
+            <class name="secondary">
+                <property name="pressed.background" var="secondary-color"/>
+            </class>
+            <class name="success">
+                <property name="pressed.background" var="success-color"/>
+            </class>
+            <class name="info">
+                <property name="pressed.background" var="info-color"/>
+            </class>
+            <class name="warning">
+                <property name="pressed.background" var="warning-color"/>
+            </class>
+            <class name="danger">
+                <property name="pressed.background" var="danger-color"/>
+            </class>
+            <class name="contrast">
+                <property name="pressed.background" var="contrast-color"/>
+            </class>
+        </class>
+    </type>
+
+    <type name="KitButton">
+        <property name="padding" value="6 3 6 3"/>
+    </type>
+
+    <class name="__PyQtUIkit_Button_Label">
+        <!--    Default: "fill primary"    -->
+        <property name="color" var="primary-text-color"/>
+
+        <class name="primary">
+            <property name="color" var="primary-text-color"/>
+        </class>
+        <class name="secondary">
+            <property name="color" var="secondary-text-color"/>
+        </class>
+        <class name="success">
+            <property name="color" var="success-text-color"/>
+        </class>
+        <class name="info">
+            <property name="color" var="info-text-color"/>
+        </class>
+        <class name="warning">
+            <property name="color" var="warning-text-color"/>
+        </class>
+        <class name="danger">
+            <property name="color" var="danger-text-color"/>
+        </class>
+        <class name="contrast">
+            <property name="color" var="contrast-text-color"/>
+        </class>
+
+        <class name="outline text">
+            <!--     Default: "primary"       -->
+            <property name="color" var="primary-color"/>
+            <class name="pressed">
+                <property name="color" var="primary-text-color"/>
+            </class>
+
+            <class name="primary">
+                <property name="color" var="primary-text-only-color"/>
+                <class name="pressed">
+                    <property name="color" var="primary-text-color"/>
+                </class>
+            </class>
+            <class name="secondary">
+                <property name="color" var="secondary-text-only-color"/>
+                <class name="pressed">
+                    <property name="color" var="secondary-text-color"/>
+                </class>
+            </class>
+            <class name="success">
+                <property name="color" var="success-text-only-color"/>
+                <class name="pressed">
+                    <property name="color" var="success-text-color"/>
+                </class>
+            </class>
+            <class name="info">
+                <property name="color" var="info-text-only-color"/>
+                <class name="pressed">
+                    <property name="color" var="info-text-color"/>
+                </class>
+            </class>
+            <class name="warning">
+                <property name="color" var="warning-text-only-color"/>
+                <class name="pressed">
+                    <property name="color" var="warning-text-color"/>
+                </class>
+            </class>
+            <class name="danger">
+                <property name="color" var="danger-text-only-color"/>
+                <class name="pressed">
+                    <property name="color" var="danger-text-color"/>
+                </class>
+            </class>
+            <class name="contrast">
+                <property name="color" var="contrast-text-only-color"/>
+                <class name="pressed">
+                    <property name="color" var="contrast-text-color"/>
+                </class>
+            </class>
+        </class>
+    </class>
+</uikit-style>

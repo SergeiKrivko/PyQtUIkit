@@ -1,5 +1,5 @@
 import sys
-from typing import Callable
+from typing import Callable, Type
 
 from PyQt6.QtWidgets import QApplication
 
@@ -26,7 +26,7 @@ except ImportError:
             raise ImportError("Qasync is not installed. Please use \"pip install qasync\"")
 else:
     class KitAsyncApplication(qasync.QApplication):
-        def __init__(self, window: Callable[[], KitMainWindow]):
+        def __init__(self, window: Type[KitMainWindow]):
             super().__init__([])
             import asyncio
 

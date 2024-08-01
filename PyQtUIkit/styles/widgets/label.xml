@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uikit-style>
+    <type name="KitLabel">
+        <property name="background" value="transparent"/>
+
+        <!--    Default    -->
+        <property name="color" var="default-text-color"/>
+
+        <class name="primary">
+            <property name="color" var="primary-text-color"/>
+        </class>
+    </type>
+</uikit-style>

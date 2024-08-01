@@ -5,16 +5,15 @@
 Наследует `QPushButton`
 
 ```python
-from PyQtUIkit.widgets import KitComboBox
+from PyQtUIkit._impl import KitComboBox
 
 combo_box = KitComboBox('item 1', 'item 2', 'item 3', 'item 4', 'item 5')
 ```
 ![img.png](img/img_8.png)
 ![img_1.png](img/img_9.png)
 
-
 ```python
-from PyQtUIkit.widgets import KitComboBox, KitComboBoxItem
+from PyQtUIkit._impl import KitComboBox, KitComboBoxItem
 
 combo_box = KitComboBox()
 for i in range(100):

@@ -5,7 +5,7 @@
 Наследует `QWidget`
 
 ```python
-from PyQtUIkit.widgets import KitIconWidget
+from PyQtUIkit._impl import KitIconWidget
 
 icon_widget = KitIconWidget('python')
 ```

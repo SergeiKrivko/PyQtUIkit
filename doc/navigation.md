@@ -3,7 +3,7 @@
 Наследует `KitVBoxLayout`
 
 ```python
-from PyQtUIkit.widgets import *
+from PyQtUIkit._impl import *
 
 nav = KitNavigation()
 nav.button_size = 30

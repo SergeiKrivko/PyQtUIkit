@@ -5,14 +5,14 @@
 Наследует `QPushButton`
 
 ```python
-from PyQtUIkit.widgets import KitIconButton
+from PyQtUIkit._impl import KitIconButton
 
 button = KitIconButton('python')
 ```
 ![img.png](img/img_5.png)
 
 ```python
-from PyQtUIkit.widgets import KitIconButton
+from PyQtUIkit._impl import KitIconButton
 
 button = KitIconButton()
 button.icon = 'google'

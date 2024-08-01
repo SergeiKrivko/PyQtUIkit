@@ -36,7 +36,7 @@ class KitMainWindow(QMainWindow):
         if hasattr(cw, '_apply_theme'):
             cw._apply_theme()
         if hasattr(self.__menu_bar, '_apply_theme'):
-            self.__menu_bar._apply_theme()
+            self.__menu_bar.apply_style()
 
     def _apply_lang(self):
         if not self._tm.active:
@@ -45,7 +45,7 @@ class KitMainWindow(QMainWindow):
         if hasattr(cw, '_apply_lang'):
             cw._apply_lang()
         if hasattr(self.__menu_bar, '_apply_lang'):
-            self.__menu_bar._apply_lang()
+            self.__menu_bar.apply_lang()
 
     def setCentralWidget(self, widget: typing.Optional[QWidget]) -> None:
         super().setCentralWidget(widget)

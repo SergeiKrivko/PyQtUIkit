@@ -2,7 +2,7 @@ from PyQtUIkit._impl._layout import KitHBoxLayout, KitVBoxLayout
 from PyQtUIkit._impl._flow_layout import KitFlowLayout
 from PyQtUIkit._impl._label import KitLabel
 from PyQtUIkit._impl._icon_widget import KitIconWidget
-from PyQtUIkit._impl._button import KitButton, KitIconButton, KitLayoutButton
+from PyQtUIkit._impl._button import Button, KitIconButton, KitLayoutButton
 from PyQtUIkit._impl._line_edit import KitLineEdit
 from PyQtUIkit._impl._list_widget import KitListWidget, KitListWidgetItem
 from PyQtUIkit._impl._main_window import KitMainWindow

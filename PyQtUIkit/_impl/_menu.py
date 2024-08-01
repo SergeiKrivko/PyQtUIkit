@@ -60,7 +60,7 @@ class _KitMenu:
         if self.__key:
             self.__menu.setTitle(self.__key.get(tm))
         for el in self.__actions:
-            el._apply_lang(tm)
+            el.apply_lang(tm)
 
 
 class KitMenu(QMenu, _KitWidget):
@@ -139,5 +139,5 @@ QMenu::separator {{
             return
         self.setTitle(self.text)
         for el in self.__actions:
-            el._apply_lang(self._tm)
+            el.apply_lang(self._tm)
 

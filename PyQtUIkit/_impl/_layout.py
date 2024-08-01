@@ -118,7 +118,7 @@ class KitBoxLayout(QWidget, _KitWidget):
             return
         for el in self.__widgets:
             if hasattr(el, '_apply_theme'):
-                el._apply_theme()
+                el.apply_style()
         self.setStyleSheet(f"""
         QWidget {{
             background-color: {self.main_palette.main};
@@ -132,7 +132,7 @@ class KitBoxLayout(QWidget, _KitWidget):
             return
         for el in self.__widgets:
             if hasattr(el, '_apply_theme'):
-                el._apply_lang()
+                el.apply_lang()
 
     padding = MethodsProperty(getContentsMargins, _set_margins)
     spacing = MethodsProperty(getSpacing, setSpacing)

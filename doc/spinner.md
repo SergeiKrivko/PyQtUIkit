@@ -3,7 +3,7 @@
 Наследует `QWidget`
 
 ```python
-from PyQtUIkit.widgets import KitSpinner
+from PyQtUIkit._impl import KitSpinner
 
 spinner = KitSpinner()
 ```
@@ -11,7 +11,7 @@ spinner = KitSpinner()
 ![img.png](img/img_21.png)
 
 ```python
-from PyQtUIkit.widgets import KitSpinner
+from PyQtUIkit._impl import KitSpinner
 
 spinner = KitSpinner()
 spinner.main_palette = 'Main'
