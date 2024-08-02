@@ -7,46 +7,46 @@
         <var name="primary-color" value="#60A5FA"/>
         <var name="primary-text-only-color" value="#60A5FA"/>
         <var name="primary-text-color" value="#020617"/>
-        <var name="primary-hover-color" value="#538FD9"/>
-        <var name="primary-pressed-color" value="#2964B3"/>
+        <var name="primary-hover-color" value="#4C83C7"/>
+        <var name="primary-pressed-color" value="#116DFF"/>
         <var name="primary-bg-color" value="#141517"/>
 
         <var name="secondary-color" value="#27272A"/>
         <var name="secondary-text-only-color" value="#A1A1AA"/>
         <var name="secondary-text-color" value="#D4D4D8"/>
-        <var name="secondary-hover-color" value="#47474D"/>
+        <var name="secondary-hover-color" value="#36363B"/>
         <var name="secondary-pressed-color" value="#686870"/>
         <var name="secondary-bg-color" value="#2C2F33"/>
 
         <var name="success-color" value="#4ADE80"/>
         <var name="success-text-only-color" value="#4ADE80"/>
         <var name="success-text-color" value="#052E16"/>
-        <var name="success-hover-color" value="#3CDE4A"/>
-        <var name="success-pressed-color" value="#4DDE1F"/>
+        <var name="success-hover-color" value="#359E5B"/>
+        <var name="success-pressed-color" value="#53FF1D"/>
 
         <var name="info-color" value="#C084FC"/>
         <var name="info-text-only-color" value="#C084FC"/>
         <var name="info-text-color" value="#3B0764"/>
-        <var name="info-hover-color" value="#AD77E3"/>
-        <var name="info-pressed-color" value="#8A5FB5"/>
+        <var name="info-hover-color" value="#A16FD4"/>
+        <var name="info-pressed-color" value="#C234FA"/>
 
         <var name="warning-color" value="#FB923C"/>
         <var name="warning-text-only-color" value="#FB923C"/>
         <var name="warning-text-color" value="#431407"/>
-        <var name="warning-hover-color" value="#DB8034"/>
-        <var name="warning-pressed-color" value="#DB7E1B"/>
+        <var name="warning-hover-color" value="#C97530"/>
+        <var name="warning-pressed-color" value="#FAA709"/>
 
         <var name="danger-color" value="#F87171"/>
         <var name="danger-text-only-color" value="#F87171"/>
         <var name="danger-text-color" value="#450A0A"/>
-        <var name="danger-hover-color" value="#D46060"/>
-        <var name="danger-pressed-color" value="#F83925"/>
+        <var name="danger-hover-color" value="#CC5D5D"/>
+        <var name="danger-pressed-color" value="#F52414"/>
 
         <var name="contrast-color" value="#FFFFFF"/>
         <var name="contrast-text-only-color" value="#FFFFFF"/>
         <var name="contrast-text-color" value="#09090B"/>
-        <var name="contrast-hover-color" value="#DEDEDE"/>
-        <var name="contrast-pressed-color" value="#ABABAB"/>
+        <var name="contrast-hover-color" value="#C4C4C4"/>
+        <var name="contrast-pressed-color" value="#666666"/>
         <var name="contrast-bg-color" value="#FFFFFF"/>
     </theme>
 </uikit-style>

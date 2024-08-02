@@ -3,8 +3,8 @@ from typing import Iterable
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QPushButton, QWidget, QLayout
 
-from _widgets._layout import KitBoxLayout
-from _widgets._widget import KitWidget
+from _widgets.layout import KitBoxLayout
+from _widgets.widget import KitWidget
 from _core.style_obj import ButtonStyle
 from _core.styles import style_service, KitStyle
 from _core.event import KitSignals
@@ -76,7 +76,7 @@ class KitLayoutButton(KitWidget):
         super().apply_style()
         style = self.final_style
         self.__layout.apply_style()
-        self.qt_widget.setStyleSheet(s := f"""
+        self.qt_widget.setStyleSheet(f"""
         QPushButton {{
             color: rgba{style.color.getRgb()};
             background-color: rgba{style.background.getRgb()};
@@ -90,7 +90,7 @@ class KitLayoutButton(KitWidget):
         QPushButton::hover {{
             color: rgba{style.hover.color.getRgb()};
             background-color: rgba{style.hover.background.getRgb()};
-            border: {style.hover.border.width}px {style.border.type} rgba{style.border.color.getRgb()};
+            border: {style.hover.border.width}px {style.hover.border.type} rgba{style.hover.border.color.getRgb()};
             border-top-left-radius: {style.hover.radius.top_left};
             border-top-right-radius: {style.hover.radius.top_right};
             border-bottom-left-radius: {style.hover.radius.bottom_left};
@@ -100,7 +100,7 @@ class KitLayoutButton(KitWidget):
         QPushButton::disabled {{
             color: rgba{style.pressed.color.getRgb()};
             background-color: rgba{style.pressed.background.getRgb()};
-            border: {style.pressed.border.width}px {style.border.type} rgba{style.border.color.getRgb()};
+            border: {style.pressed.border.width}px {style.pressed.border.type} rgba{style.pressed.border.color.getRgb()};
             border-top-left-radius: {style.pressed.radius.top_left};
             border-top-right-radius: {style.pressed.radius.top_right};
             border-bottom-left-radius: {style.pressed.radius.bottom_left};
@@ -110,7 +110,7 @@ class KitLayoutButton(KitWidget):
         QPushButton::checked {{
             color: rgba{style.pressed.color.getRgb()};
             background-color: rgba{style.pressed.background.getRgb()};
-            border: {style.pressed.border.width}px {style.border.type} rgba{style.border.color.getRgb()};
+            border: {style.pressed.border.width}px {style.pressed.border.type} rgba{style.pressed.border.color.getRgb()};
             border-top-left-radius: {style.pressed.radius.top_left};
             border-top-right-radius: {style.pressed.radius.top_right};
             border-bottom-left-radius: {style.pressed.radius.bottom_left};
@@ -123,4 +123,3 @@ class KitLayoutButton(KitWidget):
             padding-right: 5px;
             subcontrol-position: right;
         }}""")
-        # print(s)

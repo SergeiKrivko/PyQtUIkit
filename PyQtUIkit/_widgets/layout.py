@@ -4,7 +4,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QBoxLayout, QHBoxLayout, QVBoxLayout, QWidget, QLayout
 
 from _core.styles import KitStyle
-from _widgets._widget import KitWidget
+from _widgets.widget import KitWidget
 from _core.style_obj import LayoutStyle
 
 

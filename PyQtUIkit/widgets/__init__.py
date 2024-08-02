@@ -1,7 +1,12 @@
-from _widgets._main_window import KitMainWindow
-from _widgets._layout import KitHBoxLayout, KitVBoxLayout
-from _widgets._card import KitCard
-from _widgets._label import KitLabel
-from _widgets._layout_button import KitLayoutButton
-from _widgets._button import KitButton
+from _widgets.widget import KitWidget
+
+from _widgets.layout import KitHBoxLayout, KitVBoxLayout
+from _widgets.card import KitCard
+from _widgets.main_window import KitMainWindow
+
+from _widgets.label import KitLabel
+
+from _widgets.layout_button import KitLayoutButton
+from _widgets.button import KitButton
+from _widgets.line_edit import KitLineEdit
 

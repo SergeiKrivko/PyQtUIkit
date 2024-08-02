@@ -2,10 +2,10 @@ from typing import Iterable
 
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QSizePolicy
 
-from _widgets._widget import KitWidget
+from _widgets.widget import KitWidget
 from _core.style_obj import CardStyle
 from _core.styles import style_service, KitStyle
-from _widgets._layout import KitBoxLayout
+from _widgets.layout import KitBoxLayout
 
 
 class KitCard(KitWidget):

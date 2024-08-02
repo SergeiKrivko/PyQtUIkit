@@ -3,7 +3,7 @@ from typing import Iterable
 from PyQt6.QtWidgets import QLabel
 
 from PyQtUIkit._core.locale import _KitLocaleString, _KitLocaleStringArray
-from _widgets._widget import KitWidget
+from _widgets.widget import KitWidget
 from _core.style_obj import CardStyle
 from _core.styles import style_service
 

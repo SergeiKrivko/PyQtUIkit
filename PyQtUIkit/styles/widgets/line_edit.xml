@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uikit-style>
+    <type name="KitLineEdit">
+        <property name="radius" var="button-border-radius"/>
+        <property name="padding" value="4"/>
+        <property name="background" value="transparent"/>
+        <property name="border.width" value="1"/>
+
+        <!--    Default: "primary"    -->
+        <property name="border.color" var="primary-color"/>
+        <property name="hover.border.color" var="primary-hover-color"/>
+        <property name="pressed.border.color" var="primary-pressed-color"/>
+
+        <class name="primary">
+            <property name="border.color" var="primary-color"/>
+            <property name="hover.border.color" var="primary-hover-color"/>
+            <property name="pressed.border.color" var="primary-pressed-color"/>
+        </class>
+        <class name="secondary">
+            <property name="border.color" var="secondary-color"/>
+            <property name="hover.border.color" var="secondary-hover-color"/>
+            <property name="pressed.border.color" var="secondary-pressed-color"/>
+        </class>
+        <class name="success">
+            <property name="border.color" var="success-color"/>
+            <property name="hover.border.color" var="success-hover-color"/>
+            <property name="pressed.border.color" var="success-pressed-color"/>
+        </class>
+        <class name="info">
+            <property name="border.color" var="info-color"/>
+            <property name="hover.border.color" var="info-hover-color"/>
+            <property name="pressed.border.color" var="info-pressed-color"/>
+        </class>
+        <class name="warning">
+            <property name="border.color" var="warning-color"/>
+            <property name="hover.border.color" var="warning-hover-color"/>
+            <property name="pressed.border.color" var="warning-pressed-color"/>
+        </class>
+        <class name="danger">
+            <property name="border.color" var="danger-color"/>
+            <property name="hover.border.color" var="danger-hover-color"/>
+            <property name="pressed.border.color" var="danger-pressed-color"/>
+        </class>
+        <class name="contrast">
+            <property name="border.color" var="contrast-color"/>
+            <property name="hover.border.color" var="contrast-hover-color"/>
+            <property name="pressed.border.color" var="contrast-pressed-color"/>
+        </class>
+    </type>
+
+    <type name="KitButton">
+        <property name="padding" value="6 12 6 12"/>
+    </type>
+
+</uikit-style>

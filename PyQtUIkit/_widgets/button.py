@@ -5,11 +5,9 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFontMetrics
 
 from _core.icon import KitIcon
-from _core.style_obj import ButtonStyle
-from _core.styles import style_service
 from _core.locale import _KitLocaleString, _KitLocaleStringArray
-from _widgets._layout_button import KitLayoutButton
-from _widgets._label import KitLabel
+from _widgets.layout_button import KitLayoutButton
+from _widgets.label import KitLabel
 
 
 class KitButton(KitLayoutButton):

@@ -3,7 +3,7 @@ from typing import Type
 
 import qasync
 
-from PyQtUIkit._widgets._main_window import KitMainWindow
+from PyQtUIkit._widgets.main_window import KitMainWindow
 
 
 def except_hook(cls, exception, traceback):
