@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont, QColor
 
@@ -10,10 +12,10 @@ class _FontSubStyle(_SubStyle):
     def __init__(self):
         self.__family: str | None = None
         self.__size: int | None = None
-        self.__bold = False
-        self.__italic = False
-        self.__underline = False
-        self.__strike = False
+        self.__bold = None
+        self.__italic = None
+        self.__underline = None
+        self.__strike = None
 
     @property
     def family(self) -> str:
@@ -39,7 +41,9 @@ class _FontSubStyle(_SubStyle):
     def bold(self, b: bool | str):
         if b in ['True', 'true']:
             b = True
-        self.__bold = b
+        elif isinstance(b, str):
+            b = False
+        self.__bold = bool(b)
 
     @property
     def italic(self) -> bool:
@@ -49,7 +53,9 @@ class _FontSubStyle(_SubStyle):
     def italic(self, b: bool | str):
         if b in ['True', 'true']:
             b = True
-        self.__italic = b
+        elif isinstance(b, str):
+            b = False
+        self.__italic = bool(b)
 
     @property
     def underline(self) -> bool:
@@ -59,7 +65,9 @@ class _FontSubStyle(_SubStyle):
     def underline(self, b: bool | str):
         if b in ['True', 'true']:
             b = True
-        self.__underline = b
+        elif isinstance(b, str):
+            b = False
+        self.__underline = bool(b)
 
     @property
     def strike(self) -> bool:
@@ -69,17 +77,24 @@ class _FontSubStyle(_SubStyle):
     def strike(self, b: bool | str):
         if b in ['True', 'true']:
             b = True
-        self.__strike = b
+        elif isinstance(b, str):
+            b = False
+        self.__strike = bool(b)
 
     def get(self) -> QFont:
+        return self.__font(self.family, self.size, self.bold, self.italic, self.underline, self.strike)
+
+    @staticmethod
+    @lru_cache
+    def __font(family, size, bold, italic, underline, strike):
         res = QFont()
 
-        res.setFamily(self.family)
-        res.setPointSize(self.size)
-        res.setBold(self.bold)
-        res.setItalic(self.italic)
-        res.setUnderline(self.underline)
-        res.setStrikeOut(self.strike)
+        res.setFamily(family)
+        res.setPointSize(size)
+        res.setBold(bold)
+        res.setItalic(italic)
+        res.setUnderline(underline)
+        res.setStrikeOut(strike)
 
         return res
 

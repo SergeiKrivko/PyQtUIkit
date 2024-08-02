@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uikit-style>
+    <var name="button-border-radius" value="5"/>
+    <var name="card-border-radius" value="10"/>
+
+    <var name="font-s1" value="8"/>
+    <var name="font-s2" value="7"/>
+    <var name="font-s3" value="6"/>
+    <var name="font-h1" value="32"/>
+    <var name="font-h2" value="24"/>
+    <var name="font-h3" value="18"/>
+    <var name="font-h4" value="14"/>
+
+    <class name="mono">
+        <property name="font.family" value="Roboto Mono"/>
+    </class>
+    <class name="h1">
+        <property name="font.size" var="font-h1"/>
+    </class>
+    <class name="h2">
+        <property name="font.size" var="font-h2"/>
+    </class>
+    <class name="h3">
+        <property name="font.size" var="font-h3"/>
+    </class>
+    <class name="h4">
+        <property name="font.size" var="font-h4"/>
+    </class>
+    <class name="s1">
+        <property name="font.size" var="font-s1"/>
+    </class>
+    <class name="s2">
+        <property name="font.size" var="font-s2"/>
+    </class>
+    <class name="s3">
+        <property name="font.size" var="font-s3"/>
+    </class>
+    <class name="bold">
+        <property name="font.bold" value="true"/>
+    </class>
+    <class name="italic">
+        <property name="font.italic" value="true"/>
+    </class>
+    <class name="underline">
+        <property name="font.underline" value="true"/>
+    </class>
+    <class name="strike">
+        <property name="font.strike" value="true"/>
+    </class>
+
+    <class name="no-padding">
+        <property name="padding" value="0"/>
+    </class>
+    <class name="padding-small">
+        <property name="padding" value="5"/>
+    </class>
+    <class name="padding-medium">
+        <property name="padding" value="10"/>
+    </class>
+    <class name="padding-large">
+        <property name="padding" value="20"/>
+    </class>
+</uikit-style>

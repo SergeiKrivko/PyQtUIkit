@@ -11,4 +11,6 @@
     <include path="./widgets/main_window.xml"/>
     <include path="./widgets/line_edit.xml"/>
     <include path="./widgets/group.xml"/>
+
+    <include path="./classes.xml"/>
 </uikit-style>

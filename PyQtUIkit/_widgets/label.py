@@ -47,8 +47,8 @@ class KitLabel(KitWidget):
 
     def apply_style(self):
         super().apply_style()
-        # self.qt_widget.setFont(self.style.font.get())
         style = self.final_style
+        self.qt_widget.setFont(style.font.get())
         self.qt_widget.setStyleSheet(f"""
         QLabel {{
             color: rgba{style.color.getRgb()};

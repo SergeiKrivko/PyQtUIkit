@@ -4,6 +4,7 @@
         <property name="radius" var="button-border-radius"/>
         <property name="padding" value="4"/>
         <property name="background" value="transparent"/>
+        <property name="color" var="default-text-color"/>
         <property name="border.width" value="1"/>
 
         <!--    Default: "primary"    -->
