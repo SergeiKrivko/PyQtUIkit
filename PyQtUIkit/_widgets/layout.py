@@ -42,6 +42,10 @@ class KitBoxLayout(KitWidget):
         for child in self.__children:
             yield child
 
+    @property
+    def count(self):
+        return len(self.__children)
+
     def add(self, widget: KitWidget | QWidget | QLayout):
         self.__children.append(widget)
         if isinstance(widget, KitWidget):

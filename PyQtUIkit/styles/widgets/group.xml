@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uikit-style>
+    <type name="KitGroupWidget">
+        <class name="__PyQtUIkit_Group">
+            <property name="radius" value="0"/>
+        </class>
+
+        <class name="__PyQtUIkit_HGroup_first">
+            <property name="radius.top_left" var="button-border-radius"/>
+            <property name="radius.bottom_left" var="button-border-radius"/>
+        </class>
+        <class name="__PyQtUIkit_HGroup_last">
+            <property name="radius.top_right" var="button-border-radius"/>
+            <property name="radius.bottom_right" var="button-border-radius"/>
+        </class>
+        <class name="__PyQtUIkit_VGroup_first">
+            <property name="radius.top_left" var="button-border-radius"/>
+            <property name="radius.top_right" var="button-border-radius"/>
+        </class>
+        <class name="__PyQtUIkit_VGroup_last">
+            <property name="radius.bottom_left" var="button-border-radius"/>
+            <property name="radius.bottom_right" var="button-border-radius"/>
+        </class>
+    </type>
+</uikit-style>

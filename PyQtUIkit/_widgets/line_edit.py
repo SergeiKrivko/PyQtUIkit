@@ -4,14 +4,15 @@ from PyQt6.QtWidgets import QLineEdit
 
 from PyQtUIkit._core.locale import _KitLocaleString, _KitLocaleStringArray
 from _core.event import KitSignals
+from _widgets.group import KitGroupWidget
 from _widgets.widget import KitWidget
 from _core.style_obj import ButtonStyle
 from _core.styles import style_service
 
 
-class KitLineEdit(KitWidget):
+class KitLineEdit(KitGroupWidget):
     def __init__(self,
-                 placeholder: str | _KitLocaleString | _KitLocaleStringArray,
+                 placeholder: str | _KitLocaleString | _KitLocaleStringArray = None,
                  classes: Iterable[str] | str = None,):
         super().__init__(QLineEdit())
         self.__placeholder = placeholder
@@ -56,6 +57,8 @@ class KitLineEdit(KitWidget):
 
     @property
     def placeholder(self) -> str:
+        if self.__placeholder is None:
+            return ''
         if isinstance(self.__placeholder, str):
             return self.__placeholder
         return self.__placeholder.get()

@@ -3,14 +3,14 @@ from typing import Iterable
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QPushButton, QWidget, QLayout
 
+from _widgets.group import KitGroupWidget
 from _widgets.layout import KitBoxLayout
 from _widgets.widget import KitWidget
 from _core.style_obj import ButtonStyle
-from _core.styles import style_service, KitStyle
 from _core.event import KitSignals
 
 
-class KitLayoutButton(KitWidget):
+class KitLayoutButton(KitGroupWidget):
     def __init__(self, orientation: Qt.Orientation = Qt.Orientation.Horizontal,
                  checkable: bool = False,
                  classes: Iterable[str] | str = None):
