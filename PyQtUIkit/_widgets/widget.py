@@ -1,5 +1,6 @@
 from typing import Iterable
 
+from PyQt6.QtCore import QSize
 from PyQt6.QtWidgets import QWidget, QLayout
 
 from PyQtUIkit._core.event import KitSignals
@@ -89,6 +90,35 @@ class KitWidget:
     @property
     def children(self) -> Iterable['KitWidget']:
         return []
+
+    @property
+    def size(self):
+        return self.qt_widget.size()
+
+    @property
+    def width(self):
+        return self.qt_widget.width()
+
+    @width.setter
+    def width(self, width: int):
+        self.qt_widget.setFixedWidth(width)
+
+    @property
+    def height(self):
+        return self.qt_widget.height()
+
+    @height.setter
+    def height(self, height: int):
+        self.qt_widget.setFixedHeight(height)
+
+    @size.setter
+    def size(self, size: QSize | tuple[int, int] | int):
+        if isinstance(size, tuple):
+            self.qt_widget.setFixedSize(*size)
+        elif isinstance(size, int):
+            self.qt_widget.setFixedSize(size, size)
+        else:
+            self.qt_widget.setFixedSize(size)
 
     def __qt_show_event(self, event):
         self.__show_events(event)
