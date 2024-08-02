@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import QPushButton, QVBoxLayout, QMenu, QHBoxLayout, QAppli
 from PyQtUIkit._core import IntProperty, PaletteProperty, IconProperty, EnumProperty, KitFont, FontProperty, \
     MethodsProperty, TextProperty
 from PyQtUIkit._impl._widget import _KitWidget as _KitWidget, KitGroupItem as _KitGroupItem
-from PyQtUIkit._impl._icon_widget import KitIconWidget
+from PyQtUIkit._impl.icon_widget import KitIconWidget
 from PyQtUIkit._impl._scroll_area import KitScrollArea
 from PyQtUIkit._impl._layout import KitVBoxLayout
 from PyQtUIkit._impl._button import KitLayoutButton

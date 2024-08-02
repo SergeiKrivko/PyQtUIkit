@@ -13,7 +13,7 @@
             <property name="background" var="primary-color"/>
             <property name="hover.background" var="primary-hover-color"/>
             <property name="pressed.background" var="primary-pressed-color"/>
-            <child type="KitLabel">
+            <child type="KitLabel KitIconWidget">
                 <class name="__PyQtUIkit_Button_Label"/>
                 <property name="color" var="primary-text-color"/>
             </child>
@@ -22,7 +22,7 @@
             <property name="background" var="secondary-color"/>
             <property name="hover.background" var="secondary-hover-color"/>
             <property name="pressed.background" var="secondary-pressed-color"/>
-            <child type="KitLabel">
+            <child type="KitLabel KitIconWidget">
                 <property name="color" var="secondary-text-color"/>
             </child>
         </class>
@@ -30,7 +30,7 @@
             <property name="background" var="success-color"/>
             <property name="hover.background" var="success-hover-color"/>
             <property name="pressed.background" var="success-pressed-color"/>
-            <child type="KitLabel">
+            <child type="KitLabel KitIconWidget">
                 <property name="color" var="success-text-color"/>
             </child>
         </class>
@@ -38,7 +38,7 @@
             <property name="background" var="info-color"/>
             <property name="hover.background" var="info-hover-color"/>
             <property name="pressed.background" var="info-pressed-color"/>
-            <child type="KitLabel">
+            <child type="KitLabel KitIconWidget">
                 <property name="color" var="info-text-color"/>
             </child>
         </class>
@@ -46,7 +46,7 @@
             <property name="background" var="warning-color"/>
             <property name="hover.background" var="warning-hover-color"/>
             <property name="pressed.background" var="warning-pressed-color"/>
-            <child type="KitLabel">
+            <child type="KitLabel KitIconWidget">
                 <property name="color" var="warning-text-color"/>
             </child>
         </class>
@@ -54,7 +54,7 @@
             <property name="background" var="danger-color"/>
             <property name="hover.background" var="danger-hover-color"/>
             <property name="pressed.background" var="danger-pressed-color"/>
-            <child type="KitLabel">
+            <child type="KitLabel KitIconWidget">
                 <property name="color" var="danger-text-color"/>
             </child>
         </class>
@@ -62,7 +62,7 @@
             <property name="background" var="contrast-color"/>
             <property name="hover.background" var="contrast-hover-color"/>
             <property name="pressed.background" var="contrast-pressed-color"/>
-            <child type="KitLabel">
+            <child type="KitLabel KitIconWidget">
                 <property name="color" var="contrast-text-color"/>
             </child>
         </class>
@@ -77,7 +77,7 @@
             <property name="border.color" var="primary-color"/>
             <property name="hover.border.color" var="primary-hover-color"/>
             <property name="pressed.border.color" var="primary-pressed-color"/>
-            <child type="KitLabel">
+            <child type="KitLabel KitIconWidget">
                 <property name="color" var="primary-text-only-color"/>
             </child>
 
@@ -85,7 +85,7 @@
                 <property name="border.color" var="primary-color"/>
                 <property name="hover.border.color" var="primary-hover-color"/>
                 <property name="pressed.border.color" var="primary-pressed-color"/>
-                <child type="KitLabel">
+                <child type="KitLabel KitIconWidget">
                     <property name="color" var="primary-text-only-color"/>
                 </child>
             </class>
@@ -93,7 +93,7 @@
                 <property name="border.color" var="secondary-color"/>
                 <property name="hover.border.color" var="secondary-hover-color"/>
                 <property name="pressed.border.color" var="secondary-pressed-color"/>
-                <child type="KitLabel">
+                <child type="KitLabel KitIconWidget">
                     <property name="color" var="secondary-text-only-color"/>
                 </child>
             </class>
@@ -101,7 +101,7 @@
                 <property name="border.color" var="success-color"/>
                 <property name="hover.border.color" var="success-hover-color"/>
                 <property name="pressed.border.color" var="success-pressed-color"/>
-                <child type="KitLabel">
+                <child type="KitLabel KitIconWidget">
                     <property name="color" var="success-text-only-color"/>
                 </child>
             </class>
@@ -109,7 +109,7 @@
                 <property name="border.color" var="info-color"/>
                 <property name="hover.border.color" var="info-hover-color"/>
                 <property name="pressed.border.color" var="info-pressed-color"/>
-                <child type="KitLabel">
+                <child type="KitLabel KitIconWidget">
                     <property name="color" var="info-text-only-color"/>
                 </child>
             </class>
@@ -117,7 +117,7 @@
                 <property name="border.color" var="warning-color"/>
                 <property name="hover.border.color" var="warning-hover-color"/>
                 <property name="pressed.border.color" var="warning-pressed-color"/>
-                <child type="KitLabel">
+                <child type="KitLabel KitIconWidget">
                     <property name="color" var="warning-text-only-color"/>
                 </child>
             </class>
@@ -125,7 +125,7 @@
                 <property name="border.color" var="danger-color"/>
                 <property name="hover.border.color" var="danger-hover-color"/>
                 <property name="pressed.border.color" var="danger-pressed-color"/>
-                <child type="KitLabel">
+                <child type="KitLabel KitIconWidget">
                     <property name="color" var="danger-text-only-color"/>
                 </child>
             </class>
@@ -133,7 +133,7 @@
                 <property name="border.color" var="contrast-color"/>
                 <property name="hover.border.color" var="contrast-hover-color"/>
                 <property name="pressed.border.color" var="contrast-pressed-color"/>
-                <child type="KitLabel">
+                <child type="KitLabel KitIconWidget">
                     <property name="color" var="contrast-text-only-color"/>
                 </child>
             </class>
@@ -145,7 +145,7 @@
 
             <!--     Default: "primary"       -->
             <property name="pressed.background" var="primary-color"/>
-            <child type="KitLabel">
+            <child type="KitLabel KitIconWidget">
                 <property name="color" var="primary-color"/>
                 <class name="pressed">
                     <property name="color" var="primary-text-color"/>
@@ -154,7 +154,7 @@
 
             <class name="primary">
                 <property name="pressed.background" var="primary-color"/>
-                <child type="KitLabel">
+                <child type="KitLabel KitIconWidget">
                     <property name="color" var="primary-text-only-color"/>
                     <class name="pressed">
                         <property name="color" var="primary-text-color"/>
@@ -163,7 +163,7 @@
             </class>
             <class name="secondary">
                 <property name="pressed.background" var="secondary-color"/>
-                <child type="KitLabel">
+                <child type="KitLabel KitIconWidget">
                     <property name="color" var="secondary-text-only-color"/>
                     <class name="pressed">
                         <property name="color" var="secondary-text-color"/>
@@ -172,7 +172,7 @@
             </class>
             <class name="success">
                 <property name="pressed.background" var="success-color"/>
-                <child type="KitLabel">
+                <child type="KitLabel KitIconWidget">
                     <property name="color" var="success-text-only-color"/>
                     <class name="pressed">
                         <property name="color" var="success-text-color"/>
@@ -181,7 +181,7 @@
             </class>
             <class name="info">
                 <property name="pressed.background" var="info-color"/>
-                <child type="KitLabel">
+                <child type="KitLabel KitIconWidget">
                     <property name="color" var="info-text-only-color"/>
                     <class name="pressed">
                         <property name="color" var="info-text-color"/>
@@ -190,7 +190,7 @@
             </class>
             <class name="warning">
                 <property name="pressed.background" var="warning-color"/>
-                <child type="KitLabel">
+                <child type="KitLabel KitIconWidget">
                     <property name="color" var="warning-text-only-color"/>
                     <class name="pressed">
                         <property name="color" var="warning-text-color"/>
@@ -199,7 +199,7 @@
             </class>
             <class name="danger">
                 <property name="pressed.background" var="danger-color"/>
-                <child type="KitLabel">
+                <child type="KitLabel KitIconWidget">
                     <property name="color" var="danger-text-only-color"/>
                     <class name="pressed">
                         <property name="color" var="danger-text-color"/>
@@ -208,7 +208,7 @@
             </class>
             <class name="contrast">
                 <property name="pressed.background" var="contrast-color"/>
-                <child type="KitLabel">
+                <child type="KitLabel KitIconWidget">
                     <property name="color" var="contrast-text-only-color"/>
                     <class name="pressed">
                         <property name="color" var="contrast-text-color"/>
@@ -219,7 +219,8 @@
     </type>
 
     <type name="KitButton">
-        <property name="padding" value="6 12 6 12"/>
+        <property name="padding" value="6 6 6 6"/>
+        <property name="spacing" value="5"/>
     </type>
 
 </uikit-style>

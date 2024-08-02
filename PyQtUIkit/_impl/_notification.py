@@ -10,7 +10,7 @@ from PyQtUIkit._core.properties import SignalProperty
 from PyQtUIkit._core.font import KitFont
 from PyQtUIkit._impl._button import KitIconButton
 from PyQtUIkit._impl._form import KitForm
-from PyQtUIkit._impl._icon_widget import KitIconWidget
+from PyQtUIkit._impl.icon_widget import KitIconWidget
 from PyQtUIkit._impl._label import KitLabel
 from PyQtUIkit._impl._layout import KitHBoxLayout, KitVBoxLayout
 

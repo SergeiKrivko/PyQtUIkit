@@ -75,7 +75,7 @@ class KitLineEdit(KitGroupWidget):
         super().apply_style()
         # self.qt_widget.setFont(self.style.font.get())
         style = self.final_style
-        self.qt_widget.setStyleSheet(s := f"""
+        self.qt_widget.setStyleSheet(f"""
         QLineEdit {{
             color: rgba{style.color.getRgb()};
             background-color: rgba{style.background.getRgb()};
@@ -116,4 +116,3 @@ class KitLineEdit(KitGroupWidget):
             border-bottom-right-radius: {style.pressed.radius.bottom_right};
             padding: {style.pressed.padding[0]}px {style.pressed.padding[1]}px {style.pressed.padding[2]}px {style.pressed.padding[3]}px;
         }}""")
-        print(s)

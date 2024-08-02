@@ -57,6 +57,10 @@ class KitLayoutButton(KitGroupWidget):
     def checkable(self, value: bool):
         self.qt_widget.setCheckable(value)
 
+    @property
+    def _layout(self) -> KitBoxLayout:
+        return self.__layout
+
     def add(self, widget: KitWidget | QWidget | QLayout):
         self.__layout.add(widget)
 
@@ -75,8 +79,10 @@ class KitLayoutButton(KitGroupWidget):
     def apply_style(self):
         super().apply_style()
         style = self.final_style
+        self.__layout.style.spacing = style.spacing
+        self.__layout.style.align = style.align
         self.__layout.apply_style()
-        self.qt_widget.setStyleSheet(f"""
+        self.qt_widget.setStyleSheet(s := f"""
         QPushButton {{
             color: rgba{style.color.getRgb()};
             background-color: rgba{style.background.getRgb()};
@@ -123,3 +129,4 @@ class KitLayoutButton(KitGroupWidget):
             padding-right: 5px;
             subcontrol-position: right;
         }}""")
+        print(s)

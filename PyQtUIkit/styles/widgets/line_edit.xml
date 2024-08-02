@@ -47,9 +47,4 @@
             <property name="pressed.border.color" var="contrast-pressed-color"/>
         </class>
     </type>
-
-    <type name="KitButton">
-        <property name="padding" value="6 12 6 12"/>
-    </type>
-
 </uikit-style>

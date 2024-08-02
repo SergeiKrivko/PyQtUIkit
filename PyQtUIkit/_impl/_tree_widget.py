@@ -8,7 +8,7 @@ from PyQtUIkit._core.properties import IntProperty, StringProperty, IconProperty
 from PyQtUIkit._impl._button import KitLayoutButton, KitIconButton
 from PyQtUIkit._impl._checkbox import KitCheckBox
 from PyQtUIkit._impl._dialog import KitDialog
-from PyQtUIkit._impl._icon_widget import KitIconWidget
+from PyQtUIkit._impl.icon_widget import KitIconWidget
 from PyQtUIkit._impl._label import KitLabel
 from PyQtUIkit._impl._layout import KitVBoxLayout, KitHBoxLayout
 from PyQtUIkit._impl._scroll_area import KitScrollArea

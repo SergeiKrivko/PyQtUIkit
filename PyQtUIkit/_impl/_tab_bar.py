@@ -8,7 +8,7 @@ from PyQtUIkit._core import KitFont
 from PyQtUIkit._core.properties import IntProperty, PaletteProperty, IconProperty, EnumProperty, FontProperty
 from PyQtUIkit.themes import KitPalette
 from PyQtUIkit._impl._widget import _KitWidget as _KitWidget
-from PyQtUIkit._impl._icon_widget import KitIconWidget
+from PyQtUIkit._impl.icon_widget import KitIconWidget
 from PyQtUIkit._impl._button import KitIconButton, KitButton
 from PyQtUIkit._impl._scroll_area import KitScrollArea
 from PyQtUIkit._impl._layout import KitHBoxLayout

@@ -3,11 +3,13 @@ from typing import Iterable
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFontMetrics
+from PyQt6.QtWidgets import QBoxLayout
 
 from _core.icon import KitIcon
 from _core.locale import _KitLocaleString, _KitLocaleStringArray
-from _widgets.layout_button import KitLayoutButton
+from _widgets.icon_widget import KitIconWidget
 from _widgets.label import KitLabel
+from _widgets.layout_button import KitLayoutButton
 
 
 class KitButton(KitLayoutButton):
@@ -17,8 +19,11 @@ class KitButton(KitLayoutButton):
         TOP = 3
         BOTTOM = 4
 
+    _DEFAULT_V_ICON_SIZE = 32
+    _DEFAULT_H_ICON_SIZE = 20
+
     def __init__(self,
-                 text: str | _KitLocaleString | _KitLocaleStringArray,
+                 text: str | _KitLocaleString | _KitLocaleStringArray = '',
                  icon: KitIcon | str = None,
                  icon_pos=IconPosition.LEFT,
                  checkable: bool = False,
@@ -28,30 +33,89 @@ class KitButton(KitLayoutButton):
             icon_pos == KitButton.IconPosition.LEFT or icon_pos == KitButton.IconPosition.RIGHT
             else Qt.Orientation.Vertical, checkable=checkable, classes=classes)
 
-        self.__text = text
-        self.__label = KitLabel(self.__text)
-        self.__label.classes.add('__PyQtUIkit_Button_Label')
+        self.__icon_pos = icon_pos
+
+        self.__label = KitLabel(text)
+        self.add(self.__label)
+
+        self.__icon_widget = KitIconWidget(icon)
+        self.add(self.__icon_widget)
+
         self.on_click.add(self.__on_click)
 
-        self.add(self.__label)
+    @property
+    def text(self) -> str:
+        return self.__label.text
+
+    @text.setter
+    def text(self, text: str | _KitLocaleString | _KitLocaleStringArray):
+        self.__label.text = text
+
+    @property
+    def icon(self) -> KitIcon | None:
+        return self.__icon_widget.icon
+
+    @icon.setter
+    def icon(self, icon: KitIcon | str | None):
+        self.__icon_widget.icon = icon
+
+    @property
+    def icon_pos(self) -> IconPosition:
+        return self.__icon_pos
 
     def __on_click(self, status):
         if status:
             self.__label.classes.add('pressed')
+            self.__icon_widget.classes.add('pressed')
         else:
-            self.__label.classes.remove('pressed')
+            self.__label.classes.discard('pressed')
+            self.__icon_widget.classes.discard('pressed')
         self.__label.apply_style()
+        self.__icon_widget.apply_style()
 
-    def __apply_width(self):
+    def __apply_size(self):
         style = self.final_style.apply(self.style)
         fm = QFontMetrics(self.__label.qt_widget.font())
-        width = fm.size(0, self.__label.qt_widget.text()).width() + style.padding[1] + style.padding[3]
-        self.qt_widget.setFixedWidth(width)
+        size = fm.size(0, self.__label.qt_widget.text())
+        width, height = size.width(), size.height()
+
+        if self.icon:
+            if self.icon_pos == KitButton.IconPosition.LEFT or self.icon_pos == KitButton.IconPosition.RIGHT:
+                height = max(height, self._DEFAULT_H_ICON_SIZE)
+            if self.icon_pos == KitButton.IconPosition.TOP or self.icon_pos == KitButton.IconPosition.BOTTOM:
+                width = max(width, self._DEFAULT_V_ICON_SIZE)
+
+        self.__label.qt_widget.setFixedSize(width, height)
+        if self.icon:
+            if self.icon_pos == KitButton.IconPosition.LEFT or self.icon_pos == KitButton.IconPosition.RIGHT:
+                self.__icon_widget.qt_widget.setFixedSize(self._DEFAULT_H_ICON_SIZE, height)
+                width += style.spacing + self._DEFAULT_H_ICON_SIZE
+            elif self.icon_pos == KitButton.IconPosition.TOP or self.icon_pos == KitButton.IconPosition.BOTTOM:
+                self.__icon_widget.qt_widget.setFixedSize(width, self._DEFAULT_V_ICON_SIZE)
+                height += style.spacing + self._DEFAULT_V_ICON_SIZE
+        height += style.padding[0] + style.padding[2]
+        width += style.padding[1] + style.padding[3]
+        self.qt_widget.setFixedSize(width, height)
 
     def apply_style(self):
+        if not self.text:
+            self.__label.hide()
+        if not self.icon:
+            self.__icon_widget.hide()
+        if self.icon_pos == KitButton.IconPosition.LEFT:
+            self._layout.qt_widget.setDirection(QBoxLayout.Direction.RightToLeft)
+        elif self.icon_pos == KitButton.IconPosition.TOP:
+            self._layout.qt_widget.setDirection(QBoxLayout.Direction.BottomToTop)
+        elif self.icon_pos == KitButton.IconPosition.RIGHT:
+            self._layout.qt_widget.setDirection(QBoxLayout.Direction.LeftToRight)
+        elif self.icon_pos == KitButton.IconPosition.BOTTOM:
+            self._layout.qt_widget.setDirection(QBoxLayout.Direction.TopToBottom)
+
+        self.style.align = Qt.AlignmentFlag.AlignCenter
+        self.__label.qt_widget.setAlignment(Qt.AlignmentFlag.AlignCenter)
         super().apply_style()
-        self.__apply_width()
+        self.__apply_size()
 
     def apply_lang(self):
         super().apply_lang()
-        self.__apply_width()
+        self.__apply_size()

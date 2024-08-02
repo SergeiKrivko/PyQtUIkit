@@ -118,6 +118,12 @@ class KitWidget:
         self.__key_release_events(event)
         self.qt_widget.__class__.keyReleaseEvent(self.qt_widget, event)
 
+    def show(self):
+        self.qt_widget.show()
+
+    def hide(self):
+        self.qt_widget.hide()
+
     def apply_style(self):
         self.__load_styles()
         self.final_style.apply(self.style)
