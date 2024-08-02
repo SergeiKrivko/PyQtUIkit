@@ -3,14 +3,13 @@ from typing import Iterable
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFontMetrics
-from PyQt6.QtWidgets import QSizePolicy
 
-from core import KitIcon
-from core.style_obj import ButtonStyle
-from core.styles import style_service
-from core.locale import _KitLocaleString, _KitLocaleStringArray
-from PyQtUIkit.widgets._layout_button import KitLayoutButton
-from PyQtUIkit.widgets._label import KitLabel
+from _core.icon import KitIcon
+from _core.style_obj import ButtonStyle
+from _core.styles import style_service
+from _core.locale import _KitLocaleString, _KitLocaleStringArray
+from _widgets._layout_button import KitLayoutButton
+from _widgets._label import KitLabel
 
 
 class KitButton(KitLayoutButton):
@@ -33,6 +32,7 @@ class KitButton(KitLayoutButton):
 
         self.__text = text
         self.__label = KitLabel(self.__text)
+        self.__label.classes.add('__PyQtUIkit_Button_Label')
         self.on_click.add(self.__on_click)
 
         self.add(self.__label)
@@ -45,14 +45,12 @@ class KitButton(KitLayoutButton):
         self.__label.apply_style()
 
     def __apply_width(self):
-        style: ButtonStyle = style_service.get_style(self)
+        style = self.final_style.apply(self.style)
         fm = QFontMetrics(self.__label.qt_widget.font())
         width = fm.size(0, self.__label.qt_widget.text()).width() + style.padding[1] + style.padding[3]
         self.qt_widget.setFixedWidth(width)
 
     def apply_style(self):
-        self.__label.classes = self.classes.copy()
-        self.__label.classes.add('__PyQtUIkit_Button_Label')
         super().apply_style()
         self.__apply_width()
 

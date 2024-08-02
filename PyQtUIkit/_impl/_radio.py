@@ -2,7 +2,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFontMetrics
 from PyQt6.QtWidgets import QLabel, QPushButton, QHBoxLayout
 
-from PyQtUIkit.core import *
+from PyQtUIkit._core import *
 from PyQtUIkit._impl._layout import KitBoxLayout
 from PyQtUIkit._impl._widget import _KitWidget as _KitWidget
 

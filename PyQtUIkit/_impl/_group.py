@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QSizePolicy
 
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty
+from PyQtUIkit._core.properties import IntProperty, PaletteProperty
 from PyQtUIkit._impl import KitHBoxLayout, KitIconButton, KitVBoxLayout
 from PyQtUIkit._impl._widget import _KitWidget as _KitWidget, KitGroup as _KitGroup, KitGroupItem as _KitGroupItem
 

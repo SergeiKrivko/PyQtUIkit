@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QPropertyAnimation, QParallelAnimationGroup
 from PyQt6.QtWidgets import QScrollArea
 
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty
+from PyQtUIkit._core.properties import IntProperty, PaletteProperty
 from PyQtUIkit._impl._widget import _KitWidget as _KitWidget
 
 

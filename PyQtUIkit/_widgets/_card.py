@@ -2,10 +2,10 @@ from typing import Iterable
 
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QSizePolicy
 
-from PyQtUIkit.widgets._widget import KitWidget
-from core.style_obj import CardStyle
-from core.styles import style_service
-from PyQtUIkit.widgets._layout import KitBoxLayout
+from _widgets._widget import KitWidget
+from _core.style_obj import CardStyle
+from _core.styles import style_service, KitStyle
+from _widgets._layout import KitBoxLayout
 
 
 class KitCard(KitWidget):
@@ -22,6 +22,7 @@ class KitCard(KitWidget):
         self.layout = layout
 
         self.__style = CardStyle()
+        self.__final_style = CardStyle()
         if classes:
             self.classes = classes
 
@@ -34,6 +35,14 @@ class KitCard(KitWidget):
         return self.__style
 
     @property
+    def final_style(self) -> CardStyle:
+        return self.__final_style
+
+    @property
+    def children(self) -> Iterable['KitWidget']:
+        yield self.layout
+
+    @property
     def layout(self) -> KitBoxLayout:
         return self.__layout
 
@@ -43,7 +52,8 @@ class KitCard(KitWidget):
         self.__strange_widget.setLayout(layout.qt_widget)
 
     def apply_style(self):
-        style: CardStyle = style_service.get_style(self)
+        super().apply_style()
+        style = self.final_style
         self.qt_widget.setStyleSheet(f"""
         QWidget {{
             background-color: rgba{style.background.getRgb()};

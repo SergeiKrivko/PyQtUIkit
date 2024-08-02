@@ -3,11 +3,11 @@ from typing import Iterable
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QPushButton, QWidget, QLayout
 
-from PyQtUIkit.widgets._layout import KitBoxLayout
-from PyQtUIkit.widgets._widget import KitWidget
-from core.style_obj import ButtonStyle
-from core.styles import style_service
-from core.event import KitSignals
+from _widgets._layout import KitBoxLayout
+from _widgets._widget import KitWidget
+from _core.style_obj import ButtonStyle
+from _core.styles import style_service, KitStyle
+from _core.event import KitSignals
 
 
 class KitLayoutButton(KitWidget):
@@ -24,6 +24,7 @@ class KitLayoutButton(KitWidget):
         self.qt_widget.clicked.connect(self.__click_events)
 
         self.__style = ButtonStyle()
+        self.__final_style = ButtonStyle()
         if classes:
             self.classes = classes
         self.checkable = checkable
@@ -35,6 +36,14 @@ class KitLayoutButton(KitWidget):
     @property
     def style(self) -> ButtonStyle:
         return self.__style
+
+    @property
+    def final_style(self) -> ButtonStyle:
+        return self.__final_style
+
+    @property
+    def children(self) -> Iterable['KitWidget']:
+        yield self.__layout
 
     @property
     def on_click(self):
@@ -64,7 +73,8 @@ class KitLayoutButton(KitWidget):
         self.__layout.apply_lang()
 
     def apply_style(self):
-        style: ButtonStyle = style_service.get_style(self)
+        super().apply_style()
+        style = self.final_style
         self.__layout.apply_style()
         self.qt_widget.setStyleSheet(s := f"""
         QPushButton {{
@@ -113,4 +123,4 @@ class KitLayoutButton(KitWidget):
             padding-right: 5px;
             subcontrol-position: right;
         }}""")
-        print(s)
+        # print(s)

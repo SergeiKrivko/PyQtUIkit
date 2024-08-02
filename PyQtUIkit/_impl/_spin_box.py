@@ -1,7 +1,7 @@
 from PyQt6.QtCore import pyqtSignal, Qt
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLineEdit, QVBoxLayout, QPushButton, QSizePolicy
 
-from PyQtUIkit.core import IntProperty, EnumProperty, KitFont, FontProperty, MethodsProperty, SignalProperty
+from PyQtUIkit._core import IntProperty, EnumProperty, KitFont, FontProperty, MethodsProperty, SignalProperty
 from PyQtUIkit._impl._widget import KitGroupItem as _KitGroupItem, KitGroup as _KitGroup
 
 

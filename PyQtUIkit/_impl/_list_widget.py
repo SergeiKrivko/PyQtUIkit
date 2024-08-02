@@ -1,7 +1,7 @@
 from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import QListWidget, QListWidgetItem
 
-from PyQtUIkit.core.properties import IntProperty, IconProperty, EnumProperty, KitFont,FontProperty
+from PyQtUIkit._core.properties import IntProperty, IconProperty, EnumProperty, KitFont,FontProperty
 from PyQtUIkit._impl._widget import _KitWidget as _KitWidget
 
 

@@ -203,10 +203,15 @@ class BaseStyle:
         return getattr(obj, keys[-1])
 
     def set(self, key: str, value: str, if_none=True):
+        if value is None:
+            return
         obj = self
         keys = key.split('.')
-        for el in keys[:-1]:
-            obj = getattr(obj, el)
+        try:
+            for el in keys[:-1]:
+                obj = getattr(obj, el)
+        except AttributeError:
+            return
         if not if_none or getattr(obj, keys[-1]) is None:
             setattr(obj, keys[-1], value)
 
@@ -222,6 +227,7 @@ class BaseStyle:
             sub: BaseStyle = self.get(sub_name)
             for el in sub._MAIN + sub._SUB:
                 sub.set(el, self.get(el), if_none=True)
+        return self
 
 
 class LayoutStyle(BaseStyle):

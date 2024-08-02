@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QMargins, Qt
 from PyQt6.QtWidgets import QWidget, QGridLayout, QVBoxLayout
 
-from PyQtUIkit.core.properties import IntProperty, MethodsProperty
+from PyQtUIkit._core.properties import IntProperty, MethodsProperty
 from PyQtUIkit._impl._widget import _KitWidget as _KitWidget
 
 

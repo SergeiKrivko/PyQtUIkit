@@ -1,10 +1,10 @@
 import os.path
-from typing import Any, Type
+from typing import Any
 
 import bs4
 
-from PyQtUIkit.core.style_obj import BaseStyle
-from PyQtUIkit.core.service import KitService
+from _core.style_obj import BaseStyle
+from _core.service import KitService
 
 
 class KitStyle:
@@ -31,6 +31,14 @@ class KitStyleTheme(KitStyle):
     def names(self):
         return self.__names
 
+    def __str__(self):
+        return f'<theme name={self.__names}>'
+
+
+class KitStyleAny(KitStyle):
+    def __str__(self):
+        return '<any>'
+
 
 class KitStyleClass(KitStyle):
     def __init__(self, names: str | list[str], *args):
@@ -44,6 +52,9 @@ class KitStyleClass(KitStyle):
     def names(self):
         return self.__names
 
+    def __str__(self):
+        return f'<class name={self.__names}>'
+
 
 class KitStyleType(KitStyle):
     def __init__(self, names: str | list[str], *args):
@@ -56,6 +67,27 @@ class KitStyleType(KitStyle):
     @property
     def names(self):
         return self.__names
+
+    def __str__(self):
+        return f'<type name={self.__names}>'
+
+
+class KitStyleChild(KitStyle):
+    def __init__(self, types: str | list[str] = None, *args):
+        super().__init__(*args)
+        if types is None:
+            self.__types = set()
+        elif isinstance(types, str):
+            self.__types = set(types.split())
+        else:
+            self.__types = set(types)
+
+    @property
+    def types(self):
+        return self.__types
+
+    def __str__(self):
+        return f'<child type={self.__types}>'
 
 
 class KitStyleProperty:
@@ -88,6 +120,14 @@ class StyleService(KitService):
     def variables(self):
         return self.__variables
 
+    @property
+    def styles(self):
+        return self.__styles
+
+    @property
+    def theme(self):
+        return self.__theme
+
     def get(self, name: str, default=None):
         if name in self.__variables[self.__theme]:
             return self.__variables[self.__theme][name]
@@ -118,6 +158,10 @@ class StyleService(KitService):
                     yield KitStyleClass(child['name'], *self.__parse_elem(path, child, theme))
                 case 'type':
                     yield KitStyleType(child['name'], *self.__parse_elem(path, child, theme))
+                case 'child':
+                    yield KitStyleChild(child.attrs.get('type'), *self.__parse_elem(path, child, theme))
+                case 'any':
+                    yield KitStyleAny(*self.__parse_elem(path, child, theme))
                 case 'property':
                     yield KitStyleProperty(child['name'], child.attrs.get('value'), child.attrs.get('var'))
                 case 'var':
@@ -131,7 +175,7 @@ class StyleService(KitService):
                         yield el
 
     @staticmethod
-    def __check_class(obj_class, classes):
+    def check_class(obj_class, classes):
         while obj_class != object:
             if obj_class.__name__ in classes:
                 return True
@@ -145,7 +189,7 @@ class StyleService(KitService):
             elif isinstance(elem, KitStyleTheme) and self.__theme in elem.names:
                 for el in elem.children:
                     find_in_elem(el)
-            elif isinstance(elem, KitStyleType) and self.__check_class(obj.__class__, elem.names):
+            elif isinstance(elem, KitStyleType) and self.check_class(obj.__class__, elem.names):
                 for el in elem.children:
                     find_in_elem(el)
             elif isinstance(elem, KitStyleClass) and elem.names & obj.classes:
@@ -155,11 +199,11 @@ class StyleService(KitService):
         for el in self.__styles:
             find_in_elem(el)
 
-    def get_style(self, obj):
-        res: BaseStyle = obj.style.__class__()
-        self.__find(obj, res)
-        res.apply(obj.style)
-        return res
+    # def get_style(self, obj):
+    #     res: BaseStyle = obj.style.__class__()
+    #     self.__find(obj, res)
+    #     res.apply(obj.style)
+    #     return res
 
 
 style_service = StyleService()

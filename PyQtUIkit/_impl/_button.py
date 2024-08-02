@@ -3,7 +3,7 @@ from enum import Enum
 from PyQt6.QtCore import Qt, QMargins
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout, QHBoxLayout, QWidget
 
-from PyQtUIkit.core import IconProperty, EnumProperty, PaletteProperty, KitFont, FontProperty, \
+from PyQtUIkit._core import IconProperty, EnumProperty, PaletteProperty, KitFont, FontProperty, \
     SignalProperty, MethodsProperty, TextProperty
 from PyQtUIkit.themes import ThemeManager
 from PyQtUIkit._impl import KitIconWidget

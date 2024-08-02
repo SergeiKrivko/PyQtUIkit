@@ -5,9 +5,9 @@ from enum import Enum
 
 from PyQt6.QtCore import Qt, QPropertyAnimation, QEasingCurve, QPoint, pyqtSignal
 from PyQt6.QtWidgets import QApplication
-from PyQtUIkit.core.properties import SignalProperty
+from PyQtUIkit._core.properties import SignalProperty
 
-from PyQtUIkit.core.font import KitFont
+from PyQtUIkit._core.font import KitFont
 from PyQtUIkit._impl._button import KitIconButton
 from PyQtUIkit._impl._form import KitForm
 from PyQtUIkit._impl._icon_widget import KitIconWidget

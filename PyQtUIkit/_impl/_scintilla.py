@@ -1,9 +1,9 @@
 from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import QWidget
 
-from PyQtUIkit.core.font import KitFont
+from PyQtUIkit._core.font import KitFont
 
-from PyQtUIkit.core.properties import PaletteProperty, IntProperty, FontProperty, EnumProperty
+from PyQtUIkit._core.properties import PaletteProperty, IntProperty, FontProperty, EnumProperty
 
 from PyQtUIkit._impl._widget import _KitWidget
 

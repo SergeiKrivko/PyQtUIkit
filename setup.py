@@ -2,7 +2,7 @@
 
 from setuptools import setup, find_packages
 
-from PyQtUIkit.core._version import VERSION
+from PyQtUIkit._core._version import VERSION
 
 
 def readme():

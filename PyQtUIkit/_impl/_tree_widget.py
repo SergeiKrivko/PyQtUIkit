@@ -2,8 +2,8 @@ from enum import Enum
 
 from PyQt6.QtCore import Qt, pyqtSignal, QPoint
 
-from PyQtUIkit.core import KitFont
-from PyQtUIkit.core.properties import IntProperty, StringProperty, IconProperty, BoolProperty, EnumProperty, \
+from PyQtUIkit._core import KitFont
+from PyQtUIkit._core.properties import IntProperty, StringProperty, IconProperty, BoolProperty, EnumProperty, \
     PaletteProperty, FontProperty, MethodsProperty
 from PyQtUIkit._impl._button import KitLayoutButton, KitIconButton
 from PyQtUIkit._impl._checkbox import KitCheckBox

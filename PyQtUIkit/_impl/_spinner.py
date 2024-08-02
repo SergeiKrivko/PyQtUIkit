@@ -2,7 +2,7 @@ from PyQt6.QtCore import pyqtProperty, QPropertyAnimation, QRect, QParallelAnima
 from PyQt6.QtWidgets import QLabel, QWidget
 from PyQt6.QtGui import QPainter, QPen, QColor
 
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty
+from PyQtUIkit._core.properties import IntProperty, PaletteProperty
 from PyQtUIkit._impl._widget import _KitWidget as _KitWidget
 
 

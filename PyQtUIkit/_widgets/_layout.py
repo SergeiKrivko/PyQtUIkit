@@ -1,8 +1,11 @@
+from typing import Iterable
+
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QBoxLayout, QHBoxLayout, QVBoxLayout, QWidget, QLayout
 
-from PyQtUIkit.widgets._widget import KitWidget
-from core.style_obj import LayoutStyle
+from _core.styles import KitStyle
+from _widgets._widget import KitWidget
+from _core.style_obj import LayoutStyle
 
 
 class KitBoxLayout(KitWidget):
@@ -20,6 +23,7 @@ class KitBoxLayout(KitWidget):
         layout.setSpacing(0)
         self.__children = []
         self.__style = LayoutStyle()
+        self.__final_style = LayoutStyle()
 
     @property
     def qt_widget(self) -> QBoxLayout:
@@ -28,6 +32,15 @@ class KitBoxLayout(KitWidget):
     @property
     def style(self) -> LayoutStyle:
         return self.__style
+
+    @property
+    def final_style(self) -> LayoutStyle:
+        return self.__final_style
+
+    @property
+    def children(self) -> Iterable['KitWidget']:
+        for child in self.__children:
+            yield child
 
     def add(self, widget: KitWidget | QWidget | QLayout):
         self.__children.append(widget)
@@ -69,14 +82,17 @@ class KitBoxLayout(KitWidget):
 
     def apply_lang(self):
         for el in self.__children:
-            el.apply_lang()
+            if isinstance(el, KitWidget):
+                el.apply_lang()
 
     def apply_style(self):
+        super().apply_style()
         self.qt_widget.setContentsMargins(*(self.style.padding or (0, 0, 0, 0)))
         self.qt_widget.setSpacing(self.style.spacing or 0)
         self.qt_widget.setAlignment(self.style.align or Qt.AlignmentFlag.AlignJustify)
         for el in self.__children:
-            el.apply_style()
+            if isinstance(el, KitWidget):
+                el.apply_style()
 
 
 class KitHBoxLayout(KitBoxLayout):

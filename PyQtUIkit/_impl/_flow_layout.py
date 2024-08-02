@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QWidget, QHBoxLayout, QStyle, QLayout
 from PyQt6.QtCore import Qt, QRect, QSize, QPoint
 from PyQt6.QtWidgets import QSizePolicy
 
-from PyQtUIkit.core.properties import IntProperty
+from PyQtUIkit._core.properties import IntProperty
 from PyQtUIkit._impl._widget import _KitWidget as _KitWidget
 
 

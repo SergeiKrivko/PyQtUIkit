@@ -1,6 +1,6 @@
 from PyQt6.QtCore import Qt, QPoint
 from PyQt6.QtGui import QPixmap
-from PyQtUIkit.core.properties import FloatProperty
+from PyQtUIkit._core.properties import FloatProperty
 
 from PyQtUIkit._impl import KitScrollArea, KitLabel, KitHBoxLayout
 

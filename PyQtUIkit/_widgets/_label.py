@@ -2,10 +2,10 @@ from typing import Iterable
 
 from PyQt6.QtWidgets import QLabel
 
-from PyQtUIkit.core.locale import _KitLocaleString, _KitLocaleStringArray
-from PyQtUIkit.widgets._widget import KitWidget
-from core.style_obj import CardStyle
-from core.styles import style_service
+from PyQtUIkit._core.locale import _KitLocaleString, _KitLocaleStringArray
+from _widgets._widget import KitWidget
+from _core.style_obj import CardStyle
+from _core.styles import style_service
 
 
 class KitLabel(KitWidget):
@@ -15,6 +15,7 @@ class KitLabel(KitWidget):
         super().__init__(QLabel())
         self.__text = text
         self.__style = CardStyle()
+        self.__final_style = CardStyle()
         if classes:
             self.classes = classes
 
@@ -25,6 +26,10 @@ class KitLabel(KitWidget):
     @property
     def style(self) -> CardStyle:
         return self.__style
+
+    @property
+    def final_style(self) -> CardStyle:
+        return self.__final_style
 
     @property
     def text(self) -> str:
@@ -41,8 +46,9 @@ class KitLabel(KitWidget):
         self.qt_widget.setText(self.text)
 
     def apply_style(self):
+        super().apply_style()
         # self.qt_widget.setFont(self.style.font.get())
-        style: CardStyle = style_service.get_style(self)
+        style = self.final_style
         self.qt_widget.setStyleSheet(f"""
         QLabel {{
             color: rgba{style.color.getRgb()};

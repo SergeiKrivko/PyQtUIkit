@@ -2,7 +2,7 @@ import argparse
 import importlib
 import os
 
-import PyQtUIkit.core._version as version
+import PyQtUIkit._core._version as version
 from PyQtUIkit.themes.locale import KitLocale
 
 _translator = None

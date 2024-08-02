@@ -3,7 +3,7 @@ from enum import Enum
 from PyQt6.QtCore import QPropertyAnimation
 from PyQt6.QtWidgets import QProgressBar
 
-from PyQtUIkit.core import IntProperty, PaletteProperty, BoolProperty, EnumProperty, KitFont, FontProperty
+from PyQtUIkit._core import IntProperty, PaletteProperty, BoolProperty, EnumProperty, KitFont, FontProperty
 from PyQtUIkit._impl._widget import _KitWidget as _KitWidget
 
 

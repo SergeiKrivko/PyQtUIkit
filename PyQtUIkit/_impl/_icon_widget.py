@@ -2,7 +2,7 @@ from PyQt6.QtGui import QPainter
 from PyQt6.QtGui import QPainter
 from PyQt6.QtWidgets import QWidget, QSizePolicy
 
-from PyQtUIkit.core.properties import IconProperty, IntProperty, PaletteProperty
+from PyQtUIkit._core.properties import IconProperty, IntProperty, PaletteProperty
 from PyQtUIkit._impl._widget import _KitWidget as _KitWidget
 
 

@@ -1,7 +1,7 @@
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QPushButton, QSizePolicy
 
-from PyQtUIkit.core import *
+from PyQtUIkit._core import *
 from PyQtUIkit._impl._widget import _KitWidget as _KitWidget
 from PyQtUIkit._impl._button import KitIconButton
 

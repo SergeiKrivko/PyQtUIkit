@@ -1,4 +1,4 @@
-from PyQtUIkit.core.properties import PaletteProperty, IntProperty
+from PyQtUIkit._core.properties import PaletteProperty, IntProperty
 from PyQtUIkit.themes import ThemeManager
 
 

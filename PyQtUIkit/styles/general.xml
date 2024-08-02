@@ -3,20 +3,23 @@
     <var name="button-border-radius" value="5"/>
     <var name="card-border-radius" value="10"/>
 
-    <property name="color" value="transparent"/>
-    <property name="background" value="transparent"/>
+    <any>
+        <property name="color" value="transparent"/>
+        <property name="background" value="transparent"/>
 
-    <property name="padding" value="0"/>
-    <property name="spacing" value="0"/>
+        <property name="padding" value="0"/>
+        <property name="spacing" value="0"/>
 
-    <property name="border.width" value="0"/>
-    <property name="border.type" value="solid"/>
-    <property name="border.color" value="transparent"/>
+        <property name="radius" value="0"/>
+        <property name="border.width" value="0"/>
+        <property name="border.type" value="solid"/>
+        <property name="border.color" value="transparent"/>
 
-    <property name="font.family" value="Roboto"/>
-    <property name="font.size" value="10"/>
-    <property name="font.bold" value="false"/>
-    <property name="font.italic" value="false"/>
-    <property name="font.underline" value="false"/>
-    <property name="font.strike" value="false"/>
+        <property name="font.family" value="Roboto"/>
+        <property name="font.size" value="10"/>
+        <property name="font.bold" value="false"/>
+        <property name="font.italic" value="false"/>
+        <property name="font.underline" value="false"/>
+        <property name="font.strike" value="false"/>
+    </any>
 </uikit-style>

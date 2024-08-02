@@ -4,7 +4,7 @@ from PyQt6 import QtGui
 from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QMenu
 
-from PyQtUIkit.core import IntProperty, PaletteProperty, IconProperty, EnumProperty, KitFont, FontProperty, TextProperty
+from PyQtUIkit._core import IntProperty, PaletteProperty, IconProperty, EnumProperty, KitFont, FontProperty, TextProperty
 from PyQtUIkit._impl._widget import _KitWidget as _KitWidget
 
 

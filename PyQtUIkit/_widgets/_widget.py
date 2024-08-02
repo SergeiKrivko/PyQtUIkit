@@ -2,7 +2,10 @@ from typing import Iterable
 
 from PyQt6.QtWidgets import QWidget, QLayout
 
-from PyQtUIkit.core.event import KitSignals
+from PyQtUIkit._core.event import KitSignals
+from _core.style_obj import BaseStyle
+from _core.styles import KitStyle, KitStyleProperty, KitStyleTheme, KitStyleType, KitStyleClass, style_service, \
+    KitStyleAny, KitStyleChild
 
 
 class KitWidget:
@@ -26,9 +29,21 @@ class KitWidget:
         self._qt_widget.keyPressEvent = self.__qt_key_press_event
         self._qt_widget.keyReleaseEvent = self.__qt_key_release_event
 
+        self._style = BaseStyle()
+        self._final_style = BaseStyle()
+        self.__child_styles: list[KitStyleChild] = []
+
     @property
     def qt_widget(self):
         return self._qt_widget
+
+    @property
+    def style(self):
+        return self._style
+
+    @property
+    def final_style(self):
+        return self._final_style
 
     @property
     def classes(self) -> set[str]:
@@ -71,6 +86,10 @@ class KitWidget:
     def on_key_release(self):
         return self.__key_release_events
 
+    @property
+    def children(self) -> Iterable['KitWidget']:
+        return []
+
     def __qt_show_event(self, event):
         self.__show_events(event)
         self.qt_widget.__class__.showEvent(self.qt_widget, event)
@@ -100,7 +119,56 @@ class KitWidget:
         self.qt_widget.__class__.keyReleaseEvent(self.qt_widget, event)
 
     def apply_style(self):
-        pass
+        self.__load_styles()
+        self.final_style.apply(self.style)
 
     def apply_lang(self):
         pass
+
+    def __add_style(self, elem: KitStyle):
+        if isinstance(elem, KitStyleProperty):
+            self.final_style.set(elem.name, elem.value, if_none=False)
+        else:
+            if isinstance(elem, KitStyleAny):
+                print(f"Adding style {elem} to {self}")
+                for el in elem.children:
+                    self.__add_style(el)
+            if isinstance(elem, KitStyleTheme) and style_service.theme in elem.names:
+                print(f"Adding style {elem} to {self}")
+                for el in elem.children:
+                    self.__add_style(el)
+            elif isinstance(elem, KitStyleType) and style_service.check_class(self.__class__, elem.names):
+                print(f"Adding style {elem} to {self}")
+                for el in elem.children:
+                    self.__add_style(el)
+            elif isinstance(elem, KitStyleChild):
+                for child in self.children:
+                    child._add_child_style(elem)
+            elif isinstance(elem, KitStyleClass) and elem.names & self.classes:
+                print(f"Adding style {elem} to {self}")
+                for el in elem.children:
+                    self.__add_style(el)
+
+    def __load_styles(self):
+        for child in self.children:
+            child._clear_child_styles()
+        for el in style_service.styles:
+            self.__add_style(el)
+        for el in self.__child_styles:
+            if not el.types:
+                for e in el.children:
+                    self.__add_style(e)
+            elif style_service.check_class(self.__class__, el.types):
+                for e in el.children:
+                    self.__add_style(e)
+            else:
+                for child in self.children:
+                    child._add_child_style(el)
+
+    def _clear_child_styles(self):
+        self.__child_styles.clear()
+
+    def _add_child_style(self, style: KitStyleChild):
+        print(f"Adding style {style} to {self}")
+        self.__child_styles.append(style)
+

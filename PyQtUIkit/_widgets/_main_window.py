@@ -1,9 +1,12 @@
+from time import time
+from typing import Iterable
+
 from PyQt6.QtWidgets import QMainWindow, QWidget
 
-from PyQtUIkit.widgets._layout import KitVBoxLayout
-from PyQtUIkit.widgets._widget import KitWidget
-from core.style_obj import CardStyle
-from core.styles import style_service
+from _widgets._layout import KitVBoxLayout
+from _widgets._widget import KitWidget
+from _core.style_obj import CardStyle
+from _core.styles import style_service, KitStyle
 
 
 class KitMainWindow(KitWidget):
@@ -19,10 +22,10 @@ class KitMainWindow(KitWidget):
 
         self.central_widget = widget
 
-        self.on_show.add(self.apply_style)
-        self.on_show.add(self.apply_lang)
+        self.on_show.add(self.apply_all)
 
         self.__style = CardStyle()
+        self.__final_style = CardStyle()
 
     @property
     def qt_widget(self) -> QMainWindow:
@@ -31,6 +34,14 @@ class KitMainWindow(KitWidget):
     @property
     def style(self) -> CardStyle:
         return self.__style
+
+    @property
+    def final_style(self) -> CardStyle:
+        return self.__final_style
+
+    @property
+    def children(self) -> Iterable['KitWidget']:
+        yield self.central_widget
 
     @property
     def central_widget(self) -> KitWidget:
@@ -49,11 +60,15 @@ class KitMainWindow(KitWidget):
         if widget:
             self.__central_layout.add(self.__central_widget)
 
+    def apply_all(self):
+        self.apply_style()
+        self.apply_lang()
+
     def apply_style(self):
+        super().apply_style()
+        style = self.final_style
+        self.qt_widget.setStyleSheet(f"background: rgba{style.background.getRgb()};")
         self.__central_widget.apply_style()
-        style: CardStyle = style_service.get_style(self)
-        print(style.background.name())
-        self.qt_widget.setStyleSheet(f"background: {style.background.name()};")
 
     def apply_lang(self):
         self.__central_widget.apply_lang()

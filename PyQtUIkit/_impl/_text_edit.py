@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QTextEdit, QTextBrowser
 
-from PyQtUIkit.core import KitFont
-from PyQtUIkit.core.properties import IntProperty, PaletteProperty, EnumProperty, FontProperty, TextProperty
+from PyQtUIkit._core import KitFont
+from PyQtUIkit._core.properties import IntProperty, PaletteProperty, EnumProperty, FontProperty, TextProperty
 from PyQtUIkit._impl._widget import _KitWidget as _KitWidget
 
 

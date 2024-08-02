@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QLabel
 
-from PyQtUIkit.core import IntProperty, PaletteProperty, EnumProperty, KitFont, FontProperty, TextProperty
+from PyQtUIkit._core import IntProperty, PaletteProperty, EnumProperty, KitFont, FontProperty, TextProperty
 from PyQtUIkit._impl._widget import _KitWidget as _KitWidget
 
 

@@ -2,8 +2,8 @@ from PyQt6.QtCore import Qt, QPropertyAnimation, QEasingCurve, pyqtSignal
 from PyQt6.QtGui import QFontMetrics
 from PyQt6.QtWidgets import QLabel, QPushButton, QHBoxLayout, QSizePolicy
 
-from PyQtUIkit.core.icon import KitIcon
-from PyQtUIkit.core import IntProperty, PaletteProperty, IconProperty, EnumProperty, KitFont, FontProperty, TextProperty
+from PyQtUIkit._core.icon import KitIcon
+from PyQtUIkit._core import IntProperty, PaletteProperty, IconProperty, EnumProperty, KitFont, FontProperty, TextProperty
 from PyQtUIkit._impl import KitVBoxLayout, KitIconButton, KitIconWidget
 from PyQtUIkit._impl._widget import _KitWidget as _KitWidget
 

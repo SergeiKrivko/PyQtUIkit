@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
 
-from PyQtUIkit.core import IntProperty
+from PyQtUIkit._core import IntProperty
 from PyQtUIkit._impl._widget import _KitWidget as _KitWidget
 
 

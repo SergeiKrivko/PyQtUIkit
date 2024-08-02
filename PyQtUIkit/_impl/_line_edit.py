@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QLineEdit
 
-from PyQtUIkit.core import PaletteProperty, EnumProperty, KitFont, FontProperty, MethodsProperty, SignalProperty, \
+from PyQtUIkit._core import PaletteProperty, EnumProperty, KitFont, FontProperty, MethodsProperty, SignalProperty, \
     TextProperty
 from PyQtUIkit._impl._widget import KitGroupItem as _KitGroupItem
 
