@@ -4,7 +4,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QPushButton, QWidget, QLayout
 
 from _widgets.group import KitGroupWidget
-from _widgets.layout import KitBoxLayout
+from _widgets.layout import KitLayout
 from _widgets.widget import KitWidget
 from _core.style_obj import ButtonStyle
 from _core.event import KitSignals
@@ -15,7 +15,7 @@ class KitLayoutButton(KitGroupWidget):
                  checkable: bool = False,
                  classes: Iterable[str] | str = None):
         button = QPushButton()
-        self.__layout = KitBoxLayout(orientation)
+        self.__layout = KitLayout(orientation)
         button.setLayout(self.__layout.qt_widget)
 
         super().__init__(button)
@@ -28,6 +28,8 @@ class KitLayoutButton(KitGroupWidget):
         if classes:
             self.classes = classes
         self.checkable = checkable
+
+        self.qt_widget.setCursor(Qt.CursorShape.PointingHandCursor)
 
     @property
     def qt_widget(self) -> QPushButton:
@@ -58,7 +60,7 @@ class KitLayoutButton(KitGroupWidget):
         self.qt_widget.setCheckable(value)
 
     @property
-    def _layout(self) -> KitBoxLayout:
+    def _layout(self) -> KitLayout:
         return self.__layout
 
     def add(self, widget: KitWidget | QWidget | QLayout):

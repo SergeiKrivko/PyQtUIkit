@@ -67,78 +67,7 @@
             </child>
         </class>
 
-        <class name="outline">
-            <property name="background" value="transparent"/>
-            <property name="hover.background" value="transparent"/>
-            <property name="pressed.background" value="transparent"/>
-            <property name="border.width" value="1"/>
-
-            <!--     Default: "primary"       -->
-            <property name="border.color" var="primary-color"/>
-            <property name="hover.border.color" var="primary-hover-color"/>
-            <property name="pressed.border.color" var="primary-pressed-color"/>
-            <child type="KitLabel KitIconWidget">
-                <property name="color" var="primary-text-only-color"/>
-            </child>
-
-            <class name="primary">
-                <property name="border.color" var="primary-color"/>
-                <property name="hover.border.color" var="primary-hover-color"/>
-                <property name="pressed.border.color" var="primary-pressed-color"/>
-                <child type="KitLabel KitIconWidget">
-                    <property name="color" var="primary-text-only-color"/>
-                </child>
-            </class>
-            <class name="secondary">
-                <property name="border.color" var="secondary-color"/>
-                <property name="hover.border.color" var="secondary-hover-color"/>
-                <property name="pressed.border.color" var="secondary-pressed-color"/>
-                <child type="KitLabel KitIconWidget">
-                    <property name="color" var="secondary-text-only-color"/>
-                </child>
-            </class>
-            <class name="success">
-                <property name="border.color" var="success-color"/>
-                <property name="hover.border.color" var="success-hover-color"/>
-                <property name="pressed.border.color" var="success-pressed-color"/>
-                <child type="KitLabel KitIconWidget">
-                    <property name="color" var="success-text-only-color"/>
-                </child>
-            </class>
-            <class name="info">
-                <property name="border.color" var="info-color"/>
-                <property name="hover.border.color" var="info-hover-color"/>
-                <property name="pressed.border.color" var="info-pressed-color"/>
-                <child type="KitLabel KitIconWidget">
-                    <property name="color" var="info-text-only-color"/>
-                </child>
-            </class>
-            <class name="warning">
-                <property name="border.color" var="warning-color"/>
-                <property name="hover.border.color" var="warning-hover-color"/>
-                <property name="pressed.border.color" var="warning-pressed-color"/>
-                <child type="KitLabel KitIconWidget">
-                    <property name="color" var="warning-text-only-color"/>
-                </child>
-            </class>
-            <class name="danger">
-                <property name="border.color" var="danger-color"/>
-                <property name="hover.border.color" var="danger-hover-color"/>
-                <property name="pressed.border.color" var="danger-pressed-color"/>
-                <child type="KitLabel KitIconWidget">
-                    <property name="color" var="danger-text-only-color"/>
-                </child>
-            </class>
-            <class name="contrast">
-                <property name="border.color" var="contrast-color"/>
-                <property name="hover.border.color" var="contrast-hover-color"/>
-                <property name="pressed.border.color" var="contrast-pressed-color"/>
-                <child type="KitLabel KitIconWidget">
-                    <property name="color" var="contrast-text-only-color"/>
-                </child>
-            </class>
-        </class>
-        <class name="text">
+        <class name="text outline">
             <property name="background" value="transparent"/>
             <property name="hover.background" var="transparent-hover-color"/>
             <property name="border.width" value="1"/>
@@ -214,6 +143,50 @@
                         <property name="color" var="contrast-text-color"/>
                     </class>
                 </child>
+            </class>
+        </class>
+        <class name="outline">
+            <property name="border.width" value="1"/>
+
+            <!--     Default: "primary"       -->
+            <property name="border.color" var="primary-color"/>
+            <property name="hover.border.color" var="primary-hover-color"/>
+            <property name="pressed.border.color" var="primary-pressed-color"/>
+
+            <class name="primary">
+                <property name="border.color" var="primary-color"/>
+                <property name="hover.border.color" var="primary-hover-color"/>
+                <property name="pressed.border.color" var="primary-pressed-color"/>
+            </class>
+            <class name="secondary">
+                <property name="border.color" var="secondary-color"/>
+                <property name="hover.border.color" var="secondary-hover-color"/>
+                <property name="pressed.border.color" var="secondary-pressed-color"/>
+            </class>
+            <class name="success">
+                <property name="border.color" var="success-color"/>
+                <property name="hover.border.color" var="success-hover-color"/>
+                <property name="pressed.border.color" var="success-pressed-color"/>
+            </class>
+            <class name="info">
+                <property name="border.color" var="info-color"/>
+                <property name="hover.border.color" var="info-hover-color"/>
+                <property name="pressed.border.color" var="info-pressed-color"/>
+            </class>
+            <class name="warning">
+                <property name="border.color" var="warning-color"/>
+                <property name="hover.border.color" var="warning-hover-color"/>
+                <property name="pressed.border.color" var="warning-pressed-color"/>
+            </class>
+            <class name="danger">
+                <property name="border.color" var="danger-color"/>
+                <property name="hover.border.color" var="danger-hover-color"/>
+                <property name="pressed.border.color" var="danger-pressed-color"/>
+            </class>
+            <class name="contrast">
+                <property name="border.color" var="contrast-color"/>
+                <property name="hover.border.color" var="contrast-hover-color"/>
+                <property name="pressed.border.color" var="contrast-pressed-color"/>
             </class>
         </class>
     </type>

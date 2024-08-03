@@ -3,7 +3,7 @@ from typing import Iterable
 
 from PyQt6.QtWidgets import QMainWindow, QWidget
 
-from _widgets.layout import KitVBoxLayout
+from _widgets.layout import KitVLayout
 from _widgets.widget import KitWidget
 from _core.style_obj import CardStyle
 from _core.styles import style_service, KitStyle
@@ -14,7 +14,7 @@ class KitMainWindow(KitWidget):
                  widget: KitWidget = None):
         super().__init__(QMainWindow())
 
-        self.__central_layout = KitVBoxLayout()
+        self.__central_layout = KitVLayout()
         strange_widget = QWidget()
         strange_widget.setLayout(self.__central_layout.qt_widget)
 

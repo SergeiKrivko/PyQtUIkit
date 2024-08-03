@@ -3,7 +3,7 @@ from typing import Iterable
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFontMetrics
-from PyQt6.QtWidgets import QBoxLayout
+from PyQt6.QtWidgets import QBoxLayout, QSizePolicy
 
 from _core.icon import KitIcon
 from _core.locale import _KitLocaleString, _KitLocaleStringArray
@@ -42,6 +42,7 @@ class KitButton(KitLayoutButton):
         self.add(self.__icon_widget)
 
         self.on_click.add(self.__on_click)
+        self.qt_widget.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
     @property
     def text(self) -> str:
@@ -64,14 +65,15 @@ class KitButton(KitLayoutButton):
         return self.__icon_pos
 
     def __on_click(self, status):
-        if status:
-            self.__label.classes.add('pressed')
-            self.__icon_widget.classes.add('pressed')
-        else:
-            self.__label.classes.discard('pressed')
-            self.__icon_widget.classes.discard('pressed')
-        self.__label.apply_style()
-        self.__icon_widget.apply_style()
+        if self.checkable:
+            if status:
+                self.__label.classes.add('pressed')
+                self.__icon_widget.classes.add('pressed')
+            else:
+                self.__label.classes.discard('pressed')
+                self.__icon_widget.classes.discard('pressed')
+            self.__label.apply_style()
+            self.__icon_widget.apply_style()
 
     def __apply_size(self):
         style = self.final_style.apply(self.style)
@@ -95,7 +97,7 @@ class KitButton(KitLayoutButton):
                 height += style.spacing + self._DEFAULT_V_ICON_SIZE
         height += style.padding[0] + style.padding[2]
         width += style.padding[1] + style.padding[3]
-        self.qt_widget.setFixedSize(width, height)
+        self.qt_widget.setMinimumSize(width, height)
 
     def apply_style(self):
         if not self.text:

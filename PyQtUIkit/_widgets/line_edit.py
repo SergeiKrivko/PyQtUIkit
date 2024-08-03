@@ -23,9 +23,15 @@ class KitLineEdit(KitGroupWidget):
 
         self.__text_change_events = KitSignals()
         self.__text_edit_events = KitSignals()
+        self.__editing_finished_events = KitSignals()
+        self.__return_pressed_events = KitSignals()
+        self.__cursor_pos_events = KitSignals()
 
         self.qt_widget.textChanged.connect(self.__text_change_events)
         self.qt_widget.textEdited.connect(self.__text_edit_events)
+        self.qt_widget.editingFinished.connect(self.__editing_finished_events)
+        self.qt_widget.returnPressed.connect(self.__return_pressed_events)
+        self.qt_widget.cursorPositionChanged.connect(self.__cursor_pos_events)
 
     @property
     def qt_widget(self) -> QLineEdit:
@@ -46,6 +52,18 @@ class KitLineEdit(KitGroupWidget):
     @property
     def on_text_edit(self):
         return self.__text_edit_events
+
+    @property
+    def on_editing_finished(self):
+        return self.__editing_finished_events
+
+    @property
+    def on_return_pressed(self):
+        return self.__return_pressed_events
+
+    @property
+    def on_cursor_position_changed(self):
+        return self.__cursor_pos_events
 
     @property
     def text(self):

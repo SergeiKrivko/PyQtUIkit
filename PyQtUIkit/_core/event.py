@@ -33,12 +33,12 @@ class KitSignals:
     def count(self):
         return len(self.__handlers)
 
-    def call(self, event: Any):
+    def call(self, event: Any = None):
         for handler in self.__handlers:
             try:
                 handler(event)
             except TypeError:
                 handler()
 
-    def __call__(self, event: Any):
+    def __call__(self, event: Any = None):
         self.call(event)

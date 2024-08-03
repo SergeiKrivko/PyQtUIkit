@@ -5,12 +5,12 @@ from PyQt6.QtWidgets import QWidget, QHBoxLayout, QSizePolicy
 from _widgets.widget import KitWidget
 from _core.style_obj import CardStyle
 from _core.styles import style_service, KitStyle
-from _widgets.layout import KitBoxLayout
+from _widgets.layout import KitLayout
 
 
 class KitCard(KitWidget):
     def __init__(self,
-                 layout: KitBoxLayout = None,
+                 layout: KitLayout = None,
                  classes: Iterable[str] | str = None, ):
         super().__init__(QWidget())
         strange_layout = QHBoxLayout()
@@ -43,11 +43,11 @@ class KitCard(KitWidget):
         yield self.layout
 
     @property
-    def layout(self) -> KitBoxLayout:
+    def layout(self) -> KitLayout:
         return self.__layout
 
     @layout.setter
-    def layout(self, layout: KitBoxLayout):
+    def layout(self, layout: KitLayout):
         self.__layout = layout
         self.__strange_widget.setLayout(layout.qt_widget)
 
