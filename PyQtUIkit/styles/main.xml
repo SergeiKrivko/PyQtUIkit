@@ -2,6 +2,7 @@
 <uikit-style>
     <include path="./general.xml"/>
 
+    <include path="./themes/light.xml"/>
     <include path="./themes/dark.xml"/>
 
     <include path="./widgets/card.xml"/>

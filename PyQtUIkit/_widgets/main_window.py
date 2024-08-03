@@ -1,4 +1,3 @@
-from time import time
 from typing import Iterable
 
 from PyQt6.QtWidgets import QMainWindow, QWidget
@@ -6,7 +5,6 @@ from PyQt6.QtWidgets import QMainWindow, QWidget
 from _widgets.layout import KitVLayout
 from _widgets.widget import KitWidget
 from _core.style_obj import CardStyle
-from _core.styles import style_service, KitStyle
 
 
 class KitMainWindow(KitWidget):

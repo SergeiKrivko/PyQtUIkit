@@ -1,3 +1,6 @@
+from typing import Type
+
+
 class KitService:
     __services = {}
 
@@ -7,5 +10,7 @@ class KitService:
         KitService.__services[self.__class__] = self
 
     @staticmethod
-    def inject(self):
-        return KitService.__services[self]
+    def inject(service_type: Type['KitService']):
+        if service_type not in KitService.__services:
+            KitService.__services[service_type] = service_type()
+        return KitService.__services[service_type]

@@ -4,9 +4,10 @@ from PyQt6.QtCore import QSize
 from PyQt6.QtWidgets import QWidget, QLayout
 
 from PyQtUIkit._core.event import KitSignals
+from _core.service import KitService
 from _core.style_obj import BaseStyle
-from _core.styles import KitStyle, KitStyleProperty, KitStyleTheme, KitStyleType, KitStyleClass, style_service, \
-    KitStyleAny, KitStyleChild
+from _core.styles import KitStyle, KitStyleProperty, KitStyleTheme, KitStyleType, KitStyleClass, \
+    KitStyleAny, KitStyleChild, KitStyleService
 
 
 class KitWidget:
@@ -162,6 +163,7 @@ class KitWidget:
         pass
 
     def __add_style(self, elem: KitStyle):
+        style_service = KitService.inject(KitStyleService)
         if isinstance(elem, KitStyleProperty):
             self.final_style.set(elem.name, elem.value, if_none=False)
         else:
@@ -186,6 +188,7 @@ class KitWidget:
                     self.__add_style(el)
 
     def __load_styles(self):
+        style_service = KitService.inject(KitStyleService)
         for child in self.children:
             child._clear_child_styles()
         for el in style_service.styles:

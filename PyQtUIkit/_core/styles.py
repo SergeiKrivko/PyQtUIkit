@@ -95,7 +95,7 @@ class KitStyleProperty:
         self.__name = name
         self.__value = value
         self.__variable = variable
-        self.__service: StyleService = KitService.inject(StyleService)
+        self.__service: KitStyleService = KitService.inject(KitStyleService)
 
     @property
     def name(self):
@@ -108,12 +108,12 @@ class KitStyleProperty:
         return self.__value
 
 
-class StyleService(KitService):
+class KitStyleService(KitService):
     def __init__(self):
         super().__init__()
         self.__variables = {'': dict()}
         self.__styles = []
-        self.__theme: str = 'dark'
+        self.__theme: str = 'light'
         self.parse(r"C:\Users\sergi\PycharmProjects\UIkit\PyQtUIkit\styles\main.xml")
 
     @property
@@ -198,12 +198,3 @@ class StyleService(KitService):
 
         for el in self.__styles:
             find_in_elem(el)
-
-    # def get_style(self, obj):
-    #     res: BaseStyle = obj.style.__class__()
-    #     self.__find(obj, res)
-    #     res.apply(obj.style)
-    #     return res
-
-
-style_service = StyleService()

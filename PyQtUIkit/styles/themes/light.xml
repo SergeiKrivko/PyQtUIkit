@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uikit-style>
+    <theme name="light">
+        <var name="default-text-color" value="#0A0A0A"/>
+        <var name="default-border-color" value="#A1A1AD"/>
+        <var name="transparent-hover-color" value="#20000000"/>
+
+        <var name="primary-color" value="#3B82F6"/>
+        <var name="primary-weak-color" value="#7CB1F6"/>
+        <var name="primary-text-only-color" value="#3B82F6"/>
+        <var name="primary-text-color" value="#FFFFFF"/>
+        <var name="primary-hover-color" value="#326FD1"/>
+        <var name="primary-pressed-color" value="#2756A3"/>
+        <var name="primary-bg-color" value="#EBF3FF"/>
+
+        <var name="secondary-color" value="#A8AAAD"/>
+        <var name="secondary-weak-color" value="#CFD2D6"/>
+        <var name="secondary-text-only-color" value="#64748B"/>
+        <var name="secondary-text-color" value="#2D3554"/>
+        <var name="secondary-hover-color" value="#929496"/>
+        <var name="secondary-pressed-color" value="#7C7D80"/>
+        <var name="secondary-bg-color" value="#C1C7D1"/>
+
+        <var name="success-color" value="#22C55E"/>
+        <var name="success-weak-color" value="#64E38A"/>
+        <var name="success-text-only-color" value="#22C55E"/>
+        <var name="success-text-color" value="#FFFFFF"/>
+        <var name="success-hover-color" value="#1DA850"/>
+        <var name="success-pressed-color" value="#05A129"/>
+
+        <var name="info-color" value="#A855F7"/>
+        <var name="info-weak-color" value="#C795F7"/>
+        <var name="info-text-only-color" value="#A855F7"/>
+        <var name="info-text-color" value="#FFFFFF"/>
+        <var name="info-hover-color" value="#9049D4"/>
+        <var name="info-pressed-color" value="#9412D4"/>
+
+        <var name="warning-color" value="#F97316"/>
+        <var name="warning-weak-color" value="#F99A5C"/>
+        <var name="warning-text-only-color" value="#F97316"/>
+        <var name="warning-text-color" value="#FFFFFF"/>
+        <var name="warning-hover-color" value="#D46213"/>
+        <var name="warning-pressed-color" value="#F08D0D"/>
+
+        <var name="danger-color" value="#EF4444"/>
+        <var name="danger-weak-color" value="#EF8A8A"/>
+        <var name="danger-text-only-color" value="#EF4444"/>
+        <var name="danger-text-color" value="#FFFFFF"/>
+        <var name="danger-hover-color" value="#D63D3D"/>
+        <var name="danger-pressed-color" value="#F51414"/>
+
+        <var name="contrast-color" value="#020617"/>
+        <var name="contrast-weak-color" value="#616F94"/>
+        <var name="contrast-text-only-color" value="##0C0C0D"/>
+        <var name="contrast-text-color" value="#FFFFFF"/>
+        <var name="contrast-hover-color" value="#040D33"/>
+        <var name="contrast-pressed-color" value="#243354"/>
+        <var name="contrast-bg-color" value="#000000"/>
+    </theme>
+</uikit-style>

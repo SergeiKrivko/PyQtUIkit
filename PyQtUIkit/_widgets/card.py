@@ -1,10 +1,9 @@
 from typing import Iterable
 
-from PyQt6.QtWidgets import QWidget, QHBoxLayout, QSizePolicy
+from PyQt6.QtWidgets import QWidget, QHBoxLayout
 
 from _widgets.widget import KitWidget
 from _core.style_obj import CardStyle
-from _core.styles import style_service, KitStyle
 from _widgets.layout import KitLayout
 
 
