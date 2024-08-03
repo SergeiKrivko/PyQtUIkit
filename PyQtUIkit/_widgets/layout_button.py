@@ -60,6 +60,14 @@ class KitLayoutButton(KitGroupWidget):
         self.qt_widget.setCheckable(value)
 
     @property
+    def checked(self) -> bool:
+        return self.qt_widget.isChecked()
+
+    @checked.setter
+    def checked(self, value: bool):
+        self.qt_widget.setChecked(value)
+
+    @property
     def _layout(self) -> KitLayout:
         return self.__layout
 

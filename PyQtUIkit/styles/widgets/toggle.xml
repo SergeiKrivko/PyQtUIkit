@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uikit-style>
+    <type name="KitToggle">
+        <property name="background" value="transparent"/>
+
+        <!--    Default: "primary"    -->
+        <child>
+            <class name="__PyQtUIkit_Toggle_rail">
+                <property name="background" var="secondary-bg-color"/>
+                <property name="hover.background" var="secondary-bg-color"/>
+                <property name="pressed.background" var="primary-weak-color"/>
+                <property name="radius" value="10"/>
+            </class>
+            <class name="__PyQtUIkit_Toggle_button">
+                <property name="border.width" value="1"/>
+                <property name="pressed.border.width" value="0"/>
+                <property name="border.color" value="default-border-color"/>
+                <property name="background" var="secondary-bg-color"/>
+                <property name="hover.background" var="primary-weak-color"/>
+                <property name="pressed.background" var="primary-color"/>
+                <property name="radius" value="7"/>
+            </class>
+        </child>
+
+        <class name="medium">
+            <child>
+                <class name="__PyQtUIkit_Toggle_rail">
+                    <property name="radius" value="8"/>
+                </class>
+                <class name="__PyQtUIkit_Toggle_button">
+                    <property name="radius" value="12"/>
+                </class>
+            </child>
+        </class>
+        <class name="large">
+            <child>
+                <class name="__PyQtUIkit_Toggle_rail">
+                    <property name="radius" value="14"/>
+                </class>
+                <class name="__PyQtUIkit_Toggle_button">
+                    <property name="radius" value="12"/>
+                </class>
+            </child>
+        </class>
+
+        <class name="primary">
+            <child>
+                <class name="__PyQtUIkit_Toggle_rail">
+                    <property name="pressed.background" var="primary-weak-color"/>
+                </class>
+                <class name="__PyQtUIkit_Toggle_button">
+                    <property name="hover.background" var="primary-weak-color"/>
+                    <property name="pressed.background" var="primary-color"/>
+                </class>
+            </child>
+        </class>
+        <class name="secondary">
+            <child>
+                <class name="__PyQtUIkit_Toggle_rail">
+                    <property name="pressed.background" var="secondary-weak-color"/>
+                </class>
+                <class name="__PyQtUIkit_Toggle_button">
+                    <property name="hover.background" var="secondary-weak-color"/>
+                    <property name="pressed.background" var="secondary-color"/>
+                </class>
+            </child>
+        </class>
+        <class name="success">
+            <child>
+                <class name="__PyQtUIkit_Toggle_rail">
+                    <property name="pressed.background" var="success-weak-color"/>
+                </class>
+                <class name="__PyQtUIkit_Toggle_button">
+                    <property name="hover.background" var="success-weak-color"/>
+                    <property name="pressed.background" var="success-color"/>
+                </class>
+            </child>
+        </class>
+        <class name="info">
+            <child>
+                <class name="__PyQtUIkit_Toggle_rail">
+                    <property name="pressed.background" var="info-weak-color"/>
+                </class>
+                <class name="__PyQtUIkit_Toggle_button">
+                    <property name="hover.background" var="info-weak-color"/>
+                    <property name="pressed.background" var="info-color"/>
+                </class>
+            </child>
+        </class>
+        <class name="warning">
+            <child>
+                <class name="__PyQtUIkit_Toggle_rail">
+                    <property name="pressed.background" var="warning-weak-color"/>
+                </class>
+                <class name="__PyQtUIkit_Toggle_button">
+                    <property name="hover.background" var="warning-weak-color"/>
+                    <property name="pressed.background" var="warning-color"/>
+                </class>
+            </child>
+        </class>
+        <class name="danger">
+            <child>
+                <class name="__PyQtUIkit_Toggle_rail">
+                    <property name="pressed.background" var="danger-weak-color"/>
+                </class>
+                <class name="__PyQtUIkit_Toggle_button">
+                    <property name="hover.background" var="danger-weak-color"/>
+                    <property name="pressed.background" var="danger-color"/>
+                </class>
+            </child>
+        </class>
+        <class name="contrast">
+            <child>
+                <class name="__PyQtUIkit_Toggle_rail">
+                    <property name="pressed.background" var="contrast-weak-color"/>
+                </class>
+                <class name="__PyQtUIkit_Toggle_button">
+                    <property name="hover.background" var="contrast-weak-color"/>
+                    <property name="pressed.background" var="contrast-color"/>
+                </class>
+            </child>
+        </class>
+    </type>
+</uikit-style>

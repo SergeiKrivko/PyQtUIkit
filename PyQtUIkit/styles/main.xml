@@ -12,6 +12,7 @@
     <include path="./widgets/line_edit.xml"/>
     <include path="./widgets/group.xml"/>
     <include path="./widgets/scroll_area.xml"/>
+    <include path="./widgets/toggle.xml"/>
 
     <include path="./classes.xml"/>
 </uikit-style>
