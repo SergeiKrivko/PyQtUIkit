@@ -60,4 +60,21 @@
     <class name="padding-large">
         <property name="padding" value="20"/>
     </class>
+
+    <class name="no-radius">
+        <property name="radius" value="0"/>
+    </class>
+    <class name="radius-small">
+        <property name="radius" value="5"/>
+    </class>
+    <class name="radius-medium">
+        <property name="radius" value="10"/>
+    </class>
+    <class name="radius-large">
+        <property name="radius" value="20"/>
+    </class>
+
+    <class name="border">
+        <property name="border.width" value="1"/>
+    </class>
 </uikit-style>

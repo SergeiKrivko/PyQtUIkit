@@ -16,11 +16,15 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        python -m venv venv
+        venv\Scripts\Activate.ps1
         pip install setuptools wheel twine
         pip install -r requirements.txt
 
     - name: Build package
-      run: python setup.py sdist bdist_wheel
+      run: |
+        venv\Scripts\Activate.ps1
+        python setup.py sdist bdist_wheel
 
 #    - name: Publish package
 #      run: |

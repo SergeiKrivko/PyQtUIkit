@@ -1,7 +1,7 @@
 from typing import Iterable
 
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QWidget, QLayout, QSizePolicy
+from PyQt6.QtWidgets import QSizePolicy
 
 from _widgets.layout import KitBoxLayout
 from _widgets.widget import KitWidget
@@ -63,7 +63,7 @@ class KitGroup(KitBoxLayout):
         else:
             for el in self.children:
                 el.qt_widget.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        self.qt_widget.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        self.qt_widget.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
 
 class KitHGroup(KitGroup):
