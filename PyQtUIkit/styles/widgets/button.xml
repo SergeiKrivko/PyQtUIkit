@@ -8,6 +8,10 @@
         <property name="background" var="primary-color"/>
         <property name="hover.background" var="primary-hover-color"/>
         <property name="pressed.background" var="primary-pressed-color"/>
+        <child type="KitLabel KitIconWidget">
+            <class name="__PyQtUIkit_Button_Label"/>
+            <property name="color" var="primary-text-color"/>
+        </child>
 
         <class name="primary">
             <property name="background" var="primary-color"/>

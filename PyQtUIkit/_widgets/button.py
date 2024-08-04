@@ -41,7 +41,7 @@ class KitButton(KitLayoutButton):
         self.__icon_widget = KitIconWidget(icon)
         self.add(self.__icon_widget)
 
-        self.on_click.add(self.__on_click)
+        self.on_state_change.add(self.__on_checked_change)
         self.qt_widget.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
     @property
@@ -64,16 +64,16 @@ class KitButton(KitLayoutButton):
     def icon_pos(self) -> IconPosition:
         return self.__icon_pos
 
-    def __on_click(self, status):
-        if self.checkable:
-            if status:
-                self.__label.classes.add('pressed')
-                self.__icon_widget.classes.add('pressed')
-            else:
-                self.__label.classes.discard('pressed')
-                self.__icon_widget.classes.discard('pressed')
-            self.__label.apply_style()
-            self.__icon_widget.apply_style()
+    def __on_checked_change(self, status):
+        print(f"on_checked_change: {status}")
+        if status:
+            self.__label.classes.add('pressed')
+            self.__icon_widget.classes.add('pressed')
+        else:
+            self.__label.classes.discard('pressed')
+            self.__icon_widget.classes.discard('pressed')
+        self.__label.apply_style()
+        self.__icon_widget.apply_style()
 
     def __apply_size(self):
         style = self.final_style.apply(self.style)

@@ -21,7 +21,8 @@ class KitLayoutButton(KitGroupWidget):
         super().__init__(button)
 
         self.__click_events = KitSignals()
-        self.qt_widget.clicked.connect(self.__click_events)
+        self.__state_change_events = KitSignals()
+        self.qt_widget.clicked.connect(self.__on_click)
 
         self.__style = ButtonStyle()
         self.__final_style = ButtonStyle()
@@ -52,6 +53,10 @@ class KitLayoutButton(KitGroupWidget):
         return self.__click_events
 
     @property
+    def on_state_change(self):
+        return self.__state_change_events
+
+    @property
     def checkable(self) -> bool:
         return self.qt_widget.isCheckable()
 
@@ -65,7 +70,15 @@ class KitLayoutButton(KitGroupWidget):
 
     @checked.setter
     def checked(self, value: bool):
+        old = self.checked
         self.qt_widget.setChecked(value)
+        if value != old:
+            self.__state_change_events(value)
+
+    def __on_click(self, value):
+        self.__click_events()
+        if self.checkable:
+            self.__state_change_events(value)
 
     @property
     def _layout(self) -> KitLayout:

@@ -113,7 +113,7 @@ class KitStyleService(KitService):
         super().__init__()
         self.__variables = {'': dict()}
         self.__styles = []
-        self.__theme: str = 'light'
+        self.__theme: str = 'dark'
         self.parse(r"C:\Users\sergi\PycharmProjects\UIkit\PyQtUIkit\styles\main.xml")
 
     @property
