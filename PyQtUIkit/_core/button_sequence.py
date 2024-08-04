@@ -18,6 +18,7 @@ class ButtonSequence:
         self.__icon_field = icon_field
         self.__button_func = button_func
 
+        self.__current_change_events = KitSignals()
         self.__reload_events = KitSignals()
 
     @property
@@ -36,6 +37,10 @@ class ButtonSequence:
     @property
     def on_reload(self):
         return self.__reload_events
+
+    @property
+    def on_current_change(self):
+        return self.__current_change_events
 
     def add(self, button):
         self.__buttons.append(button)
@@ -102,3 +107,4 @@ class ButtonSequence:
         self.__current = value
         if self.__current:
             self.__current.checked = True
+        self.__current_change_events(value)

@@ -155,9 +155,14 @@ class KitWidget:
     def hide(self):
         self.qt_widget.hide()
 
-    def apply_style(self):
+    def _apply_style(self):
         self.__load_styles()
         self.final_style.apply(self.style)
+
+    def apply_style(self):
+        for child in self.children:
+            child._clear_child_styles()
+        self._apply_style()
 
     def apply_lang(self):
         pass
@@ -181,7 +186,7 @@ class KitWidget:
                     self.__add_style(el)
             elif isinstance(elem, KitStyleChild):
                 for child in self.children:
-                    child._add_child_style(elem)
+                    child.__add_child_style(elem)
             elif isinstance(elem, KitStyleClass) and elem.names & self.classes:
                 print(f"Adding style {elem} to {self}")
                 for el in elem.children:
@@ -189,8 +194,8 @@ class KitWidget:
 
     def __load_styles(self):
         style_service = KitService.inject(KitStyleService)
-        for child in self.children:
-            child._clear_child_styles()
+        # for child in self.children:
+        #     child._clear_child_styles()
         for el in style_service.styles:
             self.__add_style(el)
         for el in self.__child_styles:
@@ -198,16 +203,16 @@ class KitWidget:
                 for e in el.children:
                     self.__add_style(e)
             elif style_service.check_class(self.__class__, el.types):
+                print(f"Adding style {el} to {self}")
                 for e in el.children:
                     self.__add_style(e)
             else:
                 for child in self.children:
-                    child._add_child_style(el)
+                    child.__add_child_style(el)
 
     def _clear_child_styles(self):
         self.__child_styles.clear()
 
-    def _add_child_style(self, style: KitStyleChild):
-        print(f"Adding style {style} to {self}")
+    def __add_child_style(self, style: KitStyleChild):
         self.__child_styles.append(style)
 

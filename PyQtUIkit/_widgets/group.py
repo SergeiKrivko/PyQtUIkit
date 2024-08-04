@@ -30,7 +30,7 @@ class KitGroup(KitBoxLayout):
             raise TypeError
         super().insert(index, widget)
 
-    def apply_style(self):
+    def _apply_style(self):
         def check_attribute(c, attribute):
             if '__PyQtUIkit_Group' not in self.classes or f'__PyQtUIkit_Group_{attribute}' in self.classes:
                 c.classes.add(f'__PyQtUIkit_Group_{attribute}')
@@ -55,7 +55,7 @@ class KitGroup(KitBoxLayout):
 
             child.classes.add('__PyQtUIkit_Group')
 
-        super().apply_style()
+        super()._apply_style()
 
         if self.__orientation == Qt.Orientation.Horizontal:
             for el in self.children:

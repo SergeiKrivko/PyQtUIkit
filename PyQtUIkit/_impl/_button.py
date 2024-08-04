@@ -225,10 +225,10 @@ class KitLayoutButton(KitButton):
     def _apply_theme(self):
         if not self._tm or not self._tm.active:
             return
-        super().apply_style()
+        super()._apply_style()
         for el in self.__widgets:
             if hasattr(el, '_apply_theme'):
-                el.apply_style()
+                el._apply_style()
 
     padding = MethodsProperty(getContentsMargins, _set_margins)
     spacing = MethodsProperty(getSpacing, setSpacing)

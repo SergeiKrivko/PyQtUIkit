@@ -50,8 +50,8 @@ class KitCard(KitWidget):
         self.__layout = layout
         self.__strange_widget.setLayout(layout.qt_widget)
 
-    def apply_style(self):
-        super().apply_style()
+    def _apply_style(self):
+        super()._apply_style()
         style = self.final_style
         self.qt_widget.setStyleSheet(f"""
         QWidget {{
@@ -62,7 +62,7 @@ class KitCard(KitWidget):
             border-bottom-left-radius: {style.radius.bottom_left};
             border-bottom-right-radius: {style.radius.bottom_right};
         }}""")
-        self.layout.apply_style()
+        self.layout._apply_style()
 
     def apply_lang(self):
         self.layout.apply_lang()

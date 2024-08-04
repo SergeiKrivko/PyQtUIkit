@@ -110,7 +110,7 @@ class KitToggle(QWidget, _KitWidget):
         self.__button.move(self.__button_x_r if self.__state else self.__button_x, self.__button_y)
 
         self.__button.main_palette = self.main_palette
-        self.__button.apply_style()
+        self.__button._apply_style()
         self.__rail.setStyleSheet(f"""
         QWidget {{
             color: {self.main_palette.text};

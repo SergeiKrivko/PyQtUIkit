@@ -40,6 +40,10 @@ class KitScrollArea(KitWidget):
         return self.__final_style
 
     @property
+    def children(self) -> Iterable['KitWidget']:
+        yield self.widget
+
+    @property
     def widget(self) -> KitWidget:
         return self.__widget
 
@@ -112,8 +116,8 @@ class KitScrollArea(KitWidget):
     def apply_lang(self):
         self.__widget.apply_lang()
 
-    def apply_style(self):
-        super().apply_style()
+    def _apply_style(self):
+        super()._apply_style()
 
         if 'no-animation' in self.classes:
             self.__anim = False
@@ -121,7 +125,7 @@ class KitScrollArea(KitWidget):
             self.__anim = True
 
         style = self.final_style
-        self.qt_widget.setStyleSheet(f"""
+        self.qt_widget.setStyleSheet(css := f"""
 QScrollArea {{
     color: rgba{style.color.getRgb()};
     background-color: rgba{style.background.getRgb()};
@@ -175,5 +179,6 @@ QScrollArea QScrollBar::sub-line, QScrollBar::add-line {{
     subcontrol-origin: margin;
 }}
 """)
+        print(css)
         if self.__widget:
-            self.__widget.apply_style()
+            self.__widget._apply_style()

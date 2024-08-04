@@ -44,8 +44,8 @@ class KitLabel(KitWidget):
     def apply_lang(self):
         self.qt_widget.setText(self.text)
 
-    def apply_style(self):
-        super().apply_style()
+    def _apply_style(self):
+        super()._apply_style()
         style = self.final_style
         self.qt_widget.setFont(style.font.get())
         self.qt_widget.setStyleSheet(f"""

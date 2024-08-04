@@ -65,15 +65,14 @@ class KitButton(KitLayoutButton):
         return self.__icon_pos
 
     def __on_checked_change(self, status):
-        print(f"on_checked_change: {status}")
         if status:
             self.__label.classes.add('pressed')
             self.__icon_widget.classes.add('pressed')
         else:
             self.__label.classes.discard('pressed')
             self.__icon_widget.classes.discard('pressed')
-        self.__label.apply_style()
-        self.__icon_widget.apply_style()
+        self.__label._apply_style()
+        self.__icon_widget._apply_style()
 
     def __apply_size(self):
         style = self.final_style.apply(self.style)
@@ -99,7 +98,7 @@ class KitButton(KitLayoutButton):
         width += style.padding[1] + style.padding[3]
         self.qt_widget.setMinimumSize(width, height)
 
-    def apply_style(self):
+    def _apply_style(self):
         if not self.text:
             self.__label.hide()
         if not self.icon:
@@ -115,7 +114,7 @@ class KitButton(KitLayoutButton):
 
         self.style.align = Qt.AlignmentFlag.AlignCenter
         self.__label.qt_widget.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        super().apply_style()
+        super()._apply_style()
         self.__apply_size()
 
     def apply_lang(self):

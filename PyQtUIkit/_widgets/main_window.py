@@ -62,11 +62,11 @@ class KitMainWindow(KitWidget):
         self.apply_style()
         self.apply_lang()
 
-    def apply_style(self):
-        super().apply_style()
+    def _apply_style(self):
+        super()._apply_style()
         style = self.final_style
         self.qt_widget.setStyleSheet(f"background: rgba{style.background.getRgb()};")
-        self.__central_widget.apply_style()
+        self.__central_widget._apply_style()
 
     def apply_lang(self):
         self.__central_widget.apply_lang()

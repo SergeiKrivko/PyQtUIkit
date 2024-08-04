@@ -16,4 +16,5 @@ from _widgets.spin_box import KitSpinBox
 from _widgets.scroll_area import KitScrollArea
 from _widgets.toggle import KitToggle
 from _widgets.select_button import KitSelectButton
+from _widgets.combo_box import KitComboBox
 

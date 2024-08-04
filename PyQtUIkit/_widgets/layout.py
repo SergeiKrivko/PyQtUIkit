@@ -88,14 +88,14 @@ class KitLayout(KitWidget):
             if isinstance(el, KitWidget):
                 el.apply_lang()
 
-    def apply_style(self):
-        super().apply_style()
+    def _apply_style(self):
+        super()._apply_style()
         self.qt_widget.setContentsMargins(*(self.style.padding or (0, 0, 0, 0)))
         self.qt_widget.setSpacing(self.style.spacing or 0)
         self.qt_widget.setAlignment(self.style.align or Qt.AlignmentFlag.AlignJustify)
         for el in self.__children:
             if isinstance(el, KitWidget):
-                el.apply_style()
+                el._apply_style()
 
 
 class KitHLayout(KitLayout):
@@ -178,12 +178,13 @@ class KitBoxLayout(KitWidget):
         super().apply_lang()
         self.__layout.apply_lang()
 
-    def apply_style(self):
-        super().apply_style()
+    def _apply_style(self):
+        super()._apply_style()
+        self.qt_widget.setStyleSheet('background-color: transparent;')
         self.__layout.style.padding = self.final_style.padding
         self.__layout.style.spacing = self.final_style.spacing
         self.__layout.style.align = self.final_style.align
-        self.__layout.apply_style()
+        self.__layout._apply_style()
 
 
 class KitHBoxLayout(KitBoxLayout):

@@ -33,7 +33,7 @@ class KitSelectButton(KitHGroup):
         for el in self.__sequence.buttons:
             self.add(el)
 
-    def apply_style(self):
+    def _apply_style(self):
         for el in self.__sequence.buttons:
             for cl in ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'contrast', 'fill', 'text',
                        'outline']:
@@ -41,7 +41,7 @@ class KitSelectButton(KitHGroup):
                     el.classes.add(cl)
                 else:
                     el.classes.discard(cl)
-        super().apply_style()
+        super()._apply_style()
 
 
 class _KitSelectButtonItem(KitButton):

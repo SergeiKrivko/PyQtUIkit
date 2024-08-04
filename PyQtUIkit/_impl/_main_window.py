@@ -36,7 +36,7 @@ class KitMainWindow(QMainWindow):
         if hasattr(cw, '_apply_theme'):
             cw._apply_theme()
         if hasattr(self.__menu_bar, '_apply_theme'):
-            self.__menu_bar.apply_style()
+            self.__menu_bar._apply_style()
 
     def _apply_lang(self):
         if not self._tm.active:

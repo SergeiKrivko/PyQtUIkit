@@ -99,12 +99,12 @@ class KitLayoutButton(KitGroupWidget):
     def apply_lang(self):
         self.__layout.apply_lang()
 
-    def apply_style(self):
-        super().apply_style()
+    def _apply_style(self):
+        super()._apply_style()
         style = self.final_style
         self.__layout.style.spacing = style.spacing
         self.__layout.style.align = style.align
-        self.__layout.apply_style()
+        self.__layout._apply_style()
         self.qt_widget.setStyleSheet(s := f"""
         QPushButton {{
             color: rgba{style.color.getRgb()};

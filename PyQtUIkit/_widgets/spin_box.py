@@ -171,7 +171,7 @@ class KitSpinBox(KitHGroup):
     def apply_lang(self):
         self.__line_edit.qt_widget.setPlaceholderText(self.placeholder)
 
-    def apply_style(self):
+    def _apply_style(self):
         for child in [self.__line_edit, self.__button_up, self.__button_down]:
             child.classes.clear()
             for el in ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'contrast']:
@@ -179,5 +179,5 @@ class KitSpinBox(KitHGroup):
                     child.classes.add(el)
         self.__button_up.classes.add('outline')
         self.__button_down.classes.add('outline')
-        super().apply_style()
+        super()._apply_style()
 

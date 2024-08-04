@@ -37,9 +37,9 @@ class KitIconButton(KitLayoutButton):
             self.__icon_widget.classes.add('pressed')
         else:
             self.__icon_widget.classes.discard('pressed')
-        self.__icon_widget.apply_style()
+        self.__icon_widget._apply_style()
 
-    def apply_style(self):
+    def _apply_style(self):
         if 'auto-padding' in self.classes:
             self._layout.style.padding = min(self.width, self.height) // 6
-        super().apply_style()
+        super()._apply_style()

@@ -36,8 +36,8 @@ class KitIconWidget(KitWidget):
     def icon(self, icon: KitIcon):
         self.qt_widget.icon = icon
 
-    def apply_style(self):
-        super().apply_style()
+    def _apply_style(self):
+        super()._apply_style()
         style = self.final_style
         self.qt_widget.setStyleSheet(f"""
         QIconWidget {{

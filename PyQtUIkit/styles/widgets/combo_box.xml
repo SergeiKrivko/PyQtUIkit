@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uikit-style>
+    <type name="KitComboBox">
+        <property name="radius" var="button-border-radius"/>
+        <property name="padding" value="6"/>
+        <property name="spacing" value="5"/>
+
+        <child type="KitBaseMenu">
+            <property name="background" var="secondary-bg-color"/>
+            <property name="radius" var="button-border-radius"/>
+            <property name="border.width" value="1"/>
+            <property name="border.color" var="default-border-color"/>
+            <child type="KitVBoxLayout">
+                <property name="padding" value="5"/>
+                <property name="spacing" value="2"/>
+            </child>
+        </child>
+
+        <property name="background" value="transparent"/>
+        <property name="hover.background" var="transparent-hover-color"/>
+        <property name="border.width" value="1"/>
+
+        <child type="KitLabel KitIconWidget">
+            <property name="color" var="default-text-color"/>
+            <class name="pressed">
+                <property name="color" var="primary-text-color"/>
+            </class>
+        </child>
+        <property name="border.color" var="default-border-color"/>
+        <property name="hover.border.color" var="default-border-color"/>
+        <child type="KitComboBoxItem">
+            <property name="background" value="transparent"/>
+            <property name="hover.background" var="transparent-hover-color"/>
+            <property name="pressed.background" var="primary-color"/>
+        </child>
+
+        <class name="primary">
+            <child type="KitLabel KitIconWidget">
+                <property name="color" var="primary-text-only-color"/>
+                <class name="pressed">
+                    <property name="color" var="primary-text-color"/>
+                </class>
+            </child>
+            <property name="border.color" var="primary-color"/>
+            <property name="hover.border.color" var="primary-hover-color"/>
+            <child type="KitComboBoxItem">
+                <property name="pressed.background" var="primary-pressed-color"/>
+            </child>
+        </class>
+        <class name="secondary">
+            <child type="KitLabel KitIconWidget">
+                <property name="color" var="secondary-text-only-color"/>
+                <class name="pressed">
+                    <property name="color" var="secondary-text-color"/>
+                </class>
+            </child>
+            <property name="border.color" var="secondary-color"/>
+            <property name="hover.border.color" var="secondary-hover-color"/>
+            <child type="KitComboBoxItem">
+                <property name="pressed.background" var="secondary-pressed-color"/>
+            </child>
+        </class>
+        <class name="success">
+            <child type="KitLabel KitIconWidget">
+                <property name="color" var="success-text-only-color"/>
+                <class name="pressed">
+                    <property name="color" var="success-text-color"/>
+                </class>
+            </child>
+            <property name="border.color" var="success-color"/>
+            <property name="hover.border.color" var="success-hover-color"/>
+            <child type="KitComboBoxItem">
+                <property name="pressed.background" var="success-pressed-color"/>
+            </child>
+        </class>
+        <class name="info">
+            <child type="KitLabel KitIconWidget">
+                <property name="color" var="info-text-only-color"/>
+                <class name="pressed">
+                    <property name="color" var="info-text-color"/>
+                </class>
+            </child>
+            <property name="border.color" var="info-color"/>
+            <property name="hover.border.color" var="info-hover-color"/>
+            <child type="KitComboBoxItem">
+                <property name="pressed.background" var="info-pressed-color"/>
+            </child>
+        </class>
+        <class name="warning">
+            <child type="KitLabel KitIconWidget">
+                <property name="color" var="warning-text-only-color"/>
+                <class name="pressed">
+                    <property name="color" var="warning-text-color"/>
+                </class>
+            </child>
+            <property name="border.color" var="warning-color"/>
+            <property name="hover.border.color" var="warning-hover-color"/>
+            <child type="KitComboBoxItem">
+                <property name="pressed.background" var="warning-pressed-color"/>
+            </child>
+        </class>
+        <class name="danger">
+            <child type="KitLabel KitIconWidget">
+                <property name="color" var="danger-text-only-color"/>
+                <class name="pressed">
+                    <property name="color" var="danger-text-color"/>
+                </class>
+            </child>
+            <property name="border.color" var="danger-color"/>
+            <property name="hover.border.color" var="danger-hover-color"/>
+            <child type="KitComboBoxItem">
+                <property name="pressed.background" var="danger-pressed-color"/>
+            </child>
+        </class>
+        <class name="contrast">
+            <child type="KitLabel KitIconWidget">
+                <property name="color" var="contrast-text-only-color"/>
+                <class name="pressed">
+                    <property name="color" var="contrast-text-color"/>
+                </class>
+            </child>
+            <property name="border.color" var="contrast-color"/>
+            <property name="hover.border.color" var="contrast-hover-color"/>
+            <child type="KitComboBoxItem">
+                <property name="pressed.background" var="contrast-pressed-color"/>
+            </child>
+        </class>
+
+    </type>
+</uikit-style>

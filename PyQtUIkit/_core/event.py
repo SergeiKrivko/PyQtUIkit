@@ -37,7 +37,9 @@ class KitSignals:
         for handler in self.__handlers:
             try:
                 handler(event)
-            except TypeError:
+            except TypeError as e:
+                if 'too many arguments' not in str(e) and 'positional argument' not in str(e):
+                    raise e
                 handler()
 
     def __call__(self, event: Any = None):

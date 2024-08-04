@@ -95,8 +95,8 @@ class KitToggle(KitWidget):
         self.__state = bool(value)
         self.__on_state_changed()
 
-    def apply_style(self):
-        super().apply_style()
+    def _apply_style(self):
+        super()._apply_style()
 
         mode = KitToggle.__Mode.LARGE if 'large' in self.classes else (
             KitToggle.__Mode.MEDIUM) if 'medium' in self.classes else KitToggle.__Mode.SMALL
@@ -115,5 +115,5 @@ class KitToggle(KitWidget):
                                             sizes['button_size'], sizes['button_size'])
         self.__button.qt_widget.move(self.__button_x_r if self.__state else self.__button_x, self.__button_y)
 
-        self.__button.apply_style()
-        self.__rail.apply_style()
+        self.__button._apply_style()
+        self.__rail._apply_style()

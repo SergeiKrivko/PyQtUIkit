@@ -87,8 +87,8 @@ class KitLineEdit(KitGroupWidget):
     def apply_lang(self):
         self.qt_widget.setPlaceholderText(self.placeholder)
 
-    def apply_style(self):
-        super().apply_style()
+    def _apply_style(self):
+        super()._apply_style()
         # self.qt_widget.setFont(self.style.font.get())
         style = self.final_style
         self.qt_widget.setStyleSheet(f"""
