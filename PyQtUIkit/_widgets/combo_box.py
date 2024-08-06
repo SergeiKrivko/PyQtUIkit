@@ -4,18 +4,18 @@ from PyQt6.QtCore import Qt, QPoint, QPropertyAnimation, QEasingCurve, QSize, QP
 from PyQt6.QtGui import QFontMetrics
 from PyQt6.QtWidgets import QSizePolicy, QApplication
 
-from _core.button_sequence import ButtonSequence
-from _core.event import KitSignals
-from _core.icon import KitIcon
-from _core.locale import _KitLocaleString, _KitLocaleStringArray
-from _widgets.base_menu import KitBaseMenu
-from _widgets.button import KitButton
-from _widgets.icon_widget import KitIconWidget
-from _widgets.label import KitLabel
-from _widgets.layout import KitVLayout, KitVBoxLayout
-from _widgets.layout_button import KitLayoutButton
-from _widgets.scroll_area import KitScrollArea
-from _widgets.widget import KitWidget
+from PyQtUIkit._core.button_sequence import ButtonSequence
+from PyQtUIkit._core.event import KitSignals
+from PyQtUIkit._core.icon import KitIcon
+from PyQtUIkit._core.locale import _KitLocaleString, _KitLocaleStringArray
+from PyQtUIkit._widgets.base_menu import KitBaseMenu
+from PyQtUIkit._widgets.button import KitButton
+from PyQtUIkit._widgets.icon_widget import KitIconWidget
+from PyQtUIkit._widgets.label import KitLabel
+from PyQtUIkit._widgets.layout import KitVLayout, KitVBoxLayout
+from PyQtUIkit._widgets.layout_button import KitLayoutButton
+from PyQtUIkit._widgets.scroll_area import KitScrollArea
+from PyQtUIkit._widgets.widget import KitWidget
 
 
 class KitComboBox(KitLayoutButton):

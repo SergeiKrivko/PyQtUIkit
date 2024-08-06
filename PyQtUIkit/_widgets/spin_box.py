@@ -1,11 +1,11 @@
 from typing import Iterable
 
 from PyQtUIkit._core.locale import _KitLocaleString, _KitLocaleStringArray
-from _core.event import KitSignals
-from _core.style_obj import ButtonStyle
-from _widgets.group import KitHGroup, KitVGroup
-from _widgets.icon_button import KitIconButton
-from _widgets.line_edit import KitLineEdit
+from PyQtUIkit._core.event import KitSignals
+from PyQtUIkit._core.style_obj import ButtonStyle
+from PyQtUIkit._widgets.group import KitHGroup, KitVGroup
+from PyQtUIkit._widgets.icon_button import KitIconButton
+from PyQtUIkit._widgets.line_edit import KitLineEdit
 
 
 class KitSpinBox(KitHGroup):

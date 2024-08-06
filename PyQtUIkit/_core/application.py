@@ -1,30 +1,79 @@
-import sys
 from typing import Type
 
-import qasync
+from PyQt6.QtWidgets import QApplication
 
+from PyQtUIkit._core.q_application import KitQApplication
+from PyQtUIkit._core.service import KitService
+from PyQtUIkit._core.styles import KitStyleService
 from PyQtUIkit._widgets.main_window import KitMainWindow
 
 
-def except_hook(cls, exception, traceback):
-    sys.__excepthook__(cls, exception, traceback)
+class KitApplication:
+    def __init__(self,
+                 name: str,
+                 version: str,
+                 window: Type[KitMainWindow] | list[Type[KitMainWindow]],
+                 url: str | None = None,
+                 organization: str | None = None,
+                 icons_path: str = 'assets/icons',
+                 locale_path: str = 'assets/locale',
+                 styles: list[str] = None,
+                 ):
+        self.__name: str = name
+        self.__window: list[Type[KitMainWindow]] = window if isinstance(window, list) else [window]
+        self.__icons_path: str = icons_path
+        self.__locale_path: str = locale_path
+        self.__styles: list[str] = styles if styles is not None else []
+        self.__organization: str = organization
+        self.__version: str = version
+        self.__url: str = url
+        self.__app: KitQApplication | None = None
+        self.__run()
 
+    @property
+    def name(self) -> str:
+        return self.__name
 
-class KitApplication(qasync.QApplication):
-    def __init__(self, window: Type[KitMainWindow]):
-        super().__init__([])
-        import asyncio
+    @property
+    def window(self) -> list[Type[KitMainWindow]]:
+        return self.__window
 
-        self.__event_loop = qasync.QEventLoop(super())
-        asyncio.set_event_loop(self.__event_loop)
+    @property
+    def icons_path(self) -> str:
+        return self.__icons_path
 
-        self.__app_close_event = asyncio.Event()
-        self.aboutToQuit.connect(self.__app_close_event.set)
+    @property
+    def styles(self) -> list[str]:
+        return self.__styles
 
-        self._window = window()
-        self._window.show()
-        sys.excepthook = except_hook
+    @property
+    def locale_path(self) -> str:
+        return self.__locale_path
 
-    def exec(self):
-        with self.__event_loop:
-            self.__event_loop.run_until_complete(self.__app_close_event.wait())
+    @property
+    def version(self) -> str:
+        return self.__version
+
+    @property
+    def url(self) -> str:
+        return self.__url
+
+    @property
+    def organization(self) -> str:
+        return self.__organization
+
+    def run(self):
+        QApplication.setApplicationName(self.name)
+        QApplication.setApplicationVersion(self.version)
+        QApplication.setOrganizationName(self.organization)
+        QApplication.setOrganizationDomain(self.url)
+        self.__app = KitQApplication(self.window)
+
+        style_service: KitStyleService = KitService.inject(KitStyleService)
+        for el in self.styles:
+            style_service.parse(el)
+
+        self.__app.exec()
+
+    def __run(self):
+        self.run()

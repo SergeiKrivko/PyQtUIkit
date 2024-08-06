@@ -2,9 +2,9 @@ from typing import Iterable
 
 from PyQt6.QtCore import QSize
 
-from _core.icon import KitIcon
-from _widgets.icon_widget import KitIconWidget
-from _widgets.layout_button import KitLayoutButton
+from PyQtUIkit._core.icon import KitIcon
+from PyQtUIkit._widgets.icon_widget import KitIconWidget
+from PyQtUIkit._widgets.layout_button import KitLayoutButton
 
 
 class KitIconButton(KitLayoutButton):

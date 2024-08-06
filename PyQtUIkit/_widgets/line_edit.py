@@ -3,9 +3,9 @@ from typing import Iterable
 from PyQt6.QtWidgets import QLineEdit
 
 from PyQtUIkit._core.locale import _KitLocaleString, _KitLocaleStringArray
-from _core.event import KitSignals
-from _widgets.group import KitGroupWidget
-from _core.style_obj import ButtonStyle
+from PyQtUIkit._core.event import KitSignals
+from PyQtUIkit._widgets.group import KitGroupWidget
+from PyQtUIkit._core.style_obj import ButtonStyle
 
 
 class KitLineEdit(KitGroupWidget):

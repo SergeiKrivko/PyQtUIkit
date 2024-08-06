@@ -5,15 +5,14 @@ from uuid import uuid4
 from PyQt6.QtWidgets import QApplication, QSizePolicy
 from qasync import asyncSlot
 
-from PyQtUIkit.themes import icons
-from PyQtUIkit._impl import *
+from PyQtUIkit._core import icons
+from PyQtUIkit.widgets import *
 
 
 class MainWindow(KitMainWindow):
     def __init__(self):
         super().__init__()
-        self.set_theme('Dark')
-        self.resize(640, 480)
+        self.qt_widget.resize(640, 480)
         self.__searcher = None
 
         main_layout = KitHBoxLayout()

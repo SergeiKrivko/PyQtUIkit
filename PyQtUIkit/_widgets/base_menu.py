@@ -2,9 +2,9 @@ from typing import Iterable
 
 from PyQt6.QtWidgets import QMenu
 
-from _core.style_obj import CardStyle
-from _widgets.layout import KitLayout
-from _widgets.widget import KitWidget
+from PyQtUIkit._core.style_obj import CardStyle
+from PyQtUIkit._widgets.layout import KitLayout
+from PyQtUIkit._widgets.widget import KitWidget
 
 
 class KitBaseMenu(KitWidget):

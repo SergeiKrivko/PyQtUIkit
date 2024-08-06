@@ -1,6 +1,6 @@
 from typing import Iterable, Callable, Type
 
-from _core.event import KitSignals
+from PyQtUIkit._core.event import KitSignals
 
 
 class ButtonSequence:

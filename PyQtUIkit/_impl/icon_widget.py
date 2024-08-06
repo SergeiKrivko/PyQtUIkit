@@ -1,8 +1,8 @@
 from PyQt6.QtGui import QPainter, QColor
 from PyQt6.QtWidgets import QWidget, QSizePolicy
 
-from _core.icon import KitIcon
-from _core.icons import icons
+from PyQtUIkit._core.icon import KitIcon
+from PyQtUIkit._core.icons import icons
 
 
 class IconWidget(QWidget):

@@ -40,8 +40,7 @@ if __name__ == '__main__':
         },
         entry_points={
             'console_scripts': [
-                'kit-icons = PyQtUIkit._icons:main',
-                'kit-translator = PyQtUIkit._translate:main'
+                'uikit = PyQtUIkit._scripts.main:main'
             ]
         },
         description='A PyQtUIkit package.',

@@ -1,9 +1,9 @@
 from typing import Iterable
 
-from _core.button_sequence import ButtonSequence
-from _core.style_obj import ButtonStyle
-from _widgets.button import KitButton
-from _widgets.group import KitHGroup
+from PyQtUIkit._core.button_sequence import ButtonSequence
+from PyQtUIkit._core.style_obj import ButtonStyle
+from PyQtUIkit._widgets.button import KitButton
+from PyQtUIkit._widgets.group import KitHGroup
 
 
 class KitSelectButton(KitHGroup):

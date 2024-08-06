@@ -4,9 +4,9 @@ from typing import Iterable
 from PyQt6.QtCore import QPropertyAnimation, QPoint, QEasingCurve
 from PyQt6.QtWidgets import QWidget
 
-from _core.event import KitSignals
-from _widgets.layout_button import KitLayoutButton
-from _widgets.widget import KitWidget
+from PyQtUIkit._core.event import KitSignals
+from PyQtUIkit._widgets.layout_button import KitLayoutButton
+from PyQtUIkit._widgets.widget import KitWidget
 
 
 class KitToggle(KitWidget):

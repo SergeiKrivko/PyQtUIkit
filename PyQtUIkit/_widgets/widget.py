@@ -4,9 +4,9 @@ from PyQt6.QtCore import QSize
 from PyQt6.QtWidgets import QWidget, QLayout
 
 from PyQtUIkit._core.event import KitSignals
-from _core.service import KitService
-from _core.style_obj import BaseStyle
-from _core.styles import KitStyle, KitStyleProperty, KitStyleTheme, KitStyleType, KitStyleClass, \
+from PyQtUIkit._core.service import KitService
+from PyQtUIkit._core.style_obj import BaseStyle
+from PyQtUIkit._core.styles import KitStyle, KitStyleProperty, KitStyleTheme, KitStyleType, KitStyleClass, \
     KitStyleAny, KitStyleChild, KitStyleService
 
 

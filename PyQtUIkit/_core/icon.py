@@ -2,7 +2,7 @@ from functools import lru_cache
 
 from PyQt6.QtGui import QPixmap, QImage, QIcon
 
-from _core.svg import SVG
+from PyQtUIkit._core.svg import SVG
 
 
 class KitIcon:

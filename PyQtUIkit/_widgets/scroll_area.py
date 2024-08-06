@@ -3,8 +3,8 @@ from typing import Iterable
 from PyQt6.QtCore import QPropertyAnimation, QParallelAnimationGroup
 from PyQt6.QtWidgets import QScrollArea
 
-from _core.style_obj import CardStyle
-from _widgets.widget import KitWidget
+from PyQtUIkit._core.style_obj import CardStyle
+from PyQtUIkit._widgets.widget import KitWidget
 
 
 class KitScrollArea(KitWidget):

@@ -3,8 +3,8 @@ from typing import Iterable
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QSizePolicy
 
-from _widgets.layout import KitBoxLayout
-from _widgets.widget import KitWidget
+from PyQtUIkit._widgets.layout import KitBoxLayout
+from PyQtUIkit._widgets.widget import KitWidget
 
 
 class KitGroupWidget(KitWidget):

@@ -1,9 +1,9 @@
 from typing import Iterable
 
-from _core.icon import KitIcon
-from _impl.icon_widget import IconWidget
-from _widgets.widget import KitWidget
-from _core.style_obj import CardStyle
+from PyQtUIkit._core.icon import KitIcon
+from PyQtUIkit._impl.icon_widget import IconWidget
+from PyQtUIkit._widgets.widget import KitWidget
+from PyQtUIkit._core.style_obj import CardStyle
 
 
 class KitIconWidget(KitWidget):

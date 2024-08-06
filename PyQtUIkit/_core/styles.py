@@ -3,8 +3,8 @@ from typing import Any
 
 import bs4
 
-from _core.style_obj import BaseStyle
-from _core.service import KitService
+from PyQtUIkit._core.style_obj import BaseStyle
+from PyQtUIkit._core.service import KitService
 
 
 class KitStyle:
@@ -114,7 +114,7 @@ class KitStyleService(KitService):
         self.__variables = {'': dict()}
         self.__styles = []
         self.__theme: str = 'dark'
-        self.parse(r"C:\Users\sergi\PycharmProjects\UIkit\PyQtUIkit\styles\main.xml")
+        self.parse(f"{os.path.dirname(__file__)}/../styles/main.xml")
 
     @property
     def variables(self):
