@@ -61,6 +61,19 @@
         <property name="padding" value="20"/>
     </class>
 
+    <class name="no-spacing">
+        <property name="spacing" value="0"/>
+    </class>
+    <class name="spacing-small">
+        <property name="spacing" value="5"/>
+    </class>
+    <class name="spacing-medium">
+        <property name="spacing" value="10"/>
+    </class>
+    <class name="spacing-large">
+        <property name="spacing" value="20"/>
+    </class>
+
     <class name="no-radius">
         <property name="radius" value="0"/>
     </class>

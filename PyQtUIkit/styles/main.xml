@@ -16,6 +16,7 @@
     <include path="./widgets/toggle.xml"/>
     <include path="./widgets/combo_box.xml"/>
     <include path="./widgets/spinner.xml"/>
+    <include path="./widgets/list_widget.xml"/>
 
     <include path="./classes.xml"/>
 </uikit-style>

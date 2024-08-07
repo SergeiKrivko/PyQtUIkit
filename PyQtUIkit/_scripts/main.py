@@ -2,6 +2,7 @@ import argparse
 from sys import argv
 
 from PyQtUIkit._scripts.project_init import init_project
+from PyQtUIkit._scripts.icons import main as run_icons
 
 
 def main():
@@ -17,7 +18,7 @@ def main():
         case 'init':
             init_project(argv[2:])
         case 'icons':
-            pass
+            run_icons(argv[2:])
         case 'translate':
             pass
 

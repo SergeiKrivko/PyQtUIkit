@@ -230,18 +230,21 @@ class BaseStyle:
         if not if_none or getattr(obj, keys[-1]) is None:
             setattr(obj, keys[-1], value)
 
-    def apply(self, other: 'BaseStyle'):
+    def apply(self, other: 'BaseStyle', if_none=False):
         for el in self._MAIN + self._SUB:
-            val = other.get(el)
-            if isinstance(val, BaseStyle):
-                self.get(el).apply(val)
-            elif val is not None:
-                self.set(el, other.get(el), if_none=False)
+            try:
+                val = other.get(el)
+            except AttributeError as e:
+                pass
+            else:
+                if isinstance(val, BaseStyle):
+                    self.get(el).apply(val, if_none=False)
+                elif val is not None:
+                    self.set(el, val, if_none=if_none)
 
         for sub_name in self._SUB:
             sub: BaseStyle = self.get(sub_name)
-            for el in sub._MAIN + sub._SUB:
-                sub.set(el, self.get(el), if_none=True)
+            sub.apply(self, if_none=True)
         return self
 
 

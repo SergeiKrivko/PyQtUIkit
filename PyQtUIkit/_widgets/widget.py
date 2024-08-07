@@ -216,3 +216,6 @@ class KitWidget:
     def __add_child_style(self, style: KitStyleChild):
         self.__child_styles.append(style)
 
+
+class KitGroupWidget(KitWidget):
+    pass

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uikit-style>
+    <type name="KitListWidget">
+        <property name="background" value="transparent"/>
+        <property name="item.radius" value="5"/>
+
+        <!--    Default    -->
+        <property name="border.color" var="default-border-color"/>
+        <property name="item.color" var="default-text-color"/>
+        <property name="item.hover.background" var="transparent-hover-color"/>
+        <property name="item.pressed.color" var="primary-text-color"/>
+        <property name="item.pressed.background" var="primary-color"/>
+
+        <class name="primary">
+            <property name="color" var="primary-color"/>
+        </class>
+        <class name="secondary">
+            <property name="color" var="secondary-color"/>
+        </class>
+        <class name="success">
+            <property name="color" var="success-color"/>
+        </class>
+        <class name="info">
+            <property name="color" var="info-color"/>
+        </class>
+        <class name="warning">
+            <property name="color" var="warning-color"/>
+        </class>
+        <class name="danger">
+            <property name="color" var="danger-color"/>
+        </class>
+        <class name="contrast">
+            <property name="color" var="contrast-color"/>
+        </class>
+    </type>
+</uikit-style>

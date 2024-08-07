@@ -4,11 +4,8 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QSizePolicy
 
 from PyQtUIkit._widgets.layout import KitBoxLayout
-from PyQtUIkit._widgets.widget import KitWidget
-
-
-class KitGroupWidget(KitWidget):
-    pass
+from PyQtUIkit._widgets.widget import KitWidget, KitGroupWidget
+from PyQtUIkit._widgets.line_edit import KitLineEdit
 
 
 class KitGroup(KitBoxLayout):
@@ -59,11 +56,15 @@ class KitGroup(KitBoxLayout):
 
         if self.__orientation == Qt.Orientation.Horizontal:
             for el in self.children:
-                el.qt_widget.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Expanding)
+                if isinstance(el, KitLineEdit):
+                    el.qt_widget.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+                else:
+                    el.qt_widget.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Expanding)
+            self.qt_widget.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         else:
             for el in self.children:
                 el.qt_widget.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        self.qt_widget.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+            self.qt_widget.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
 
 class KitHGroup(KitGroup):

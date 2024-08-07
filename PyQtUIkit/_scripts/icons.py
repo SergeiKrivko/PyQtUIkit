@@ -1,118 +1,84 @@
-import asyncio
 import sys
-from uuid import uuid4
 
-from PyQt6.QtWidgets import QApplication, QSizePolicy
+from PyQt6.QtWidgets import QApplication
 from qasync import asyncSlot
 
-from PyQtUIkit._core import icons
+from PyQtUIkit._core.icons import icons
+from PyQtUIkit._core.q_application import KitQApplication
 from PyQtUIkit.widgets import *
 
 
 class MainWindow(KitMainWindow):
     def __init__(self):
-        super().__init__()
+        super().__init__(
+            KitHBoxLayout(
+                KitVBoxLayout(
+                    KitHLayout(
+                        line_edit := KitLineEdit(),
+                        spinner := KitSpinner(classes='primary'),
+                        checkmark := KitIconWidget('line-checkmark', classes='success'),
+                        spacing=5,
+                    ),
+                    list_widget := KitListWidget(),
+                    classes='spacing-small'
+                ),
+                KitVLayout(
+                    icon_widget := KitIconWidget(),
+                    KitHGroup(
+                        name_label := KitLineEdit(),
+                        button_copy := KitButton(icon='solid-copy'),
+                    ),
+                ),
+                classes='padding-medium spacing-medium'
+            )
+        )
         self.qt_widget.resize(640, 480)
-        self.__searcher = None
 
-        main_layout = KitHBoxLayout()
-        main_layout.setContentsMargins(10, 10, 10, 10)
-        main_layout.setSpacing(10)
-        self.setCentralWidget(main_layout)
+        self.line_edit = line_edit
+        self.spinner = spinner
+        self.checkmark = checkmark
+        self.icon_widget = icon_widget
+        self.name_label = name_label
+        self.name_label.read_only = True
+        self.checkmark.hide()
 
-        right_layout = KitVBoxLayout()
-        right_layout.setMaximumWidth(300)
-        right_layout.setSpacing(10)
-        main_layout.addWidget(right_layout, 1)
+        self.spinner.size = 26
+        self.spinner.style.padding = 2
+        self.checkmark.size = 26
 
-        top_layout = KitHBoxLayout()
-        top_layout.setSpacing(10)
-        top_layout.setFixedHeight(24)
-        right_layout.addWidget(top_layout)
+        self.list_widget = list_widget
+        self.line_edit.on_text_edit.add(self.reload)
+        self.list_widget.on_current_change.add(self.__on_select)
+        button_copy.on_click.add(self.__copy_icon)
 
-        self.line_edit = KitLineEdit()
-        self.line_edit.setFixedHeight(24)
-        self.line_edit.textEdited.connect(lambda: self.update_icons())
-        top_layout.addWidget(self.line_edit)
-
-        self._spinner = KitSpinner()
-        self._spinner.size = 18
-        self._spinner.width = 3
-        top_layout.addWidget(self._spinner)
-
-        self._icon = KitIconWidget('line-checkmark-circle')
-        self._icon.setFixedSize(20, 20)
-        top_layout.addWidget(self._icon)
-
-        self.list_widget = KitListWidget()
-        self.list_widget.currentItemChanged.connect(self.select_icon)
-        right_layout.addWidget(self.list_widget)
-        self.update_icons()
-
-        right_layout = KitVBoxLayout()
-        main_layout.addWidget(right_layout)
-
-        self.icon_widget = KitIconWidget()
-        right_layout.addWidget(self.icon_widget, 1)
-
-        group = KitHGroup()
-        group.height = 24
-        group.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
-        right_layout.addWidget(group)
-
-        self.copy_line = KitLineEdit()
-        self.copy_line.setReadOnly(True)
-        group.addItem(self.copy_line)
-
-        self.copy_button = KitIconButton('line-copy')
-        self.copy_button.size = 24
-        self.copy_button.clicked.connect(self.copy_icon_name)
-        group.addItem(self.copy_button)
-
-        self._search_id = None
-
-    def select_icon(self):
-        item = self.list_widget.currentItem()
-        if item:
-            self.icon_widget.icon = item.text()
-            self.copy_line.setText(item.text())
-        else:
-            self.icon_widget.icon = ''
-            self.copy_line.setText("")
-
-    def copy_icon_name(self):
-        if self.copy_line.text:
-            QApplication.clipboard().setText(self.copy_line.text)
-
-    def _add_icon(self, key):
-        item = KitListWidgetItem(key, key)
-        self.list_widget.addItem(item)
+        self.reload()
 
     @asyncSlot()
-    async def update_icons(self):
-        self.list_widget.clear()
+    async def reload(self):
+        self.checkmark.hide()
+        self.spinner.show()
+
         search = self.line_edit.text
+        self.list_widget.items = [{
+            'name': el, 'value': el, 'icon': el,
+        } for el in (icons if not search else filter(lambda name: search in name, icons))]
+        status = await self.list_widget.reload_async()
 
-        self._spinner.resume()
-        self._spinner.show()
-        self._icon.hide()
+        if status:
+            self.checkmark.show()
+            self.spinner.hide()
 
-        self._search_id = search_id = uuid4()
+    def __on_select(self, icon):
+        self.icon_widget.icon = icon
+        self.icon_widget.apply_style()
+        self.name_label.text = icon
 
-        for key in icons.keys():
-            if search_id != self._search_id:
-                break
-            if not search or search in key:
-                self._add_icon(key)
-                await asyncio.sleep(0.01)
-
-        self._spinner.pause()
-        self._spinner.hide()
-        self._icon.show()
+    def __copy_icon(self):
+        QApplication.clipboard().setText(self.name_label.text)
 
 
-def main():
-    sys.exit(KitAsyncApplication(MainWindow).exec())
+def main(args=None):
+    sys.exit(KitQApplication([MainWindow]).exec())
 
 
 if __name__ == '__main__':

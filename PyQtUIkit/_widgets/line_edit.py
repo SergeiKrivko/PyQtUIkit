@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QLineEdit
 
 from PyQtUIkit._core.locale import _KitLocaleString, _KitLocaleStringArray
 from PyQtUIkit._core.event import KitSignals
-from PyQtUIkit._widgets.group import KitGroupWidget
+from PyQtUIkit._widgets.widget import KitGroupWidget
 from PyQtUIkit._core.style_obj import ButtonStyle
 
 
@@ -62,6 +62,14 @@ class KitLineEdit(KitGroupWidget):
     @property
     def on_cursor_position_changed(self):
         return self.__cursor_pos_events
+
+    @property
+    def read_only(self):
+        return self.qt_widget.isReadOnly()
+
+    @read_only.setter
+    def read_only(self, value):
+        self.qt_widget.setReadOnly(value)
 
     @property
     def text(self):

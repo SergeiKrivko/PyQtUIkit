@@ -7,8 +7,8 @@ from PyQt6.QtWidgets import QWidget
 from PyQtUIkit._core.event import KitSignals
 from PyQtUIkit._widgets.layout_button import KitLayoutButton
 from PyQtUIkit._widgets.widget import KitWidget
-from _core.style_obj import LayoutCardStyle
-from _impl._spinner import Spinner
+from PyQtUIkit._core.style_obj import LayoutCardStyle
+from PyQtUIkit._impl._spinner import Spinner
 
 
 class KitSpinner(KitWidget):
@@ -34,7 +34,6 @@ class KitSpinner(KitWidget):
         return self.__final_style
 
     def _apply_style(self):
-        self.size = 40
         super()._apply_style()
         style = self.final_style
         width = self.width - style.padding[1] - style.padding[3]

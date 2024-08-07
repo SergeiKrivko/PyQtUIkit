@@ -102,7 +102,8 @@ class KitHLayout(KitLayout):
     def __init__(self, *args,
                  padding: int | tuple[int, int, int, int] | tuple[int, int] | str = None,
                  spacing: int | str = None,
-                 align: Qt.AlignmentFlag | None = None, ):
+                 align: Qt.AlignmentFlag | None = None,
+                 classes: Iterable[str] | str = None):
         super().__init__(Qt.Orientation.Horizontal)
         for el in args:
             self.add(el)
@@ -112,13 +113,16 @@ class KitHLayout(KitLayout):
             self.style.spacing = spacing
         if align is not None:
             self.style.align = align
+        if classes:
+            self.classes = classes
 
 
 class KitVLayout(KitLayout):
     def __init__(self, *args,
                  padding: int | tuple[int, int, int, int] | tuple[int, int] | str = None,
                  spacing: int | str = None,
-                 align: Qt.AlignmentFlag | None = None, ):
+                 align: Qt.AlignmentFlag | None = None,
+                 classes: Iterable[str] | str = None):
         super().__init__(Qt.Orientation.Vertical)
         for el in args:
             self.add(el)
@@ -128,6 +132,8 @@ class KitVLayout(KitLayout):
             self.style.spacing = spacing
         if align is not None:
             self.style.align = align
+        if classes:
+            self.classes = classes
 
 
 class KitBoxLayout(KitWidget):
@@ -191,7 +197,8 @@ class KitHBoxLayout(KitBoxLayout):
     def __init__(self, *args,
                  padding: int | tuple[int, int, int, int] | tuple[int, int] | str = None,
                  spacing: int | str = None,
-                 align: Qt.AlignmentFlag | None = None, ):
+                 align: Qt.AlignmentFlag | None = None,
+                 classes: Iterable[str] | str = None):
         super().__init__(Qt.Orientation.Horizontal)
         for el in args:
             self.add(el)
@@ -201,13 +208,16 @@ class KitHBoxLayout(KitBoxLayout):
             self.style.spacing = spacing
         if align is not None:
             self.style.align = align
+        if classes:
+            self.classes = classes
 
 
 class KitVBoxLayout(KitBoxLayout):
     def __init__(self, *args,
                  padding: int | tuple[int, int, int, int] | tuple[int, int] | str = None,
                  spacing: int | str = None,
-                 align: Qt.AlignmentFlag | None = None, ):
+                 align: Qt.AlignmentFlag | None = None,
+                 classes: Iterable[str] | str = None):
         super().__init__(Qt.Orientation.Vertical)
         for el in args:
             self.add(el)
@@ -217,3 +227,5 @@ class KitVBoxLayout(KitBoxLayout):
             self.style.spacing = spacing
         if align is not None:
             self.style.align = align
+        if classes:
+            self.classes = classes
