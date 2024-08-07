@@ -33,7 +33,6 @@ class KitComboBox(KitLayoutButton):
         self.__sequence.on_reload.add(self.reload)
 
         self.__value_change_events = KitSignals()
-        self.on_value_change.add(print)
 
         self.__icon_widget = KitIconWidget()
         self.add(self.__icon_widget)

@@ -17,4 +17,5 @@ from PyQtUIkit._widgets.scroll_area import KitScrollArea
 from PyQtUIkit._widgets.toggle import KitToggle
 from PyQtUIkit._widgets.select_button import KitSelectButton
 from PyQtUIkit._widgets.combo_box import KitComboBox
+from PyQtUIkit._widgets.spinner import KitSpinner
 

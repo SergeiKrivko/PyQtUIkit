@@ -173,22 +173,22 @@ class KitWidget:
             self.final_style.set(elem.name, elem.value, if_none=False)
         else:
             if isinstance(elem, KitStyleAny):
-                print(f"Adding style {elem} to {self}")
+                # print(f"Adding style {elem} to {self}")
                 for el in elem.children:
                     self.__add_style(el)
             if isinstance(elem, KitStyleTheme) and style_service.theme in elem.names:
-                print(f"Adding style {elem} to {self}")
+                # print(f"Adding style {elem} to {self}")
                 for el in elem.children:
                     self.__add_style(el)
             elif isinstance(elem, KitStyleType) and style_service.check_class(self.__class__, elem.names):
-                print(f"Adding style {elem} to {self}")
+                # print(f"Adding style {elem} to {self}")
                 for el in elem.children:
                     self.__add_style(el)
             elif isinstance(elem, KitStyleChild):
                 for child in self.children:
                     child.__add_child_style(elem)
             elif isinstance(elem, KitStyleClass) and elem.names & self.classes:
-                print(f"Adding style {elem} to {self}")
+                # print(f"Adding style {elem} to {self}")
                 for el in elem.children:
                     self.__add_style(el)
 
@@ -203,7 +203,7 @@ class KitWidget:
                 for e in el.children:
                     self.__add_style(e)
             elif style_service.check_class(self.__class__, el.types):
-                print(f"Adding style {el} to {self}")
+                # print(f"Adding style {el} to {self}")
                 for e in el.children:
                     self.__add_style(e)
             else:

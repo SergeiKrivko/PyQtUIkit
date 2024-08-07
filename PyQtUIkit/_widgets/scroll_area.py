@@ -125,7 +125,7 @@ class KitScrollArea(KitWidget):
             self.__anim = True
 
         style = self.final_style
-        self.qt_widget.setStyleSheet(css := f"""
+        self.qt_widget.setStyleSheet(f"""
 QScrollArea {{
     color: rgba{style.color.getRgb()};
     background-color: rgba{style.background.getRgb()};
@@ -179,6 +179,5 @@ QScrollArea QScrollBar::sub-line, QScrollBar::add-line {{
     subcontrol-origin: margin;
 }}
 """)
-        print(css)
         if self.__widget:
             self.__widget._apply_style()
