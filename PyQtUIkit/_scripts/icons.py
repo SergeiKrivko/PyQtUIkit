@@ -12,7 +12,7 @@ class MainWindow(KitMainWindow):
     def __init__(self):
         super().__init__(
             KitHBoxLayout(
-                KitVBoxLayout(
+                right_column := KitVBoxLayout(
                     KitHLayout(
                         line_edit := KitLineEdit(),
                         spinner := KitSpinner(classes='primary'),
@@ -27,12 +27,14 @@ class MainWindow(KitMainWindow):
                     KitHGroup(
                         name_label := KitLineEdit(),
                         button_copy := KitButton(icon='solid-copy'),
+                        classes='expanded'
                     ),
                 ),
                 classes='padding-medium spacing-medium'
             )
         )
-        self.qt_widget.resize(640, 480)
+        self.resize(640, 480)
+        right_column.max_width = 250
 
         self.line_edit = line_edit
         self.spinner = spinner
@@ -43,7 +45,7 @@ class MainWindow(KitMainWindow):
         self.checkmark.hide()
 
         self.spinner.size = 26
-        self.spinner.style.padding = 2
+        # self.spinner.style.padding = 2
         self.checkmark.size = 26
 
         self.list_widget = list_widget

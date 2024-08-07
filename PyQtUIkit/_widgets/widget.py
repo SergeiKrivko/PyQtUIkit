@@ -112,6 +112,60 @@ class KitWidget:
     def height(self, height: int):
         self.qt_widget.setFixedHeight(height)
 
+    @property
+    def max_width(self):
+        return self.qt_widget.maximumWidth()
+
+    @max_width.setter
+    def max_width(self, width: int):
+        self.qt_widget.setMaximumWidth(width)
+
+    @property
+    def max_height(self):
+        return self.qt_widget.maximumHeight()
+
+    @max_height.setter
+    def max_height(self, height: int):
+        self.qt_widget.setMaximumHeight(height)
+
+    @property
+    def max_size(self):
+        return self.qt_widget.maximumSize()
+
+    @max_size.setter
+    def max_size(self, size: tuple[int, int] | int):
+        if isinstance(size, tuple):
+            self.qt_widget.setMaximumSize(*size)
+        elif isinstance(size, int):
+            self.qt_widget.setMaximumSize(size, size)
+
+    @property
+    def min_width(self):
+        return self.qt_widget.minimumWidth()
+
+    @min_width.setter
+    def min_width(self, width: int):
+        self.qt_widget.setMinimumWidth(width)
+
+    @property
+    def min_height(self):
+        return self.qt_widget.minimumHeight()
+
+    @min_height.setter
+    def min_height(self, height: int):
+        self.qt_widget.setMinimumHeight(height)
+
+    @property
+    def min_size(self):
+        return self.qt_widget.minimumSize()
+
+    @min_size.setter
+    def min_size(self, size: tuple[int, int] | int):
+        if isinstance(size, tuple):
+            self.qt_widget.setMinimumSize(size[0], size[1])
+        elif isinstance(size, int):
+            self.qt_widget.setMinimumSize(size, size)
+
     @size.setter
     def size(self, size: QSize | tuple[int, int] | int):
         if isinstance(size, tuple):
@@ -120,6 +174,9 @@ class KitWidget:
             self.qt_widget.setFixedSize(size, size)
         else:
             self.qt_widget.setFixedSize(size)
+
+    def resize(self, width, height):
+        self.qt_widget.resize(width, height)
 
     def __qt_show_event(self, event):
         self.__show_events(event)

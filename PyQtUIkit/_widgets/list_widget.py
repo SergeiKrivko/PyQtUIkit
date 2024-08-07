@@ -3,7 +3,7 @@ from typing import Iterable
 from uuid import uuid4
 
 from PyQt6.QtCore import QPropertyAnimation, QParallelAnimationGroup
-from PyQt6.QtGui import QIcon
+from PyQt6.QtGui import QIcon, QColor
 from PyQt6.QtWidgets import QListWidget, QListWidgetItem
 
 from PyQtUIkit._core.style_obj import ListStyle
@@ -135,10 +135,14 @@ class KitListWidget(KitWidget):
 
     def _add(self, item: '_KitListWidgetItem'):
         self.qt_widget.addItem(item)
+        item.apply_lang()
+        item.apply_style(self.final_style.item.color)
         return item
 
     def _insert(self, index: int, item: '_KitListWidgetItem'):
         self.qt_widget.insertItem(index, item)
+        item.apply_lang()
+        item.apply_style(self.final_style.item.color)
         return item
 
     def _pop(self, index: int):
@@ -209,7 +213,6 @@ class KitListWidget(KitWidget):
             self.__anim = True
 
         style = self.final_style
-        print(style.item.color.name())
         self.qt_widget.setStyleSheet(f"""
 QListWidget {{
     color: rgba{style.color.getRgb()};
@@ -297,8 +300,6 @@ class _KitListWidgetItem(QListWidgetItem):
         self.__text = text
         self.__value = value or text
         self.__icon = icon
-        self.apply_lang()
-        self.apply_style()
 
     @property
     def text(self):
@@ -333,5 +334,5 @@ class _KitListWidgetItem(QListWidgetItem):
     def apply_lang(self):
         self.setText(self.text)
 
-    def apply_style(self):
-        self.setIcon(QIcon() if not self.icon else self.icon.icon())
+    def apply_style(self, color: QColor):
+        self.setIcon(QIcon() if not self.icon else self.icon.icon(color=color.name()))
