@@ -190,7 +190,7 @@ class KitBoxLayout(KitWidget):
         self.__layout.style.padding = self.final_style.padding
         self.__layout.style.spacing = self.final_style.spacing
         self.__layout.style.align = self.final_style.align
-        self.__layout._apply_style()
+        self.__layout.apply_style()
 
 
 class KitHBoxLayout(KitBoxLayout):

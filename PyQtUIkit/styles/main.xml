@@ -17,6 +17,7 @@
     <include path="./widgets/combo_box.xml"/>
     <include path="./widgets/spinner.xml"/>
     <include path="./widgets/list_widget.xml"/>
+    <include path="./widgets/checkbox.xml"/>
 
     <include path="./classes.xml"/>
 </uikit-style>

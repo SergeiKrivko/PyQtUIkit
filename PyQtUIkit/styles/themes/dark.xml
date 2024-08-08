@@ -3,6 +3,7 @@
     <theme name="dark">
         <var name="default-text-color" value="#F0F0F0"/>
         <var name="default-border-color" value="#66666E"/>
+        <var name="transparent-color" value="#00FFFFFF"/>
         <var name="transparent-hover-color" value="#20FFFFFF"/>
 
         <var name="primary-color" value="#60A5FA"/>

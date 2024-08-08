@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uikit-style>
+    <type name="KitCheckbox">
+        <property name="padding" value="2"/>
+        <property name="spacing" value="5"/>
+
+        <child type="KitIconButton">
+            <property name="color" var="primary-text-color"/>
+            <property name="background" var="transparent-color"/>
+            <property name="hover.background" var="transparent-hover-color"/>
+            <property name="border.color" var="default-border-color"/>
+            <property name="border.width" value="1"/>
+        </child>
+        <child type="KitButton">
+            <child type="KitLabel">
+                <property name="color" var="default-text-color"/>
+            </child>
+            <property name="background" var="transparent-color"/>
+            <property name="hover.background" var="transparent-color"/>
+            <property name="pressed.background" var="transparent-color"/>
+        </child>
+
+        <!--    Default    -->
+
+        <child type="KitIconButton">
+            <property name="color" var="primary-text-color"/>
+            <property name="pressed.background" var="primary-color"/>
+        </child>
+
+        <class name="primary">
+            <child type="KitIconButton">
+                <property name="color" var="primary-text-color"/>
+                <property name="pressed.background" var="primary-color"/>
+            </child>
+            <child type="KitButton">
+                <child type="KitLabel">
+                    <property name="color" var="primary-text-only-color"/>
+                </child>
+            </child>
+        </class>
+        <class name="secondary">
+            <child type="KitIconButton">
+                <property name="color" var="secondary-text-color"/>
+                <property name="pressed.background" var="secondary-color"/>
+            </child>
+            <child type="KitButton">
+                <child type="KitLabel">
+                    <property name="color" var="secondary-text-only-color"/>
+                </child>
+            </child>
+        </class>
+        <class name="success">
+            <child type="KitIconButton">
+                <property name="color" var="success-text-color"/>
+                <property name="pressed.background" var="success-color"/>
+            </child>
+            <child type="KitButton">
+                <child type="KitLabel">
+                    <property name="color" var="success-text-only-color"/>
+                </child>
+            </child>
+        </class>
+        <class name="info">
+            <child type="KitIconButton">
+                <property name="color" var="info-text-color"/>
+                <property name="pressed.background" var="info-color"/>
+            </child>
+            <child type="KitButton">
+                <child type="KitLabel">
+                    <property name="color" var="info-text-only-color"/>
+                </child>
+            </child>
+        </class>
+        <class name="warning">
+            <child type="KitIconButton">
+                <property name="color" var="warning-text-color"/>
+                <property name="pressed.background" var="warning-color"/>
+            </child>
+            <child type="KitButton">
+                <child type="KitLabel">
+                    <property name="color" var="warning-text-only-color"/>
+                </child>
+            </child>
+        </class>
+        <class name="danger">
+            <child type="KitIconButton">
+                <property name="color" var="danger-text-color"/>
+                <property name="pressed.background" var="danger-color"/>
+            </child>
+            <child type="KitButton">
+                <child type="KitLabel">
+                    <property name="color" var="danger-text-only-color"/>
+                </child>
+            </child>
+        </class>
+        <class name="contrast">
+            <child type="KitIconButton">
+                <property name="color" var="contrast-text-color"/>
+                <property name="pressed.background" var="contrast-color"/>
+            </child>
+            <child type="KitButton">
+                <child type="KitLabel">
+                    <property name="color" var="contrast-text-only-color"/>
+                </child>
+            </child>
+        </class>
+    </type>
+</uikit-style>

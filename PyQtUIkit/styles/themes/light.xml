@@ -3,6 +3,7 @@
     <theme name="light">
         <var name="default-text-color" value="#0A0A0A"/>
         <var name="default-border-color" value="#A1A1AD"/>
+        <var name="transparent-color" value="#00000000"/>
         <var name="transparent-hover-color" value="#20000000"/>
 
         <var name="primary-color" value="#3B82F6"/>
