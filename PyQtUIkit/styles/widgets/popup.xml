@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uikit-style>
+    <type name="KitPopup">
+        <property name="background" var="secondary-bg-color"/>
+        <property name="radius" var="button-border-radius"/>
+        <property name="border.width" value="1"/>
+        <property name="border.color" var="default-border-color"/>
+    </type>
+</uikit-style>

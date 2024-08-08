@@ -5,7 +5,7 @@
         <property name="padding" value="6"/>
         <property name="spacing" value="5"/>
 
-        <child type="KitBaseMenu">
+        <child type="KitBasePopup">
             <property name="background" var="secondary-bg-color"/>
             <property name="radius" var="button-border-radius"/>
             <property name="border.width" value="1"/>

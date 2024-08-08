@@ -1,11 +1,12 @@
 from typing import Iterable
 
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QPoint
 from PyQt6.QtWidgets import QPushButton, QWidget, QLayout
 
 from PyQtUIkit._widgets.group import KitGroupWidget
 from PyQtUIkit._widgets.layout import KitLayout
 from PyQtUIkit._widgets.widget import KitWidget
+from PyQtUIkit._widgets.base_popup import KitBasePopup
 from PyQtUIkit._core.style_obj import ButtonStyle
 from PyQtUIkit._core.event import KitSignals
 
@@ -29,6 +30,8 @@ class KitLayoutButton(KitGroupWidget):
         if classes:
             self.classes = classes
         self.checkable = checkable
+
+        self.__popup: KitBasePopup | None = None
 
         self.qt_widget.setCursor(Qt.CursorShape.PointingHandCursor)
 
@@ -75,10 +78,22 @@ class KitLayoutButton(KitGroupWidget):
         if value != old:
             self.__state_change_events(value)
 
+    @property
+    def popup(self):
+        return self.__popup
+
+    @popup.setter
+    def popup(self, value: KitBasePopup):
+        self.__popup = value
+
     def __on_click(self, value):
         self.__click_events()
         if self.checkable:
             self.__state_change_events(value)
+        if self.__popup:
+            pos = self.qt_widget.mapToGlobal(QPoint())
+            self.__popup.move(pos.x(), pos.y() + self.height + 5)
+            self.__popup.exec()
 
     @property
     def _layout(self) -> KitLayout:

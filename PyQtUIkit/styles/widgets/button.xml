@@ -195,7 +195,7 @@
     </type>
 
     <type name="KitButton">
-        <property name="padding" value="6 6 6 6"/>
+        <property name="padding" value="6"/>
         <property name="spacing" value="5"/>
     </type>
 

@@ -18,6 +18,7 @@
     <include path="./widgets/spinner.xml"/>
     <include path="./widgets/list_widget.xml"/>
     <include path="./widgets/checkbox.xml"/>
+    <include path="./widgets/popup.xml"/>
 
     <include path="./classes.xml"/>
 </uikit-style>

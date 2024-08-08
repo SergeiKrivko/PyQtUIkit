@@ -7,11 +7,13 @@ from PyQtUIkit._widgets.layout import KitLayout
 from PyQtUIkit._widgets.widget import KitWidget
 
 
-class KitBaseMenu(KitWidget):
-    def __init__(self):
+class KitBasePopup(KitWidget):
+    def __init__(self, layout: KitLayout = None):
         super().__init__(QMenu())
 
-        self.__layout = None
+        self.__layout = layout
+        if layout:
+            self.qt_widget.setLayout(layout.qt_widget)
         self.__style = CardStyle()
         self.__final_style = CardStyle()
 
@@ -40,6 +42,9 @@ class KitBaseMenu(KitWidget):
         self.__layout = layout
         self.qt_widget.setLayout(layout.qt_widget)
 
+    def exec(self):
+        return self.qt_widget.exec()
+
     def _apply_style(self):
         super()._apply_style()
         style = self.final_style
@@ -57,3 +62,10 @@ QMenu {{
 
     def apply_lang(self):
         self.__layout.apply_lang()
+
+
+class KitPopup(KitBasePopup):
+    def __init__(self, layout: KitLayout = None):
+        super().__init__(layout)
+        self.on_show.add(self.apply_style)
+        self.on_show.add(self.apply_lang)

@@ -1,5 +1,6 @@
 import sys
 
+from PyQt6.QtCore import QPoint
 from PyQt6.QtWidgets import QApplication
 from qasync import asyncSlot
 
@@ -14,6 +15,7 @@ class MainWindow(KitMainWindow):
             KitHBoxLayout(
                 right_column := KitVBoxLayout(
                     KitHLayout(
+                        options_button := KitButton(icon='solid-options', classes='text'),
                         line_edit := KitLineEdit(),
                         spinner := KitSpinner(classes='primary'),
                         checkmark := KitIconWidget('line-checkmark', classes='success'),
@@ -53,22 +55,28 @@ class MainWindow(KitMainWindow):
         self.list_widget.on_current_change.add(self.__on_select)
         button_copy.on_click.add(self.__copy_icon)
 
+        self.popup = Popup()
+        options_button.popup = self.popup
+
         self.reload()
 
     @asyncSlot()
     async def reload(self):
-        self.checkmark.hide()
-        self.spinner.show()
 
         search = self.line_edit.text
-        self.list_widget.items = [{
+        config = self.popup.value
+        items = [{
             'name': el, 'value': el, 'icon': el,
-        } for el in (icons if not search else filter(lambda name: search in name, icons))]
-        status = await self.list_widget.reload_async()
+        } for el in (icons if not search else (smart_filter if config.get('smart_search') else simple_filter)(search))]
+        if items != self.list_widget.items:
+            self.list_widget.items = items
 
-        if status:
-            self.checkmark.show()
-            self.spinner.hide()
+            self.checkmark.hide()
+            self.spinner.show()
+            status = await self.list_widget.reload_async()
+            if status:
+                self.checkmark.show()
+                self.spinner.hide()
 
     def __on_select(self, icon):
         self.icon_widget.icon = icon
@@ -77,6 +85,31 @@ class MainWindow(KitMainWindow):
 
     def __copy_icon(self):
         QApplication.clipboard().setText(self.name_label.text)
+
+
+class Popup(KitPopup):
+    def __init__(self):
+        super().__init__(KitVLayout(
+            smart_search := KitCheckbox('Расширенный поиск'),
+            padding=10
+        ))
+        self.__smart_search = smart_search
+        self.__smart_search.state = True
+
+    @property
+    def value(self):
+        return {
+            'smart_search': self.__smart_search.state
+        }
+
+
+def simple_filter(text):
+    return filter(lambda name: text in name, icons)
+
+
+def smart_filter(text: str):
+    lst = text.replace('-', ' ').split()
+    return filter(lambda name: all(el in name for el in lst), icons)
 
 
 def main(args=None):

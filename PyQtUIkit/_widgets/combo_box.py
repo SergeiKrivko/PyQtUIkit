@@ -8,7 +8,7 @@ from PyQtUIkit._core.button_sequence import ButtonSequence
 from PyQtUIkit._core.event import KitSignals
 from PyQtUIkit._core.icon import KitIcon
 from PyQtUIkit._core.locale import _KitLocaleString, _KitLocaleStringArray
-from PyQtUIkit._widgets.base_menu import KitBaseMenu
+from PyQtUIkit._widgets.base_popup import KitBasePopup
 from PyQtUIkit._widgets.button import KitButton
 from PyQtUIkit._widgets.icon_widget import KitIconWidget
 from PyQtUIkit._widgets.label import KitLabel
@@ -44,7 +44,7 @@ class KitComboBox(KitLayoutButton):
         self.__arrow_widget.size = 20
         self.add(self.__arrow_widget)
 
-        self.__menu = KitComboBoxMenu(self.__sequence)
+        self.__menu = KitComboBoxPopup(self.__sequence)
 
         self.on_click.add(self.__on_clicked)
         self.qt_widget.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
@@ -153,7 +153,7 @@ class KitComboBoxItem(KitButton):
         return self.__value
 
 
-class KitComboBoxMenu(KitBaseMenu):
+class KitComboBoxPopup(KitBasePopup):
     def __init__(self, sequence: ButtonSequence):
         super().__init__()
         self.__sequence = sequence

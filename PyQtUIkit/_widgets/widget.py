@@ -178,6 +178,9 @@ class KitWidget:
     def resize(self, width, height):
         self.qt_widget.resize(width, height)
 
+    def move(self, x, y):
+        self.qt_widget.move(x, y)
+
     def __qt_show_event(self, event):
         self.__show_events(event)
         self.qt_widget.__class__.showEvent(self.qt_widget, event)
