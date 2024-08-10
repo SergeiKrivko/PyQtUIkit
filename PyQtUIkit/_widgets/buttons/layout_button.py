@@ -4,9 +4,9 @@ from PyQt6.QtCore import Qt, QPoint
 from PyQt6.QtWidgets import QPushButton, QWidget, QLayout
 
 from PyQtUIkit._widgets.group import KitGroupWidget
-from PyQtUIkit._widgets.layout import KitLayout
+from PyQtUIkit._widgets.layout.base import KitLayout
 from PyQtUIkit._widgets.widget import KitWidget
-from PyQtUIkit._widgets.base_popup import KitBasePopup
+from PyQtUIkit._widgets.overlay.base_popup import KitBasePopup
 from PyQtUIkit._core.style_obj import ButtonStyle
 from PyQtUIkit._core.event import KitSignals
 

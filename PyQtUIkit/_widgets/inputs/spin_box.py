@@ -4,8 +4,8 @@ from PyQtUIkit._core.locale import _KitLocaleString, _KitLocaleStringArray
 from PyQtUIkit._core.event import KitSignals
 from PyQtUIkit._core.style_obj import ButtonStyle
 from PyQtUIkit._widgets.group import KitHGroup, KitVGroup
-from PyQtUIkit._widgets.icon_button import KitIconButton
-from PyQtUIkit._widgets.line_edit import KitLineEdit
+from PyQtUIkit._widgets.buttons.icon_button import KitIconButton
+from PyQtUIkit._widgets.inputs.line_edit import KitLineEdit
 
 
 class KitSpinBox(KitHGroup):

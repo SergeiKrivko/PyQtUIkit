@@ -2,7 +2,7 @@ from typing import Iterable
 
 from PyQt6.QtWidgets import QMainWindow, QWidget
 
-from PyQtUIkit._widgets.layout import KitVLayout
+from PyQtUIkit._widgets.layout.base import KitVLayout
 from PyQtUIkit._widgets.widget import KitWidget
 from PyQtUIkit._core.style_obj import CardStyle
 

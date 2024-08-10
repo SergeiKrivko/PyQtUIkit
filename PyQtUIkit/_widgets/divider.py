@@ -5,7 +5,6 @@ from PyQt6.QtWidgets import QWidget, QHBoxLayout
 
 from PyQtUIkit._widgets.widget import KitWidget
 from PyQtUIkit._core.style_obj import CardStyle
-from PyQtUIkit._widgets.layout import KitLayout
 
 
 class KitDivider(KitWidget):

@@ -6,10 +6,10 @@ from PyQt6.QtWidgets import QLabel
 from PyQtUIkit._core.locale import _KitLocaleString, _KitLocaleStringArray
 from PyQtUIkit._widgets.widget import KitWidget
 from PyQtUIkit._core.style_obj import LayoutCardStyle
-from _core.event import KitSignals
-from _widgets.button import KitButton
-from _widgets.icon_button import KitIconButton
-from _widgets.layout import KitHLayout
+from PyQtUIkit._core.event import KitSignals
+from PyQtUIkit._widgets.buttons.button import KitButton
+from PyQtUIkit._widgets.buttons.icon_button import KitIconButton
+from PyQtUIkit._widgets.layout.base import KitHLayout
 
 
 class KitCheckbox(KitHLayout):

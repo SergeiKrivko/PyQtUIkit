@@ -9,7 +9,7 @@ from PyQtUIkit._core.icon import KitIcon
 from PyQtUIkit._core.locale import _KitLocaleString, _KitLocaleStringArray
 from PyQtUIkit._widgets.icon_widget import KitIconWidget
 from PyQtUIkit._widgets.label import KitLabel
-from PyQtUIkit._widgets.layout_button import KitLayoutButton
+from PyQtUIkit._widgets.buttons.layout_button import KitLayoutButton
 
 
 class KitButton(KitLayoutButton):

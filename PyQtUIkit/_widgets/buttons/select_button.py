@@ -2,7 +2,7 @@ from typing import Iterable
 
 from PyQtUIkit._core.button_sequence import ButtonSequence
 from PyQtUIkit._core.style_obj import ButtonStyle
-from PyQtUIkit._widgets.button import KitButton
+from PyQtUIkit._widgets.buttons.button import KitButton
 from PyQtUIkit._widgets.group import KitHGroup
 
 

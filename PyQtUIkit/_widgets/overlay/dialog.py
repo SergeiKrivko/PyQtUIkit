@@ -6,7 +6,7 @@ from PyQt6.QtWidgets import QWidget, QHBoxLayout, QDialog
 
 from PyQtUIkit._widgets.widget import KitWidget
 from PyQtUIkit._core.style_obj import CardStyle
-from PyQtUIkit._widgets.layout import KitLayout
+from PyQtUIkit._widgets.layout.base import KitLayout
 
 
 class KitDialog(KitWidget):

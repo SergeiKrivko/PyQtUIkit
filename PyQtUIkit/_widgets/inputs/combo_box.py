@@ -8,12 +8,13 @@ from PyQtUIkit._core.button_sequence import ButtonSequence
 from PyQtUIkit._core.event import KitSignals
 from PyQtUIkit._core.icon import KitIcon
 from PyQtUIkit._core.locale import _KitLocaleString, _KitLocaleStringArray
-from PyQtUIkit._widgets.base_popup import KitBasePopup
-from PyQtUIkit._widgets.button import KitButton
+from PyQtUIkit._widgets.overlay.base_popup import KitBasePopup
+from PyQtUIkit._widgets.buttons.button import KitButton
 from PyQtUIkit._widgets.icon_widget import KitIconWidget
 from PyQtUIkit._widgets.label import KitLabel
-from PyQtUIkit._widgets.layout import KitVLayout, KitVBoxLayout
-from PyQtUIkit._widgets.layout_button import KitLayoutButton
+from PyQtUIkit._widgets.layout.base import KitVLayout
+from PyQtUIkit._widgets.layout.box import KitVBoxLayout
+from PyQtUIkit._widgets.buttons.layout_button import KitLayoutButton
 from PyQtUIkit._widgets.scroll_area import KitScrollArea
 from PyQtUIkit._widgets.widget import KitWidget
 

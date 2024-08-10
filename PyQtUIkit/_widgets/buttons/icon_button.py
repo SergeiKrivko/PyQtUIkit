@@ -4,7 +4,7 @@ from PyQt6.QtCore import QSize
 
 from PyQtUIkit._core.icon import KitIcon
 from PyQtUIkit._widgets.icon_widget import KitIconWidget
-from PyQtUIkit._widgets.layout_button import KitLayoutButton
+from PyQtUIkit._widgets.buttons.layout_button import KitLayoutButton
 
 
 class KitIconButton(KitLayoutButton):
