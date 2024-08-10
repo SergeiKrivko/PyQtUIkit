@@ -58,6 +58,10 @@ class KitNavBar(KitCard):
     def final_style(self) -> ButtonStyle:
         return self.__final_style
 
+    @property
+    def _sequence(self):
+        return self.__sequence
+
     def __reload(self):
         self.__layout.clear()
         for el in self.__sequence.buttons:

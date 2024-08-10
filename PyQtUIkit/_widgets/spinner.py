@@ -32,7 +32,7 @@ class KitSpinner(KitWidget):
         style = self.final_style
         width = self.width - style.padding[1] - style.padding[3]
         height = self.height - style.padding[0] - style.padding[2]
-        size = min(width, height)
+        size = min(width, height, 80)
         self.qt_widget.spinner_size = size
         self.qt_widget.color = style.color
         self.qt_widget.spinner_width = 2

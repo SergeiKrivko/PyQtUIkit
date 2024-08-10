@@ -24,6 +24,7 @@ from PyQtUIkit._widgets.list_widget import KitListWidget
 from PyQtUIkit._widgets.checkbox import KitCheckbox
 from PyQtUIkit._widgets.divider import KitDivider
 from PyQtUIkit._widgets.nav_bar import KitNavBar
+from PyQtUIkit._widgets.layout.tabs import KitTabLayout
 
 from PyQtUIkit._widgets.overlay.dialog import KitDialog
 
