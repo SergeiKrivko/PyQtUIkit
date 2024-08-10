@@ -87,13 +87,13 @@ class KitLayoutButton(KitGroupWidget):
         self.__popup = value
 
     def __on_click(self, value):
-        self.__click_events()
         if self.checkable:
             self.__state_change_events(value)
         if self.__popup:
             pos = self.qt_widget.mapToGlobal(QPoint())
             self.__popup.move(pos.x(), pos.y() + self.height + 5)
             self.__popup.exec()
+        self.__click_events()
 
     @property
     def _layout(self) -> KitLayout:

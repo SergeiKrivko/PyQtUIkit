@@ -215,6 +215,14 @@ class KitWidget:
     def hide(self):
         self.qt_widget.hide()
 
+    @property
+    def hidden(self):
+        return self.qt_widget.isHidden()
+
+    @hidden.setter
+    def hidden(self, value):
+        self.qt_widget.setHidden(bool(value))
+
     def _apply_style(self):
         self.__load_styles()
         self.final_style.apply(self.style)

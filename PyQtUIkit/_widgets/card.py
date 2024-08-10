@@ -1,5 +1,6 @@
 from typing import Iterable
 
+from PyQt6.QtCore import pyqtProperty, pyqtSignal
 from PyQt6.QtWidgets import QWidget, QHBoxLayout
 
 from PyQtUIkit._widgets.widget import KitWidget
@@ -7,11 +8,24 @@ from PyQtUIkit._core.style_obj import CardStyle
 from PyQtUIkit._widgets.layout import KitLayout
 
 
+class CardQtWidget(QWidget):
+    sizeChanged = pyqtSignal(int, int)
+
+    @pyqtProperty(int)
+    def card_width(self):
+        return self.width()
+
+    @card_width.setter
+    def card_width(self, value):
+        self.setFixedWidth(value)
+        self.sizeChanged.emit(value, self.height())
+
+
 class KitCard(KitWidget):
     def __init__(self,
                  layout: KitLayout = None,
                  classes: Iterable[str] | str = None, ):
-        super().__init__(QWidget())
+        super().__init__(CardQtWidget())
         strange_layout = QHBoxLayout()
         strange_layout.setContentsMargins(0, 0, 0, 0)
         self.qt_widget.setLayout(strange_layout)
@@ -26,7 +40,7 @@ class KitCard(KitWidget):
             self.classes = classes
 
     @property
-    def qt_widget(self) -> QWidget:
+    def qt_widget(self) -> CardQtWidget:
         return super().qt_widget
 
     @property

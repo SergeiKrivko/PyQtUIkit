@@ -90,19 +90,21 @@ class KitButton(KitLayoutButton):
         if self.icon:
             if self.icon_pos == KitButton.IconPosition.LEFT or self.icon_pos == KitButton.IconPosition.RIGHT:
                 self.__icon_widget.qt_widget.setFixedSize(self._DEFAULT_H_ICON_SIZE, height)
-                width += style.spacing + self._DEFAULT_H_ICON_SIZE
+                width += self._DEFAULT_H_ICON_SIZE
+                if self.text:
+                    width += style.spacing
             elif self.icon_pos == KitButton.IconPosition.TOP or self.icon_pos == KitButton.IconPosition.BOTTOM:
                 self.__icon_widget.qt_widget.setFixedSize(width, self._DEFAULT_V_ICON_SIZE)
-                height += style.spacing + self._DEFAULT_V_ICON_SIZE
+                height += self._DEFAULT_V_ICON_SIZE
+                if self.text:
+                    height += style.spacing
         height += style.padding[0] + style.padding[2]
         width += style.padding[1] + style.padding[3]
         self.qt_widget.setMinimumSize(width, height)
 
     def _apply_style(self):
-        if not self.text:
-            self.__label.hide()
-        if not self.icon:
-            self.__icon_widget.hide()
+        self.__label.hidden = not self.text
+        self.__icon_widget.hidden = not self.icon
         if self.icon_pos == KitButton.IconPosition.LEFT:
             self._layout.qt_widget.setDirection(QBoxLayout.Direction.RightToLeft)
         elif self.icon_pos == KitButton.IconPosition.TOP:

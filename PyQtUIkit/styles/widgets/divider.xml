@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uikit-style>
+    <type name="KitDivider">
+        <property name="border.color" var="default-border-color"/>
+        <property name="border.width" value="1"/>
+    </type>
+</uikit-style>

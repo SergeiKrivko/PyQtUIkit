@@ -21,4 +21,6 @@ from PyQtUIkit._widgets.combo_box import KitComboBox
 from PyQtUIkit._widgets.spinner import KitSpinner
 from PyQtUIkit._widgets.list_widget import KitListWidget
 from PyQtUIkit._widgets.checkbox import KitCheckbox
+from PyQtUIkit._widgets.divider import KitDivider
+from PyQtUIkit._widgets.nav_bar import KitNavBar
 

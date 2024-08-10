@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uikit-style>
+    <type name="KitNavBar">
+        <property name="radius" value="0"/>
+        <property name="background" var="secondary-bg-color"/>
+        <child type="KitLayout">
+            <property name="padding" value="10"/>
+            <property name="spacing" value="8"/>
+            <child type="KitBoxLayout">
+                <property name="spacing" value="3"/>
+            </child>
+        </child>
+        <child type="_KitNavBarItem">
+            <property name="padding" value="6"/>
+            <property name="spacing" value="5"/>
+        </child>
+    </type>
+</uikit-style>
