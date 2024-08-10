@@ -1,6 +1,6 @@
 from typing import Iterable
 
-from PyQt6.QtCore import QSize
+from PyQt6.QtCore import QSize, QPoint
 from PyQt6.QtWidgets import QWidget, QLayout
 
 from PyQtUIkit._core.event import KitSignals
@@ -178,8 +178,11 @@ class KitWidget:
     def resize(self, width, height):
         self.qt_widget.resize(width, height)
 
-    def move(self, x, y):
-        self.qt_widget.move(x, y)
+    def move(self, x: int | QPoint, y: int = None):
+        if isinstance(x, QPoint):
+            self.qt_widget.move(x)
+        else:
+            self.qt_widget.move(x, y)
 
     def __qt_show_event(self, event):
         self.__show_events(event)

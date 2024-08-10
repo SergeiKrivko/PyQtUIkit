@@ -21,6 +21,7 @@
     <include path="./widgets/popup.xml"/>
     <include path="./widgets/divider.xml"/>
     <include path="./widgets/nav_bar.xml"/>
+    <include path="./widgets/dialog.xml"/>
 
     <include path="./classes.xml"/>
 </uikit-style>
