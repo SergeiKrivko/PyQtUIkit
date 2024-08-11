@@ -10,6 +10,7 @@
     <var name="font-h2" value="24"/>
     <var name="font-h3" value="18"/>
     <var name="font-h4" value="14"/>
+    <var name="font-h5" value="12"/>
 
     <class name="mono">
         <property name="font.family" value="Roboto Mono"/>
@@ -25,6 +26,9 @@
     </class>
     <class name="h4">
         <property name="font.size" var="font-h4"/>
+    </class>
+    <class name="h5">
+        <property name="font.size" var="font-h5"/>
     </class>
     <class name="s1">
         <property name="font.size" var="font-s1"/>

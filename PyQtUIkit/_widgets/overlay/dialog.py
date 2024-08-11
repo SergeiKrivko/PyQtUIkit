@@ -6,12 +6,14 @@ from PyQt6.QtWidgets import QWidget, QHBoxLayout, QDialog
 
 from PyQtUIkit._widgets.widget import KitWidget
 from PyQtUIkit._core.style_obj import CardStyle
-from PyQtUIkit._widgets.layout.base import KitLayout
+from PyQtUIkit._widgets.layout.base import KitVLayout
+from PyQtUIkit._widgets.overlay.dialog_header import KitDialogHeader
 
 
 class KitDialog(KitWidget):
     def __init__(self,
-                 layout: KitLayout = None,
+                 header_or_content: KitDialogHeader | KitWidget = None,
+                 content: KitWidget = None,
                  classes: Iterable[str] | str = None, ):
         super().__init__(QDialog())
         self.qt_widget.setWindowFlags(Qt.WindowType.FramelessWindowHint)
@@ -20,8 +22,23 @@ class KitDialog(KitWidget):
         self.qt_widget.setLayout(strange_layout)
         self.__strange_widget = QWidget()
         strange_layout.addWidget(self.__strange_widget)
-        self.__layout = None
-        self.layout = layout
+        self.__layout = KitVLayout()
+        self.__strange_widget.setLayout(self.__layout.qt_widget)
+
+        if isinstance(header_or_content, KitDialogHeader):
+            self.__header = header_or_content
+            self.__content = content
+        elif content:
+            raise TypeError("Duplicated content")
+        else:
+            self.__header = None
+            self.__content = header_or_content
+
+        if self.__header is not None:
+            self.__layout.add(self.__header)
+            self.__header.on_reject.add(self.qt_widget.reject)
+        if self.__content is not None:
+            self.__layout.add(self.__content)
 
         self.__style = CardStyle()
         self.__final_style = CardStyle()
@@ -48,16 +65,31 @@ class KitDialog(KitWidget):
 
     @property
     def children(self) -> Iterable['KitWidget']:
-        yield self.layout
+        yield self.__layout
 
     @property
-    def layout(self) -> KitLayout:
-        return self.__layout
+    def header(self) -> KitDialogHeader:
+        return self.__header
 
-    @layout.setter
-    def layout(self, layout: KitLayout):
-        self.__layout = layout
-        self.__strange_widget.setLayout(layout.qt_widget)
+    @header.setter
+    def header(self, value: KitDialogHeader):
+        if isinstance(self.__header, KitDialogHeader):
+            self.__layout.remove(self.__header)
+            self.__header.on_reject.remove(self.qt_widget.reject)
+        self.__header = value
+        self.__layout.insert(0, self.__header)
+        self.__header.on_reject.add(self.qt_widget.reject)
+
+    @property
+    def content(self) -> KitWidget:
+        return self.__content
+
+    @content.setter
+    def content(self, value: KitWidget):
+        if self.__content is not None:
+            self.__layout.remove(self.__content)
+        self.__content = value
+        self.__layout.add(self.__content)
 
     def exec(self):
         self.apply_style()
@@ -90,7 +122,7 @@ class KitDialog(KitWidget):
             border-bottom-left-radius: {style.radius.bottom_left};
             border-bottom-right-radius: {style.radius.bottom_right};
         }}""")
-        self.layout._apply_style()
+        self.__layout._apply_style()
 
     def apply_lang(self):
-        self.layout.apply_lang()
+        self.__layout.apply_lang()

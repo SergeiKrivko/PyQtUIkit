@@ -5,5 +5,19 @@
         <property name="radius" var="button-border-radius"/>
         <property name="border.width" value="1"/>
         <property name="border.color" var="default-border-color"/>
+        <child type="KitLayout">
+            <property name="padding" value="1"/>
+        </child>
+    </type>
+
+    <type name="KitDialogHeader">
+        <property name="background" var="secondary-bg-color"/>
+        <property name="radius.top_left" var="button-border-radius"/>
+        <property name="radius.top_right" var="button-border-radius"/>
+        <property name="radius.bottom_left" value="0"/>
+        <property name="radius.bottom_right" value="0"/>
+        <child type="KitHLayout">
+            <property name="padding" value="10 5 10 5"/>
+        </child>
     </type>
 </uikit-style>

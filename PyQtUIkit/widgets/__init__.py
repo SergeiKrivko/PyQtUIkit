@@ -27,4 +27,5 @@ from PyQtUIkit._widgets.nav_bar import KitNavBar
 from PyQtUIkit._widgets.layout.tabs import KitTabLayout
 
 from PyQtUIkit._widgets.overlay.dialog import KitDialog
+from PyQtUIkit._widgets.overlay.dialog_header import KitDialogHeader
 
