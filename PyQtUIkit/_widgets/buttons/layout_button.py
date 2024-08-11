@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import Iterable, Callable
 
 from PyQt6.QtCore import Qt, QPoint
 from PyQt6.QtWidgets import QPushButton, QWidget, QLayout
@@ -13,6 +13,7 @@ from PyQtUIkit._core.event import KitSignals
 
 class KitLayoutButton(KitGroupWidget):
     def __init__(self, orientation: Qt.Orientation = Qt.Orientation.Horizontal,
+                 on_click: Callable = None,
                  checkable: bool = False,
                  classes: Iterable[str] | str = None):
         button = QPushButton()
@@ -24,6 +25,8 @@ class KitLayoutButton(KitGroupWidget):
         self.__click_events = KitSignals()
         self.__state_change_events = KitSignals()
         self.qt_widget.clicked.connect(self.__on_click)
+        if on_click:
+            self.on_click.add(on_click)
 
         self.__style = ButtonStyle()
         self.__final_style = ButtonStyle()

@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import Iterable, Callable
 
 from PyQt6.QtCore import QSize
 
@@ -11,10 +11,11 @@ class KitIconButton(KitLayoutButton):
 
     def __init__(self,
                  icon: KitIcon | str = None,
+                 on_click: Callable = None,
                  checkable: bool = False,
                  size: QSize | tuple[int, int] | int = None,
                  classes: Iterable[str] | str = None):
-        super().__init__(checkable=checkable, classes=classes)
+        super().__init__(checkable=checkable, on_click=on_click, classes=classes)
         self.qt_widget.setMinimumSize(12, 12)
 
         self.__icon_widget = KitIconWidget(icon)

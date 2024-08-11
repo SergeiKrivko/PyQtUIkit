@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Iterable
+from typing import Iterable, Callable
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFontMetrics
@@ -26,12 +26,13 @@ class KitButton(KitLayoutButton):
                  text: str | _KitLocaleString | _KitLocaleStringArray = '',
                  icon: KitIcon | str = None,
                  icon_pos=IconPosition.LEFT,
+                 on_click: Callable = None,
                  checkable: bool = False,
                  classes: Iterable[str] | str = None):
         super().__init__(
             Qt.Orientation.Horizontal if
             icon_pos == KitButton.IconPosition.LEFT or icon_pos == KitButton.IconPosition.RIGHT
-            else Qt.Orientation.Vertical, checkable=checkable, classes=classes)
+            else Qt.Orientation.Vertical, checkable=checkable, classes=classes, on_click=on_click)
 
         self.__icon_pos = icon_pos
 

@@ -6,8 +6,11 @@ from PyQt6.QtWidgets import QWidget, QHBoxLayout, QDialog
 
 from PyQtUIkit._widgets.widget import KitWidget
 from PyQtUIkit._core.style_obj import CardStyle
-from PyQtUIkit._widgets.layout.base import KitVLayout
+from PyQtUIkit._widgets.layout.base import KitVLayout, KitHLayout
 from PyQtUIkit._widgets.overlay.dialog_header import KitDialogHeader
+from PyQtUIkit._widgets.icon_widget import KitIconWidget
+from PyQtUIkit._widgets.label import KitLabel
+from PyQtUIkit._widgets.layout.box import KitHBoxLayout
 
 
 class KitDialog(KitWidget):
@@ -126,3 +129,37 @@ class KitDialog(KitWidget):
 
     def apply_lang(self):
         self.__layout.apply_lang()
+
+    @staticmethod
+    def message(title: str, message: str, icon='solid-information-circle'):
+        _KitMessageBox(title, message, icon).exec()
+
+    @staticmethod
+    def success(title: str, message: str, icon='solid-checkmark-circle'):
+        _KitMessageBox(title, message, icon, 'success').exec()
+
+    @staticmethod
+    def info(title: str, message: str, icon='solid-information-circle'):
+        _KitMessageBox(title, message, icon, 'info').exec()
+
+    @staticmethod
+    def warning(title: str, message: str, icon='solid-warning'):
+        _KitMessageBox(title, message, icon, 'warning').exec()
+
+    @staticmethod
+    def danger(title: str, message: str, icon='solid-alert-circle'):
+        _KitMessageBox(title, message, icon, 'danger').exec()
+
+
+class _KitMessageBox(KitDialog):
+    def __init__(self, title, message, icon, icon_classes=''):
+        super().__init__(
+            KitDialogHeader(title),
+            KitHLayout(
+                icon_widget := KitIconWidget(icon, classes=icon_classes),
+                label := KitLabel(message),
+                padding=25, spacing=15,
+            ),
+        )
+        icon_widget.size = 75
+        label.qt_widget.setWordWrap(True)
