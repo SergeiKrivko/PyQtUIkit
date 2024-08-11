@@ -66,7 +66,7 @@ class KitButton(KitLayoutButton):
         return self.__icon_pos
 
     def __on_checked_change(self, status):
-        if status:
+        if self.checkable and status:
             self.__label.classes.add('pressed')
             self.__icon_widget.classes.add('pressed')
         else:

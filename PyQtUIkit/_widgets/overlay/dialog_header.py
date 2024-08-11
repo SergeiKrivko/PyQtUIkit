@@ -1,11 +1,11 @@
 from typing import Iterable
 
 from PyQtUIkit._widgets.layout.base import KitHLayout
-from _core.event import KitSignals
-from _core.locale import _KitLocaleString, _KitLocaleStringArray
-from _widgets.buttons.icon_button import KitIconButton
-from _widgets.card import KitCard
-from _widgets.label import KitLabel
+from PyQtUIkit._core.event import KitSignals
+from PyQtUIkit._core.locale import _KitLocaleString, _KitLocaleStringArray
+from PyQtUIkit._widgets.buttons.icon_button import KitIconButton
+from PyQtUIkit._widgets.card import KitCard
+from PyQtUIkit._widgets.label import KitLabel
 
 
 class KitDialogHeader(KitCard):

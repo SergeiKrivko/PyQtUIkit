@@ -2,11 +2,11 @@ from typing import Any, Iterable
 
 from PyQt6.QtWidgets import QWidget, QLayout
 
-from _core.button_sequence import ButtonSequence
-from _widgets.buttons.select_button import KitSelectButton
-from _widgets.layout.box import KitHBoxLayout
-from _widgets.nav_bar import KitNavBar
-from _widgets.widget import KitWidget
+from PyQtUIkit._core.button_sequence import ButtonSequence
+from PyQtUIkit._widgets.buttons.select_button import KitSelectButton
+from PyQtUIkit._widgets.layout.box import KitHBoxLayout
+from PyQtUIkit._widgets.navigation.nav_bar import KitNavBar
+from PyQtUIkit._widgets.widget import KitWidget
 
 
 class KitTabLayout(KitHBoxLayout):

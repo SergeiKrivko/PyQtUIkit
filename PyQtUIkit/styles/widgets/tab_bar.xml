@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uikit-style>
+    <type name="KitTabBar">
+        <child type="KitHBoxLayout">
+            <property name="spacing" value="2"/>
+        </child>
+        <child type="KitCard">
+            <property name="background" var="primary-color"/>
+            <property name="radius" value="2"/>
+        </child>
+        <child type="KitButton">
+            <property name="background" var="transparent-color"/>
+            <property name="hover.background" var="transparent-hover-color"/>
+            <property name="pressed.background" var="transparent-color"/>
+            <child type="KitLabel KitIconWidget">
+                <property name="color" var="default-text-color"/>
+                <class name="pressed">
+                    <property name="color" var="primary-text-only-color"/>
+                </class>
+            </child>
+        </child>
+
+        <class name="primary">
+            <child type="KitCard">
+                <property name="background" var="primary-color"/>
+            </child>
+            <child type="KitButton">
+                <child type="KitLabel KitIconWidget">
+                    <property name="color" var="primary-text-only-color"/>
+                </child>
+            </child>
+        </class>
+        <class name="secondary">
+            <child type="KitCard">
+                <property name="background" var="secondary-color"/>
+            </child>
+            <child type="KitButton">
+                <child type="KitLabel KitIconWidget">
+                    <property name="color" var="secondary-text-only-color"/>
+                </child>
+            </child>
+        </class>
+        <class name="success">
+            <child type="KitCard">
+                <property name="background" var="success-color"/>
+            </child>
+            <child type="KitButton">
+                <child type="KitLabel KitIconWidget">
+                    <property name="color" var="success-text-only-color"/>
+                </child>
+            </child>
+        </class>
+        <class name="info">
+            <child type="KitCard">
+                <property name="background" var="info-color"/>
+            </child>
+            <child type="KitButton">
+                <child type="KitLabel KitIconWidget">
+                    <property name="color" var="info-text-only-color"/>
+                </child>
+            </child>
+        </class>
+        <class name="warning">
+            <child type="KitCard">
+                <property name="background" var="warning-color"/>
+            </child>
+            <child type="KitButton">
+                <child type="KitLabel KitIconWidget">
+                    <property name="color" var="warning-text-only-color"/>
+                </child>
+            </child>
+        </class>
+        <class name="danger">
+            <child type="KitCard">
+                <property name="background" var="danger-color"/>
+            </child>
+            <child type="KitButton">
+                <child type="KitLabel KitIconWidget">
+                    <property name="color" var="danger-text-only-color"/>
+                </child>
+            </child>
+        </class>
+        <class name="contrast">
+            <child type="KitCard">
+                <property name="background" var="contrast-color"/>
+            </child>
+            <child type="KitButton">
+                <child type="KitLabel KitIconWidget">
+                    <property name="color" var="contrast-text-only-color"/>
+                </child>
+            </child>
+        </class>
+    </type>
+</uikit-style>

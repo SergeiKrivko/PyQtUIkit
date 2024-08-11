@@ -10,7 +10,7 @@ from PyQtUIkit._widgets.label import KitLabel
 from PyQtUIkit._widgets.layout.base import KitVLayout, KitHLayout
 from PyQtUIkit._widgets.overlay.dialog_header import KitDialogHeader
 from PyQtUIkit._widgets.widget import KitWidget
-from _widgets.buttons.button import KitButton
+from PyQtUIkit._widgets.buttons.button import KitButton
 
 
 class KitDialog(KitWidget):

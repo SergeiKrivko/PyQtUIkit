@@ -7,15 +7,15 @@ from PyQt6.QtWidgets import QSizePolicy
 from PyQtUIkit._core.button_sequence import ButtonSequence
 from PyQtUIkit._core.style_obj import ButtonStyle
 from PyQtUIkit._widgets.buttons.button import KitButton
-from _core.icon import KitIcon
-from _core.locale import _KitLocaleString, _KitLocaleStringArray
-from _widgets.card import KitCard
-from _widgets.divider import KitHDivider
-from _widgets.icon_widget import KitIconWidget
-from _widgets.label import KitLabel
-from _widgets.layout.base import KitVLayout
-from _widgets.layout.box import KitVBoxLayout
-from _widgets.buttons.layout_button import KitLayoutButton
+from PyQtUIkit._core.icon import KitIcon
+from PyQtUIkit._core.locale import _KitLocaleString, _KitLocaleStringArray
+from PyQtUIkit._widgets.card import KitCard
+from PyQtUIkit._widgets.divider import KitHDivider
+from PyQtUIkit._widgets.icon_widget import KitIconWidget
+from PyQtUIkit._widgets.label import KitLabel
+from PyQtUIkit._widgets.layout.base import KitVLayout
+from PyQtUIkit._widgets.layout.box import KitVBoxLayout
+from PyQtUIkit._widgets.buttons.layout_button import KitLayoutButton
 
 
 class KitNavBar(KitCard):

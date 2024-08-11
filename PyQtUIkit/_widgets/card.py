@@ -31,8 +31,10 @@ class KitCard(KitWidget):
         self.qt_widget.setLayout(strange_layout)
         self.__strange_widget = QWidget()
         strange_layout.addWidget(self.__strange_widget)
-        self.__layout = None
-        self.layout = layout
+
+        self.__layout = layout
+        if layout:
+            self.__strange_widget.setLayout(layout.qt_widget)
 
         self.__style = CardStyle()
         self.__final_style = CardStyle()
@@ -53,7 +55,8 @@ class KitCard(KitWidget):
 
     @property
     def children(self) -> Iterable['KitWidget']:
-        yield self.layout
+        if self.layout:
+            yield self.layout
 
     @property
     def layout(self) -> KitLayout:
@@ -76,7 +79,8 @@ class KitCard(KitWidget):
             border-bottom-left-radius: {style.radius.bottom_left};
             border-bottom-right-radius: {style.radius.bottom_right};
         }}""")
-        self.layout._apply_style()
+        if self.layout:
+            self.layout._apply_style()
 
     def apply_lang(self):
         self.layout.apply_lang()

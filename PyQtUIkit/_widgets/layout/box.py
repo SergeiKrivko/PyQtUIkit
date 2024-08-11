@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import QWidget, QLayout
 
 from PyQtUIkit._widgets.widget import KitWidget
 from PyQtUIkit._core.style_obj import LayoutStyle
-from _widgets.layout.base import KitLayout
+from PyQtUIkit._widgets.layout.base import KitLayout
 
 
 class KitBoxLayout(KitWidget):

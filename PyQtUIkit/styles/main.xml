@@ -22,6 +22,7 @@
     <include path="./widgets/divider.xml"/>
     <include path="./widgets/nav_bar.xml"/>
     <include path="./widgets/dialog.xml"/>
+    <include path="./widgets/tab_bar.xml"/>
 
     <include path="./classes.xml"/>
 </uikit-style>
