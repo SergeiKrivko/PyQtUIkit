@@ -4,13 +4,13 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QMouseEvent
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QDialog
 
-from PyQtUIkit._widgets.widget import KitWidget
 from PyQtUIkit._core.style_obj import CardStyle
-from PyQtUIkit._widgets.layout.base import KitVLayout, KitHLayout
-from PyQtUIkit._widgets.overlay.dialog_header import KitDialogHeader
 from PyQtUIkit._widgets.icon_widget import KitIconWidget
 from PyQtUIkit._widgets.label import KitLabel
-from PyQtUIkit._widgets.layout.box import KitHBoxLayout
+from PyQtUIkit._widgets.layout.base import KitVLayout, KitHLayout
+from PyQtUIkit._widgets.overlay.dialog_header import KitDialogHeader
+from PyQtUIkit._widgets.widget import KitWidget
+from _widgets.buttons.button import KitButton
 
 
 class KitDialog(KitWidget):
@@ -150,6 +150,12 @@ class KitDialog(KitWidget):
     def danger(title: str, message: str, icon='solid-alert-circle'):
         _KitMessageBox(title, message, icon, 'danger').exec()
 
+    @staticmethod
+    def question(message: str, buttons: list[dict] = None, icon='solid-help-circle'):
+        dialog = _KitQuestionDialog(message, icon, buttons)
+        dialog.exec()
+        return dialog.value
+
 
 class _KitMessageBox(KitDialog):
     def __init__(self, title, message, icon, icon_classes=''):
@@ -163,3 +169,46 @@ class _KitMessageBox(KitDialog):
         )
         icon_widget.size = 75
         label.qt_widget.setWordWrap(True)
+
+
+class _KitQuestionDialog(KitDialog):
+    def __init__(self, message, icon, buttons: list[dict] = None):
+        if buttons is None:
+            buttons = [
+                {
+                    'text': 'No',
+                    'value': False,
+                    'classes': 'danger text',
+                },
+                {
+                    'text': 'Yes',
+                    'value': True,
+                    'classes': 'primary',
+                },
+            ]
+
+        super().__init__(KitVLayout(
+            KitHLayout(
+                icon_widget := KitIconWidget(icon),
+                label := KitLabel(message),
+                spacing=15,
+            ),
+            KitHLayout(
+                *(KitButton(button.get('text', ''), button.get('icon', ''),
+                            on_click=lambda x, v=button.get('value'): self.__on_clicked(v),
+                            classes=button.get('classes')) for button in buttons),
+                spacing=6, align=Qt.AlignmentFlag.AlignRight
+            ),
+            padding=25, spacing=15
+        ))
+        icon_widget.size = 75
+        label.qt_widget.setWordWrap(True)
+        self.__value = None
+
+    def __on_clicked(self, value):
+        self.__value = value
+        self.qt_widget.accept()
+
+    @property
+    def value(self):
+        return self.__value
